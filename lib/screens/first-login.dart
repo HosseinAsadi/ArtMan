@@ -53,8 +53,7 @@ class FL extends State<FirstLogin> {
       height: 190,
       child: ListView.builder(
         itemCount: values.length,
-        scrollDirection: Axis.vertical,
-
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             splashColor: Colors.blueAccent,
@@ -67,25 +66,27 @@ class FL extends State<FirstLogin> {
             child: new RadioItem(values[index]),
           );
         },
-      )
-  );
+      ));
 
-  Widget button() => Container(
-        width: 200,
-        padding: EdgeInsets.only(top: 10, bottom: 10),
-        alignment: Alignment(0, 0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [new Color(0xFF0F8F00), new Color(0xFF5AB403)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter),
-          borderRadius: BorderRadius.circular(25)
-        ),
-        child: Text('ورود',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 20)
-        ),
+  Widget button() => GestureDetector(
+        child: Container(
+            width: 200,
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            alignment: Alignment(0, 0),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [new Color(0xFF0F8F00), new Color(0xFF5AB403)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+                borderRadius: BorderRadius.circular(25)),
+            child: Text('ورود',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 20))),
+        onTap: () {
+          if (values[0].isSelected == true)
+            Navigator.pushNamed(context, '/coach-explan');
+        },
       );
 }
