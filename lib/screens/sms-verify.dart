@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:art_man/components/text.dart';
+import 'package:art_man/components/text-field-enter.dart';
+import 'package:art_man/components/button.dart';
 
 class SMSVerify extends StatefulWidget{
   @override
@@ -12,6 +14,10 @@ class SMSVerify extends StatefulWidget{
 
 class SMSV extends State<SMSVerify>{
   CustomText ct = new CustomText("کد‌تایید‌ثبت‌نام:");
+
+  CustomTextField _ctf = new CustomTextField("کد تاییدیه را وارد نمایید..", TextInputType.text);
+
+  CustomButton _cb = new CustomButton("ارسال و تایید", '/monthly-payment');
 
   @override
   Widget build(BuildContext context) {
@@ -37,39 +43,14 @@ class SMSV extends State<SMSVerify>{
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         ct,
-        getTextFields("کد تاییدیه را وارد نمایید.."),
+        _ctf,
         getRow(),
-        button()
+        _cb
       ],
   );
 
-  Widget getTextFields(String hint) => Container(
-      height: 50,
-      alignment: Alignment(0, 0),
-      margin: EdgeInsets.only(left: 30, right: 30),
-      padding: EdgeInsets.only(left: 15, right: 15),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(25)),
-
-      child: TextFormField(
-        textDirection: TextDirection.rtl,
-        textAlign: TextAlign.right,
-        validator: (String value){
-          if(value.isEmpty) {
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text('لطفا همه فیلد ها را پر کنید!')));
-            return null;
-          }
-        },
-        decoration: InputDecoration.collapsed(
-            hintText: hint,
-            fillColor: Colors.grey
-        ),
-      )
-
-  );
-
   Widget getRow() => Container(
-    margin: EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 25),
+    margin: EdgeInsets.only(left: 30, right: 30, top: 15),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -104,30 +85,5 @@ class SMSV extends State<SMSVerify>{
     ),
   );
 
-  Widget button() => GestureDetector(
-    child: Container(
-        margin: EdgeInsets.only(
-            left:  MediaQuery.of(context).size.width - 305,
-            right:  MediaQuery.of(context).size.width - 305
-        ),
-        padding: EdgeInsets.only(top: 8, bottom: 8),
-        alignment: Alignment(0, 0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [new Color(0xFF0F8F00), new Color(0xFF5AB403)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter),
-          borderRadius: BorderRadius.circular(25),
 
-        ),
-        child: Text(' ارسال و تایید',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 22))),
-    onTap: () {
-//      if(_formKey.currentState.validate())
-      Navigator.pushNamed(context, '/sms-verify');
-    },
-  );
 }

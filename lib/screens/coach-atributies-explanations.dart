@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:art_man/utils/Strings.dart';
+import 'package:art_man/components/button.dart';
 
 class CoachExplan extends StatefulWidget{
   @override
@@ -10,6 +11,8 @@ class CoachExplan extends StatefulWidget{
 }
 
 class CE extends State<CoachExplan>{
+  CustomButton _cb = new CustomButton('صفحه ورود/ثبت نام', '/register');
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -47,6 +50,7 @@ class CE extends State<CoachExplan>{
         ),
 
         Container(
+          margin: EdgeInsets.only(bottom: 30),
           padding: EdgeInsets.only(
               left: 10,
               right: 10
@@ -63,33 +67,9 @@ class CE extends State<CoachExplan>{
           ),
         ),
 
-        button()
+        _cb
       ],
     )
   );
 
-  Widget button() => Container(
-      width: 170,
-      margin: EdgeInsets.only(top: 30),
-      padding: EdgeInsets.only(top: 8, bottom: 8),
-      alignment: Alignment(0, 0),
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [new Color(0xFF0F8F00), new Color(0xFF5AB403)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter),
-          borderRadius: BorderRadius.circular(25)
-      ),
-      child: GestureDetector(
-        child: Text('صفحه ورود/ثبت نام',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 18)
-        ),
-        onTap: (){
-          Navigator.pushNamed(context, "/register");
-        },
-      )
-  );
 }

@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/register.dart';
 import 'screens/sms-verify.dart';
+import 'screens/monthly-payment.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/coach-explan': (BuildContext context) => CoachExplan(),
         '/register': (BuildContext context) => Register(),
         '/sms-verify': (BuildContext context) => SMSVerify(),
+        '/monthly-payment': (BuildContext context) => MonthlyPayment(),
       },
     );
   }
