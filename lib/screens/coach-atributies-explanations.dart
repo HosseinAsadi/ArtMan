@@ -88,7 +88,7 @@ class CE extends State<CoachExplan>{
                 fontSize: 18)
         ),
         onTap: (){
-
+          Navigator.pushNamed(context, "/register");
         },
       )
   );
