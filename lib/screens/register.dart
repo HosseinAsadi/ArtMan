@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:art_man/components/drop-down-menu.dart';
+import 'package:art_man/components/text.dart';
 
 
 class Register extends StatefulWidget {
@@ -13,6 +14,10 @@ class Register extends StatefulWidget {
 class R extends State<Register> {
   DropDownMenu _dropDownMenuCountrySelected = new DropDownMenu("کشور محل زندگی خود را انتخاب کنید..");
   DropDownMenu _dropDownMenuCitySelected = new DropDownMenu("شهر محل زندگی خود را انتخاب کنید..");
+  CustomText _ct1 = new CustomText("نام و نام خانوادگی:");
+  CustomText _ct2 = new CustomText("انتخاب کشور:");
+  CustomText _ct3 = new CustomText("انتخاب شهر:");
+  CustomText _ct4 = new CustomText("شماره همراه:");
 
   var _formKey = GlobalKey<FormState>();
 
@@ -41,13 +46,13 @@ class R extends State<Register> {
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
-                getTexts("نام و نام خانوادگی:"),
+                _ct1,
                 getTextFields("نام و نام خانودگی خود را وارد نمایید.."),
-                getTexts("انتخاب کشور:"),
+                _ct2,
                 _dropDownMenuCountrySelected,
-                getTexts("انتخاب شهر:"),
+                _ct3,
                 _dropDownMenuCitySelected,
-                getTexts("شماره همراه:"),
+                _ct4,
                 getTextFields("شماره همراه خود را وارد کنید.."),
                 button()
 
@@ -57,17 +62,6 @@ class R extends State<Register> {
       )
   );
 
-
-  Widget getTexts(String text) => Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        padding: EdgeInsets.all(16),
-        child: Text(
-          text,
-          textDirection: TextDirection.rtl,
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
-        ),
-      );
 
   Widget getTextFields(String hint) => Container(
       height: 50,
@@ -83,7 +77,7 @@ class R extends State<Register> {
             validator: (String value){
               if(value.isEmpty) {
                 Scaffold.of(context).showSnackBar(SnackBar(content: Text('لطفا همه فیلد ها را پر کنید!')));
-                return 'sds';
+                return null;
               }
             },
             decoration: InputDecoration.collapsed(
@@ -117,8 +111,8 @@ class R extends State<Register> {
                 color: Colors.white,
                 fontSize: 22))),
     onTap: () {
-      if(_formKey.currentState.validate())
-        Navigator.pushNamed(context, '');
+//      if(_formKey.currentState.validate())
+        Navigator.pushNamed(context, '/sms-verify');
     },
   );
 }

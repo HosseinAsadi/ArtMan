@@ -4,6 +4,7 @@ import 'screens/coach-atributies-explanations.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/register.dart';
+import 'screens/sms-verify.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/': (BuildContext context) => FirstLogin(),
         '/coach-explan': (BuildContext context) => CoachExplan(),
         '/register': (BuildContext context) => Register(),
+        '/sms-verify': (BuildContext context) => SMSVerify(),
       },
     );
   }
