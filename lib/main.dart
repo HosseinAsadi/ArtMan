@@ -2,9 +2,7 @@ import 'package:art_man/page/SplashScreenPage.dart';
 import 'package:art_man/page/StdPropertyPage.dart';
 import 'package:art_man/page/SingInPage.dart';
 import 'package:art_man/page/SignUpPage.dart';
-
-/*
-import 'package:art_man/page/VerifyPage.dart';*/
+import 'package:art_man/page/VerifyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -32,7 +30,7 @@ class MyApp extends StatelessWidget {
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
-        /*'/verifypage': (context) => VerifyPage(),*/
+        '/verifypage': (context) => VerifyPage(),
 
       },
     );
