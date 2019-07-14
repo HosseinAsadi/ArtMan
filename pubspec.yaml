@@ -45,7 +45,7 @@ flutter:
   assets:
     - assets/images/background.png
     - assets/images/demo.gif
-    - assets/images/icdropdown.png
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

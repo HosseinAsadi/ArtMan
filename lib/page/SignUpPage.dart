@@ -14,11 +14,17 @@ class MySingup extends State<SignUp> {
   final _formkey = GlobalKey<FormState>();
   InputText name = new InputText("نام و نام خانوادگی خود را وارد نمایید...");
   InputText phone = new InputText("شماره همراه خود را وارد نمایید...");
-  DropDown dropCountry = new DropDown("کشور محل زندگی خود را انتخاب نمایید ...");
+  DropDown dropCountry =
+      new DropDown("کشور محل زندگی خود را انتخاب نمایید ...");
   DropDown dropCity = new DropDown("شهر محل زندگی خود را انتخاب نمایید ...");
-  DropDown dropsex = new DropDown("جنسیت خود را انتخاب نمایید ...");
-  Bottom bottom = new Bottom();
-
+  DropDown dropsex = new DropDown(
+    "جنسیت خود را انتخاب نمایید ...",
+  );
+  Bottom bottom = new Bottom("/verifypage", "تایید ثبت نام", 40.0, 20.0,
+      marginleft: 5.0,
+      width: 140.0,
+      startcolor: Color(0xFF5AE400),
+      endcolor: Color(0xFF0F8F00));
   String countryvalue = null;
   String cityvalue = null;
   String sexValue = null;
@@ -29,64 +35,50 @@ class MySingup extends State<SignUp> {
       setState(() {});
     }
 
-    return  Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Center(
-            child: ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                Center(
-                  child: Form(
-                      key: _formkey,
-                      child: Container(
-                        margin: EdgeInsets.only(left: 50, right: 50),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            text("نام و نام خانوادگی :"),
-                            name,
-                            text("انتخاب کشور :"),
-                            dropCountry,
-                            text("انتخاب شهر :"),
-                            dropCity,
-                            text("جنسیت :"),
-                            dropsex,
-                            /*dropDown.get(drop(["مرد", "زن"],
-                                "جنسیت خود را انتخاب نمایید...",)),*/
-                            text("شماره همراه :"),
-                            phone,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                InkWell(
-                                  onTap: () {
-                                    setter();
-                                    Navigator.pushNamed(context, "/verifypage");
-                                    // _text.text.isEmpty ? _validate = true : _validate = false;
-                                  },
-                                  child: bottom.get("تایید ثبت نام", 40.0, 20.0,
-                                      marginleft: 5.0,
-                                      width: 140.0,
-                                      startcolor: Color(0xFF5AE400),
-                                      endcolor: Color(0xFF0F8F00)),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      )),
-                ),
-              ],
-            ),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
           ),
         ),
-
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              Center(
+                child: Form(
+                    key: _formkey,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 50, right: 50),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          text("نام و نام خانوادگی :"),
+                          name,
+                          text("انتخاب کشور :"),
+                          dropCountry,
+                          text("انتخاب شهر :"),
+                          dropCity,
+                          text("جنسیت :"),
+                          dropsex,
+                          /*dropDown.get(drop(["مرد", "زن"],
+                                "جنسیت خود را انتخاب نمایید...",)),*/
+                          text("شماره همراه :"),
+                          phone,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[bottom],
+                          )
+                        ],
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -99,6 +91,4 @@ class MySingup extends State<SignUp> {
       ),
     );
   }
-
-
 }

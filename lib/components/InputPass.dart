@@ -33,7 +33,6 @@ class myInputPass extends State<InputPass> {
         obscureText: true,
         textAlign: TextAlign.center,
 
-
         decoration: InputDecoration.collapsed(
             hintText: _hint,
             hintStyle: TextStyle(

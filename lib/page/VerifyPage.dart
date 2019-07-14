@@ -15,49 +15,43 @@ class myVerifyPage extends State<VerifyPage> {
   InputPass password = new InputPass("");
   InputPass repeat = new InputPass("");
 
-  Bottom bottom = new Bottom();
+  Bottom bottom = new Bottom('/second', "تایید و مرحله بعد", 40.0, 20.0,
+      marginleft: 5.0,
+      width: 120.0,
+      startcolor: Color(0xFF5AE400),
+      endcolor: Color(0xFF0F8F00));
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background.png"),
-              fit: BoxFit.cover,
-            ),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
           ),
-          child: Form(
-            key: _formkey,
-            child: Container(
-              margin: EdgeInsets.only(left: 50, right: 50),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  text("رمز عبور :"),
-                  password,
-                  text("تکرار رمز عبور :"),
-                  repeat,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-               InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/second');
-                  // _text.text.isEmpty ? _validate = true : _validate = false;
-                },
-                child: bottom.get("تایید و مرحله بعد", 40.0, 20.0,marginleft: 5.0,width: 120.0,
-                    startcolor: Color(0xFF5AE400),endcolor: Color(0xFF0F8F00)),
-              ),
-                  ],
-              ),
-                ],
-              ),
+        ),
+        child: Form(
+          key: _formkey,
+          child: Container(
+            margin: EdgeInsets.only(left: 50, right: 50),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                text("رمز عبور :"),
+                password,
+                text("تکرار رمز عبور :"),
+                repeat,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[bottom],
+                ),
+              ],
             ),
           ),
         ),
-
+      ),
     );
   }
 
