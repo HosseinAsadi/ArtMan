@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:art_man/components/InputText.dart';
-import 'package:art_man/components/Bottom.dart';
+import 'package:art_man/components/Button.dart';
 
 class MyCustomForm extends StatefulWidget {
   @override
@@ -13,16 +13,17 @@ class SingInPage extends State<MyCustomForm> {
   final _formkey = GlobalKey<FormState>();
   InputText username = new InputText( "نام کاربری خود را وارد نمایید ...");
   InputText password = new InputText("رمز عبور خود را وارد نمایید ...");
-  Bottom signinbtn = new Bottom('/second',"ورود", 40.0, 20.0,marginleft: 5.0,
+  Button signinbtn = new Button('/second',"ورود", 40.0, 20.0,marginleft: 5.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00));
-  Bottom signupbtn = new Bottom('/signuppage',"ثبت نام", 40.0, 20.0,marginright: 5.0,
+  Button signupbtn = new Button('/signuppage',"ثبت نام", 40.0, 20.0,marginright: 5.0,
       startcolor: Colors.grey[700],endcolor: Colors.grey[700]);
 
 
 
   @override
   Widget build(BuildContext context) {
-
+      signupbtn.setkey(_formkey);
+      signupbtn.setkey(_formkey);
     return Scaffold(
         body:
         Container(

@@ -1,4 +1,4 @@
-import 'package:art_man/components/Bottom.dart';
+import 'package:art_man/components/Button.dart';
 import 'package:art_man/components/InputPass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,7 +15,7 @@ class myVerifyPage extends State<VerifyPage> {
   InputPass password = new InputPass("");
   InputPass repeat = new InputPass("");
 
-  Bottom bottom = new Bottom('/second', "تایید و مرحله بعد", 40.0, 20.0,
+  Button bottom = new Button('/second', "تایید و مرحله بعد", 40.0, 20.0,
       marginleft: 5.0,
       width: 120.0,
       startcolor: Color(0xFF5AE400),
@@ -23,6 +23,7 @@ class myVerifyPage extends State<VerifyPage> {
 
   @override
   Widget build(BuildContext context) {
+    bottom.setkey(_formkey);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

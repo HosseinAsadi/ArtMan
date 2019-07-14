@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class Bottom extends StatefulWidget {
+class Button extends StatefulWidget {
   String text,goal;
   double height;
  double margintop;
@@ -8,15 +8,20 @@ class Bottom extends StatefulWidget {
  Color startcolor;
  Color endcolor;
  double width;
-  Bottom(this.goal, this.text , this.height,this.margintop,
+ GlobalKey<FormState> _key;
+
+  setkey(GlobalKey<FormState> _key){
+    this._key = _key;
+  }
+  Button(this.goal, this.text , this.height,this.margintop,
       {this.marginleft,this.marginright,this.startcolor,this.endcolor,this.width});
   @override
   myBottom createState() {
     // TODO: implement createState
-    return myBottom(goal, text ,  height,margintop,marginright:marginright,marginleft:marginleft ,startcolor:startcolor ,endcolor:endcolor ,width: width);
+    return myBottom(_key, goal, text ,  height,margintop,marginright:marginright,marginleft:marginleft ,startcolor:startcolor ,endcolor:endcolor ,width: width);
   }
 }
-class myBottom extends State<Bottom> {
+class myBottom extends State<Button> {
   String cityvalue = null,goal;
   String text;
   double height;
@@ -26,9 +31,12 @@ class myBottom extends State<Bottom> {
   Color startcolor;
   Color endcolor;
   double width;
+  bool isvalid;
 
-  myBottom( this.goal,this.text , this.height,this.margintop,
-      {this.marginleft,this.marginright,this.startcolor,this.endcolor,this.width});
+  GlobalKey<FormState> _key;
+  myBottom( this._key, this.goal,this.text , this.height,this.margintop,
+      {this.marginleft,this.marginright,this.startcolor,this.endcolor,this.width,this.isvalid});
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +68,15 @@ class myBottom extends State<Bottom> {
               color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
         ),
         onTap: (){
-          Navigator.pushNamed(context, goal);
+          if(_key != null)
+            if(_key.currentState.validate())
+               Navigator.pushNamed(context, goal);
+            else
+                Scaffold.of(context)
+                .showSnackBar(SnackBar(content: Text("لطفا همه ی فیلد ها را پر کنید",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red[900]));
+          else
+            Navigator.pushNamed(context, goal);
+
         },
       )
 
