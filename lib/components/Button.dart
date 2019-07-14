@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+
 class Button extends StatefulWidget {
   String text,goal;
   double height;
@@ -69,8 +71,10 @@ class myBottom extends State<Button> {
         ),
         onTap: (){
           if(_key != null)
-            if(_key.currentState.validate())
+            if(_key.currentState.validate()){
                Navigator.pushNamed(context, goal);
+
+            }
             else
                 Scaffold.of(context)
                 .showSnackBar(SnackBar(content: Text("لطفا همه ی فیلد ها را پر کنید",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red[900]));

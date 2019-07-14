@@ -34,7 +34,7 @@ class MySingup extends State<SignUp> {
   Widget build(BuildContext context) {
 
     button.setkey(_formkey);
-
+    print(name.getcontoroler().text);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

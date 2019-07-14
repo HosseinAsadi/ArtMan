@@ -2,12 +2,21 @@ import 'package:flutter/material.dart';
 
 class InputText extends StatefulWidget {
   String _hint;
+  TextEditingController ctrl;
 
-  InputText(this._hint);
+  getcontoroler() => ctrl;
+
+
+  InputText(String hint){
+    this._hint = hint;
+  }
+
 
   @override
   myInputText createState() {
-    return myInputText(_hint);
+    myInputText it = new myInputText(_hint);
+    ctrl = it.getcontoroler();
+    return it;
   }
 }
 
@@ -16,6 +25,7 @@ class myInputText extends State<InputText> {
 
   myInputText(this._hint);
 
+  TextEditingController ctrl = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +37,21 @@ class myInputText extends State<InputText> {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: TextFormField(
-        validator: (String value){
+        controller: ctrl,
+        validator: (String value) {
           if (value.isEmpty) {
-             return "";
+            return "";
           }
           return null;
         },
         decoration: InputDecoration(
             hintText: _hint,
-            errorStyle: TextStyle(
-              height: 0
-            ),
+            errorStyle: TextStyle(height: 0),
             border: InputBorder.none,
             hintStyle: TextStyle(color: Colors.grey, fontSize: 13)),
       ),
     );
   }
+
+  getcontoroler() => ctrl;
 }
