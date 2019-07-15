@@ -15,7 +15,7 @@ class myVerifyPage extends State<VerifyPage> {
   InputPass password = new InputPass("");
   InputPass repeat = new InputPass("");
 
-  Button bottom = new Button('/second', "تایید و مرحله بعد", 40.0, 20.0,
+  Button bottom = new Button(["pass","repeatpass"],'/second', "تایید و مرحله بعد", 40.0, 20.0,
       marginleft: 5.0,
       width: 120.0,
       startcolor: Color(0xFF5AE400),

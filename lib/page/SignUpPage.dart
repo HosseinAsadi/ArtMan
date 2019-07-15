@@ -12,15 +12,15 @@ class SignUp extends StatefulWidget {
 
 class MySingup extends State<SignUp> {
    final _formkey = GlobalKey<FormState>();
-  InputText name = new InputText("نام و نام خانوادگی خود را وارد نمایید...");
-  InputText phone = new InputText("شماره همراه خود را وارد نمایید...");
+  InputText name = new InputText("نام و نام خانوادگی خود را وارد نمایید...","fullname");
+  InputText phone = new InputText("شماره همراه خود را وارد نمایید...","phone");
   DropDown dropCountry =
       new DropDown("کشور محل زندگی خود را انتخاب نمایید ...");
   DropDown dropCity = new DropDown("شهر محل زندگی خود را انتخاب نمایید ...");
   DropDown dropsex = new DropDown(
     "جنسیت خود را انتخاب نمایید ...",
   );
-  Button button = new Button("/verifypage", "تایید ثبت نام", 40.0, 20.0,
+  Button button = new Button(["fullname","phone","country","city","sex",],"/verifypage", "تایید ثبت نام", 40.0, 20.0,
       marginleft: 5.0,
       width: 140.0,
       startcolor: Color(0xFF5AE400),
@@ -34,7 +34,7 @@ class MySingup extends State<SignUp> {
   Widget build(BuildContext context) {
 
     button.setkey(_formkey);
-    print(name.getcontoroler().text);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

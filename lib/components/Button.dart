@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Sender.dart';
+
 
 class Button extends StatefulWidget {
   String text,goal;
@@ -10,17 +12,18 @@ class Button extends StatefulWidget {
  Color startcolor;
  Color endcolor;
  double width;
+ List<String> input;
  GlobalKey<FormState> _key;
-
   setkey(GlobalKey<FormState> _key){
     this._key = _key;
   }
-  Button(this.goal, this.text , this.height,this.margintop,
+
+  Button(this.input,this.goal, this.text , this.height,this.margintop,
       {this.marginleft,this.marginright,this.startcolor,this.endcolor,this.width});
   @override
   myBottom createState() {
     // TODO: implement createState
-    return myBottom(_key, goal, text ,  height,margintop,marginright:marginright,marginleft:marginleft ,startcolor:startcolor ,endcolor:endcolor ,width: width);
+    return myBottom(input,_key, goal, text ,  height,margintop,marginright:marginright,marginleft:marginleft ,startcolor:startcolor ,endcolor:endcolor ,width: width);
   }
 }
 class myBottom extends State<Button> {
@@ -33,11 +36,11 @@ class myBottom extends State<Button> {
   Color startcolor;
   Color endcolor;
   double width;
-  bool isvalid;
+  List<String> input;
 
   GlobalKey<FormState> _key;
-  myBottom( this._key, this.goal,this.text , this.height,this.margintop,
-      {this.marginleft,this.marginright,this.startcolor,this.endcolor,this.width,this.isvalid});
+  myBottom( this.input,this._key, this.goal,this.text , this.height,this.margintop,
+      {this.marginleft,this.marginright,this.startcolor,this.endcolor,this.width});
 
 
   @override
@@ -72,6 +75,8 @@ class myBottom extends State<Button> {
         onTap: (){
           if(_key != null)
             if(_key.currentState.validate()){
+              Sender sender=new Sender();
+              sender.send(input);
                Navigator.pushNamed(context, goal);
 
             }
@@ -80,7 +85,7 @@ class myBottom extends State<Button> {
                 .showSnackBar(SnackBar(content: Text("لطفا همه ی فیلد ها را پر کنید",style: TextStyle(color: Colors.white),),backgroundColor: Colors.red[900]));
           else
             Navigator.pushNamed(context, goal);
-
+            
         },
       )
 

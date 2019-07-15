@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'Keys.dart';
+
 class InputText extends StatefulWidget {
-  String _hint;
+  String _hint,id;
   TextEditingController ctrl;
 
-  getcontoroler() => ctrl;
-
-
-  InputText(String hint){
-    this._hint = hint;
-  }
-
+  InputText(this._hint,this.id);
 
   @override
   myInputText createState() {
     myInputText it = new myInputText(_hint);
     ctrl = it.getcontoroler();
+    Keys.setter(id, ctrl);
     return it;
   }
 }
@@ -25,7 +22,8 @@ class myInputText extends State<InputText> {
 
   myInputText(this._hint);
 
-  TextEditingController ctrl = new TextEditingController();
+  var ctrl = new TextEditingController();
+  getcontoroler() => ctrl;
 
   @override
   Widget build(BuildContext context) {
@@ -53,5 +51,5 @@ class myInputText extends State<InputText> {
     );
   }
 
-  getcontoroler() => ctrl;
+
 }
