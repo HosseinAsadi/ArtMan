@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:art_man/components/custom-radio-model.dart';
+import 'package:art_man/components/button.dart';
+
 
 class FirstLogin extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class FirstLogin extends StatefulWidget {
 
 class FL extends State<FirstLogin> {
   List<RadioModel> values = new List<RadioModel>();
+  CustomButton _cb = new CustomButton('ورود');
 
   @override
   void initState() {
@@ -50,7 +53,7 @@ class FL extends State<FirstLogin> {
       );
 
   Widget radioButton() => Container(
-      height: 190,
+      height: 170,
       child: ListView.builder(
         itemCount: values.length,
         physics: const NeverScrollableScrollPhysics(),
@@ -69,21 +72,7 @@ class FL extends State<FirstLogin> {
       ));
 
   Widget button() => GestureDetector(
-        child: Container(
-            width: 200,
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            alignment: Alignment(0, 0),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [new Color(0xFF0F8F00), new Color(0xFF5AB403)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter),
-                borderRadius: BorderRadius.circular(25)),
-            child: Text('ورود',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 20))),
+        child: _cb,
         onTap: () {
           if (values[0].isSelected == true)
             Navigator.pushNamed(context, '/coach-explan');

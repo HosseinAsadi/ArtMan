@@ -4,7 +4,6 @@ import 'package:art_man/components/text.dart';
 import 'package:art_man/components/text-field-enter.dart';
 import 'package:art_man/components/button.dart';
 
-
 class Register extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -14,23 +13,28 @@ class Register extends StatefulWidget {
 }
 
 class R extends State<Register> {
-  DropDownMenu _dropDownMenuCountrySelected = new DropDownMenu("کشور محل زندگی خود را انتخاب کنید..");
-  DropDownMenu _dropDownMenuCitySelected = new DropDownMenu("شهر محل زندگی خود را انتخاب کنید..");
+  DropDownMenu _dropDownMenuCountrySelected =
+      new DropDownMenu("کشور محل زندگی خود را انتخاب کنید..");
+  DropDownMenu _dropDownMenuCitySelected =
+      new DropDownMenu("شهر محل زندگی خود را انتخاب کنید..");
 
   CustomText _ct1 = new CustomText("نام و نام خانوادگی:");
   CustomText _ct2 = new CustomText("انتخاب کشور:");
   CustomText _ct3 = new CustomText("انتخاب شهر:");
   CustomText _ct4 = new CustomText("شماره همراه:");
 
-  CustomTextField _ctf1 = new CustomTextField("نام و نام خانودگی خود را وارد نمایید..", TextInputType.text);
-  CustomTextField _ctf2 = new CustomTextField("شماره همراه خود را وارد کنید..", TextInputType.text);
+  CustomTextField _ctf1 = new CustomTextField(
+      "نام و نام خانودگی خود را وارد نمایید..", TextInputType.text);
+  CustomTextField _ctf2 =
+      new CustomTextField("شماره همراه خود را وارد کنید..", TextInputType.text);
 
-  CustomButton _cb = new CustomButton('تایید ثبت نام', '/sms-verify');
+  CustomButton _cb = new CustomButton('تایید ثبت نام');
 
   var _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: setBackground(),
     );
@@ -47,7 +51,7 @@ class R extends State<Register> {
       );
 
   Widget body() => Form(
-    key: _formKey,
+      key: _formKey,
       child: Padding(
           padding: EdgeInsets.all(16),
           child: Center(
@@ -62,13 +66,25 @@ class R extends State<Register> {
                 _dropDownMenuCitySelected,
                 _ct4,
                 _ctf2,
-                _cb
-
+                button()
               ],
             ),
+          )));
+
+  Widget button() => Builder(
+      builder: (context) => GestureDetector(
+            child: _cb,
+            onTap: () {
+//              if (_formKey.currentState.validate())
+                Navigator.pushNamed(context, '/sms-verify');
+//              else
+//                _displaySnackBar(context);
+            },
           )
-      )
   );
 
-
+  _displaySnackBar(context) {
+    Scaffold.of(context)
+        .showSnackBar(SnackBar(content: Text('لطفا همه فیلد ها را پر کنید!')));
+  }
 }

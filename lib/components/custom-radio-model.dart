@@ -16,8 +16,8 @@ class RadioItem extends StatelessWidget{
     // TODO: implement build
     return Container(
       margin: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width - 260,
-          right: MediaQuery.of(context).size.width - 260,
+          left: MediaQuery.of(context).size.width / 2.8,
+          right: MediaQuery.of(context).size.width / 2.8,
           top: 15, bottom: 8),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -28,18 +28,6 @@ class RadioItem extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(8),
-            child: Text(
-                _item.text,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 20
-                )
-            ),
-          ),
-
           Container(
             height: 20,
             width: 20,
@@ -56,7 +44,19 @@ class RadioItem extends StatelessWidget{
                 const Radius.circular(15)
               )
             ),
-          )
+          ),
+
+          Container(
+            margin: EdgeInsets.all(8),
+            child: Text(
+                _item.text,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 20
+                )
+            ),
+          ),
         ],
       ),
     );

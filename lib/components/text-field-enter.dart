@@ -3,20 +3,25 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatefulWidget{
   String _hint;
   TextInputType _textInputType;
+  TextEditingController _controller;
 
   CustomTextField(this._hint, this._textInputType);
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return TF(this._hint, this._textInputType);
+    TF tf = TF(this._hint, this._textInputType);
+    _controller = tf.getController();
+    return tf;
   }
+
+  getController() => _controller;
 
 }
 
 class TF extends State<CustomTextField>{
   String _hint;
   TextInputType _tit;
+  TextEditingController _controller = new TextEditingController();
 
   TF(this._hint, this._tit);
 
@@ -37,11 +42,11 @@ class TF extends State<CustomTextField>{
       child: TextFormField(
         textDirection: TextDirection.rtl,
         keyboardType: this._tit,
+        controller: _controller,
         textAlign: TextAlign.right,
         validator: (String value){
           if(value.isEmpty) {
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text('لطفا همه فیلد ها را پر کنید!')));
-            return null;
+            return '';
           }
         },
         decoration: InputDecoration.collapsed(
@@ -49,8 +54,8 @@ class TF extends State<CustomTextField>{
             fillColor: Colors.grey
         ),
       )
-
   );
 
+  getController() => _controller;
 
 }

@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatefulWidget{
-  String _text, _navigatorPush;
-  CustomButton(this._text, this._navigatorPush);
+  String _text;
+  CustomButton(this._text);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return CB(this._text, this._navigatorPush);
+    return CB(this._text);
   }
 
 }
 
 class CB extends State<CustomButton>{
-  String _text, _navigatorPush;
+  String _text;
 
-  CB(this._text, this._navigatorPush);
+  CB(this._text);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return button(this._text, this._navigatorPush);
+    return button(this._text);
   }
 
-  Widget button(String text, String navigatorPush) => GestureDetector(
-    child: Container(
+  Widget button(String text) => Container(
         margin: EdgeInsets.only(
             left:  MediaQuery.of(context).size.width - 305,
             right:  MediaQuery.of(context).size.width - 305,
-          top: 25
+            top: 30
         ),
         padding: EdgeInsets.only(top: 8, bottom: 8),
         alignment: Alignment(0, 0),
@@ -44,11 +43,7 @@ class CB extends State<CustomButton>{
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
-                fontSize: 22))),
-    onTap: () {
-//      if(_formKey.currentState.validate())
-      Navigator.pushNamed(context, navigatorPush);
-    },
+                fontSize: 22))
   );
 
 

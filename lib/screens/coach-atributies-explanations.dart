@@ -11,7 +11,7 @@ class CoachExplan extends StatefulWidget{
 }
 
 class CE extends State<CoachExplan>{
-  CustomButton _cb = new CustomButton('صفحه ورود/ثبت نام', '/register');
+  CustomButton _cb = new CustomButton('صفحه ورود/ثبت نام');
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,6 @@ class CE extends State<CoachExplan>{
         ),
 
         Container(
-          margin: EdgeInsets.only(bottom: 30),
           padding: EdgeInsets.only(
               left: 10,
               right: 10
@@ -67,9 +66,16 @@ class CE extends State<CoachExplan>{
           ),
         ),
 
-        _cb
+        button()
       ],
     )
+  );
+
+  Widget button() => GestureDetector(
+    child: _cb,
+    onTap: () {
+        Navigator.pushNamed(context, '/register');
+    },
   );
 
 }
