@@ -14,7 +14,6 @@ class Button extends StatefulWidget {
   double width;
   List<String> input;
   GlobalKey<FormState> _key;
-
   setkey(GlobalKey<FormState> _key) {
     this._key = _key;
   }

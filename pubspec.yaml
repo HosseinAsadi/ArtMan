@@ -46,6 +46,7 @@ flutter:
   assets:
     - assets/images/background.png
     - assets/images/demo.gif
+    - assets/images/morabi.jpeg
 
 
 

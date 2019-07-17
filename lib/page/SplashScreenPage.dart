@@ -23,7 +23,7 @@ class MySplashScreen extends State<SplashScreenPage> {
               children: <Widget>[
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/StdPropertyBody');
+                    Navigator.pushNamed(context, '/joindepage');
                   },
                   child: Image.asset("assets/images/demo.gif"),
                 )
