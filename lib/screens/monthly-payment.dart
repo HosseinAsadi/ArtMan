@@ -43,7 +43,7 @@ class MP extends State<MonthlyPayment> {
         children: <Widget>[
           Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width / 4), child: _ct),
           getTextFields("پرداخت اشتراک ماهانه خود را وارد کنید.."),
-          _cb
+          button()
         ],
       );
 
@@ -86,7 +86,7 @@ class MP extends State<MonthlyPayment> {
   Widget button() => GestureDetector(
         child: _cb,
         onTap: () {
-          Navigator.pushNamed(context, '');
+          Navigator.pushNamed(context, '/membership');
         },
       );
 

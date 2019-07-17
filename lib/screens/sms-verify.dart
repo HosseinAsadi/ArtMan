@@ -52,23 +52,20 @@ class SMSV extends State<SMSVerify> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             GestureDetector(
-              child: Container(
                 child: Text('ارسال مجددکدفعالسازی',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 13,
-                        decoration: TextDecoration.underline)),
-              ),
+                        decoration: TextDecoration.underline)
+                ),
               onTap: () {},
             ),
             GestureDetector(
-              child: Container(
                 child: Text('اصلاح شماره همراه',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 13,
                         decoration: TextDecoration.underline)),
-              ),
               onTap: () {},
             )
           ],

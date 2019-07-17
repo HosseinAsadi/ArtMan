@@ -30,8 +30,8 @@ class CE extends State<CoachExplan>{
   );
 
   Widget body() => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    child: ListView(
+      shrinkWrap: true,
       children: <Widget>[
         Text(
           Strings.TITLECOACHEXPLAN,
@@ -40,13 +40,18 @@ class CE extends State<CoachExplan>{
             fontWeight: FontWeight.bold,
             fontSize: 18
           ),
+          textAlign: TextAlign.center,
         ),
 
-        Container(
-          height: 2,
-          width: 230,
-          color: Colors.lightGreen,
-          margin: EdgeInsets.only(bottom: 20),
+        Column(
+          children: <Widget>[
+            Container(
+              height: 2,
+              width: 230,
+              color: Colors.lightGreen,
+              margin: EdgeInsets.only(bottom: 20),
+            ),
+          ],
         ),
 
         Container(
