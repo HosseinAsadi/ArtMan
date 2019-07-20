@@ -35,7 +35,7 @@ class P extends State<Profile>{
     shrinkWrap: true,
     children: <Widget>[
       TopProfile(),
-      ProfileButton("قسمت مربیان", Icons.print, Colors.green[800], ''),
+      ProfileButton("قسمت مربیان", Icons.print, Colors.green[800], '/analyze1'),
       ProfileButton("برنامه های تمرینی/غذایی", Icons.print, Colors.lightGreen[700], ''),
       ProfileButton("آنالیزها", Icons.print, Colors.green[800], ''),
       ProfileButton("تنظیمات کاربری", Icons.print, Colors.lightGreen[700], ''),

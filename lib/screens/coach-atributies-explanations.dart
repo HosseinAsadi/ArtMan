@@ -11,7 +11,7 @@ class CoachExplan extends StatefulWidget{
 }
 
 class CE extends State<CoachExplan>{
-  CustomButton _cb = new CustomButton('صفحه ورود/ثبت نام');
+  CustomButton _cb = new CustomButton('صفحه ورود/ثبت نام', null, '');
 
   @override
   Widget build(BuildContext context) {

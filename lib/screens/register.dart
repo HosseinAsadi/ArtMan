@@ -24,11 +24,9 @@ class R extends State<Register> {
   CustomText _ct4 = new CustomText("شماره همراه:");
 
   CustomTextField _ctf1 = new CustomTextField(
-      "نام و نام خانودگی خود را وارد نمایید..", TextInputType.text);
+      "نام و نام خانودگی خود را وارد نمایید..", Colors.grey, TextInputType.text);
   CustomTextField _ctf2 =
-      new CustomTextField("شماره همراه خود را وارد کنید..", TextInputType.text);
-
-  CustomButton _cb = new CustomButton('تایید ثبت نام');
+      new CustomTextField("شماره همراه خود را وارد کنید..", Colors.grey, TextInputType.text);
 
   var _formKey = GlobalKey<FormState>();
 
@@ -66,25 +64,10 @@ class R extends State<Register> {
                 _dropDownMenuCitySelected,
                 _ct4,
                 _ctf2,
-                button()
+                CustomButton('تایید ثبت نام', _formKey, '/sms-verify')
               ],
             ),
           )));
 
-  Widget button() => Builder(
-      builder: (context) => GestureDetector(
-            child: _cb,
-            onTap: () {
-//              if (_formKey.currentState.validate())
-                Navigator.pushNamed(context, '/sms-verify');
-//              else
-//                _displaySnackBar(context);
-            },
-          )
-  );
 
-  _displaySnackBar(context) {
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('لطفا همه فیلد ها را پر کنید!')));
-  }
 }

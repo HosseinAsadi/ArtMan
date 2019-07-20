@@ -13,7 +13,7 @@ class FirstLogin extends StatefulWidget {
 
 class FL extends State<FirstLogin> {
   List<RadioModel> values = new List<RadioModel>();
-  CustomButton _cb = new CustomButton('ورود');
+  CustomButton _cb = new CustomButton('ورود', null, '');
 
   @override
   void initState() {

@@ -35,7 +35,7 @@ class M extends State<Membership> {
 
   Widget body() => ListView(
         shrinkWrap: true,
-        children: <Widget>[title(), bText(), _cc, button()],
+        children: <Widget>[title(), bText(), _cc, CustomButton("ورود به پنل کاربری", null, '/profile')],
       );
 
   Widget title() => Container(
@@ -59,10 +59,4 @@ class M extends State<Membership> {
         ),
       );
 
-  Widget button() => GestureDetector(
-        child: CustomButton("ورود به پنل کاربری"),
-        onTap: () {
-          Navigator.pushNamed(context, '/profile');
-        },
-      );
 }

@@ -13,7 +13,7 @@ class MonthlyPayment extends StatefulWidget {
 
 class MP extends State<MonthlyPayment> {
   CustomText _ct = new CustomText("پرداخت‌اشتراک‌ماهانه:");
-  CustomButton _cb = new CustomButton("پرداخت‌آنلاین");
+  var _formKey = GlobalKey<FormState>();
 
   TextEditingController _controller = new TextEditingController();
   int countSlash = 0;
@@ -38,14 +38,19 @@ class MP extends State<MonthlyPayment> {
         child: body(),
       );
 
-  Widget body() => Column(
+  Widget body() => Form(
+      key: _formKey,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width / 4), child: _ct),
+          Padding(
+              padding:
+                  EdgeInsets.only(right: MediaQuery.of(context).size.width / 4),
+              child: _ct),
           getTextFields("پرداخت اشتراک ماهانه خود را وارد کنید.."),
-          button()
+          CustomButton("پرداخت‌آنلاین", _formKey, '/membership')
         ],
-      );
+      ));
 
   Widget getTextFields(String hint) => Container(
       height: 50,
@@ -83,19 +88,7 @@ class MP extends State<MonthlyPayment> {
             ],
           )));
 
-  Widget button() => GestureDetector(
-        child: _cb,
-        onTap: () {
-          Navigator.pushNamed(context, '/membership');
-        },
-      );
-
-  _displaySnackBar(context) {
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('لطفا همه فیلد ها را پر کنید!')));
-  }
-
-  void onChange(){
+  void onChange() {
     String text = _controller.text;
     int l = text.length - countSlash;
 
@@ -103,6 +96,5 @@ class MP extends State<MonthlyPayment> {
       text += "/";
       countSlash++;
     }
-
   }
 }

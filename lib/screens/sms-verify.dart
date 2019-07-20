@@ -16,9 +16,7 @@ class SMSV extends State<SMSVerify> {
   var _formKey = GlobalKey<FormState>();
 
   CustomTextField _ctf =
-      new CustomTextField("کد تاییدیه را وارد نمایید..", TextInputType.text);
-
-  CustomButton _cb = new CustomButton("ارسال و تایید");
+      new CustomTextField("کد تاییدیه را وارد نمایید..", Colors.grey, TextInputType.text);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class SMSV extends State<SMSVerify> {
   Widget body() =>Form(key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[ct, _ctf, getRow(), button()],
+        children: <Widget>[ct, _ctf, getRow(), CustomButton("ارسال و تایید", _formKey, '/monthly-payment')],
       )
   );
 
@@ -72,19 +70,4 @@ class SMSV extends State<SMSVerify> {
         ),
       );
 
-  Widget button() => Builder(builder: (context) =>GestureDetector(
-      child: _cb,
-      onTap: () {
-//        if(_formKey.currentState.validate())
-            Navigator.pushNamed(context, '/monthly-payment');
-//        else
-//          _displaySnackBar(context);
-      }
-      )
-  );
-
-  _displaySnackBar(context) {
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('لطفا همه فیلد ها را پر کنید!')));
-  }
 }
