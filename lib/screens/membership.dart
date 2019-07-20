@@ -35,39 +35,34 @@ class M extends State<Membership> {
 
   Widget body() => ListView(
         shrinkWrap: true,
-        children: <Widget>[
-          title(),
-          bText(),
-          _cc,
-          button()
-        ],
+        children: <Widget>[title(), bText(), _cc, button()],
       );
 
   Widget title() => Container(
         child: Text(
           "عضویت شما فعال گردیده است...",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(30)),
-        height: 60,
+        height: 50,
         alignment: Alignment(0, 0),
-        margin: EdgeInsets.only(left: 16, right: 16, bottom: 30),
+        margin: EdgeInsets.only(left: 25, right: 25, bottom: 30)
       );
 
   Widget bText() => Padding(
-        padding: EdgeInsets.only(left: 16, right: 16),
+        padding: EdgeInsets.only(left: 25, right: 25),
         child: Text(
           Strings.TEXTOFMEMBERSHIP,
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(color: Colors.white, fontSize: 15),
           textAlign: TextAlign.center,
         ),
       );
 
   Widget button() => GestureDetector(
-    child: CustomButton("ورود به پنل کاربری"),
-    onTap: () {
-      Navigator.pushNamed(context, '');
-    },
-  );
+        child: CustomButton("ورود به پنل کاربری"),
+        onTap: () {
+          Navigator.pushNamed(context, '/profile');
+        },
+      );
 }

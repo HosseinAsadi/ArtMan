@@ -7,6 +7,7 @@ import 'screens/register.dart';
 import 'screens/sms-verify.dart';
 import 'screens/monthly-payment.dart';
 import 'screens/membership.dart';
+import 'screens/profile.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         Locale("fa", "IR"), // OR Locale('ar', 'AE') OR Other RTL locales
       ],
       locale: Locale("fa", "IR"),
+
       title: 'Art Man Project',
       initialRoute: '/',
       routes: {
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/sms-verify': (BuildContext context) => SMSVerify(),
         '/monthly-payment': (BuildContext context) => MonthlyPayment(),
         '/membership': (BuildContext context) => Membership(),
+        '/profile': (BuildContext context) => Profile(),
       },
     );
   }

@@ -27,7 +27,7 @@ class CC extends State<CustomCheckbox> {
   bool get boolValue => _boolValue;
 
   Widget checkbox(bool value) => Container(
-        margin: EdgeInsets.only(top: 15, left: 16, right: 16),
+        margin: EdgeInsets.only(top: 15, left: 25, right: 25),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
