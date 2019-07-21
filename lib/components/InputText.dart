@@ -56,6 +56,9 @@ class myInputText extends State<InputText> {
 
   var ctrl = new TextEditingController();
 
+  String text = ""; // empty string to carry what was there before it
+  int maxLength = 15;
+
   getcontoroler() => ctrl;
 
   @override
@@ -76,6 +79,9 @@ class myInputText extends State<InputText> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(radius == null ? 25 : radius)),
       child: TextFormField(
+        
+        
+        textDirection: TextDirection.rtl,
         maxLines: maxlines==null?1:maxlines,
         keyboardType: TextInputType.multiline,
         controller: ctrl,
@@ -93,4 +99,24 @@ class myInputText extends State<InputText> {
       ),
     );
   }
+
+  /*onChange(String newVal) {
+    if(newVal.length <= maxLength){
+      text = newVal;
+    }else{
+      ctrl.value = new TextEditingValue(
+          text: text,
+          selection: new TextSelection(
+              baseOffset: maxLength,
+              extentOffset: maxLength,
+              affinity: TextAffinity.downstream,
+              isDirectional: false
+          ),
+          composing: new TextRange(
+              start: 0, end: maxLength
+          )
+      );
+      ctrl.text = text;
+    }
+  }*/
 }

@@ -51,7 +51,7 @@ class PB extends State<ProfileButton>{
       ),
       onTap: (){
         setState(() {
-
+          Navigator.pushNamed(context, _navigatorPush);
         });
       },
     );

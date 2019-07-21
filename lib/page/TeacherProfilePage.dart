@@ -24,9 +24,9 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
     right: 10,
   );
   ProfileButton btnplan = new ProfileButton(
-      "برنامه تمرینی / غذایی", Icons.ac_unit, Color(0xFF088B00), "/");
+      "برنامه تمرینی / غذایی", Icons.ac_unit, Color(0xFF088B00), "/SaveAnalyze");
   ProfileButton btnlist =
-      new ProfileButton("لیست هنرجویان", Icons.ac_unit, Color(0xFF71C105), "/");
+      new ProfileButton("لیست هنرجویان", Icons.ac_unit, Color(0xFF71C105), "/StdAnalyzePage6");
   ProfileButton btnsprt =
       new ProfileButton("پشتیبانی", Icons.ac_unit, Color(0xFF088B00), "/");
   ProfileButton btnexit = new ProfileButton(
@@ -69,23 +69,16 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                           child:   Container(
                             margin: EdgeInsets.only(right: 20, left: 15),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 text("امیریل حسینی", FontWeight.w800, 24.0),
                                   text(
                                       "مربی ورزش بدنسازی ,پرورش اندام و کشتی",
                                       FontWeight.w300,
                                       12.0),
+                                text("آیدی مربی :", FontWeight.w800, 14.0),
 
-                                Padding(
-                                  padding: EdgeInsets.only(right: 70, top: 10),
-                                  child:
-                                  text("آیدی مربی :", FontWeight.w800, 14.0),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 30, bottom: 10),
-                                  child: id,
-                                ),
+                                id,
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
