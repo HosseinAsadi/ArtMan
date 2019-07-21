@@ -1,3 +1,4 @@
+import 'package:art_man/components/InputPass.dart';
 import 'package:flutter/material.dart';
 import 'package:art_man/components/InputText.dart';
 import 'package:art_man/components/Button.dart';
@@ -13,8 +14,8 @@ class SingInPage extends State<MyCustomForm> {
   final _formkey = GlobalKey<FormState>();
 
   InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
-  InputText password = new InputText("رمز عبور خود را وارد نمایید ...","password");
-  Button signinbtn = new Button(["username","password"],'/second', "ورود", 40.0, 20.0,
+  InputPass password = new InputPass("password");
+  Button signinbtn = new Button(["username","password"],'/StdAnalyzePage', "ورود", 40.0, 20.0,
       marginleft: 5.0,
       startcolor: Color(0xFF5AE400),
       endcolor: Color(0xFF0F8F00));

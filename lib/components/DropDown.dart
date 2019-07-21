@@ -18,7 +18,7 @@ class myDropDown extends State<DropDown> {
 
     return Container(
         alignment: Alignment.centerLeft,
-        margin: EdgeInsets.only(top:7,bottom: 7 ),
+        margin: EdgeInsets.only(top:4,bottom: 7 ),
         padding: EdgeInsets.only(right: 15,left: 15),
         height: 40.0,
         decoration: BoxDecoration(

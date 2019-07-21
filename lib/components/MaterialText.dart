@@ -5,16 +5,17 @@ class MaterialText extends StatefulWidget{
   String text;
   Color textColor;
   Color backgroundColor;
-
+  FontWeight fontWeight;
+  double fontsize;
   MaterialText( this.height, this.text,
       this.textColor, {this.backgroundColor, this.left, this.right, this.bottom,
-  this.top,this.width,});
+  this.top,this.width,this.fontWeight,this.fontsize});
 
   @override
   myText createState() {
     // TODO: implement createState
     return myText(height,text,textColor,backgroundColor: backgroundColor,left:
-    left,right: right,top: top,bottom: bottom,width: width);
+    left,right: right,top: top,fontsize: fontsize,bottom: bottom,width: width,fontWeight: fontWeight);
   }
 
 }
@@ -24,10 +25,11 @@ class myText extends State<MaterialText>{
   String text;
   Color textColor;
   Color backgroundColor;
-
+  FontWeight fontWeight;
+  double fontsize;
   myText( this.height, this.text, this.textColor,
   {this.backgroundColor, this.left, this.right, this.bottom,
-  this.top,this.width,});
+  this.top,this.width,this.fontWeight,this.fontsize});
 
 
   @override
@@ -46,13 +48,13 @@ class myText extends State<MaterialText>{
       alignment: Alignment(0, 0),
         width: width,
       height: height,
-      //padding: EdgeInsets.all(5),
+      padding: EdgeInsets.only(left: 5,right: 5),
       margin: EdgeInsets.only(bottom: bottom,left: left,right: right,top: top),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text(text,style: TextStyle(color: textColor,fontSize: 18,fontWeight: FontWeight.w700),),
+      child: Text(text,style: TextStyle(color: textColor,fontSize: fontsize,fontWeight: fontWeight),),
     )
     ;
   }

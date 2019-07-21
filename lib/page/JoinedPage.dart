@@ -21,11 +21,14 @@ class myJoinedPage extends State<JoinedPage> {
     "عضویت شما فعال گردیده است ...",
     Colors.black,
     bottom: 15.0,
+    fontWeight: FontWeight.w700,
+    fontsize: 18.0,
+
   );
 
   @override
   Widget build(BuildContext context) {
-   // debugPaintSizeEnabled=true;
+
     return Scaffold(
 
       body: Container(
@@ -41,7 +44,7 @@ class myJoinedPage extends State<JoinedPage> {
             children: <Widget>[
               Center(
                 child: Container(
-                  margin: EdgeInsets.only(left: 70, right: 70),
+                  margin: EdgeInsets.only(left: 30, right: 30),
                   child: Column(
                     children: <Widget>[
                       tilte,
@@ -76,7 +79,7 @@ class myJoinedPage extends State<JoinedPage> {
                               "(توضیحات)",
                               style: TextStyle(
                                   color: Colors.green,
-                                  fontSize: 14,
+                                  fontSize: 11,
                                   decoration: TextDecoration.underline),
                             ),
                           )

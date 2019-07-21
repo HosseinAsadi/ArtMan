@@ -26,18 +26,19 @@ class PB extends State<ProfileButton>{
     // TODO: implement build
     return GestureDetector(
       child: Container(
-        margin: EdgeInsets.only(bottom: 10, left: 35, right: 35),
-        padding: EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10),
+        margin: EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: _color,
           borderRadius: BorderRadius.circular(10)
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Icon(_icon),
             Container(
               alignment: Alignment(0, 0),
-              width: 250,
+              width: 220,
+              height: 60,
               child: Text(_text,
                 style: TextStyle(color: Colors.white,
                   fontSize: 18,
@@ -55,5 +56,4 @@ class PB extends State<ProfileButton>{
       },
     );
   }
-
 }

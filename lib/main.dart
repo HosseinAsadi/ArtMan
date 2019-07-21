@@ -1,5 +1,7 @@
 import 'package:art_man/page/JoinedPage.dart';
 import 'package:art_man/page/SplashScreenPage.dart';
+import 'package:art_man/page/StdAnalyzePage.dart';
+import 'package:art_man/page/StdAnalyzePage4.dart';
 import 'package:art_man/page/StdPropertyPage.dart';
 import 'package:art_man/page/SingInPage.dart';
 import 'package:art_man/page/SignUpPage.dart';
@@ -7,6 +9,7 @@ import 'package:art_man/page/TeacherProfilePage.dart';
 import 'package:art_man/page/VerifyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -35,6 +38,8 @@ class MyApp extends StatelessWidget {
         '/verifypage': (context) => VerifyPage(),
         '/joindepage': (context) => JoinedPage(),
         '/TeacherProfilePage': (context) => TeacherProfilePage(),
+        '/StdAnalyzePage': (context) => StdAnalyzePage(),
+        '/StdAnalyzePage4': (context) => StdAnalyzePage4(),
 
       },
     );
