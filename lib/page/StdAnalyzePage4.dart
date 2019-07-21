@@ -39,6 +39,7 @@ class _StdAnalyzePage4State extends State<StdAnalyzePage4> {
     margintop: 0.0,
     radius: 10,
     height: 130.0,
+    maxlines: 5,
   );
   Button continuebtn = new Button(
     [""],

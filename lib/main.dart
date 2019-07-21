@@ -2,6 +2,7 @@ import 'package:art_man/page/JoinedPage.dart';
 import 'package:art_man/page/SplashScreenPage.dart';
 import 'package:art_man/page/StdAnalyzePage.dart';
 import 'package:art_man/page/StdAnalyzePage4.dart';
+import 'package:art_man/page/StdAnalyzePage6.dart';
 import 'package:art_man/page/StdPropertyPage.dart';
 import 'package:art_man/page/SingInPage.dart';
 import 'package:art_man/page/SignUpPage.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'art man',
       initialRoute: '/',
       routes: {
-        '/':(context) => SplashScreenPage(),
+        '/':(context) => StdAnalyzePage6(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),

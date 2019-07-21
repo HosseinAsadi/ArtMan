@@ -10,6 +10,7 @@ class InputText extends StatefulWidget {
   double radius;
   double margintop;
   Alignment alignment;
+  int maxlines;
 
   InputText(this._hint, this.id,
       {this.height,
@@ -17,7 +18,8 @@ class InputText extends StatefulWidget {
       this.brderwidth,
       this.margintop,
       this.radius,
-      this.alignment});
+      this.alignment,
+      this.maxlines});
 
   @override
   myInputText createState() {
@@ -26,7 +28,8 @@ class InputText extends StatefulWidget {
         brdercolor: brdercolor,
         brderwidth: brderwidth,
         margintop: margintop,
-        radius: radius);
+        radius: radius,
+    maxlines: maxlines);
     ctrl = it.getcontoroler();
     Keys.setter(id, ctrl);
     return it;
@@ -41,14 +44,15 @@ class myInputText extends State<InputText> {
   double radius;
   double margintop;
   Alignment alignment;
-
+  int maxlines;
   myInputText(this._hint,
       {this.height,
       this.brdercolor,
       this.brderwidth,
       this.margintop,
       this.radius,
-      this.alignment});
+      this.alignment,
+      this.maxlines});
 
   var ctrl = new TextEditingController();
 
@@ -72,7 +76,7 @@ class myInputText extends State<InputText> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(radius == null ? 25 : radius)),
       child: TextFormField(
-        maxLines: 5,
+        maxLines: maxlines==null?1:maxlines,
         keyboardType: TextInputType.multiline,
         controller: ctrl,
         validator: (String value) {
