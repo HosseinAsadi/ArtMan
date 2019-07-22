@@ -8,31 +8,18 @@ class PlanePage extends StatefulWidget {
 
 class _PlanePageState extends State<PlanePage> {
   int _selectedIndex = 0;
-  SportPlanPage sportPlanPage=new SportPlanPage();
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
+  SportPlanPage sportPlanPage = new SportPlanPage();
+
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return  DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -41,25 +28,34 @@ class _PlanePageState extends State<PlanePage> {
             color: Colors.white, //change your color here
           ),
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.search,color: Colors.white,), onPressed: null)
+            IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                onPressed: null)
           ],
           bottom: TabBar(
             labelColor: Colors.white,
             tabs: [
-              Tab(text: "برنامه های غذایی",),
-              Tab(text: "برنامه های ورزشی",),
-
+              Tab(
+                text: "برنامه های غذایی",
+              ),
+              Tab(
+                text: "برنامه های ورزشی",
+              ),
             ],
           ),
-          title: Text('برنامه های ورزشی و غذایی',style: TextStyle(color: Colors.white),),
+          title: Text(
+            'برنامه های ورزشی و غذایی',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         drawer: Drawer(
-
           child: Text("dfdf"),
         ),
         body: TabBarView(
           children: [
-
             sportPlanPage,
             Icon(Icons.directions_transit),
           ],
@@ -67,27 +63,15 @@ class _PlanePageState extends State<PlanePage> {
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.alarm_on),
-                title: Text("")
-
-
-            ),
+                icon: Icon(Icons.alarm_on), title: Text("")),
             BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_filled),
-                title: Text("")
-
-
-            ),
-
+                icon: Icon(Icons.play_circle_filled), title: Text("")),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-title: Text("")
-            ),
+                icon: Icon(Icons.settings), title: Text("")),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor:Color(0xFF00C0B6),
+          selectedItemColor: Color(0xFF00C0B6),
           onTap: _onItemTapped,
-
         ),
       ),
     );

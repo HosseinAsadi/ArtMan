@@ -1,7 +1,9 @@
 import 'package:art_man/page/JoinedPage.dart';
+import 'package:art_man/page/MuscleGroupList.dart';
 import 'package:art_man/page/PlanPage.dart';
 import 'package:art_man/page/SaveAnalyze.dart';
 import 'package:art_man/page/SplashScreenPage.dart';
+import 'package:art_man/page/SportField.dart';
 import 'package:art_man/page/StdAnalyzePage.dart';
 import 'package:art_man/page/StdAnalyzePage4.dart';
 import 'package:art_man/page/StdAnalyzePage6.dart';
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
       title: 'art man',
       initialRoute: '/',
       routes: {
-        '/':(context) => PlanePage(),
+        '/':(context) => SportField(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -51,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/SaveAnalyze': (context) => SaveAnalyze(),
         '/StdInformationPage': (context) => StdInformationPage(),
         '/PlanePage': (context) => PlanePage(),
+        '/MuscleGroupList': (context) => MuscleGroupList(),
 
       },
     );
