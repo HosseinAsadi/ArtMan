@@ -1,4 +1,5 @@
 import 'package:art_man/page/JoinedPage.dart';
+import 'package:art_man/page/PlanPage.dart';
 import 'package:art_man/page/SaveAnalyze.dart';
 import 'package:art_man/page/SplashScreenPage.dart';
 import 'package:art_man/page/StdAnalyzePage.dart';
@@ -21,7 +22,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.yellow,
 
+      ),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
       title: 'art man',
       initialRoute: '/',
       routes: {
-        '/':(context) => StdInformationPage(),
+        '/':(context) => PlanePage(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -46,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/StdAnalyzePage6': (context) => StdAnalyzePage6(),
         '/SaveAnalyze': (context) => SaveAnalyze(),
         '/StdInformationPage': (context) => StdInformationPage(),
+        '/PlanePage': (context) => PlanePage(),
 
       },
     );
