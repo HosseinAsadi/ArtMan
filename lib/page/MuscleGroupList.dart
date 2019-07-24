@@ -1,8 +1,11 @@
+import 'package:art_man/components/BuildGrid.dart';
 import 'package:flutter/material.dart';
 
 class MuscleGroupList extends StatelessWidget {
   static final showGrid = true; // Set to false to show ListView
-
+  BuildGrid _buildGrid =new BuildGrid(200.0,2.0,2.0,250.0,6,8,
+      ["2هفته","هفته25","30هفته","15هفته","2هفته","هفته25","30هفته"],
+      Color(0xFFF71C105),Colors.white);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +38,7 @@ class MuscleGroupList extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(child: _buildGrid()),
+        child: Center(child:_buildGrid),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -51,65 +54,6 @@ class MuscleGroupList extends StatelessWidget {
     );
   }
 
-  // #docregion grid
-  Widget _buildGrid() => GridView.extent(
-      maxCrossAxisExtent: 200,
-      padding: const EdgeInsets.all(4),
-      mainAxisSpacing: 2,
-      crossAxisSpacing: 2,
-      children: _buildGridTileList(6));
-
-
-  List<Container> _buildGridTileList(int count) => List.generate(
-        count,
-        (i) => Container(
-              margin: EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Stack(
-                children: <Widget>[
-                  ClipRRect(
-                    child: Image.asset('assets/images/pic${i + 1}.jpeg'),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                  Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    child: Container(
-                      width: 130,
-                      height: 52,
-                      decoration: BoxDecoration(
-                          color: Color(0xFF71C105),
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              topRight: Radius.circular(40))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-
-                          Text(
-                            "پاور لیفتینک",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14),
-                          ),
-                          Text("۲۵ هفته",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14))
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-      );
-
-// #enddocregion list
 }
 
 

@@ -28,7 +28,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
   ProfileButton btnlist =
       new ProfileButton("لیست هنرجویان", Icons.ac_unit, Color(0xFF71C105), "/StdAnalyzePage6");
   ProfileButton btnsprt =
-      new ProfileButton("پشتیبانی", Icons.ac_unit, Color(0xFF088B00), "/");
+      new ProfileButton("پشتیبانی", Icons.ac_unit, Color(0xFF088B00), "/SportField");
   ProfileButton btnexit = new ProfileButton(
       "خروج از حساب کاربری", Icons.ac_unit, Color(0xFF4B4F4B), "/");
 

@@ -7,7 +7,7 @@ class SportPlanPage extends StatefulWidget {
 }
 
 class _SportPlanPageState extends State<SportPlanPage> {
-  Button myPlan=new Button([""],"/","برنامه های من",35.0,80.0,startcolor: Color(0xFF088B00),endcolor:Color(0xFF088B00) ,);
+  Button myPlan=new Button([""],"/PlanePage","برنامه های من",35.0,80.0,startcolor: Color(0xFF088B00),endcolor:Color(0xFF088B00) ,);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -15,7 +15,7 @@ class myJoinedPage extends State<JoinedPage> {
   bool _accept = false;
   Button buttonenable = new Button([""], '/TeacherProfilePage', 'ورود به پنل کاربری', 40.0, 10.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0);
-  Button buttondisable = new Button([""], '/', 'ورود به پنل کاربری', 40.0, 10.0,
+  Button buttondisable = new Button([""], '/SportField', 'ورود به پنل کاربری', 40.0, 10.0,
       startcolor: Colors.grey, endcolor: Colors.grey, width: 130.0);
 
   MaterialText tilte = new MaterialText(

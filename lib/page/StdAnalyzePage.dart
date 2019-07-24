@@ -13,7 +13,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
   var _keyForm=GlobalKey<FormState>();
   Button sendImage = new Button(
     [""],
-    '/',
+    '/MuscleGroupList',
     "ارسال تصویر",
     30.0,
     40.0,

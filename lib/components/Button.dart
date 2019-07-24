@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'Sender.dart';
 
 class Button extends StatefulWidget {
@@ -11,9 +10,11 @@ class Button extends StatefulWidget {
   double marginleft;
   double marginright;
   Color startcolor;
-  Color endcolor;
+  Color endcolor,textcolor;
   double width;
   List<String> input;
+  FontWeight fontWeight;
+  double textsize;
   GlobalKey<FormState> _key;
 
   setkey(GlobalKey<FormState> _key) {
@@ -26,7 +27,10 @@ class Button extends StatefulWidget {
         this.marginbottom,
       this.startcolor,
       this.endcolor,
-      this.width});
+        this.textcolor,
+      this.width,
+      this.fontWeight,
+      this.textsize});
 
   @override
   myBottom createState() {
@@ -37,7 +41,10 @@ class Button extends StatefulWidget {
         marginbottom: marginbottom,
         startcolor: startcolor,
         endcolor: endcolor,
-        width: width);
+        width: width,
+    textcolor: textcolor,
+    fontWeight: fontWeight,
+    textsize: textsize);
   }
 }
 
@@ -49,9 +56,12 @@ class myBottom extends State<Button> {
   double marginleft,marginbottom;
   double marginright;
   Color startcolor;
-  Color endcolor;
+  Color endcolor,textcolor;
   double width;
+  FontWeight fontWeight;
+  double textsize;
   List<String> input;
+
 
   GlobalKey<FormState> _key;
 
@@ -62,8 +72,11 @@ class myBottom extends State<Button> {
       this.marginbottom,
       this.startcolor,
       this.endcolor,
-      this.width});
-
+        this.textcolor,
+      this.width,
+      this.textsize,
+      this.fontWeight});
+//MakeList makeList=new MakeList();
   @override
   @override
   Widget build(BuildContext context) {
@@ -115,7 +128,9 @@ class myBottom extends State<Button> {
             Sender sender = new Sender();
             sender.send(input);
             Navigator.pushNamed(context, goal);
-          } else
+          }
+
+          else
             Scaffold.of(context).showSnackBar(SnackBar(
                 content: Text(
                   "لطفا همه ی فیلد ها را پر کنید",
@@ -128,7 +143,9 @@ class myBottom extends State<Button> {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: textcolor==null?Colors.white:textcolor,
+          fontWeight: fontWeight==null?FontWeight.normal:fontWeight ,
+          fontSize: textsize==null?16:textsize),
         ),
       ),
     );

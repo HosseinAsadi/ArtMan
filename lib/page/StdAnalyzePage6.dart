@@ -30,7 +30,7 @@ class _StdAnalyzePage6State extends State<StdAnalyzePage6> {
   );
   Button continuebtn = new Button(
     [""],
-    "/",
+    "/MuscleGroupList",
     "ادامه آنالیز",
     40.0,
     30.0,
