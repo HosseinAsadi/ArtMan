@@ -1,3 +1,7 @@
+import 'package:art_man/components/Button.dart';
+import 'package:art_man/components/DropDown.dart';
+import 'package:art_man/components/MaterialText.dart';
+import 'package:art_man/components/SearchBox.dart';
 import 'package:flutter/material.dart';
 
 class SelectSportExtract extends StatefulWidget {
@@ -13,21 +17,21 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Color(0xFF7FC81D),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
+          Center(
+            child: InkWell(
+              onTap: null,
+              child: Text(
+                "تنظیم مجدد         ",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
             ),
-            onPressed: () {},
           ),
         ],
         title: Text(
-          "برنامه ورزشی",
-          style: TextStyle(color: Colors.white),
+          "انتخاب برنامه ورزشی",
+          style: TextStyle(color: Colors.white, fontSize: 17),
         ),
-      ),
-      drawer: Drawer(
-        child: Text("dff"),
       ),
       body: Center(
         child: Container(
@@ -43,12 +47,47 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
               Center(
                 child: Container(
                   margin:
-                  EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+                      EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
                   child: Form(
                     // key: _key,
                     child: Column(
                       children: <Widget>[
-                        container()
+                        SearchBox(),
+                        SizedBox(height: 15,),
+                        DropDown(
+                          "گروه عضلانی",
+                          backgroundColor: Color(0xFFF1C60D),
+                          fontcolor: Colors.black,
+                          arrowcolor: Colors.black,
+                        ),
+                        SizedBox(height: 10,),
+                        DropDown(
+                          "تجهیزات ورزشی",
+                          backgroundColor: Color(0xFFF1C60D),
+                          fontcolor: Colors.black,
+                          arrowcolor: Colors.black,
+                        ),
+                        Container(
+                          height: 365,
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(7),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              MaterialText(40,"بدنسازی",Colors.white,backgroundColor: Color(0xFF088B00),fontWeight: FontWeight.w500,align: Alignment.centerRight,),
+                              MaterialText(40,"کراس فیت",Colors.white,backgroundColor: Color(0xFF088B00),fontWeight: FontWeight.w500,align: Alignment.centerRight,top: 10,),
+                              MaterialText(40,"تک مفصلی",Colors.white,backgroundColor: Color(0xFF088B00),fontWeight: FontWeight.w500,align: Alignment.centerRight,top: 10),
+                              MaterialText(40,"قسمت تهتانی بدن",Colors.white,backgroundColor: Color(0xFF088B00),fontWeight: FontWeight.w500,align: Alignment.centerRight,top: 10),
+                              MaterialText(40,"چهار سر ران",Colors.white,backgroundColor: Color(0xFF088B00),fontWeight: FontWeight.w500,align: Alignment.centerRight,top: 10),
+                              MaterialText(40,"مورد دیگر...",Colors.white,backgroundColor: Color(0xFF088B00),fontWeight: FontWeight.w500,align: Alignment.centerRight,top: 10),
+                              MaterialText(40,"مورد دیگر...",Colors.white,backgroundColor: Color(0xFF088B00),fontWeight: FontWeight.w500,align: Alignment.centerRight,top: 10),
+                            ],
+                          ),
+                        ),
+                        Button([""],"/","تایید موقت",30.0,10.0,width: 100.0,)
                       ],
                     ),
                   ),
@@ -60,40 +99,4 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
       ),
     );
   }
-
-  container() =>
-      Container(
-        margin: EdgeInsets.only(top: 15),
-        height: 90,
-        decoration: BoxDecoration(
-            color: Color(0xFFF0F0F3),
-            borderRadius: BorderRadius.all(Radius.circular(15))
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: 50,
-              height: 50,
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 15, right: 15),
-              child: IconButton(icon: Icon(
-                Icons.search, color: Colors.yellow, size: 40,),
-                  onPressed: null),
-            ),
-            Container(
-              width: 250,
-              child: TextField(
-              decoration: InputDecoration(
-                  hintText: hint(),
-                hintStyle: TextStyle(
-                  decoration: TextDecoration.none
-                )
-              ),
-            ),)
-
-          ],
-        ),
-      );
-  hint()=>Text("جست و جو بر اساس نام تمرینات ...",style: TextStyle(color: Colors.green,fontWeight: FontWeight.w500,fontSize: 18),).toString();
 }

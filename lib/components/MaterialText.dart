@@ -7,15 +7,17 @@ class MaterialText extends StatefulWidget{
   Color backgroundColor;
   FontWeight fontWeight;
   double fontsize;
+  Alignment align;
+
   MaterialText( this.height, this.text,
       this.textColor, {this.backgroundColor, this.left, this.right, this.bottom,
-  this.top,this.width,this.fontWeight,this.fontsize});
+  this.top,this.width,this.fontWeight,this.fontsize,this.align});
 
   @override
   myText createState() {
     // TODO: implement createState
     return myText(height,text,textColor,backgroundColor: backgroundColor,left:
-    left,right: right,top: top,fontsize: fontsize,bottom: bottom,width: width,fontWeight: fontWeight);
+    left,right: right,top: top,fontsize: fontsize,bottom: bottom,width: width,fontWeight: fontWeight,align: align);
   }
 
 }
@@ -27,9 +29,10 @@ class myText extends State<MaterialText>{
   Color backgroundColor;
   FontWeight fontWeight;
   double fontsize;
+  Alignment align;
   myText( this.height, this.text, this.textColor,
   {this.backgroundColor, this.left, this.right, this.bottom,
-  this.top,this.width,this.fontWeight,this.fontsize});
+  this.top,this.width,this.fontWeight,this.fontsize,this.align});
 
 
   @override
@@ -45,16 +48,18 @@ class myText extends State<MaterialText>{
     if(backgroundColor==null)
       this.backgroundColor=Colors.white;
     return Container(
-      alignment: Alignment(0, 0),
+      alignment: align==null?Alignment.center: align,
         width: width,
       height: height,
-      padding: EdgeInsets.only(left: 5,right: 5),
+
+      padding: EdgeInsets.only(left: 5,right: 10),
       margin: EdgeInsets.only(bottom: bottom,left: left,right: right,top: top),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text(text,style: TextStyle(color: textColor,fontSize: fontsize,fontWeight: fontWeight),),
+      child: Text(text,style: TextStyle(color: textColor,
+          fontSize: fontsize,fontWeight: fontWeight,),),
     )
     ;
   }

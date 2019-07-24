@@ -105,7 +105,7 @@ class myBottom extends State<Button> {
           gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
-              colors: [startcolor, endcolor])),
+              colors: [startcolor==null?Color(0xFF5AE100):startcolor, endcolor==null?Color(0xFF0F8F00):endcolor])),
       child: GestureDetector(
         onTapDown: (tapDetails) {
           setState(() {

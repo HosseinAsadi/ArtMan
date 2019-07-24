@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 
 class DropDown extends StatefulWidget {
   String _hint;
-  DropDown(this._hint);
+  Color backgroundColor,fontcolor,arrowcolor;
+  DropDown(this._hint,{this.backgroundColor,this.fontcolor,this.arrowcolor});
   @override
   myDropDown createState() {
-    return myDropDown(_hint);
+    return myDropDown(_hint,backgroundColor: backgroundColor,fontcolor: fontcolor,arrowcolor: arrowcolor);
   }
 }
 class myDropDown extends State<DropDown> {
   String cityvalue=null;
   String _hint;
-  myDropDown(this._hint);
+  Color backgroundColor,fontcolor,arrowcolor;
+
+  myDropDown(this._hint,{this.backgroundColor,this.fontcolor,this.arrowcolor});
   @override
   Widget build(BuildContext context) {
 
@@ -22,7 +25,7 @@ class myDropDown extends State<DropDown> {
         padding: EdgeInsets.only(right: 15,left: 15),
         height: 40.0,
         decoration: BoxDecoration(
-            color: Colors.white ,
+            color:backgroundColor==null? Colors.white:backgroundColor ,
             borderRadius: BorderRadius.circular(20)
         ),
 
@@ -42,10 +45,10 @@ class myDropDown extends State<DropDown> {
           value: cityvalue,
           isExpanded: true,
           underline: Text(""),
-          icon: Icon(IconData(0xe900,fontFamily: "icone"),color: Colors.green,size: 18,),
+          icon: Icon(IconData(0xe900,fontFamily: "icone"),color:arrowcolor==null? Colors.green:arrowcolor,size: 18,),
           hint: Text(
             _hint,
-            style: TextStyle(color: Colors.grey, fontSize: 13),
+            style: TextStyle(color:fontcolor==null? Colors.grey:fontcolor, fontSize: 13),
           ),
         )
 
