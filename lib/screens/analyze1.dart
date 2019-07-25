@@ -18,7 +18,7 @@ class A extends State<Analyze1>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: PreferredSize(child: CustomAppbar('آنالیز هنرجو'), preferredSize: Size.fromHeight(55)),
+      appBar: PreferredSize(child: CustomAppbar('آنالیز هنرجو', Icons.search), preferredSize: Size.fromHeight(55)),
       drawer: Drawer(),
       body: setBackground(),
     );

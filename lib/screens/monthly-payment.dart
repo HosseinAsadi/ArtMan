@@ -86,7 +86,9 @@ class MP extends State<MonthlyPayment> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   )),
             ],
-          )));
+          )
+      )
+  );
 
   void onChange() {
     String text = _controller.text;

@@ -18,7 +18,7 @@ class A extends State<Analyze2>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: PreferredSize(child: CustomAppbar('آنالیز هنرجو'), preferredSize: Size.fromHeight(55)),
+      appBar: PreferredSize(child: CustomAppbar('آنالیز هنرجو', Icons.search), preferredSize: Size.fromHeight(55)),
       drawer: Drawer(),
       body: setBackground(),
     );
@@ -76,7 +76,7 @@ class A extends State<Analyze2>{
               child: CustomTextField("پهنای متغییر شانه(سانتی متر)", Colors.green, TextInputType.number, textAlign: TextAlign.center),
             ),
 
-            CustomButton("ادامه آنالیز", _formKey, ''),
+            CustomButton("ادامه آنالیز", _formKey, '/analyze5'),
 
           ],
         ),

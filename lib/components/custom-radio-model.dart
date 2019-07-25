@@ -9,6 +9,7 @@ class RadioModel{
 
 class RadioItem extends StatelessWidget{
   final RadioModel _item;
+
   RadioItem(this._item);
 
   @override
