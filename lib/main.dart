@@ -1,3 +1,4 @@
+import 'package:art_man/page/ExtractSportName.dart';
 import 'package:art_man/page/JoinedPage.dart';
 import 'package:art_man/page/MuscleGroupList.dart';
 import 'package:art_man/page/PlanPage.dart';
@@ -16,10 +17,14 @@ import 'package:art_man/page/SignUpPage.dart';
 import 'package:art_man/page/TeacherProfilePage.dart';
 import 'package:art_man/page/VerifyPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 
-void main() => runApp(MyApp());
+void main() {
+  debugPaintSizeEnabled = false;
+ return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
 
@@ -43,7 +48,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 
-        '/':(context) => SelectSportExtract(),
+        '/':(context) => SplashScreenPage(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -56,9 +61,11 @@ class MyApp extends StatelessWidget {
         '/SaveAnalyze': (context) => SaveAnalyze(),
         '/StdInformationPage': (context) => StdInformationPage(),
         '/PlanePage': (context) => PlanePage(),
+        '/PlanSport': (context) => PlanSport(),
         '/MuscleGroupList': (context) => MuscleGroupList(),
         '/SportField': (context) => SportField(),
         '/SelectSportExtract': (context) => SelectSportExtract(),
+        '/ExtractSportName': (context) => ExtractSportName(),
       },
     );
   }

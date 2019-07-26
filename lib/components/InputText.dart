@@ -9,8 +9,10 @@ class InputText extends StatefulWidget {
   double brderwidth;
   double radius;
   double margintop;
-  Alignment alignment;
+  TextAlign textAlign;
   int maxlines;
+  Color hintconlor;
+  double hintsize;
 
   InputText(this._hint, this.id,
       {this.height,
@@ -18,8 +20,10 @@ class InputText extends StatefulWidget {
       this.brderwidth,
       this.margintop,
       this.radius,
-      this.alignment,
-      this.maxlines});
+      this.textAlign,
+      this.maxlines,
+      this.hintconlor,
+      this.hintsize});
 
   @override
   myInputText createState() {
@@ -29,7 +33,10 @@ class InputText extends StatefulWidget {
         brderwidth: brderwidth,
         margintop: margintop,
         radius: radius,
-    maxlines: maxlines);
+        maxlines: maxlines,
+        hintconlor: hintconlor,
+        alignment: textAlign,
+        hintsize: hintsize);
     ctrl = it.getcontoroler();
     Keys.setter(id, ctrl);
     return it;
@@ -43,8 +50,11 @@ class myInputText extends State<InputText> {
   double brderwidth;
   double radius;
   double margintop;
-  Alignment alignment;
+  TextAlign alignment;
   int maxlines;
+  Color hintconlor;
+  double hintsize;
+
   myInputText(this._hint,
       {this.height,
       this.brdercolor,
@@ -52,38 +62,38 @@ class myInputText extends State<InputText> {
       this.margintop,
       this.radius,
       this.alignment,
-      this.maxlines});
+      this.maxlines,
+      this.hintsize,
+      this.hintconlor});
 
   var ctrl = new TextEditingController();
-
-  String text = ""; // empty string to carry what was there before it
-  int maxLength = 15;
 
   getcontoroler() => ctrl;
 
   @override
   Widget build(BuildContext context) {
-
-    if (height == null) height = 50.0;
-    if (brdercolor == null) brdercolor = Colors.white;
-    if (brderwidth == null) brderwidth = 0.0;
     return Container(
-      alignment: alignment == null ? Alignment.centerRight : Alignment.topRight,
+
+     alignment: Alignment.center,
       margin: EdgeInsets.only(
-        top: margintop == null ? 7.0 : margintop,
+        top: margintop == null ? 1.0 : margintop,
       ),
-      padding: EdgeInsets.only(right: 15),
-      height: height,
+      padding: EdgeInsets.only(right: 3),
+      height: height == null ? 40.0 : height,
       decoration: BoxDecoration(
-          border: Border.all(color: brdercolor, width: brderwidth),
+          border: Border.all(
+              color: brdercolor == null ? Colors.white : brdercolor,
+              width: brderwidth == null ? 0.0 : brderwidth),
           color: Colors.white,
           borderRadius: BorderRadius.circular(radius == null ? 25 : radius)),
       child: TextFormField(
-        
-        
-        textDirection: TextDirection.rtl,
+        textAlign: alignment == null ? TextAlign.right : alignment,
         maxLines: maxlines==null?1:maxlines,
-        keyboardType: TextInputType.multiline,
+        style: TextStyle(
+          fontSize: 14,
+
+        ),
+        textDirection: TextDirection.rtl,
         controller: ctrl,
         validator: (String value) {
           if (value.isEmpty) {
@@ -91,32 +101,17 @@ class myInputText extends State<InputText> {
           }
           return null;
         },
+
         decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.all(0.0),
             hintText: _hint,
             errorStyle: TextStyle(height: 0),
-            border: InputBorder.none,
-            hintStyle: TextStyle(color: Colors.grey, fontSize: 13)),
+            hintStyle: TextStyle(
+
+                color: hintconlor == null ? Colors.grey : hintconlor,
+                fontSize: hintsize == null ? 13 : hintsize)),
       ),
     );
   }
-
-  /*onChange(String newVal) {
-    if(newVal.length <= maxLength){
-      text = newVal;
-    }else{
-      ctrl.value = new TextEditingValue(
-          text: text,
-          selection: new TextSelection(
-              baseOffset: maxLength,
-              extentOffset: maxLength,
-              affinity: TextAffinity.downstream,
-              isDirectional: false
-          ),
-          composing: new TextRange(
-              start: 0, end: maxLength
-          )
-      );
-      ctrl.text = text;
-    }
-  }*/
 }

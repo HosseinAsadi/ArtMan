@@ -56,7 +56,7 @@ class _StdInformationPageState extends State<StdInformationPage> {
   );
   Button saveanalyze = new Button(
     [""],
-    "/",
+    "/PlanePage",
     "ذخیره آنالیز",
     40.0,
     30.0,
