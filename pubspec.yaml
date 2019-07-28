@@ -19,12 +19,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+
+
   flutter_localizations:
     sdk: flutter
   http: ^0.12.0+2
 
 
   cupertino_icons: ^0.1.2
+  image_picker: ^0.6.0+17
+  image_cropper: ^1.0.2
+  flutter_image_compress: ^0.6.3
+  dio: ^2.1.13
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +43,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+#  plugin:
+#    androidPackage: vn.hunghd.flutter.plugins.imagecropper
+#    iosPrefix: FLT
+#    pluginClass: ImageCropperPlugin
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -55,6 +65,7 @@ flutter:
     - assets/images/pic5.jpeg
     - assets/images/pic6.jpeg
     - assets/images/pic7.jpeg
+    - assets/images/profile.png
 
 
 

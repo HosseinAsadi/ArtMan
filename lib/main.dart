@@ -1,3 +1,4 @@
+import 'package:art_man/components/ImageSetting.dart';
 import 'package:art_man/page/ExtractSportName.dart';
 import 'package:art_man/page/JoinedPage.dart';
 import 'package:art_man/page/MuscleGroupList.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 
-        '/':(context) => SplashScreenPage(),
+        '/':(context) => TeacherProfilePage(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
         '/SportField': (context) => SportField(),
         '/SelectSportExtract': (context) => SelectSportExtract(),
         '/ExtractSportName': (context) => ExtractSportName(),
+    ImageSetting.routeName: (context) => ImageSetting(),
       },
     );
   }

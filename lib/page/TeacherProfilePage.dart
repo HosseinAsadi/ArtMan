@@ -1,7 +1,10 @@
+import 'package:art_man/components/ImageSetting.dart';
 import 'package:art_man/components/MaterialText.dart';
+import 'package:art_man/components/ScreenArguments.dart';
 import 'package:art_man/components/profile-button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TeacherProfilePage extends StatefulWidget {
   @override
@@ -9,6 +12,7 @@ class TeacherProfilePage extends StatefulWidget {
 }
 
 class _TeacherProfilePageState extends State<TeacherProfilePage> {
+  List<Widget> item=[Text('گرفتن عکس'),Text("انتخاب از گالری")];
   MaterialText id = new MaterialText(
     20.0,
     "Amiryalhossein1398",
@@ -37,7 +41,8 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
    //  debugPaintSizeEnabled=true;
 
     return Scaffold(
-      body: Container(
+      body: Builder(
+        builder: (context) =>  Container(
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/background.png"),
@@ -57,10 +62,79 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
+
+                          child:GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                ImageSetting.routeName,
+                                arguments: ScreenArguments(
+                                    ImageSource.gallery
+                                ),
+                              );
+                             /* Scaffold.of(context).showSnackBar(
+                                  SnackBar(
+                                  backgroundColor: Colors.white,
+                                    content: ListView(
+                                      shrinkWrap: true,
+                                      padding: const EdgeInsets.all(20.0),
+                                      children: <Widget>[
+                                        InkWell(child: Row(
+                                          mainAxisAlignment:MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+
+                                          children: <Widget>[
+                                          Icon(Icons.camera_alt,color: Colors.grey),
+                                          SizedBox(width: 30,),
+                                          Text('گرفتن عکس',style: TextStyle(color: Colors.black,
+                                              fontWeight: FontWeight.w700,fontSize: 16),),
+                                        ],),
+
+                                        onTap: (){
+                                          Navigator.pushNamed(
+                                            context,
+                                            ImageSetting.routeName,
+                                            arguments: ScreenArguments(
+                                              ImageSource.camera
+                                              ),
+                                          );
+                                        },),
+                                        Container(height:1,color:  Colors.grey,),
+                                        InkWell(
+
+                                          onTap: (){
+                                            Navigator.pushNamed(
+                                              context,
+                                              ImageSetting.routeName,
+                                              arguments: ScreenArguments(
+                                                  ImageSource.gallery
+                                              ),
+                                            );
+                                          },
+
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            mainAxisAlignment:MainAxisAlignment.start,
+                                            children: <Widget>[
+                                            Icon(Icons.photo_library,color: Colors.grey),
+                                            SizedBox(width: 30,),
+                                            Text('انتخاب از گالری',style: TextStyle(color: Colors.black,
+                                                fontWeight: FontWeight.w700,fontSize: 16)),
+                                          ],)
+                                        )
+
+
+
+                                      ],
+                                    )));*/
+
+
+                            },
                           child: ClipRRect(
                             child: Image.asset("assets/images/morabi.jpeg"),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0)),
+                          ),
                           ),
                           width: 100,
                           height: 100,
@@ -156,7 +230,8 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
           ],
         ),
       ),
-    );
+      ), );
+      
   }
 
   text(text, fontwidth, fontsize) => Text(
