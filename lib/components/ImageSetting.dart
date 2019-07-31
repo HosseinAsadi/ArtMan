@@ -3,6 +3,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/material.dart';
+import 'ImageUploader.dart';
 
 
 class ImageSetting extends StatefulWidget {
@@ -42,14 +43,18 @@ class _ImageSettingState extends State<ImageSetting> {
       setState(() {
         _image = result;
       });
+      var temp=_image;
+      ImageUploader.upload(_image, "http://192.168.20.241:3000/teachers/profileImage/sepehr");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+
 setState(() {
   getImageFile(ImageSource.gallery);
   _cropImage(_image);
+
 });
 
 

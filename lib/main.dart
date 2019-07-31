@@ -1,4 +1,5 @@
 import 'package:art_man/components/ImageSetting.dart';
+
 import 'package:art_man/page/ExtractSportName.dart';
 import 'package:art_man/page/JoinedPage.dart';
 import 'package:art_man/page/MuscleGroupList.dart';
@@ -6,6 +7,7 @@ import 'package:art_man/page/PlanPage.dart';
 import 'package:art_man/page/PlanSport.dart';
 import 'package:art_man/page/SaveAnalyze.dart';
 import 'package:art_man/page/SelectSportExtract.dart';
+import 'package:art_man/page/ShowThumbnail.dart';
 import 'package:art_man/page/SplashScreenPage.dart';
 import 'package:art_man/page/SportField.dart';
 import 'package:art_man/page/StdAnalyzePage.dart';
@@ -17,6 +19,7 @@ import 'package:art_man/page/SingInPage.dart';
 import 'package:art_man/page/SignUpPage.dart';
 import 'package:art_man/page/TeacherProfilePage.dart';
 import 'package:art_man/page/VerifyPage.dart';
+import 'package:art_man/page/VideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -49,7 +52,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 
-        '/':(context) => TeacherProfilePage(),
+        '/':(context) => VideoPlayerApp(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -67,6 +70,8 @@ class MyApp extends StatelessWidget {
         '/SportField': (context) => SportField(),
         '/SelectSportExtract': (context) => SelectSportExtract(),
         '/ExtractSportName': (context) => ExtractSportName(),
+        '/VideoPlayerApp': (context) => VideoPlayerApp(),
+        '/Show': (context) => Show(),
     ImageSetting.routeName: (context) => ImageSetting(),
       },
     );

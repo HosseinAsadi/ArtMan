@@ -62,9 +62,10 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-
                           child:GestureDetector(
                             onTap: () {
+                             /* UserInfo userinfo=new UserInfo();
+                              userinfo.print();*/
                               Navigator.pushNamed(
                                 context,
                                 ImageSetting.routeName,

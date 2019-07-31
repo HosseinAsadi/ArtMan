@@ -22,6 +22,7 @@ class MySingup extends State<SignUp> {
   );
   Button button = new Button(["fullname","phone","country","city","sex",],"/verifypage", "تایید ثبت نام", 40.0, 20.0,
       marginleft: 5.0,
+      
       width: 140.0,
       startcolor: Color(0xFF5AE400),
       endcolor: Color(0xFF0F8F00),
