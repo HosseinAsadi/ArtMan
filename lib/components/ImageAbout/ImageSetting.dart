@@ -44,7 +44,8 @@ class _ImageSettingState extends State<ImageSetting> {
         _image = result;
       });
       var temp=_image;
-      ImageUploader.upload(_image, "http://192.168.20.241:3000/teachers/profileImage/sepehr");
+      ImageUploader imageUploader=new ImageUploader();
+      imageUploader.upload(_image, "http://192.168.20.241:3000/teachers/profileImage/sepehr");
     }
   }
 
