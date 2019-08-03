@@ -9,14 +9,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_uploader: ^1.0.3
+  seekbar: ^0.0.2
+  screen: ^0.0.5
   video_player: ^0.10.1+5
   percent_indicator: ^2.1.1
   thumbnails: ^1.0.1
   path_provider: ^1.2.0
-  # simple_permissions: ^0.1.6
-#  chewie: ^0.9.7
 
-
+  
   flutter_localizations:
     sdk: flutter
   http: ^0.12.0+2
@@ -61,8 +62,9 @@ flutter:
     - assets/images/pic7.jpeg
     - assets/images/profile.png
     - assets/images/paragliding.mp4
-    - assets/images/gif.mp4
-    - assets/images/normal.mp4
+    - assets/images/doble.mp4
+    - assets/images/aaa.mp4
+
 
 
 

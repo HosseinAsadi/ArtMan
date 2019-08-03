@@ -1,4 +1,5 @@
-import 'package:art_man/components/Button.dart';
+
+import 'package:art_man/components/Buttons/Button.dart';
 import 'package:flutter/material.dart';
 
 class SportPlanPage extends StatefulWidget {

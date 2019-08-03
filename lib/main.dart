@@ -1,28 +1,40 @@
-import 'package:art_man/components/ImageSetting.dart';
 
-import 'package:art_man/page/ExtractSportName.dart';
-import 'package:art_man/page/JoinedPage.dart';
-import 'package:art_man/page/MuscleGroupList.dart';
+import 'package:art_man/components/ImageAbout/ImageSetting.dart';
+import 'package:art_man/page/Analyzes/SaveAnalyze.dart';
+import 'package:art_man/page/Analyzes/StdAnalyzePage.dart';
+import 'package:art_man/page/Analyzes/StdAnalyzePage4.dart';
+import 'package:art_man/page/Analyzes/StdAnalyzePage6.dart';
+import 'package:art_man/page/Analyzes/analyze1.dart';
+import 'package:art_man/page/Analyzes/analyze2.dart';
+import 'package:art_man/page/Analyzes/analyze5.dart';
+import 'package:art_man/page/Analyzes/analyze6.dart';
+import 'package:art_man/page/Analyzes/save-analyze0.dart';
 import 'package:art_man/page/PlanPage.dart';
 import 'package:art_man/page/PlanSport.dart';
-import 'package:art_man/page/SaveAnalyze.dart';
-import 'package:art_man/page/SelectSportExtract.dart';
 import 'package:art_man/page/ShowThumbnail.dart';
-import 'package:art_man/page/SplashScreenPage.dart';
-import 'package:art_man/page/SportField.dart';
-import 'package:art_man/page/StdAnalyzePage.dart';
-import 'package:art_man/page/StdAnalyzePage4.dart';
-import 'package:art_man/page/StdAnalyzePage6.dart';
-import 'package:art_man/page/StdInformationPage.dart';
-import 'package:art_man/page/StdPropertyPage.dart';
-import 'package:art_man/page/SingInPage.dart';
-import 'package:art_man/page/SignUpPage.dart';
-import 'package:art_man/page/TeacherProfilePage.dart';
-import 'package:art_man/page/VerifyPage.dart';
 import 'package:art_man/page/VideoPlayer.dart';
+import 'package:art_man/page/description/StdInformationPage.dart';
+import 'package:art_man/page/description/StdPropertyPage.dart';
+import 'package:art_man/page/description/coach-atributies-explanations.dart';
+import 'package:art_man/page/description/membership.dart';
+import 'package:art_man/page/description/monthly-payment.dart';
+import 'package:art_man/page/lists/MuscleGroupList.dart';
+import 'package:art_man/page/lists/SelectSportExtract.dart';
+import 'package:art_man/page/lists/SportField.dart';
+import 'package:art_man/page/profile/TeacherProfilePage.dart';
+import 'package:art_man/page/profile/profile.dart';
+import 'package:art_man/page/signs/JoinedPage.dart';
+import 'package:art_man/page/signs/SignUpPage.dart';
+import 'package:art_man/page/signs/SingInPage.dart';
+import 'package:art_man/page/signs/VerifyPage.dart';
+import 'package:art_man/page/signs/first-login.dart';
+import 'package:art_man/page/signs/register.dart';
+import 'package:art_man/page/signs/sms-verify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'page/ExtractSportName.dart';
 
 
 void main() {
@@ -72,6 +84,27 @@ class MyApp extends StatelessWidget {
         '/ExtractSportName': (context) => ExtractSportName(),
         '/VideoPlayerApp': (context) => VideoPlayerApp(),
         '/Show': (context) => Show(),
+        '/Analyze1': (context) => Analyze1(),
+        '/Analyze2': (context) => Analyze2(),
+        '/Analyze5': (context) => Analyze5(),
+        '/Analyze6': (context) => Analyze6(),
+        '/SaveAnalyzee': (context) => SaveAnalyzee(),
+        '/CoachExplan': (context) => CoachExplan(),
+        '/Membership': (context) => Membership(),
+        '/MonthlyPayment': (context) => MonthlyPayment(),
+        '/Profile': (context) => Profile(),
+        '/FirstLogin': (context) => FirstLogin(),
+        '/Register': (context) => Register(),
+        '/SMSVerify': (context) => SMSVerify(),
+        '/SaveAnalyzee': (context) => SaveAnalyzee(),
+        '/SaveAnalyzee': (context) => SaveAnalyzee(),
+        '/SaveAnalyzee': (context) => SaveAnalyzee(),
+        '/SaveAnalyzee': (context) => SaveAnalyzee(),
+        '/SaveAnalyzee': (context) => SaveAnalyzee(),
+        '/SaveAnalyzee': (context) => SaveAnalyzee(),
+        '/SaveAnalyzee': (context) => SaveAnalyzee(),
+
+
     ImageSetting.routeName: (context) => ImageSetting(),
       },
     );

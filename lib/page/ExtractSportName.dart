@@ -1,5 +1,6 @@
-import 'package:art_man/components/Button.dart';
-import 'package:art_man/components/InputText.dart';
+
+import 'package:art_man/components/Buttons/Button.dart';
+import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

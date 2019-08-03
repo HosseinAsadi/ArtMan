@@ -1,6 +1,6 @@
-import 'package:art_man/components/Button.dart';
+import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/DropDown.dart';
-import 'package:art_man/components/MakeList.dart';
+import 'package:art_man/components/Lists/MakeList.dart';
 import 'package:flutter/material.dart';
 
 class PlanSport extends StatefulWidget {
