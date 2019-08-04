@@ -1,4 +1,3 @@
-
 import 'package:art_man/components/ImageAbout/ImageSetting.dart';
 import 'package:art_man/page/Analyzes/SaveAnalyze.dart';
 import 'package:art_man/page/Analyzes/StdAnalyzePage.dart';
@@ -12,6 +11,8 @@ import 'package:art_man/page/Analyzes/save-analyze0.dart';
 import 'package:art_man/page/PlanPage.dart';
 import 'package:art_man/page/PlanSport.dart';
 import 'package:art_man/page/ShowThumbnail.dart';
+import 'package:art_man/page/SplashScreenPage.dart';
+import 'package:art_man/page/SportPlanePage.dart';
 import 'package:art_man/page/VideoPlayer.dart';
 import 'package:art_man/page/description/StdInformationPage.dart';
 import 'package:art_man/page/description/StdPropertyPage.dart';
@@ -21,6 +22,8 @@ import 'package:art_man/page/description/monthly-payment.dart';
 import 'package:art_man/page/lists/MuscleGroupList.dart';
 import 'package:art_man/page/lists/SelectSportExtract.dart';
 import 'package:art_man/page/lists/SportField.dart';
+import 'package:art_man/page/lists/food-plan.dart';
+import 'package:art_man/page/lists/list-session.dart';
 import 'package:art_man/page/profile/TeacherProfilePage.dart';
 import 'package:art_man/page/profile/profile.dart';
 import 'package:art_man/page/signs/JoinedPage.dart';
@@ -33,7 +36,7 @@ import 'package:art_man/page/signs/sms-verify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
+import 'components/ImageAbout/ImageUploader.dart';
 import 'page/ExtractSportName.dart';
 
 
@@ -64,7 +67,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 
-        '/':(context) => VideoPlayerApp(),
+        '/':(context) => Uploader(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -96,15 +99,9 @@ class MyApp extends StatelessWidget {
         '/FirstLogin': (context) => FirstLogin(),
         '/Register': (context) => Register(),
         '/SMSVerify': (context) => SMSVerify(),
-        '/SaveAnalyzee': (context) => SaveAnalyzee(),
-        '/SaveAnalyzee': (context) => SaveAnalyzee(),
-        '/SaveAnalyzee': (context) => SaveAnalyzee(),
-        '/SaveAnalyzee': (context) => SaveAnalyzee(),
-        '/SaveAnalyzee': (context) => SaveAnalyzee(),
-        '/SaveAnalyzee': (context) => SaveAnalyzee(),
-        '/SaveAnalyzee': (context) => SaveAnalyzee(),
-
-
+        '/SportPlanPage': (context) => SportPlanPage(),
+        '/FoodPlan': (context) => FoodPlan(),
+        '/ListSession': (context) => ListSession(),
     ImageSetting.routeName: (context) => ImageSetting(),
       },
     );

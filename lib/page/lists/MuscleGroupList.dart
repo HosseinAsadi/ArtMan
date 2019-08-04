@@ -53,7 +53,6 @@ class MuscleGroupList extends StatelessWidget {
       ),
     );
   }
-
 }
 
 

@@ -9,9 +9,10 @@ class CustomText extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      alignment: Alignment(1, 0),
+
+      alignment: Alignment.centerRight,
       margin: EdgeInsets.only(left: 20, right: 20),
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(4),
       child: Text(
         _text,
         textDirection: TextDirection.rtl,

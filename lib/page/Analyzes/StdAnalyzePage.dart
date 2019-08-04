@@ -27,7 +27,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
   DropDown jens = new DropDown("جنسیت خود را وارد نمایید.");
   Button countinue = new Button(
     [""],
-    "/StdAnalyzePage4",
+    "/Register",
     "ادامه آنالیز",
     40.0,
     10.0,

@@ -12,7 +12,7 @@ class CoachExplan extends StatefulWidget{
 }
 
 class CE extends State<CoachExplan>{
-  Button _cb = new Button([""],"/",'صفحه ورود/ثبت نام', 40.0, 10.0);
+  Button _cb = new Button([""],"/Membership",'صفحه ورود/ثبت نام', 40.0, 10.0);
 
   @override
   Widget build(BuildContext context) {

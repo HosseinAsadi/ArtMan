@@ -20,8 +20,8 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text('تنظیم مجدد', style: TextStyle(fontSize: 15),),
-            Text('جلسه شماره1-هفته شماره1')
+            Text('تنظیم مجدد', style: TextStyle(fontSize: 13),),
+            Text('جلسه شماره1-هفته شماره1',style: TextStyle(fontSize: 15))
           ],
         ),
         actions: <Widget>[
@@ -60,7 +60,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
           Container(
               margin: EdgeInsets.only(left: 20, right: 20, top: 16),
               padding: EdgeInsets.all(16),
-              height: 150,
+              height: 162,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(15)
               ),

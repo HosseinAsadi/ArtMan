@@ -43,7 +43,7 @@ class _StdAnalyzePage4State extends State<StdAnalyzePage4> {
   );
   Button continuebtn = new Button(
     [""],
-    "/",
+    "/FirstLogin",
     "ادامه آنالیز",
     40.0,
     30.0,

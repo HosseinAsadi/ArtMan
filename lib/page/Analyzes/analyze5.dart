@@ -70,7 +70,7 @@ class A extends State<Analyze5>{
 
       TextArea('توضیحات خود را وارد نمایید..', 140),
 
-      CustomButton('ادامه آنالیز', null, '')
+      CustomButton('ادامه آنالیز',null, '/Analyze6')
     ],
   );
 }

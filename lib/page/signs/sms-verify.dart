@@ -1,4 +1,5 @@
-import 'package:art_man/components/Buttons/costumbutton.dart';
+import 'package:art_man/components/Buttons/Button.dart';
+import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/InputTexts/text-field-enter.dart';
 import 'package:art_man/components/Texts/text.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +14,11 @@ class SMSVerify extends StatefulWidget {
 }
 
 class SMSV extends State<SMSVerify> {
-  CustomText ct = new CustomText("کد‌تایید‌ثبت‌نام:");
+  Widget ct = new Text("کد‌تایید‌ثبت‌نام:",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),);
   var _formKey = GlobalKey<FormState>();
 
-  CustomTextField _ctf =
-      new CustomTextField("کد تاییدیه را وارد نمایید..", Colors.grey, TextInputType.text);
+  InputText _ctf =
+      new InputText("کد تاییدیه را وارد نمایید..","verifycode");
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class SMSV extends State<SMSVerify> {
 
   Widget setBackground() => Container(
         alignment: Alignment(1, 0),
+        padding: EdgeInsets.only(left: 20,right: 20),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/background.png"),
@@ -41,7 +43,13 @@ class SMSV extends State<SMSVerify> {
   Widget body() =>Form(key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[ct, _ctf, getRow(), CustomButton("ارسال و تایید", _formKey, '/monthly-payment')],
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              ct,
+          ],),
+           _ctf, getRow(), Button([""],'/MonthlyPayment',"ارسال و تایید",40.0,10.0,width: 120.0, )],
       )
   );
 

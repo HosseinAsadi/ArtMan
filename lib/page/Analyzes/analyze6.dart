@@ -60,7 +60,7 @@ class A extends State<Analyze6> {
                   promise("", "در روز", "در هفته"),
                   title('ساعت خواب به طور معمول:'),
                   promise("ساعت خواب", "ساعت بیداری", ""),
-                  CustomButton('ادامه آنالیز', _formKey, '')
+                  CustomButton('ادامه آنالیز', _formKey, '/SaveAnalyzee')
 
                 ],
               )

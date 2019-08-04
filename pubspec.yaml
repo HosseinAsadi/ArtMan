@@ -16,6 +16,8 @@ dependencies:
   percent_indicator: ^2.1.1
   thumbnails: ^1.0.1
   path_provider: ^1.2.0
+  image: any
+  path: any
 
   
   flutter_localizations:

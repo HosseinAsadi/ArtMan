@@ -67,7 +67,7 @@ class SA extends State<SaveAnalyzee>{
 
       TextArea('توضیحات خود را وارد نمایید..', 90),
 
-      CustomButton('ذخیره آنالیز', null, '')
+      CustomButton('ذخیره آنالیز', null, '/CoachExplan')
     ],
   );
 }

@@ -63,7 +63,7 @@ class _ExtractSportNameState extends State<ExtractSportName> {
   );
   Button ok = new Button(
     [""],
-    "/",
+    "/SelectSportExtract",
     "تایید تمرین",
     35.0,
     20.0,
