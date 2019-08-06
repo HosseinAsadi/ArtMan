@@ -1,6 +1,7 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputPass.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/SharedPreference.dart';
 import 'package:flutter/material.dart';
 
 
@@ -12,23 +13,24 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class SingInPage extends State<MyCustomForm> {
+  static ShPre typeuser=new ShPre();
   final _formkey = GlobalKey<FormState>();
 
   InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
   InputPass password = new InputPass("password");
-  Button signinbtn = new Button(["username","password"],'/StdAnalyzePage', "ورود", 40.0, 20.0,
+  Button signinbtn = new Button(["username","password"],typeuser.getValuesSF()=="teacher"?'/TeacherProfilePage':"/Profile", "ورود", 40.0, 20.0,
       marginleft: 5.0,
       startcolor: Color(0xFF5AE400),
       endcolor: Color(0xFF0F8F00));
-  Button signupbtn = new Button(["username","password"],'/signuppage', "ثبت نام", 40.0, 20.0,
+  Button signupbtn = new Button(["username","password"],typeuser.getValuesSF()=="teacher"?'/Register':"/signuppage", "ثبت نام", 40.0, 20.0,
       marginright: 5.0,
       startcolor: Colors.grey[700],
       endcolor: Colors.grey[700]);
 
   @override
   Widget build(BuildContext context) {
-    signupbtn.setkey(_formkey);
-    signupbtn.setkey(_formkey);
+   // signupbtn.setkey(_formkey);
+    signinbtn.setkey(_formkey);
    // signupbtn.setinputs([username.ctrl.text, password.ctrl.text]);
 
     return Scaffold(

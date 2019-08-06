@@ -1,16 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:async/async.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart' as path;
-import 'package:image/image.dart' as img;
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 
 
 
@@ -66,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
             new Container(
               constraints: new BoxConstraints.expand(),
               child: imageFile == null
-                  ? new Image.asset('assets/bg.png', colorBlendMode: BlendMode.darken, color: Colors.black26, fit: BoxFit.cover)
+                  ? new Image.asset('assets/profile.png', colorBlendMode: BlendMode.darken, color: Colors.black26, fit: BoxFit.cover)
                   : new Image.file(imageFile, fit: BoxFit.cover),
             ),
             new Align(
@@ -113,9 +110,32 @@ class _MyHomePageState extends State<MyHomePage> {
   _takePhoto() async {
     imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {});
+    _cropImage();
   }
 
+  Future<Null> _cropImage() async {
+    if(imageFile!=null) {
+      File croppedFile = await ImageCropper.cropImage(
+        sourcePath: imageFile.path,
+        ratioX: 1.0,
+        ratioY: 1.0,
+        maxWidth: 512,
+        maxHeight: 512,
+      );
 
+       var result = await FlutterImageCompress.compressAndGetFile(
+        croppedFile.path,
+        croppedFile.path,
+        quality: 72,
+      );
+
+      setState(() {
+        imageFile = result;
+      });
+
+
+    }
+  }
 
 
   _uploadImage() async {
@@ -139,6 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _selectGalleryImage() async {
     imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {});
+    _cropImage();
   }
 }
 

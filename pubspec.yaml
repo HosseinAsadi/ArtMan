@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  shared_preferences: ^0.5.3+4
   flutter_uploader: ^1.0.3
   seekbar: ^0.0.2
   screen: ^0.0.5
@@ -19,7 +20,7 @@ dependencies:
   image: any
   path: any
 
-  
+
   flutter_localizations:
     sdk: flutter
   http: ^0.12.0+2
@@ -64,6 +65,7 @@ flutter:
     - assets/images/pic7.jpeg
     - assets/images/profile.png
     - assets/images/aaa.mp4
+    - assets/images/icon.png
 
  
   # example:

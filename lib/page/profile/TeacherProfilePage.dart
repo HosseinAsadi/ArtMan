@@ -1,10 +1,7 @@
-
 import 'package:art_man/components/Buttons/profile-button.dart';
-import 'package:art_man/components/ImageAbout/ImageSetting.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:image_picker/image_picker.dart';
 
 class TeacherProfilePage extends StatefulWidget {
   @override
@@ -66,13 +63,14 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                             onTap: () {
                              /* UserInfo userinfo=new UserInfo();
                               userinfo.print();*/
-                              Navigator.pushNamed(
+                             Navigator.pushNamed(context, "/Uploader");
+                              /*Navigator.pushNamed(
                                 context,
-                                ImageSetting.routeName,
-                                /*arguments: ScreenArguments(
+                                Uploader.routeName,
+                                arguments: ScreenArguments(
                                     ImageSource.gallery
-                                ),*/
-                              );
+                                ),
+                              );*/
                              /* Scaffold.of(context).showSnackBar(
                                   SnackBar(
                                   backgroundColor: Colors.white,

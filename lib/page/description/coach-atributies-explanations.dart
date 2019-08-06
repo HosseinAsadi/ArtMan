@@ -1,87 +1,77 @@
-﻿import 'package:art_man/components/Buttons/Button.dart';
+﻿
+import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/Texts/Strings.dart';
-
 import 'package:flutter/material.dart';
 
 class CoachExplan extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return CE();
+    return MyStdproperty();
   }
 }
 
-class CE extends State<CoachExplan>{
-  Button _cb = new Button([""],"/Membership",'صفحه ورود/ثبت نام', 40.0, 10.0);
+class MyStdproperty extends State<CoachExplan> {
+  Button bottom = new Button([""],'/signinpage', "صفحه ورود/ثبت نام", 40.0, 10.0,
+      startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 150.0);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(body: setBackground());
-  }
-
-  Widget setBackground() => Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage("assets/images/background.png"),
-        fit: BoxFit.cover,
-      ),
-    ),
-    child: body(),
-  );
-
-  Widget body() => Center(
-    child: ListView(
-      shrinkWrap: true,
-      children: <Widget>[
-        Text(
-          Strings.TITLECOACHEXPLAN,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 18
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
           ),
-          textAlign: TextAlign.center,
         ),
-
-        Column(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              height: 2,
-              width: 230,
-              color: Colors.lightGreen,
-              margin: EdgeInsets.only(bottom: 20),
+            Flexible(
+                flex: 1,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 1),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        Strings.TITLECOACHEXPLAN,
+                        textDirection: TextDirection.ltr,
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Center(
+                        child: Container(
+                          height: 2.5,
+                          width: 250.0,
+                          color: Color(0xFF0F8F00),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+            Flexible(
+              flex: 7,
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right: 10),
+                child:  Text(
+                  Strings.COACHATRIBEXPLAN,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      height: 1.5
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
+            Flexible(flex: 2, child: bottom),
           ],
         ),
-
-        Container(
-          padding: EdgeInsets.only(
-              left: 10,
-              right: 10
-          ),
-          child: Text(
-            Strings.COACHATRIBEXPLAN,
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                height: 1.5
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-
-        button()
-      ],
-    )
-  );
-
-  Widget button() => GestureDetector(
-    child: _cb,
-    onTap: () {
-        Navigator.pushNamed(context, '/register');
-    },
-  );
-
+      ),
+    );
+  }
 }

@@ -19,9 +19,10 @@ class SMSV extends State<SMSVerify> {
 
   InputText _ctf =
       new InputText("کد تاییدیه را وارد نمایید..","verifycode");
-
+  Button send=new Button([""],'/VerifyPage',"ارسال و تایید",40.0,10.0,width: 120.0, );
   @override
   Widget build(BuildContext context) {
+    send.setkey(_formKey);
     // TODO: implement build
     return Scaffold(
       body: setBackground(),
@@ -49,7 +50,8 @@ class SMSV extends State<SMSVerify> {
             children: <Widget>[
               ct,
           ],),
-           _ctf, getRow(), Button([""],'/MonthlyPayment',"ارسال و تایید",40.0,10.0,width: 120.0, )],
+           _ctf, getRow(),send],
+
       )
   );
 

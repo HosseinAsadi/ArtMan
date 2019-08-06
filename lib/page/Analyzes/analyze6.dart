@@ -1,8 +1,7 @@
-import 'package:art_man/components/Buttons/costumbutton.dart';
+import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/DropDown.dart';
-import 'package:art_man/componethosein/appbar.dart';
+import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:flutter/material.dart';
-import 'package:art_man/components/InputTexts/text-field-enter.dart';
 
 
 class Analyze6 extends StatefulWidget {
@@ -20,32 +19,15 @@ class A extends State<Analyze6> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: PreferredSize(child: CustomAppbar('آنالیز هنرجو', Icons.search),
-          preferredSize: Size.fromHeight(55)),
-      drawer: Drawer(),
-      body: setBackground(),
-    );
+    return body();
   }
-
-  Widget setBackground() =>
-      Container(
-        alignment: Alignment(1, 0),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: body(),
-      );
 
   Widget body() =>
       Container(
+        margin: EdgeInsets.only(left: 10,right: 15,top: 20,bottom: 20),
           child: Form(
               key: _formKey,
-              child: ListView(
-                shrinkWrap: true,
+              child: Column(
                 children: <Widget>[
                   top(),
                   title('تعداد روزهای کاری:'),
@@ -55,12 +37,11 @@ class A extends State<Analyze6> {
                   title('سبک زندگی:'),
                   DropDown(""),
                   title('تعداد وعده های غذایی:'),
-                  promise("", "تا", ""),
+                  promise("", " تا ", ),
                   title('تعداد دفعات دفع مدفوع در روز یا هفته:'),
-                  promise("", "در روز", "در هفته"),
+                  promise( " در روز ", " در هفته"),
                   title('ساعت خواب به طور معمول:'),
-                  promise("ساعت خواب", "ساعت بیداری", ""),
-                  CustomButton('ادامه آنالیز', _formKey, '/SaveAnalyzee')
+                  promise("ساعت خواب ", " ساعت بیداری ",),
 
                 ],
               )
@@ -72,8 +53,8 @@ class A extends State<Analyze6> {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(title, style: TextStyle(color: Colors.white, fontSize: 16),),
-        Text('(اجباری)', style: TextStyle(color: Colors.red, fontSize: 10),)
+        Text(title, style: TextStyle(color: Colors.white, fontSize: 14),),
+        Text('(اجباری)', style: TextStyle(color: Colors.red, fontSize: 8),)
       ],
     ),
   );
@@ -84,41 +65,42 @@ class A extends State<Analyze6> {
             right: (MediaQuery.of(context).size.width) / 3.5,
           ),
           height: 40,
-          child: CustomTextField('', Colors.grey, TextInputType.number)
+          child: InputText('', "")
       );
 
   Widget top() => Container(
-    margin: EdgeInsets.all(16),
+    
     child: Row(
       children: <Widget>[
-        Text("شغل:", style: TextStyle(color: Colors.white),),
-        Container(
-          height: 40,
-          width: (MediaQuery.of(context).size.width) / 1.2 ,
-          child: CustomTextField('شغل خود را وارد نمایید..', Colors.grey, TextInputType.text),
-        )
+        Text("شغل:  ", style: TextStyle(color: Colors.white),),
+        Expanded(flex: 1,child:InputText('شغل خود را وارد نمایید..', "business")
+            ,)
+
+
       ],
     ),
   );
 
-  Widget promise(String t1, String t2, String t3) => Container(
-    margin: EdgeInsets.only(left: 16, right: 16),
+  Widget promise(String t1, String t2) => Container(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(t1, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+        Text(t1, style: TextStyle(color: Colors.white,fontSize: 14, fontWeight: FontWeight.bold),),
         Container(
           height: 35,
-          width: 110 ,
-          child: CustomTextField('', Colors.grey, TextInputType.text),
+          width: 80 ,
+          child:
+          InputText('', "",),
+
         ),
-        Text(t2, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+        Text(t2, style: TextStyle(color: Colors.white,fontSize: 14, fontWeight: FontWeight.bold),),
         Container(
           height: 35,
-          width: 110 ,
-          child: CustomTextField('', Colors.grey, TextInputType.text),
+          width: 80 ,
+          child: InputText('', "",),
+
         ),
-        Text(t3, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+
       ],
     ),
   );

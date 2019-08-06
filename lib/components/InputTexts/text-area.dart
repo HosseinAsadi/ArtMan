@@ -14,10 +14,9 @@ class TextArea extends StatelessWidget{
     return Container(
         height: _height,
         alignment: Alignment.topRight,
-        margin: EdgeInsets.only(top: 10, right: 16, left: 16),
         padding: EdgeInsets.only(right: 5),
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(25)),
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: TextField(
           textDirection: TextDirection.rtl,
           controller: _controller,

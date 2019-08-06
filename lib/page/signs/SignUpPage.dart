@@ -11,6 +11,7 @@ class SignUp extends StatefulWidget {
 }
 
 class MySingup extends State<SignUp> {
+
    final _formkey = GlobalKey<FormState>();
   InputText name = new InputText("نام و نام خانوادگی خود را وارد نمایید...","fullname");
   InputText phone = new InputText("شماره همراه خود را وارد نمایید...","phone");
@@ -20,7 +21,7 @@ class MySingup extends State<SignUp> {
   DropDown dropsex = new DropDown(
     "جنسیت خود را انتخاب نمایید ...",
   );
-  Button button = new Button(["fullname","phone","country","city","sex",],"/verifypage", "تایید ثبت نام", 40.0, 20.0,
+  Button button = new Button(["fullname","phone","country","city","sex",],"/SMSVerify", "تایید ثبت نام", 40.0, 20.0,
       marginleft: 5.0,
       
       width: 140.0,

@@ -11,11 +11,11 @@ class StdAnalyzePage extends StatefulWidget {
 }
 
 class _StdAnalyzePageState extends State<StdAnalyzePage> {
-  InputText descriprion=new InputText("","descriprionState",height: 150,);
+  InputText descriprion=new InputText("","descriprionState",height: 150,radius: 10,);
   var _keyForm=GlobalKey<FormState>();
   Button sendImage = new Button(
     [""],
-    '/MuscleGroupList',
+    '/',
     "ارسال تصویر",
     30.0,
     40.0,
@@ -25,50 +25,16 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
     marginbottom: 40.0,
   );
   DropDown jens = new DropDown("جنسیت خود را وارد نمایید.");
-  Button countinue = new Button(
-    [""],
-    "/Register",
-    "ادامه آنالیز",
-    40.0,
-    10.0,
-    startcolor: Color(0xFF5AE400),
-    endcolor: Color(0xFF0F8F00),
-    width: 100.0,
-    marginbottom: 4.0,
-  );
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF7FC81D),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-        ],
-        title: Text("آنالیز هنرجو"),
-      ),
-      drawer: Drawer(
-        child: Text("dff"),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: ListView(
-          shrinkWrap: false,
+    return Container(
+
+        child: Column(
           children: <Widget>[
             Center(
               child: Container(
-                margin: EdgeInsets.only(left: 20, right: 20, top: 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -106,7 +72,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
                               Image.asset(
                                 "assets/images/anatomic.png",
                                 height: 150,
-                                width: 200,
+                                width: 140,
                               ),
                               sendImage
                             ],
@@ -138,7 +104,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
                             ],
                           ),
                           descriprion,
-                          countinue,
+
                         ],
                       ),
                     ),
@@ -149,7 +115,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
             ),
           ],
         ),
-      ),
+
     );
   }
 

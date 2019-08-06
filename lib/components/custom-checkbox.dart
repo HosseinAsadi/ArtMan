@@ -63,11 +63,12 @@ class CC extends State<CustomCheckbox> {
                 )
             ),
             Text("قوانین و مقرارت اپلیکیشن را می پذیرم.",
-                style: TextStyle(color: Colors.white)),
+                style: TextStyle(color: Colors.white,fontSize: 13)),
             GestureDetector(
               child: Text("(توضیحات)",
                   style: TextStyle(
                       color: Colors.green,
+                      fontSize: 10,
                       decoration: TextDecoration.underline)),
               onTap: () {
                 setState(() {});

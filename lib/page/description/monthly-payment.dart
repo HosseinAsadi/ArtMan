@@ -1,4 +1,4 @@
-import 'package:art_man/components/Buttons/costumbutton.dart';
+import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/Texts/text.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +48,8 @@ class MP extends State<MonthlyPayment> {
                   EdgeInsets.only(right: MediaQuery.of(context).size.width / 4),
               child: _ct),
           getTextFields("پرداخت اشتراک ماهانه خود را وارد کنید.."),
-          CustomButton("پرداخت‌آنلاین", _formKey, '/membership')
+          Button([""],"/membership"," پرداخت‌آنلاین", 40.0, 10.0,),
+
         ],
       ));
 

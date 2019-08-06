@@ -1,4 +1,3 @@
-import 'package:art_man/components/ImageAbout/ImageSetting.dart';
 import 'package:art_man/page/Analyzes/SaveAnalyze.dart';
 import 'package:art_man/page/Analyzes/StdAnalyzePage.dart';
 import 'package:art_man/page/Analyzes/StdAnalyzePage4.dart';
@@ -37,6 +36,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'components/ImageAbout/ImageUploader.dart';
+import 'components/SlidingForms.dart';
 import 'page/ExtractSportName.dart';
 
 
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 
-        '/':(context) => Uploader(),
+        '/':(context) => SplashScreenPage(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
         '/SportPlanPage': (context) => SportPlanPage(),
         '/FoodPlan': (context) => FoodPlan(),
         '/ListSession': (context) => ListSession(),
-    ImageSetting.routeName: (context) => ImageSetting(),
+        '/Uploader': (context) => Uploader(),
       },
     );
   }

@@ -18,7 +18,7 @@ class CustomRadioState extends State<CustomRadio> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     for(int i=0;i<items.length;i++)
     sampleData.add(new RadioModel(false, '', items[i]));

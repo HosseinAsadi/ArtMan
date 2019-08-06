@@ -1,5 +1,4 @@
 import 'package:art_man/components/Buttons/Button.dart';
-import 'package:art_man/components/Buttons/costumbutton.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:art_man/components/custom-checkbox.dart';
@@ -7,7 +6,6 @@ import 'package:art_man/components/custom-checkbox.dart';
 class Membership extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return M();
   }
 }
@@ -17,7 +15,6 @@ class M extends State<Membership> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: setBackground(),
     );
@@ -36,20 +33,25 @@ class M extends State<Membership> {
 
   Widget body() => ListView(
         shrinkWrap: true,
-        children: <Widget>[title(), bText(), _cc, CustomButton("ورود به پنل کاربری", null, '/profile')],
+        children: <Widget>[
+          title(),
+          bText(),
+          _cc,
+          Button([""],"/profile","ورود به پنل کاربری", 40.0, 10.0,),
+
+        ],
       );
 
   Widget title() => Container(
-        child: Text(
-          "عضویت شما فعال گردیده است...",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(30)),
-        height: 50,
-        alignment: Alignment(0, 0),
-        margin: EdgeInsets.only(left: 25, right: 25, bottom: 30)
-      );
+      child: Text(
+        "عضویت شما فعال گردیده است...",
+        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+      ),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(30)),
+      height: 50,
+      alignment: Alignment(0, 0),
+      margin: EdgeInsets.only(left: 25, right: 25, bottom: 30));
 
   Widget bText() => Padding(
         padding: EdgeInsets.only(left: 25, right: 25),
@@ -59,5 +61,4 @@ class M extends State<Membership> {
           textAlign: TextAlign.center,
         ),
       );
-
 }

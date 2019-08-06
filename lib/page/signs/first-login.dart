@@ -1,82 +1,103 @@
-import 'package:art_man/components/Buttons/costumbutton.dart';
-import 'package:art_man/components/RadioButtons/RadioButton.dart';
+import 'package:art_man/components/ImageAbout/Backgroand.dart';
+import 'package:art_man/components/SharedPreference.dart';
 import 'package:flutter/material.dart';
-
-
 
 class FirstLogin extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return FL();
   }
 }
 
 class FL extends State<FirstLogin> {
-  List<RadioModel> values = new List<RadioModel>();
-  CustomButton _cb = new CustomButton('ورود', null, '');
-
-  @override
-  void initState() {
-    super.initState();
-    values.add(new RadioModel(true, 'مربی',""));
-    values.add(new RadioModel(false, 'هنرجو',""));
-  }
-
+  bool morabi=true,std=false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: setBackground());
+    return Scaffold(body: Backgroand(body()));
   }
 
-  Widget setBackground() => Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: body(),
-      );
-
-  Widget body() => Center(
+  body() => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 25),
               padding: EdgeInsets.only(left: 55, right: 55),
               child: Image.asset('assets/images/icon.png'),
             ),
-            radioButton(),
-            button()
+            radioButton("مربی",morabi?Color(0xFF088B00):Color(0xFFC1C1C1)),
+            SizedBox(height: 10,),
+            radioButton("هنرجو",!morabi?Color(0xFF088B00):Color(0xFFC1C1C1)),
+            Button(),
+
           ],
         ),
       );
 
-  Widget radioButton() => Container(
-      height: 170,
-      child: ListView.builder(
-        itemCount: values.length,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            splashColor: Colors.blueAccent,
-            onTap: () {
-              setState(() {
-                values.forEach((element) => element.isSelected = false);
-                values[index].isSelected = true;
-              });
-            },
-            child: new RadioItem(values[index]),
-          );
-        },
-      ));
+  Widget radioButton(user,color) => Container(
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+        height: 40,
+        width: 120,
+        child: GestureDetector(
+          onTap: (){
+            setState(() {
+              if(user=="مربی")
+              {
+                morabi=true;
+                std=false;
+              }
+              else
+              {
+                morabi=false;
+                std=true;
+              }
+            });
 
-  Widget button() => GestureDetector(
-        child: _cb,
-        onTap: () {
-          if (values[0].isSelected == true)
-            Navigator.pushNamed(context, '/coach-explan');
-        },
+          },
+          child: Row(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(left:20,right: 15),
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                    color:color, borderRadius: BorderRadius.all(Radius.circular(10))),
+              ),
+              Text(user,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+            ],
+          ),
+        ),
       );
+  Widget Button() => Container(
+    margin: EdgeInsets.only(top: 15),
+    alignment: Alignment(0, 0),
+
+    decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [Color(0xFF5AE100), Color(0xFF0F8F00)])
+        , borderRadius: BorderRadius.all(Radius.circular(20))),
+    height: 45,
+    width: 180,
+    child: GestureDetector(
+      onTap: (){
+        ShPre typeuser=new ShPre();
+        if(typeuser.getValuesSF()!=null)
+          typeuser.removeValues();
+        if(morabi)
+          typeuser.addStringToSF("teacher");
+        else
+          typeuser.addStringToSF("student");
+        Navigator.pushNamed(context, morabi?"/CoachExplan":"/StdPropertyBody");
+      },
+
+         child: Text("ورود",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
+    ),
+  );
+
+
+
 }

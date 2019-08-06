@@ -1,4 +1,4 @@
-import 'package:art_man/components/Buttons/costumbutton.dart';
+import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/text-area.dart';
 import 'package:art_man/componethosein/appbar.dart';
 import 'package:art_man/componethosein/row-analyze5.dart';
@@ -64,7 +64,8 @@ class SA5 extends State<SaveAnalyze3>{
 
       TextArea('اطلاعات تکمیلی را وارد کنید..', 90),
 
-      CustomButton('تایید و ذخیره آنالیز', null, '')
+      Button([""],"/analyze2","ادامه آنالیز", 40.0, 10.0,),
+
     ],
   );
 }

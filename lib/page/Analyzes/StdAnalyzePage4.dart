@@ -55,32 +55,9 @@ class _StdAnalyzePage4State extends State<StdAnalyzePage4> {
   @override
   Widget build(BuildContext context) {
    var _key=GlobalKey<FormState>();
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF7FC81D),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-        ],
-        title: Text("آنالیز هنرجو"),
-      ),
-      drawer: Drawer(
-        child: Text("dff"),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: ListView(
-          shrinkWrap: false,
+    return  Container(
+
+        child: Column(
           children: <Widget>[
             Center(
               child: Container(
@@ -104,7 +81,7 @@ class _StdAnalyzePage4State extends State<StdAnalyzePage4> {
                                   color: Colors.white),
                             ),
                           ),
-                          100.0,
+                          127.0,
                           30.0),
                       Container(
                         height: 50,
@@ -115,14 +92,14 @@ class _StdAnalyzePage4State extends State<StdAnalyzePage4> {
                           Container(
                             margin: EdgeInsets.only(top: 60),
                             child: Text(
-                              "مشکل در سیستم گوارش ، هضم غذا ، رفلکس \nبالا بودن اسید معده :",
+                              "مشکل در سیستم گوارش ، هضم غذا ، رفلکس بالا بودن اسید معده :",
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                   color: Colors.white),
                             ),
                           ),
-                          90.0,
+                          15.0,
                           80.0),
                       Container(
                         alignment: Alignment(0, 0),
@@ -154,7 +131,7 @@ class _StdAnalyzePage4State extends State<StdAnalyzePage4> {
                         child: _abnormaly,
                       ),
                       _abnormalydes,
-                      continuebtn
+
                     ],
                   ),
                 ),
@@ -162,7 +139,7 @@ class _StdAnalyzePage4State extends State<StdAnalyzePage4> {
             ),
           ],
         ),
-      ),
+
     );
   }
 

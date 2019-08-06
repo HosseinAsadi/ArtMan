@@ -30,7 +30,7 @@ class RSA extends State<RowSaveAnalyze> {
           Container(
             width: 140,
             height: 30,
-            padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+            padding: EdgeInsets.only(left: 9, right: 10, top: 5, bottom: 5),
             margin: EdgeInsets.only(left: 8, right: 5),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(25)),

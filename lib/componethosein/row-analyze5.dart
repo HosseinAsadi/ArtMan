@@ -35,13 +35,14 @@ class RA extends State<RowAnalyze5> {
 
     return Container(
       child: Row(
+
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             width: 150,
             height: 30,
             padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-            margin: EdgeInsets.only(left: 8),
+            margin: EdgeInsets.only(left: 8,bottom: 5),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(25)),
             child: Text(
@@ -88,7 +89,7 @@ class RA extends State<RowAnalyze5> {
           ),
           Container(
               height: 35,
-              width: 150,
+              width: 100,
               alignment: Alignment(0, 0),
               margin: EdgeInsets.only(bottom: 5),
               padding: EdgeInsets.only(right: 5),
@@ -100,7 +101,7 @@ class RA extends State<RowAnalyze5> {
                 onChanged: onChange,
                 textAlign: TextAlign.right,
                 decoration: InputDecoration(
-                  hintText: 'توضیحات خود را وارد نمایید..',
+                  hintText: 'توضیحات ...',
                   hintStyle: TextStyle(fontSize: 12),
                 ),
               )
