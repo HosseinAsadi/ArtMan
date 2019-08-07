@@ -16,7 +16,7 @@ import 'package:art_man/page/VideoPlayer.dart';
 import 'package:art_man/page/description/StdInformationPage.dart';
 import 'package:art_man/page/description/StdPropertyPage.dart';
 import 'package:art_man/page/description/coach-atributies-explanations.dart';
-import 'package:art_man/page/description/membership.dart';
+import 'package:art_man/page/signs/JoinedPage2.dart';
 import 'package:art_man/page/description/monthly-payment.dart';
 import 'package:art_man/page/lists/MuscleGroupList.dart';
 import 'package:art_man/page/lists/SelectSportExtract.dart';
@@ -24,18 +24,19 @@ import 'package:art_man/page/lists/SportField.dart';
 import 'package:art_man/page/lists/food-plan.dart';
 import 'package:art_man/page/lists/list-session.dart';
 import 'package:art_man/page/profile/TeacherProfilePage.dart';
-import 'package:art_man/page/profile/profile.dart';
+import 'package:art_man/page/profile/StudentProfile.dart';
 import 'package:art_man/page/signs/JoinedPage.dart';
 import 'package:art_man/page/signs/SignUpPage.dart';
 import 'package:art_man/page/signs/SingInPage.dart';
 import 'package:art_man/page/signs/VerifyPage.dart';
 import 'package:art_man/page/signs/first-login.dart';
-import 'package:art_man/page/signs/register.dart';
+import 'package:art_man/page/signs/SignUpTeacher.dart';
 import 'package:art_man/page/signs/sms-verify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'components/ImageAbout/ImageUploader.dart';
+import 'components/Networking/FetchData.dart';
 import 'components/SlidingForms.dart';
 import 'page/ExtractSportName.dart';
 
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 
-        '/':(context) => SplashScreenPage(),
+        '/':(context) => FetchData(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),

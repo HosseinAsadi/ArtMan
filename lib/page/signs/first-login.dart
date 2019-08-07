@@ -1,8 +1,10 @@
 import 'package:art_man/components/ImageAbout/Backgroand.dart';
-import 'package:art_man/components/SharedPreference.dart';
+import 'package:art_man/components/UserInfo.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FirstLogin extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return FL();
@@ -10,6 +12,7 @@ class FirstLogin extends StatefulWidget {
 }
 
 class FL extends State<FirstLogin> {
+
   bool morabi=true,std=false;
   @override
   Widget build(BuildContext context) {
@@ -83,20 +86,28 @@ class FL extends State<FirstLogin> {
     height: 45,
     width: 180,
     child: GestureDetector(
-      onTap: (){
-        ShPre typeuser=new ShPre();
-        if(typeuser.getValuesSF()!=null)
-          typeuser.removeValues();
+      onTap: () async {
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        /*String counter = (prefs.getString('type') ?? 0);
+        print('user is  $counter .');*/
         if(morabi)
-          typeuser.addStringToSF("teacher");
+          await prefs.setString('type', "teacher");
         else
-          typeuser.addStringToSF("student");
+          await prefs.setString('type', "student");
+        setState(() {
+          UserInfo.type=prefs.getString('type');
+
+        });
         Navigator.pushNamed(context, morabi?"/CoachExplan":"/StdPropertyBody");
       },
 
          child: Text("ورود",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
     ),
   );
+
+
 
 
 

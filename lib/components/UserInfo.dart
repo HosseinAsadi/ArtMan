@@ -1,5 +1,5 @@
 class UserInfo{
-  String type;
+ static String type;
   String username;
   String password;
   String fullname;

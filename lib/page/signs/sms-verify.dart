@@ -1,29 +1,32 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
-import 'package:art_man/components/InputTexts/text-field-enter.dart';
-import 'package:art_man/components/Texts/text.dart';
 import 'package:flutter/material.dart';
 
 
 class SMSVerify extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
+
     return SMSV();
   }
 }
 
 class SMSV extends State<SMSVerify> {
+  @override
+  void initState() {
+
+    super.initState();
+  }
   Widget ct = new Text("کد‌تایید‌ثبت‌نام:",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),);
   var _formKey = GlobalKey<FormState>();
 
   InputText _ctf =
       new InputText("کد تاییدیه را وارد نمایید..","verifycode");
-  Button send=new Button([""],'/VerifyPage',"ارسال و تایید",40.0,10.0,width: 120.0, );
+  Button send=new Button([""],"/verifypage","ارسال و تایید",40.0,10.0,width: 120.0, );
   @override
   Widget build(BuildContext context) {
     send.setkey(_formKey);
-    // TODO: implement build
+
     return Scaffold(
       body: setBackground(),
     );

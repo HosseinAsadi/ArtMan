@@ -1,37 +1,51 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputPass.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
-import 'package:art_man/components/SharedPreference.dart';
+import 'package:art_man/components/UserInfo.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class MyCustomForm extends StatefulWidget {
+
   @override
   SingInPage createState() {
+
     return SingInPage();
   }
 }
 
 class SingInPage extends State<MyCustomForm> {
-  static ShPre typeuser=new ShPre();
+static String type=UserInfo.type;
+  static getuser()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return  await (prefs.getString('type') ?? 0);
+  //  print('user is  $type .');
+  }
+
+ @override
+  void initState() {
+   print(type);
+    super.initState();
+  }
+
   final _formkey = GlobalKey<FormState>();
 
   InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
   InputPass password = new InputPass("password");
-  Button signinbtn = new Button(["username","password"],typeuser.getValuesSF()=="teacher"?'/TeacherProfilePage':"/Profile", "ورود", 40.0, 20.0,
+  Button signinbtn = new
+  Button(["username","password"],type=="teacher"?'/TeacherProfilePage':"/Profile", "ورود", 40.0, 20.0,
       marginleft: 5.0,
       startcolor: Color(0xFF5AE400),
       endcolor: Color(0xFF0F8F00));
-  Button signupbtn = new Button(["username","password"],typeuser.getValuesSF()=="teacher"?'/Register':"/signuppage", "ثبت نام", 40.0, 20.0,
+  Button signupbtn = new Button(["username","password"],type=="teacher"?'/Register':"/signuppage", "ثبت نام", 40.0, 20.0,
       marginright: 5.0,
-      startcolor: Colors.grey[700],
-      endcolor: Colors.grey[700]);
+      startcolor: Color(0xFF5AE400),
+      endcolor: Color(0xFF0F8F00));
 
   @override
   Widget build(BuildContext context) {
-   // signupbtn.setkey(_formkey);
     signinbtn.setkey(_formkey);
-   // signupbtn.setinputs([username.ctrl.text, password.ctrl.text]);
 
     return Scaffold(
       body: Container(
@@ -88,7 +102,7 @@ class SingInPage extends State<MyCustomForm> {
                       Flexible(flex: 1, child: signinbtn),
                       Flexible(
                         flex: 1,
-                        child: signupbtn,
+                        child:signupbtn,
                       )
                     ],
                   )

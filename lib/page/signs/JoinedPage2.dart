@@ -2,19 +2,18 @@ import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/rendering.dart';
 
-class JoinedPage extends StatefulWidget {
+class Membership extends StatefulWidget {
   @override
-  myJoinedPage createState() {
-    return myJoinedPage();
+  page createState() {
+    return page();
   }
 }
 
-class myJoinedPage extends State<JoinedPage> {
- static bool _accept = false;
-  Button buttonenable = new Button([""], '/TeacherProfilePage', 'ورود به پنل کاربری', 40.0, 0.0,
+class page extends State<Membership> {
+  static bool _accept = false;
+  Button buttonenable = new Button([""], '/profile', 'ورود به پنل کاربری', 40.0, 0.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0);
 
   MaterialText tilte = new MaterialText(
@@ -51,12 +50,12 @@ class myJoinedPage extends State<JoinedPage> {
                     children: <Widget>[
                       tilte,
                       Text(
-                        Strings.joinExplain,
+                        Strings.TEXTOFMEMBERSHIP,
                         style: TextStyle(color: Colors.white, fontSize: 15),
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.justify,
                       ),
-                       Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
 
@@ -72,10 +71,10 @@ class myJoinedPage extends State<JoinedPage> {
                             child: Icon(!_accept ? Icons.crop_square : Icons.done,color:Colors.white,),
                           ),
 
-                             Text(
-                              "قوانین و مقررات را می پذیرم.",
-                              style: TextStyle(color: Colors.white, fontSize: 15),
-                            ),
+                          Text(
+                            "قوانین و مقررات را می پذیرم.",
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
 
                           GestureDetector(
                             child: Text(
@@ -88,17 +87,17 @@ class myJoinedPage extends State<JoinedPage> {
                           )
                         ],
                       ),
-                     Container(
-                       width: 130,
-                       height: 40,
-                       child: _accept? buttonenable:Container(
-                         alignment: Alignment(0, 0),
-                         decoration: BoxDecoration(
-                         color: Colors.grey,
-                         borderRadius: BorderRadius.all(Radius.circular(20),)
-                       ),
-                       child:Text("ورود به پنل کاربری",textAlign: TextAlign.center,style: TextStyle(color: Colors.white),) ,)
-                     ),
+                      Container(
+                          width: 130,
+                          height: 40,
+                          child: _accept? buttonenable:Container(
+                            alignment: Alignment(0, 0),
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.all(Radius.circular(20),)
+                            ),
+                            child:Text("ورود به پنل کاربری",textAlign: TextAlign.center,style: TextStyle(color: Colors.white),) ,)
+                      ),
 
                     ],
                   ),
@@ -110,5 +109,4 @@ class myJoinedPage extends State<JoinedPage> {
       ),
     );
   }
-
 }

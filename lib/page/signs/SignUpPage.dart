@@ -21,7 +21,7 @@ class MySingup extends State<SignUp> {
   DropDown dropsex = new DropDown(
     "جنسیت خود را انتخاب نمایید ...",
   );
-  Button button = new Button(["fullname","phone","country","city","sex",],"/SMSVerify", "تایید ثبت نام", 40.0, 20.0,
+  Button button = new Button(["first_name","phone","country","city","sex",],"/SMSVerify", "تایید ثبت نام", 40.0, 20.0,
       marginleft: 5.0,
       
       width: 140.0,

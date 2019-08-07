@@ -4,7 +4,6 @@ import 'package:art_man/page/Analyzes/analyze1.dart';
 import 'package:art_man/page/Analyzes/analyze2.dart';
 import 'package:art_man/page/Analyzes/analyze5.dart';
 import 'package:art_man/page/Analyzes/analyze6.dart';
-import 'package:art_man/page/Analyzes/save-analyze0.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
