@@ -2,6 +2,8 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/Location.dart';
+import 'package:art_man/components/Networking/FetchData.dart';
 
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,7 @@ class StdAnalyzePage extends StatefulWidget {
 }
 
 class _StdAnalyzePageState extends State<StdAnalyzePage> {
+
   InputText descriprion=new InputText("","descriprionState",height: 150,radius: 10,);
   var _keyForm=GlobalKey<FormState>();
   Button sendImage = new Button(
@@ -24,7 +27,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
     width: 90.0,
     marginbottom: 40.0,
   );
-  DropDown jens = new DropDown("جنسیت خود را وارد نمایید.");
+  DropDown jens = new DropDown("sex",["زن","مرد"],"جنسیت خود را وارد نمایید.");
 
 
   @override

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:art_man/components/Utility/HoursFormat.dart';
 import 'package:flutter/material.dart';
 import 'package:seekbar/seekbar.dart';
 import 'package:video_player/video_player.dart';
@@ -45,6 +46,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         setState(() {});
       });
     controller.setLooping(true);
+    controller.play();
+    _resumeProgressTimer();
   }
 
   Future _resumeProgressTimer() async{
@@ -57,6 +60,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         if (value >= 1) {
           _progressTimer.cancel();
           _done = true;
+          value=0.0;
+          savevlue=0.0;
         }
       });
     });
@@ -184,7 +189,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                                   child: Row(
                                     children: <Widget>[
                                       Text(
-                                        "${hoursFormat()} ",
+                                        "${HoursFormat.hoursFormat(savevlue)} ",
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       Text(
@@ -216,36 +221,5 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       ),
     );
   }
-  hoursFormat(){
-    int second,minut,hours;
-    String rslt="";
-      second = (savevlue.toInt() % 60);
-      minut = (savevlue / 60).toInt();
-      hours=(savevlue / 3600).toInt();
 
-      if(hours<10){
-        rslt+="0"+hours.toString();
-      }
-      else{
-        rslt+=hours.toString();
-
-      }
-      rslt+=":";
-    if(minut<10){
-      rslt+="0"+minut.toString();
-    }
-    else{
-      rslt+=minut.toString();
-
-    }
-    rslt+=":";
-    if(second<10){
-      rslt+="0"+second.toString();
-    }
-    else{
-      rslt+=second.toString();
-
-    }
-    return rslt;
-  }
 }

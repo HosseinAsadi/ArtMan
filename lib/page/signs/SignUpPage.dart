@@ -1,87 +1,125 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/Location.dart';
+import 'package:art_man/components/Networking/FetchData.dart';
 import 'package:flutter/material.dart';
+
+
 
 class SignUp extends StatefulWidget {
   @override
-  MySingup createState() {
+  State<StatefulWidget> createState() {
     return MySingup();
   }
 }
 
 class MySingup extends State<SignUp> {
 
-   final _formkey = GlobalKey<FormState>();
-  InputText name = new InputText("نام و نام خانوادگی خود را وارد نمایید...","fullname");
-  InputText phone = new InputText("شماره همراه خود را وارد نمایید...","phone");
-  DropDown dropCountry =
-      new DropDown("کشور محل زندگی خود را انتخاب نمایید ...");
-  DropDown dropCity = new DropDown("شهر محل زندگی خود را انتخاب نمایید ...");
-  DropDown dropsex = new DropDown(
-    "جنسیت خود را انتخاب نمایید ...",
+  static  List<String> countries=[];
+  static List<String> cities;
+  static Country country;
+
+  bool complete = false;
+
+  final _formkey = GlobalKey<FormState>();
+  InputText name =
+  new InputText("نام و نام خانوادگی خود را وارد نمایید...", "fullname");
+
+  InputText phone = new InputText("شماره همراه خود را وارد نمایید...", "phone");
+
+  Button button = new Button(
+    [
+      "fullname",
+      "phone",
+      "country",
+      "city",
+      "sex",
+    ],
+    "/SMSVerify",
+    "تایید ثبت نام",
+    40.0,
+    20.0,
+    marginleft: 5.0,
+    width: 140.0,
+    startcolor: Color(0xFF5AE400),
+    endcolor: Color(0xFF0F8F00),
   );
-  Button button = new Button(["first_name","phone","country","city","sex",],"/SMSVerify", "تایید ثبت نام", 40.0, 20.0,
-      marginleft: 5.0,
-      
-      width: 140.0,
-      startcolor: Color(0xFF5AE400),
-      endcolor: Color(0xFF0F8F00),
-  );
+   _getlocation()async{
+     Country location = await GetLocation.fetchData();
+    setState(() {
+      country=location;
+      for (int i = 0; i < country.result.length; i++) {
+        countries.add(country.result[i].name);
+      }
+      complete = true;
+    });
+   }
 
+  @override
+  void initState() {
+    super.initState();
+    _getlocation();
 
-
+  }
 
   @override
   Widget build(BuildContext context) {
-
     button.setkey(_formkey);
-
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover,
+      return complete? Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                Center(
+                  child: Form(
+                      key: _formkey,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 50, right: 50),
+                        child: Column(
+                          crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                          children: <Widget>[
+                            text("نام و نام خانوادگی:"),
+                            name,
+                            text("انتخاب کشور :"),
+                            new DropDown("country",countries,
+                                "کشور محل زندگی خود را انتخاب نمایید ..."),
+                            text("انتخاب شهر :"),
+                            new DropDown("city",[
+                              "alai"
+                            ], "شهر محل زندگی خود را انتخاب نمایید ..."),
+                            text("انتخاب جنسیت :"),
+                            new DropDown("sex",[
+                              "مرد",
+                              "زن"
+                            ], "جنسیت خود را انتخاب نمایید ..."),
+                            text("شماره همراه :"),
+                            phone,
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              children: <Widget>[button],
+                            )
+                          ],
+                        ),
+                      )),
+                ),
+              ],
+            ),
           ),
         ),
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              Center(
-                child: Form(
-                    key: _formkey,
-                    child: Container(
-                      margin: EdgeInsets.only(left: 50, right: 50),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          text("نام و نام خانوادگی :"),
-                          name,
-                          text("انتخاب کشور :"),
-                          dropCountry,
-                          text("انتخاب شهر :"),
-                          dropCity,
-                          text("جنسیت :"),
-                          dropsex,
-                          text("شماره همراه :"),
-                          phone,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[button],
-                          )
-                        ],
-                      ),
-                    )),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+      ):
 
+     Center(child: Container(width: 60,height: 60,child: CircularProgressIndicator(),),);
+    }
   Widget text(text) {
     return Text(
       text,

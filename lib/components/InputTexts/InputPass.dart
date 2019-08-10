@@ -1,20 +1,21 @@
+import 'package:art_man/components/Keys.dart';
 import 'package:flutter/material.dart';
 
 class InputPass extends StatefulWidget {
-  String _hint;
+  String _hint,id;
 
-  InputPass(this._hint);
+  InputPass(this._hint,this.id);
 
   @override
   myInputPass createState() {
-    return myInputPass(_hint);
+    return myInputPass(_hint,id);
   }
 }
 
 class myInputPass extends State<InputPass> {
-  String _hint;
+  String _hint,id;
 
-  myInputPass(this._hint);
+  myInputPass(this._hint,this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,19 @@ class myInputPass extends State<InputPass> {
       height: 40.0,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
-      child: TextField(
+      child: TextFormField(
         obscureText: true,
+        onSaved: (value) {
+          Kelid.setter(id, value);
+          print(Kelid.getter(id)) ;
+
+        },
+        validator: (String value) {
+          if (value.isEmpty) {
+            return "";
+          }
+          return null;
+        },
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
         decoration: InputDecoration.collapsed(

@@ -9,7 +9,8 @@ class PlanSport extends StatefulWidget {
 }
 
 class _PlanSportState extends State<PlanSport> {
-  DropDown dropDown = new DropDown("برنامه چند هفته اجرا شود؟");
+ static List<String> weeks;
+  DropDown dropDown = new DropDown("week program",weeks,"برنامه چند هفته اجرا شود؟");
   Button save = new Button(
     [""],
     "/",
@@ -50,7 +51,12 @@ class _PlanSportState extends State<PlanSport> {
     endcolor: Color(0xFF139101),
     width: 200.0,
   );
-
+@override
+  void initState() {
+    for(int i=1;i<31;i++)
+      weeks.add("$i");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var _key = GlobalKey<FormState>();

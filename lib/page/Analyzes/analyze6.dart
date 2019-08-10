@@ -35,7 +35,7 @@ class A extends State<Analyze6> {
                   title('مجموع ساعت کاری در هر روز:'),
                   textFieldTitle(),
                   title('سبک زندگی:'),
-                  DropDown(""),
+                  DropDown("",[],""),
                   title('تعداد وعده های غذایی:'),
                   promise("", " تا ", ),
                   title('تعداد دفعات دفع مدفوع در روز یا هفته:'),

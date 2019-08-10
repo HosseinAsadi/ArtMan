@@ -1,5 +1,6 @@
 import 'package:art_man/components/Keys.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 class InputText extends StatefulWidget {
@@ -28,7 +29,7 @@ class InputText extends StatefulWidget {
 
   @override
   myInputText createState() {
-    myInputText it = new myInputText(_hint,
+    myInputText it = new myInputText(id,_hint,
         height: height,
         brdercolor: brdercolor,
         brderwidth: brderwidth,
@@ -38,14 +39,13 @@ class InputText extends StatefulWidget {
         hintconlor: hintconlor,
         alignment: textAlign,
         hintsize: hintsize);
-    ctrl = it.getcontoroler();
-    Keys.setter(id, ctrl);
     return it;
   }
 }
 
 class myInputText extends State<InputText> {
   String _hint;
+  String id;
   double height;
   Color brdercolor;
   double brderwidth;
@@ -56,7 +56,7 @@ class myInputText extends State<InputText> {
   Color hintconlor;
   double hintsize;
 
-  myInputText(this._hint,
+  myInputText(this.id,this._hint,
       {this.height,
       this.brdercolor,
       this.brderwidth,
@@ -69,10 +69,9 @@ class myInputText extends State<InputText> {
 
   var ctrl = new TextEditingController();
 
-  getcontoroler() => ctrl;
-
   @override
   Widget build(BuildContext context) {
+
     return Container(
 
      alignment: Alignment.center,
@@ -88,6 +87,15 @@ class myInputText extends State<InputText> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(radius == null ? 25 : radius)),
       child: TextFormField(
+        inputFormatters: [
+          new LengthLimitingTextInputFormatter(30),
+        ],
+
+        onSaved: (value) {
+          Kelid.setter(id, value);
+         print(Kelid.getter(id)) ;
+
+        },
         textAlign: alignment == null ? TextAlign.right : alignment,
         maxLines: maxlines==null?1:maxlines,
         style: TextStyle(
@@ -96,6 +104,7 @@ class myInputText extends State<InputText> {
         ),
         textDirection: TextDirection.rtl,
         controller: ctrl,
+
         validator: (String value) {
           if (value.isEmpty) {
             return "";

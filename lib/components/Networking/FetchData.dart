@@ -1,36 +1,23 @@
 import 'dart:convert';
-
 import 'package:art_man/components/Location.dart';
-import 'package:flutter/material.dart';
-
+import 'package:art_man/components/Texts/Strings.dart';
 import 'package:http/http.dart' as http;
 
 class GetLocation {
 
-
-  fetchData() async {
+ static Future<Country> fetchData() async {
     Country country;
-    final response =
-    await http.get("http://192.168.20.231:3000/country/getCountry");
+    final response = await http.get("${Strings.baseurl}/country/getCountry");
     if (response.statusCode == 200) {
-      print ("connection is ok");
-     final list = (json.decode(response.body) );
-     print("data fetched");
-     return country =new Country.fromJson(list);
-
-      print("data parsee");
-
+      print("connection is ok");
+      var list = (json.decode(response.body));
+      country = Country.fromJson(list);
+      return country;
     } else {
-      throw Exception('Failed to load photos');
+      throw Exception('Failed to load countreis');
     }
   }
-  /*@override
-  void initState() {
-    _fetchData();
-    super.initState();
-  }
-
-  @override
+ /* @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

@@ -1,5 +1,6 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputPass.dart';
+import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/UserInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,9 +15,9 @@ class VerifyPage extends StatefulWidget {
 class myVerifyPage extends State<VerifyPage> {
   static String type=UserInfo.type;
   final _formkey = GlobalKey<FormState>();
-  InputPass password = new InputPass("");
-  InputPass repeat = new InputPass("");
-
+  InputPass password = new InputPass("","password");
+  InputPass repeat = new InputPass("","password");
+  InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
   Button bottom = new Button(
       ["pass", "repeatpass"],
   type=="teacher"?'/joindepage':"/Membership", "تایید و مرحله بعد", 40.0, 20.0,
@@ -44,6 +45,8 @@ class myVerifyPage extends State<VerifyPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                text("نام کاربری :"),
+                username,
                 text("رمز عبور :"),
                 password,
                 text("تکرار رمز عبور :"),

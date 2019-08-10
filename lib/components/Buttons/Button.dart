@@ -1,4 +1,4 @@
-import 'package:art_man/components/Sender.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -125,8 +125,8 @@ class myBottom extends State<Button> {
         },
         onTap: () {
           if (_key != null) if (_key.currentState.validate()) {
-            Sender sender = new Sender();
-            sender.send(input);
+            _key.currentState.save();
+
             Navigator.pushNamed(context, goal);
           }
 

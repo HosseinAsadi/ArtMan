@@ -1,21 +1,24 @@
+import 'package:art_man/components/Keys.dart';
 import 'package:flutter/material.dart';
 
 
 class DropDown extends StatefulWidget {
-  String _hint;
+  String _hint,id;
+  List<String> list;
   Color backgroundColor,fontcolor,arrowcolor;
-  DropDown(this._hint,{this.backgroundColor,this.fontcolor,this.arrowcolor});
+  DropDown(this.id,this.list,this._hint,{this.backgroundColor,this.fontcolor,this.arrowcolor});
   @override
   myDropDown createState() {
-    return myDropDown(_hint,backgroundColor: backgroundColor,fontcolor: fontcolor,arrowcolor: arrowcolor);
+    return myDropDown(id,list,_hint,backgroundColor: backgroundColor,fontcolor: fontcolor,arrowcolor: arrowcolor);
   }
 }
 class myDropDown extends State<DropDown> {
   String cityvalue=null;
-  String _hint;
+  String _hint,id;
+  List<String> list;
   Color backgroundColor,fontcolor,arrowcolor;
 
-  myDropDown(this._hint,{this.backgroundColor,this.fontcolor,this.arrowcolor});
+  myDropDown(this.id,this.list,this._hint,{this.backgroundColor,this.fontcolor,this.arrowcolor});
   @override
   Widget build(BuildContext context) {
 
@@ -31,15 +34,17 @@ class myDropDown extends State<DropDown> {
 
 
         child:DropdownButton<String>(
-          items: ["نیجریه","عربستان","ترکیه","آلمان","ایران"].map<DropdownMenuItem<String>>((String value) {
+          items: list.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),
             );
           }).toList(),
+
           onChanged: (String newValue) {
             setState(() {
               this.cityvalue = newValue;
+              Kelid.setter(id, cityvalue);
             });
           },
           value: cityvalue,

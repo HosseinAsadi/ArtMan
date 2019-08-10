@@ -36,8 +36,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'components/ImageAbout/ImageUploader.dart';
-import 'components/Networking/FetchData.dart';
-import 'components/SlidingForms.dart';
 import 'page/ExtractSportName.dart';
 
 
@@ -68,7 +66,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 
-        '/':(context) => FetchData(),
+        '/':(context) => SplashScreenPage(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),

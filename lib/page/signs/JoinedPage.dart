@@ -1,5 +1,7 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
+import 'package:art_man/components/Keys.dart';
+import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +28,15 @@ class myJoinedPage extends State<JoinedPage> {
     fontsize: 18.0,
 
   );
-
+ sender(){
+   Sender.apiRequest();
+ }
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sender();
+  }
   @override
   Widget build(BuildContext context) {
 

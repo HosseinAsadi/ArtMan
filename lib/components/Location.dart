@@ -16,8 +16,6 @@ class Result {
     return new Result._(
       name: jsonMap['name'],
       citynames: (jsonMap['cities'].cast<String>())
-
     );
   }
 }
-

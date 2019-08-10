@@ -12,17 +12,14 @@ class SMSVerify extends StatefulWidget {
 }
 
 class SMSV extends State<SMSVerify> {
-  @override
-  void initState() {
 
-    super.initState();
-  }
+
   Widget ct = new Text("کد‌تایید‌ثبت‌نام:",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),);
   var _formKey = GlobalKey<FormState>();
 
   InputText _ctf =
-      new InputText("کد تاییدیه را وارد نمایید..","verifycode");
-  Button send=new Button([""],"/verifypage","ارسال و تایید",40.0,10.0,width: 120.0, );
+      new InputText("کد تاییدیه را وارد نمایید..","sms");
+  Button send=new Button(["sms"],"/verifypage","ارسال و تایید",40.0,10.0,width: 120.0, );
   @override
   Widget build(BuildContext context) {
     send.setkey(_formKey);

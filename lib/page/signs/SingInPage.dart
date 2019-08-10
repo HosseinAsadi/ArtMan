@@ -20,7 +20,6 @@ static String type=UserInfo.type;
   static getuser()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return  await (prefs.getString('type') ?? 0);
-  //  print('user is  $type .');
   }
 
  @override
@@ -32,13 +31,13 @@ static String type=UserInfo.type;
   final _formkey = GlobalKey<FormState>();
 
   InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
-  InputPass password = new InputPass("password");
+  InputPass password = new InputPass("password","password");
   Button signinbtn = new
   Button(["username","password"],type=="teacher"?'/TeacherProfilePage':"/Profile", "ورود", 40.0, 20.0,
       marginleft: 5.0,
       startcolor: Color(0xFF5AE400),
       endcolor: Color(0xFF0F8F00));
-  Button signupbtn = new Button(["username","password"],type=="teacher"?'/Register':"/signuppage", "ثبت نام", 40.0, 20.0,
+  Button signupbtn = new Button([""],type=="teacher"?'/Register':"/signuppage", "ثبت نام", 40.0, 20.0,
       marginright: 5.0,
       startcolor: Color(0xFF5AE400),
       endcolor: Color(0xFF0F8F00));

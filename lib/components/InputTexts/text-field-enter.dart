@@ -17,7 +17,7 @@ class CustomTextField extends StatefulWidget{
     return tf;
   }
 
-  getController() => _controller;
+  getController() => _controller.text;
 
 }
 

@@ -1,5 +1,7 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
+import 'package:art_man/components/Keys.dart';
+import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -25,7 +27,26 @@ class page extends State<Membership> {
     fontsize: 18.0,
 
   );
+  /*_senddata()async{
 
+    await Sender.apiRequest("${Strings.baseurl}/users/addUser",{
+      "username" : Kelid.getter("username"),
+      "password" : Kelid.getter("password"),
+      "first_name" :  Kelid.getter("first_name"),
+      "last_name" : " ",
+      "country" : Kelid.getter("country"),
+      "city" : Kelid.getter("city"),
+      "phone" :  Kelid.getter("phone"),
+      "sex" :  Kelid.getter("sex"),
+    });
+  }*/
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   // _senddata();
+
+  }
   @override
   Widget build(BuildContext context) {
 
