@@ -1,10 +1,11 @@
+import 'dart:convert';
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
-import 'package:art_man/components/Keys.dart';
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/MD5Generator.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/rendering.dart';
 
 class JoinedPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class JoinedPage extends StatefulWidget {
 
 class myJoinedPage extends State<JoinedPage> {
  static bool _accept = false;
-  Button buttonenable = new Button([""], '/TeacherProfilePage', 'ورود به پنل کاربری', 40.0, 0.0,
+  Button buttonenable = new Button( '/TeacherProfilePage', 'ورود به پنل کاربری', 40.0, 0.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0);
 
   MaterialText tilte = new MaterialText(
@@ -29,8 +30,18 @@ class myJoinedPage extends State<JoinedPage> {
 
   );
  sender(){
-   Sender.apiRequest();
+   Sender.apiRequest("${Strings.baseurl}/teachers/addTeacher",json.encode(
+       { "username" : Kelid.getter("username"),
+         "password" : Hasher.GenerateMd5(Kelid.getter("password").toString()),
+         "first_name" :  Kelid.getter("first_name"),
+         "last_name" : " ",
+         "country" : Kelid.getter("country"),
+         "city" : Kelid.getter("city"),
+         "phone" :  Kelid.getter("phone"),
+
+       }));
  }
+
  @override
   void initState() {
     // TODO: implement initState

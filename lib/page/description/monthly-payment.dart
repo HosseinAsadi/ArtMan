@@ -48,7 +48,7 @@ class MP extends State<MonthlyPayment> {
                   EdgeInsets.only(right: MediaQuery.of(context).size.width / 4),
               child: _ct),
           getTextFields("پرداخت اشتراک ماهانه خود را وارد کنید.."),
-          Button([""],"/membership"," پرداخت‌آنلاین", 40.0, 10.0,),
+          Button("/membership"," پرداخت‌آنلاین", 40.0, 10.0,),
 
         ],
       ));

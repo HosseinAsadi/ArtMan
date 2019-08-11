@@ -1,4 +1,4 @@
-import 'package:art_man/components/Keys.dart';
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:flutter/material.dart';
 
 class InputPass extends StatefulWidget {

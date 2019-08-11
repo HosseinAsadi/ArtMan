@@ -1,9 +1,17 @@
+
+import 'package:art_man/components/Networking/FetchData.dart';
+import 'package:http/http.dart' as http;
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputPass.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/UserInfo.dart';
+import 'package:art_man/components/Utility/Keys.dart';
+import 'package:art_man/components/Utility/MD5Generator.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart';
+
 
 
 class MyCustomForm extends StatefulWidget {
@@ -17,27 +25,36 @@ class MyCustomForm extends StatefulWidget {
 
 class SingInPage extends State<MyCustomForm> {
 static String type=UserInfo.type;
-  static getuser()async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return  await (prefs.getString('type') ?? 0);
-  }
+
+ apiRequest() async {
+   var x=await GetLocation.fetchuser();
+   print(x.toString());
+}
+
+ /* _gettype()async{
+   String typ=await SharedPrefrences.gettype();
+   setState(() {
+     type=typ;
+   });
+
+  }*/
 
  @override
   void initState() {
-   print(type);
     super.initState();
+    apiRequest();
+
   }
 
   final _formkey = GlobalKey<FormState>();
-
   InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
   InputPass password = new InputPass("password","password");
   Button signinbtn = new
-  Button(["username","password"],type=="teacher"?'/TeacherProfilePage':"/Profile", "ورود", 40.0, 20.0,
+  Button(type=="teachers"?'/TeacherProfilePage':"/Profile", "ورود", 40.0, 20.0,
       marginleft: 5.0,
       startcolor: Color(0xFF5AE400),
       endcolor: Color(0xFF0F8F00));
-  Button signupbtn = new Button([""],type=="teacher"?'/Register':"/signuppage", "ثبت نام", 40.0, 20.0,
+  Button signupbtn = new Button(type=="teachers"?'/Register':"/signuppage", "ثبت نام", 40.0, 20.0,
       marginright: 5.0,
       startcolor: Color(0xFF5AE400),
       endcolor: Color(0xFF0F8F00));
@@ -98,7 +115,16 @@ static String type=UserInfo.type;
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Flexible(flex: 1, child: signinbtn),
+                      Flexible(flex: 1, child:GestureDetector(
+                        onTap: (){
+                          _formkey.currentState.save();
+                          setState(() {
+                            print("${Strings.baseurl}/teachers/login/:${Kelid.getter("username")}/:${Hasher.GenerateMd5(Kelid.getter("password"))}");
+                            apiRequest();
+                          });
+                        },
+                        child: signinbtn
+                      )),
                       Flexible(
                         flex: 1,
                         child:signupbtn,

@@ -5,8 +5,6 @@ import 'package:art_man/components/Location.dart';
 import 'package:art_man/components/Networking/FetchData.dart';
 import 'package:flutter/material.dart';
 
-
-
 class SignUp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -24,18 +22,11 @@ class MySingup extends State<SignUp> {
 
   final _formkey = GlobalKey<FormState>();
   InputText name =
-  new InputText("نام و نام خانوادگی خود را وارد نمایید...", "fullname");
+  new InputText("نام و نام خانوادگی خود را وارد نمایید...", "first_name");
 
   InputText phone = new InputText("شماره همراه خود را وارد نمایید...", "phone");
 
   Button button = new Button(
-    [
-      "fullname",
-      "phone",
-      "country",
-      "city",
-      "sex",
-    ],
     "/SMSVerify",
     "تایید ثبت نام",
     40.0,

@@ -1,7 +1,7 @@
 
 class SetSex{
  static sex(String sex){
-   print("SSSSSSSSSexxxx   "+sex);
+
     if(sex=="مرد"){
       return 0;
     }

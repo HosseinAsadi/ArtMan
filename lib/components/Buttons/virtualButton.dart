@@ -2,9 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Button extends StatefulWidget {
-  String text, goal;
-  bool task=false;
+class VirtualBotton extends StatefulWidget {
+  String text;
   double height;
   double margintop;
   double marginbottom;
@@ -13,51 +12,45 @@ class Button extends StatefulWidget {
   Color startcolor;
   Color endcolor,textcolor;
   double width;
-  var function;
   FontWeight fontWeight;
   double textsize;
-  GlobalKey<FormState> _key;
 
-  setkey(GlobalKey<FormState> _key) {
-    this._key = _key;
-  }
 
-  Button( this.goal, this.text, this.height, this.margintop,
+
+
+  VirtualBotton(  this.text, this.height, this.margintop,
       {this.marginleft,
-      this.marginright,
+        this.marginright,
         this.marginbottom,
-      this.startcolor,
-      this.endcolor,
+        this.startcolor,
+        this.endcolor,
         this.textcolor,
-      this.width,
-      this.fontWeight,
-      this.textsize,
-      this.task,
-      this.function(arg)});
+        this.width,
+        this.fontWeight,
+        this.textsize,
+  });
 
   @override
-  myBottom createState() {
+  myButtom createState() {
     // TODO: implement createState
-    return myBottom( _key, goal, text, height, margintop,
+    return myButtom(  text, height, margintop,
         marginright: marginright,
         marginleft: marginleft,
         marginbottom: marginbottom,
         startcolor: startcolor,
         endcolor: endcolor,
         width: width,
-    textcolor: textcolor,
-    fontWeight: fontWeight,
-    textsize: textsize,
-    task: task,
-    function: function);
+        textcolor: textcolor,
+        fontWeight: fontWeight,
+        textsize: textsize,
+        );
   }
 }
 
-class myBottom extends State<Button> {
-  String cityvalue = null, goal;
+class myButtom extends State<VirtualBotton> {
+
   String text;
-  bool task=false;
-  var function;
+
   double height;
   double margintop;
   double marginleft,marginbottom;
@@ -69,24 +62,18 @@ class myBottom extends State<Button> {
   double textsize;
 
 
-
-  GlobalKey<FormState> _key;
-
-  myBottom(
-       this._key, this.goal, this.text, this.height, this.margintop,
+  myButtom(
+       this.text, this.height, this.margintop,
       {this.marginleft,
-      this.marginright,
-      this.marginbottom,
-      this.startcolor,
-      this.endcolor,
+        this.marginright,
+        this.marginbottom,
+        this.startcolor,
+        this.endcolor,
         this.textcolor,
-      this.width,
-      this.textsize,
-      this.fontWeight,
-      this.task,
-      this.function});
-//MakeList makeList=new MakeList();
-  @override
+        this.width,
+        this.textsize,
+        this.fontWeight,
+   });
   @override
   Widget build(BuildContext context) {
     var right = 0.0;
@@ -133,27 +120,20 @@ class myBottom extends State<Button> {
           });
         },
         onTap: () {
-          if (_key != null) if (_key.currentState.validate()) {
-            _key.currentState.save();
-            Navigator.pushNamed(context, goal);
-          }
 
-          else
             Scaffold.of(context).showSnackBar(SnackBar(
                 content: Text(
-                  "ل",
+                  "لطفا همه ی فیلد ها را پر کنید",
                   style: TextStyle(color: Colors.white),
                 ),
                 backgroundColor: Colors.red[900]));
-          else
-            Navigator.pushNamed(context, goal);
         },
         child: Text(
           text,
           textAlign: TextAlign.center,
           style: TextStyle(color: textcolor==null?Colors.white:textcolor,
-          fontWeight: fontWeight==null?FontWeight.normal:fontWeight ,
-          fontSize: textsize==null?16:textsize),
+              fontWeight: fontWeight==null?FontWeight.normal:fontWeight ,
+              fontSize: textsize==null?16:textsize),
         ),
       ),
     );

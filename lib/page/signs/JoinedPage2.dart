@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
-import 'package:art_man/components/Keys.dart';
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/MD5Generator.dart';
+import 'package:art_man/components/Utility/SetSex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -15,7 +18,7 @@ class Membership extends StatefulWidget {
 
 class page extends State<Membership> {
   static bool _accept = false;
-  Button buttonenable = new Button([""], '/profile', 'ورود به پنل کاربری', 40.0, 0.0,
+  Button buttonenable = new Button( '/profile', 'ورود به پنل کاربری', 40.0, 0.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0);
 
   MaterialText tilte = new MaterialText(
@@ -27,25 +30,25 @@ class page extends State<Membership> {
     fontsize: 18.0,
 
   );
-  /*_senddata()async{
 
-    await Sender.apiRequest("${Strings.baseurl}/users/addUser",{
-      "username" : Kelid.getter("username"),
-      "password" : Kelid.getter("password"),
-      "first_name" :  Kelid.getter("first_name"),
-      "last_name" : " ",
-      "country" : Kelid.getter("country"),
-      "city" : Kelid.getter("city"),
-      "phone" :  Kelid.getter("phone"),
-      "sex" :  Kelid.getter("sex"),
-    });
-  }*/
+  sender(){
+    Sender.apiRequest("${Strings.baseurl}/users/addUser",json.encode(
+        { "username" : Kelid.getter("username"),
+          "password" : Hasher.GenerateMd5(Kelid.getter("password").toString()),
+          "first_name" :  Kelid.getter("first_name"),
+          "last_name" : " ",
+          "country" : Kelid.getter("country"),
+          "city" : Kelid.getter("city"),
+          "phone" :  Kelid.getter("phone"),
+          "sex" : SetSex.sex(Kelid.getter("sex").toString())
+        }));
+  }
+
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
-   // _senddata();
-
+    sender();
   }
   @override
   Widget build(BuildContext context) {

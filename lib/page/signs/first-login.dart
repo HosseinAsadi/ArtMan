@@ -93,9 +93,9 @@ class FL extends State<FirstLogin> {
         /*String counter = (prefs.getString('type') ?? 0);
         print('user is  $counter .');*/
         if(morabi)
-          await prefs.setString('type', "teacher");
+          await prefs.setString('type', "teachers");
         else
-          await prefs.setString('type', "student");
+          await prefs.setString('type', "users");
         setState(() {
           UserInfo.type=prefs.getString('type');
 

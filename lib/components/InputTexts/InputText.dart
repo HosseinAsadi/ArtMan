@@ -1,4 +1,4 @@
-import 'package:art_man/components/Keys.dart';
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -93,7 +93,7 @@ class myInputText extends State<InputText> {
 
         onSaved: (value) {
           Kelid.setter(id, value);
-         print(Kelid.getter(id)) ;
+
 
         },
         textAlign: alignment == null ? TextAlign.right : alignment,

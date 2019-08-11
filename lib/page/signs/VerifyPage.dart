@@ -19,7 +19,7 @@ class myVerifyPage extends State<VerifyPage> {
   InputPass repeat = new InputPass("","password");
   InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
   Button bottom = new Button(
-      ["pass", "repeatpass"],
+
   type=="teacher"?'/joindepage':"/Membership", "تایید و مرحله بعد", 40.0, 20.0,
       marginleft: 5.0,
       width: 120.0,

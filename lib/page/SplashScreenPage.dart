@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:art_man/components/Networking/CheckConnection.dart';
-
+import 'package:art_man/components/Networking/FetchData.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +65,10 @@ class MySplashScreen extends State<SplashScreenPage> {
     super.dispose();
   }
 
-
+  apiRequest() async {
+    var x=await GetLocation.fetchuser();
+    print(x.toString());
+  }
   void _myFunction() async {
     bool result = await CheckConnection.checkConnection();
     setState(() {
@@ -78,6 +80,7 @@ class MySplashScreen extends State<SplashScreenPage> {
   @override
   void initState() {
     super.initState();
+    apiRequest();
     _getsignstate();
     _myFunction();
     startTimer();

@@ -62,7 +62,7 @@ class _ExtractSportNameState extends State<ExtractSportName> {
     margintop: 5.0,
   );
   Button ok = new Button(
-    [""],
+
     "/SelectSportExtract",
     "تایید تمرین",
     35.0,

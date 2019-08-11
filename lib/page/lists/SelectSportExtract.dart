@@ -87,7 +87,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                             ],
                           ),
                         ),
-                        Button([""],"/ExtractSportName","تایید موقت",30.0,10.0,width: 100.0,)
+                        Button("/ExtractSportName","تایید موقت",30.0,10.0,width: 100.0,)
                       ],
                     ),
                   ),
