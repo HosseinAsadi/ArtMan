@@ -18,7 +18,7 @@ class Membership extends StatefulWidget {
 
 class page extends State<Membership> {
   static bool _accept = false;
-  Button buttonenable = new Button( '/profile', 'ورود به پنل کاربری', 40.0, 0.0,
+  Button buttonenable = new Button([], '/profile', 'ورود به پنل کاربری', 40.0, 0.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0);
 
   MaterialText tilte = new MaterialText(

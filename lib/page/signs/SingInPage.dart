@@ -1,69 +1,80 @@
-
+import 'package:art_man/components/Buttons/virtualButton.dart';
+import 'package:art_man/components/Location.dart';
 import 'package:art_man/components/Networking/FetchData.dart';
-import 'package:http/http.dart' as http;
+import 'package:art_man/components/Toast/ShowSnackbar.dart';
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputPass.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Texts/Strings.dart';
-import 'package:art_man/components/UserInfo.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/MD5Generator.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyCustomForm extends StatefulWidget {
-
   @override
   SingInPage createState() {
-
     return SingInPage();
   }
 }
 
 class SingInPage extends State<MyCustomForm> {
-static String type=UserInfo.type;
+  static String type;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _formkey = GlobalKey<FormState>();
+  double width,height=40.0;
+  UserData rslt;
+  Button signinbtn;
+  Button signupbtn;
 
- apiRequest() async {
-   var x=await GetLocation.fetchuser();
-   print(x.toString());
-}
+  InputText username =
+      new InputText("نام کاربری خود را وارد نمایید ...", "username");
+  InputPass password = new InputPass("password", "password");
 
- /* _gettype()async{
-   String typ=await SharedPrefrences.gettype();
-   setState(() {
-     type=typ;
-   });
+  Future<Null> gettype() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String t = prefs.getString("type");
+    print(t);
+    setState(() {
+      type = t;
+      signinbtn = new Button([],
+          type == "teachers" ? '/TeacherProfilePage' : "/Profile",
+          "ورود",
+          40.0,
+          20.0,
+          marginleft: 5.0,
+          startcolor: Color(0xFF5AE400),
+          endcolor: Color(0xFF0F8F00));
+      signupbtn = new Button(
+          ["username", "password"],
+          type == "teachers" ? '/Register' : "/signuppage",
+          "ثبت نام",
+          40.0,
+          20.0,
+          marginright: 5.0,
+          startcolor: Color(0xFF5AE400),
+          endcolor: Color(0xFF0F8F00));
+    });
+  }
 
-  }*/
-
- @override
-  void initState() {
-    super.initState();
-    apiRequest();
+  apiRequest(url) async {
+    rslt = await GetLocation.fetchuser(url);
+    print ("connecteon is ok data recieved and reslutl is"+ rslt.result.toString());
 
   }
 
-  final _formkey = GlobalKey<FormState>();
-  InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
-  InputPass password = new InputPass("password","password");
-  Button signinbtn = new
-  Button(type=="teachers"?'/TeacherProfilePage':"/Profile", "ورود", 40.0, 20.0,
-      marginleft: 5.0,
-      startcolor: Color(0xFF5AE400),
-      endcolor: Color(0xFF0F8F00));
-  Button signupbtn = new Button(type=="teachers"?'/Register':"/signuppage", "ثبت نام", 40.0, 20.0,
-      marginright: 5.0,
-      startcolor: Color(0xFF5AE400),
-      endcolor: Color(0xFF0F8F00));
+  @override
+  void initState() {
+    super.initState();
+    gettype();
+  }
 
   @override
   Widget build(BuildContext context) {
-    signinbtn.setkey(_formkey);
-
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -84,7 +95,7 @@ static String type=UserInfo.type;
                   text("رمز عبور :"),
                   password,
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       GestureDetector(
                         child: Column(
@@ -99,35 +110,56 @@ static String type=UserInfo.type;
                           ],
                         ),
                       ),
-                      GestureDetector(
-                        child: Column(
-                          children: <Widget>[
-                            Text("اصلاح شماره همراه",
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 10,
-                                    color: Colors.white)),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Flexible(flex: 1, child:GestureDetector(
-                        onTap: (){
-                          _formkey.currentState.save();
-                          setState(() {
-                            print("${Strings.baseurl}/teachers/login/:${Kelid.getter("username")}/:${Hasher.GenerateMd5(Kelid.getter("password"))}");
-                            apiRequest();
-                          });
-                        },
-                        child: signinbtn
-                      )),
                       Flexible(
                         flex: 1,
-                        child:signupbtn,
+                        child: GestureDetector(
+                          child: Container(
+                            alignment: Alignment(0, 0),
+                            width: width,
+                            height: height,
+                            margin: EdgeInsets.only(top: 20.0),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [Color(0xFF5AE100), Color(0xFF0F8F00)])),
+                            child: Text(
+                              "ورود",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize:16),
+                            ),
+                          ),
+                          onTap: () async {
+                           await apiRequest(
+                                "${Strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
+
+
+                            if (rslt.result.toString() == "0" ) {
+                              Snakbar.ShowSnackbar(_scaffoldKey,
+                                  "نام کاربری یا رمز عبور اشتباه است");
+                            }
+                            if (rslt.result.toString() == "1") {
+                              Navigator.pushNamed(
+                                context,
+                                type == "teachers"
+                                    ? '/TeacherProfilePage'
+                                    : "/Profile",
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: signupbtn,
                       )
                     ],
                   )

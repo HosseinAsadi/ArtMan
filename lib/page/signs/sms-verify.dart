@@ -5,6 +5,7 @@ import 'package:art_man/components/Buttons/virtualButton.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Toast/ShowSnackbar.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/RandomGenerator.dart';
 import 'package:flutter/material.dart';
@@ -17,23 +18,22 @@ class SMSVerify extends StatefulWidget {
 }
 
 class SMSV extends State<SMSVerify> {
+  double width=120.0;
+  double height=40.0;
+  String inputcode;
+  var _formKey = GlobalKey<FormState>();
+  var _scaffoldkey = GlobalKey<ScaffoldState>();
+  static String verifycode;
 
   Widget ct = new Text(
     "کد‌تایید‌ثبت‌نام:",
     style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
   );
-  String inputcode;
-  var _formKey = GlobalKey<FormState>();
-  static String verifycode;
+
 
   InputText _ctf = new InputText("کد تاییدیه را وارد نمایید..", "sms");
-  Button send = new Button(
-    "/verifypage",
-    "تایید",
-    40.0,
-    10.0,
-    width: 120.0,
-  );
+
+
 
   sender() {
     setState(() {
@@ -56,9 +56,10 @@ class SMSV extends State<SMSVerify> {
 
   @override
   Widget build(BuildContext context) {
-    send.setkey(_formKey);
+
 
     return Scaffold(
+      key: _scaffoldkey,
       body: setBackground(),
     );
   }
@@ -75,6 +76,7 @@ class SMSV extends State<SMSVerify> {
         child: body(),
       );
 
+
   Widget body() => Form(
       key: _formKey,
       child: Column(
@@ -88,21 +90,59 @@ class SMSV extends State<SMSVerify> {
           ),
           _ctf,
           getRow(),
-          GestureDetector(
-            onTap: (){
-              _formKey.currentState.save();
-              setState(() {
-                inputcode=Kelid.getter("sms");
-                print(inputcode);
-                print(verifycode);
-              });
-            },
+          Container(
+            alignment: Alignment(0, 0),
+            width: width,
+            height: height,
+            margin: EdgeInsets.only(top: 10, ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [Color(0xFF5AE100), Color(0xFF0F8F00)])),
+            child: GestureDetector(
+              onTapDown: (tapDetails) {
+                setState(() {
+                  width = width - 2;
+                  --height;
 
-            child: inputcode==verifycode?send:
-            VirtualBotton("تایید",40.0,10.0,width: 120.0,),
+                });
+              },
+              onTapUp: (TapUpDetails) {
+                setState(() {
+                  width = width + 2;
+                  ++height;
+                });
+              },
+              onTap: () {
+
+                  if (Kelid.getter("sms")!=null &&  Kelid.getter("sms")==verifycode) {
+                    Navigator.pushNamed(context,"/verifypage" );
+                  }
+
+                  else if(Kelid.getter("sms")==null || Kelid.getter("sms")=="")
+                    {
+                      Snakbar.ShowSnackbar(_scaffoldkey, "لطفا کد تایید را وارد کنید");
+                    }
+                  else
+                    {
+                      Snakbar.ShowSnackbar(_scaffoldkey, "کد وارد شده نادرست است");
+                    }
+
+              },
+              child: Text(
+                "تایید",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white,
+                    fontWeight: FontWeight.normal ,
+                    fontSize: 16),
+              ),
+            ),
           )
         ],
       ));
+
 
   Widget getRow() => Container(
         margin: EdgeInsets.only(left: 30, right: 30, top: 15),

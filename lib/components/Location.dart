@@ -19,3 +19,20 @@ class Result {
     );
   }
 }
+
+class UserData {
+  final int result;
+  UserData._({ this.result});
+  factory UserData.fromJson(Map jsonMap) {
+    return new UserData._(
+        result : (jsonMap['result'])
+    );
+  }
+}
+
+
+
+
+
+
+

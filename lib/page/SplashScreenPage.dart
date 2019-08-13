@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:art_man/components/Networking/CheckConnection.dart';
-import 'package:art_man/components/Networking/FetchData.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +14,14 @@ class MySplashScreen extends State<SplashScreenPage> {
   Timer _timer;
   int _start = 3;
   bool signstate;
+  String type;
 
   _getsignstate()async{
 
    var sign=await SharedPrefrences.signState();
+  String tpe=await SharedPrefrences.gettype();
    setState(() {
+     type=tpe;
      if(sign==null)
        signstate=false;
      else
@@ -37,7 +39,7 @@ class MySplashScreen extends State<SplashScreenPage> {
             timer.cancel();
             if(connection)
               if(signstate){
-                Navigator.pushNamed(context, "/Profile");
+                Navigator.pushNamed(context,type=="teachers"?"/TeacherProfilePage": "/Profile");
 
               }
 
@@ -65,10 +67,6 @@ class MySplashScreen extends State<SplashScreenPage> {
     super.dispose();
   }
 
-  apiRequest() async {
-    var x=await GetLocation.fetchuser();
-    print(x.toString());
-  }
   void _myFunction() async {
     bool result = await CheckConnection.checkConnection();
     setState(() {
@@ -80,10 +78,10 @@ class MySplashScreen extends State<SplashScreenPage> {
   @override
   void initState() {
     super.initState();
-    apiRequest();
     _getsignstate();
     _myFunction();
     startTimer();
+
   }
 
   @override

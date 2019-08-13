@@ -36,6 +36,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'components/ImageAbout/ImageUploader.dart';
+import 'components/SlidingForms.dart';
 import 'page/ExtractSportName.dart';
 
 
@@ -102,6 +103,7 @@ class MyApp extends StatelessWidget {
         '/FoodPlan': (context) => FoodPlan(),
         '/ListSession': (context) => ListSession(),
         '/Uploader': (context) => Uploader(),
+        '/SlidigForms': (context) => SlidigForms(),
       },
     );
   }

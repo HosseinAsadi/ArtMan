@@ -20,7 +20,7 @@ class _StdAnalyzePage6State extends State<StdAnalyzePage6> {
 
   );
   Button sendImage = new Button(
-
+    [],
     "/",
     "ارسال تصویر",
     28.0,
@@ -30,7 +30,7 @@ class _StdAnalyzePage6State extends State<StdAnalyzePage6> {
     width: 100.0,
   );
   Button continuebtn = new Button(
-
+    [],
     "/MuscleGroupList",
     "ادامه آنالیز",
     40.0,

@@ -27,6 +27,7 @@ class MySingup extends State<SignUp> {
   InputText phone = new InputText("شماره همراه خود را وارد نمایید...", "phone");
 
   Button button = new Button(
+    ["first_name","phone","country","city","sex"],
     "/SMSVerify",
     "تایید ثبت نام",
     40.0,

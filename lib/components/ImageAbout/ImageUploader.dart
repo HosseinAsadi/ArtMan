@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -31,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   File imageFile;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  static const baseUrl = 'http://192.168.20.231:3000';
 
   @override
   Widget build(BuildContext context) {
@@ -139,10 +140,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   _uploadImage() async {
+    String username = await SharedPrefrences.getusername();
     var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     var length = await imageFile.length();
 
-    var uri = Uri.parse("$baseUrl/teachers/profileImage/sepehr");
+    var uri = Uri.parse("${Strings.baseurl}/teachers/profileImage/$username");
 
     var request = new http.MultipartRequest("PUT", uri);
     var multipartFile = new http.MultipartFile('file', stream, length,
@@ -158,7 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   _selectGalleryImage() async {
     imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {});
+    setState(() {
+      _cropImage();
+    });
     _cropImage();
   }
 }

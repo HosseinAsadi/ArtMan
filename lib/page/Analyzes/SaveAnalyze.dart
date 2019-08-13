@@ -19,7 +19,7 @@ class _SaveAnalyzeState extends State<SaveAnalyze> {
 
   );
   Button saveanalyze = new Button(
-
+    [],
     "/StdInformationPage",
     "ذخیره آنالیز",
     40.0,

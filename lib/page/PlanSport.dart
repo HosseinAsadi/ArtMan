@@ -12,7 +12,7 @@ class _PlanSportState extends State<PlanSport> {
  static List<String> weeks;
   DropDown dropDown = new DropDown("week program",weeks,"برنامه چند هفته اجرا شود؟");
   Button save = new Button(
-
+    [],
     "/",
     "ذخیره موقت",
     30.0,
@@ -22,7 +22,7 @@ class _PlanSportState extends State<PlanSport> {
     width: 110.0,
   );
   Button sendplan = new Button(
-
+    [],
     "/",
     "ارسال برنامه",
     30.0,
@@ -32,7 +32,7 @@ class _PlanSportState extends State<PlanSport> {
     width: 110.0,
   );
   Button selectpattern = new Button(
-
+    [],
     "/",
     "انتخاب از الگوی ذخیره شده",
     30.0,
@@ -42,7 +42,7 @@ class _PlanSportState extends State<PlanSport> {
     width: 200.0,
   );
   Button pattern = new Button(
-
+    [],
     "/",
     "ذخیره به عنوان الگو",
     30.0,

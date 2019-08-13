@@ -1,10 +1,11 @@
-
+import 'package:art_man/components/Utility/Validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
   String text, goal;
   bool task=false;
+  List<String> list;
   double height;
   double margintop;
   double marginbottom;
@@ -22,7 +23,7 @@ class Button extends StatefulWidget {
     this._key = _key;
   }
 
-  Button( this.goal, this.text, this.height, this.margintop,
+  Button(this.list,this.goal, this.text, this.height, this.margintop,
       {this.marginleft,
       this.marginright,
         this.marginbottom,
@@ -38,7 +39,7 @@ class Button extends StatefulWidget {
   @override
   myBottom createState() {
     // TODO: implement createState
-    return myBottom( _key, goal, text, height, margintop,
+    return myBottom(list, _key, goal, text, height, margintop,
         marginright: marginright,
         marginleft: marginleft,
         marginbottom: marginbottom,
@@ -56,6 +57,7 @@ class Button extends StatefulWidget {
 class myBottom extends State<Button> {
   String cityvalue = null, goal;
   String text;
+  List<String> list;
   bool task=false;
   var function;
   double height;
@@ -73,7 +75,7 @@ class myBottom extends State<Button> {
   GlobalKey<FormState> _key;
 
   myBottom(
-       this._key, this.goal, this.text, this.height, this.margintop,
+       this.list,this._key, this.goal, this.text, this.height, this.margintop,
       {this.marginleft,
       this.marginright,
       this.marginbottom,
@@ -133,15 +135,17 @@ class myBottom extends State<Button> {
           });
         },
         onTap: () {
-          if (_key != null) if (_key.currentState.validate()) {
+          if (_key != null)
+            if (Validator.isvalid(list)) {
             _key.currentState.save();
+
             Navigator.pushNamed(context, goal);
           }
 
           else
             Scaffold.of(context).showSnackBar(SnackBar(
                 content: Text(
-                  "ل",
+                  "لطفا همه ی فیلد ها را پر کنید",
                   style: TextStyle(color: Colors.white),
                 ),
                 backgroundColor: Colors.red[900]));

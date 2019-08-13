@@ -86,31 +86,26 @@ class myInputText extends State<InputText> {
               width: brderwidth == null ? 0.0 : brderwidth),
           color: Colors.white,
           borderRadius: BorderRadius.circular(radius == null ? 25 : radius)),
-      child: TextFormField(
+      child: TextField(
+
         inputFormatters: [
           new LengthLimitingTextInputFormatter(30),
         ],
-
-        onSaved: (value) {
+        onChanged: (value){
           Kelid.setter(id, value);
-
+          print(Kelid.getter(id));
 
         },
         textAlign: alignment == null ? TextAlign.right : alignment,
         maxLines: maxlines==null?1:maxlines,
+
         style: TextStyle(
           fontSize: 14,
-
         ),
+
         textDirection: TextDirection.rtl,
         controller: ctrl,
 
-        validator: (String value) {
-          if (value.isEmpty) {
-            return "";
-          }
-          return null;
-        },
 
         decoration: InputDecoration(
             border: InputBorder.none,

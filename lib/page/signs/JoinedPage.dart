@@ -5,6 +5,7 @@ import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/MD5Generator.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -17,7 +18,7 @@ class JoinedPage extends StatefulWidget {
 
 class myJoinedPage extends State<JoinedPage> {
  static bool _accept = false;
-  Button buttonenable = new Button( '/TeacherProfilePage', 'ورود به پنل کاربری', 40.0, 0.0,
+  Button buttonenable = new Button([], '/TeacherProfilePage', 'ورود به پنل کاربری', 40.0, 0.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0);
 
   MaterialText tilte = new MaterialText(
@@ -40,6 +41,11 @@ class myJoinedPage extends State<JoinedPage> {
          "phone" :  Kelid.getter("phone"),
 
        }));
+
+ }
+ setusername()async{
+  await SharedPrefrences.setusername();
+  await SharedPrefrences.setsign();
  }
 
  @override
@@ -47,6 +53,7 @@ class myJoinedPage extends State<JoinedPage> {
     // TODO: implement initState
     super.initState();
     sender();
+    setusername();
   }
   @override
   Widget build(BuildContext context) {
@@ -133,3 +140,5 @@ class myJoinedPage extends State<JoinedPage> {
   }
 
 }
+
+////teacher

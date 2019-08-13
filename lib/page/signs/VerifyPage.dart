@@ -1,9 +1,8 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputPass.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
-import 'package:art_man/components/UserInfo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VerifyPage extends StatefulWidget {
   @override
@@ -13,22 +12,39 @@ class VerifyPage extends StatefulWidget {
 }
 
 class myVerifyPage extends State<VerifyPage> {
-  static String type=UserInfo.type;
-  final _formkey = GlobalKey<FormState>();
+  static String type;
   InputPass password = new InputPass("","password");
-  InputPass repeat = new InputPass("","password");
+  InputPass repeat = new InputPass("","password2");
   InputText username = new InputText("نام کاربری خود را وارد نمایید ...","username");
-  Button bottom = new Button(
 
-  type=="teacher"?'/joindepage':"/Membership", "تایید و مرحله بعد", 40.0, 20.0,
-      marginleft: 5.0,
-      width: 120.0,
-      startcolor: Color(0xFF5AE400),
-      endcolor: Color(0xFF0F8F00));
 
+
+  Future<Null> gettype() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String t = prefs.getString("type");
+    print(t);
+    setState(() {
+      type = t;
+      bottom = new Button(
+          ["password","password2","username"],
+          type=="teachers"?'/joindepage':"/Membership", "تایید و مرحله بعد", 40.0, 20.0,
+          marginleft: 5.0,
+          width: 120.0,
+          startcolor: Color(0xFF5AE400),
+          endcolor: Color(0xFF0F8F00)) ;
+
+    });
+  }
+  Button bottom;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    gettype();
+  }
   @override
   Widget build(BuildContext context) {
-    bottom.setkey(_formkey);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -38,7 +54,7 @@ class myVerifyPage extends State<VerifyPage> {
           ),
         ),
         child: Form(
-          key: _formkey,
+
           child: Container(
             margin: EdgeInsets.only(left: 50, right: 50),
             child: Column(

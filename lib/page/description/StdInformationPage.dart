@@ -55,7 +55,7 @@ class _StdInformationPageState extends State<StdInformationPage> {
     radius: 10,
   );
   Button saveanalyze = new Button(
-
+    [],
     "/PlanePage",
     "ذخیره آنالیز",
     40.0,

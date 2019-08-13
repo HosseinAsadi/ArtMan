@@ -1,3 +1,4 @@
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefrences{
@@ -11,6 +12,15 @@ class SharedPrefrences{
   }
   static Future<String> gettype()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.getString('type');
+    return prefs.getString('type');
   }
+
+ static  setusername() async{
+   SharedPreferences sign = await SharedPreferences.getInstance();
+   await sign.setString('username', Kelid.getter("username"));
+ }
+ static Future<String> getusername() async{
+   SharedPreferences user = await SharedPreferences.getInstance();
+   return await user.getString('username');
+ }
 }

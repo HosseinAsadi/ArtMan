@@ -64,7 +64,7 @@ class SA5 extends State<SaveAnalyze3>{
 
       TextArea('اطلاعات تکمیلی را وارد کنید..', 90),
 
-      Button("/analyze2","ادامه آنالیز", 40.0, 10.0,),
+      Button([],"/analyze2","ادامه آنالیز", 40.0, 10.0,),
 
     ],
   );

@@ -14,11 +14,12 @@ class VirtualBotton extends StatefulWidget {
   double width;
   FontWeight fontWeight;
   double textsize;
+  String snackbartext;
 
 
 
 
-  VirtualBotton(  this.text, this.height, this.margintop,
+  VirtualBotton(this.snackbartext,  this.text, this.height, this.margintop,
       {this.marginleft,
         this.marginright,
         this.marginbottom,
@@ -28,6 +29,7 @@ class VirtualBotton extends StatefulWidget {
         this.width,
         this.fontWeight,
         this.textsize,
+
   });
 
   @override
@@ -43,6 +45,7 @@ class VirtualBotton extends StatefulWidget {
         textcolor: textcolor,
         fontWeight: fontWeight,
         textsize: textsize,
+        snackbartext: snackbartext
         );
   }
 }
@@ -50,7 +53,6 @@ class VirtualBotton extends StatefulWidget {
 class myButtom extends State<VirtualBotton> {
 
   String text;
-
   double height;
   double margintop;
   double marginleft,marginbottom;
@@ -60,7 +62,7 @@ class myButtom extends State<VirtualBotton> {
   double width;
   FontWeight fontWeight;
   double textsize;
-
+  String snackbartext;
 
   myButtom(
        this.text, this.height, this.margintop,
@@ -73,6 +75,7 @@ class myButtom extends State<VirtualBotton> {
         this.width,
         this.textsize,
         this.fontWeight,
+        this.snackbartext
    });
   @override
   Widget build(BuildContext context) {
@@ -97,44 +100,16 @@ class myButtom extends State<VirtualBotton> {
       margin: EdgeInsets.only(top: margintop, left: left, right: right,bottom: bottom),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          //border: Border.all(color: bordercolor,width: borderwidth),
           gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [startcolor==null?Color(0xFF5AE100):startcolor, endcolor==null?Color(0xFF0F8F00):endcolor])),
-      child: GestureDetector(
-        onTapDown: (tapDetails) {
-          setState(() {
-            width = width - 2;
-            --height;
-            startcolor = Colors.green[900];
-            endcolor = Colors.green[800];
-          });
-        },
-        onTapUp: (TapUpDetails) {
-          setState(() {
-            startcolor = Color(0xFF5AE100);
-            endcolor = Color(0xFF0F8F00);
-            width = width + 2;
-            ++height;
-          });
-        },
-        onTap: () {
-
-            Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  "لطفا همه ی فیلد ها را پر کنید",
-                  style: TextStyle(color: Colors.white),
-                ),
-                backgroundColor: Colors.red[900]));
-        },
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(color: textcolor==null?Colors.white:textcolor,
-              fontWeight: fontWeight==null?FontWeight.normal:fontWeight ,
-              fontSize: textsize==null?16:textsize),
-        ),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: textcolor==null?Colors.white:textcolor,
+            fontWeight: fontWeight==null?FontWeight.normal:fontWeight ,
+            fontSize: textsize==null?16:textsize),
       ),
     );
   }
