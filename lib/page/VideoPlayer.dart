@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:art_man/components/ImageAbout/GenerateThumbnails.dart';
 import 'package:art_man/components/Utility/HoursFormat.dart';
 import 'package:flutter/material.dart';
 import 'package:seekbar/seekbar.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
 import 'package:screen/screen.dart';
+
+
 
 class VideoPlayerApp extends StatelessWidget {
   @override
@@ -26,33 +30,46 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   int possition;
   bool isshow = true;
   var reminedtime;
+  String image;
   String time;
+
   double value = 0.0,savevlue=0.0;
   Timer _progressTimer;
+  bool loaded=false;
   bool _done = false;
 
-  Future gettime() async {
-    time = await controller.value.duration.toString().split(".").first;
-    reminedtime = await controller.value.duration.inSeconds;
-  }
+   gettime() async {
+     setState(() async{
+       time = await controller.value.duration.toString().split(".").first;
+       reminedtime = await controller.value.duration.inSeconds;
+       _resumeProgressTimer();
+       controller.play();
+       loaded=true;
+
+       /*Thumb thumb=new Thumb();
+       image=  thumb.getImage("https://as4.cdn.asset.aparat.com/aparat-video/91317f5fa48477e61040d68a42ed2c1916364187-144p__31501.mp4");
+      print(image+"9999999999999999999999999999999999999999999999");*/
+     });
+
+
+   }
 
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.asset('assets/images/aaa.mp4')
+    controller = VideoPlayerController.network('https://as4.cdn.asset.aparat.com/aparat-video/91317f5fa48477e61040d68a42ed2c1916364187-720p__31501.mp4')
       ..initialize().then((_) {
-        gettime();
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {
+           });
         setState(() {});
+        gettime();
       });
-    controller.setLooping(true);
-    controller.play();
-    _resumeProgressTimer();
+   // controller.setLooping(true);
   }
 
-  Future _resumeProgressTimer() async{
+   _resumeProgressTimer() async{
 
-    _progressTimer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    _progressTimer = await Timer.periodic(Duration(seconds: 1), (Timer timer) {
 
       setState(() {
         savevlue+=1;
@@ -84,7 +101,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     Screen.keepOn(true);
 
     return Scaffold(
-      body: Center(
+      body:loaded? Center(
         child: GestureDetector(
           child: Stack(
             children: <Widget>[
@@ -166,7 +183,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                                             setState(() {
                                               if (controller.value.isPlaying) {
                                                 controller.pause();
-                                                savevlue=value;
                                                 _progressTimer?.cancel();
                                               } else {
                                                 controller.play();
@@ -218,7 +234,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             });
           },
         ),
-      ),
+      ):Center(
+
+          child:Container(width: 50,height: 50,
+        child:  CircularProgressIndicator(),)),
     );
   }
 

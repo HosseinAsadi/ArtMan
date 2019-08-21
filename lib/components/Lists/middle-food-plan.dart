@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:art_man/components/custom-loading.dart';
 
 class MiddleFoodPlan extends StatelessWidget {
+  Strings strings=new Strings();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,7 +23,7 @@ class MiddleFoodPlan extends StatelessWidget {
           ), 
           Container(
             margin: EdgeInsets.only(top: 20),
-            child: Text(Strings.EXPLAINMIDDLEFOODPLAN, style: TextStyle(color: Colors.white, fontSize: 10), textAlign: TextAlign.right,),
+            child: Text(strings.EXPLAINMIDDLEFOODPLAN, style: TextStyle(color: Colors.white, fontSize: 10), textAlign: TextAlign.right,),
           ),
           Customloading(30)
         ],

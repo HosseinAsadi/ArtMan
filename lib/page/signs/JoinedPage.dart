@@ -20,6 +20,7 @@ class myJoinedPage extends State<JoinedPage> {
  static bool _accept = false;
   Button buttonenable = new Button([], '/TeacherProfilePage', 'ورود به پنل کاربری', 40.0, 0.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0);
+ Strings strings=new Strings();
 
   MaterialText tilte = new MaterialText(
     40.0,
@@ -31,21 +32,21 @@ class myJoinedPage extends State<JoinedPage> {
 
   );
  sender(){
-   Sender.apiRequest("${Strings.baseurl}/teachers/addTeacher",json.encode(
+   Post.apiRequest("${strings.baseurl}/teachers/addTeacher",json.encode(
        { "username" : Kelid.getter("username"),
          "password" : Hasher.GenerateMd5(Kelid.getter("password").toString()),
-         "first_name" :  Kelid.getter("first_name"),
+         "first_name" : Kelid.getter("first_name"),
          "last_name" : " ",
          "country" : Kelid.getter("country"),
          "city" : Kelid.getter("city"),
-         "phone" :  Kelid.getter("phone"),
-
+         "phone" : Kelid.getter("phone"),
        }));
 
  }
  setusername()async{
-  await SharedPrefrences.setusername();
-  await SharedPrefrences.setsign();
+   SharedPrefrences sharedPrefrences=new SharedPrefrences();
+  await sharedPrefrences.setusername();
+  await sharedPrefrences.setsign();
  }
 
  @override
@@ -79,7 +80,7 @@ class myJoinedPage extends State<JoinedPage> {
                     children: <Widget>[
                       tilte,
                       Text(
-                        Strings.joinExplain,
+                        strings.joinExplain,
                         style: TextStyle(color: Colors.white, fontSize: 15),
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.justify,

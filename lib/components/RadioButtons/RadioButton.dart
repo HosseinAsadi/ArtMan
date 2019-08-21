@@ -1,19 +1,28 @@
+import 'package:art_man/components/Utility/AbnormalcyProblems.dart';
+import 'package:art_man/components/Utility/DigestionProblems.dart';
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:flutter/material.dart';
 
 
 
 class CustomRadio extends StatefulWidget {
   List<String> items;
-  CustomRadio(this.items);
+  String id;
+  bool isradio;
+  CustomRadio(this.items,this.id,this.isradio);
   @override
   createState() {
-    return  CustomRadioState(items);
+    return  CustomRadioState(items,id,isradio);
   }
 }
 
 class CustomRadioState extends State<CustomRadio> {
   List<String> items;
-  CustomRadioState(this.items);
+  String id;
+  bool isradio;
+
+
+  CustomRadioState(this.items,this.id,this.isradio);
   List<RadioModel> sampleData = new List<RadioModel>();
 
   @override
@@ -35,8 +44,39 @@ class CustomRadioState extends State<CustomRadio> {
 
             onTap: () {
               setState(() {
-                sampleData.forEach((element) => element.isSelected = false);
-                sampleData[index].isSelected = true;
+                if(isradio){
+                  sampleData.forEach((element) => element.isSelected = false);
+                  sampleData[index].isSelected = true;
+                  Kelid.setter(id, "alergy entered");
+                }
+                else{
+                  if(index==sampleData.length-1){
+                    sampleData.forEach((element) => element.isSelected = false);
+                    sampleData[index].isSelected = true;
+                    if(id=="digestion"){
+                      setDigestion(items[index]);
+                      Kelid.setter(id, "digestion entered");
+                    }
+                    if(id=="abnormalcy"){
+                      setAbnormalacy(items[index]);
+                      Kelid.setter(id, "abnormalcy entered");
+                    }
+
+                  }
+                  else{
+                    sampleData[index].isSelected = true;
+                    sampleData[sampleData.length-1].isSelected = false;
+                    if(id=="digestion"){
+                      setDigestion(items[index]);
+                      Kelid.setter(id, "digestion entered");
+                    }
+                    if(id=="abnormalcy"){
+                      setAbnormalacy(items[index]);
+                      Kelid.setter(id, "abnormalcy entered");
+                    }
+                  }
+                }
+
               });
             },
             child: new RadioItem(sampleData[index]),

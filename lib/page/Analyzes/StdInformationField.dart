@@ -12,37 +12,44 @@ class _StdInformationPageState extends State<StdInformationPage> {
     "رشته خود را وارد نمایید...",
     "fieldstd",
     height: 45.0,
+    maxlenght: 40,
 
   );
   InputText after = new InputText(
     "",
     "extractafter",
     height: 30.0,
+
+    maxlenght: 12,
   );
   InputText befor = new InputText(
     "",
     "extractbefor",
     height: 30.0,
+    maxlenght: 12,
+
   );
   InputText init = new InputText(
     "",
     "extractin",
+    maxlenght: 12,
+
     height: 30.0,
   );
   InputText day = new InputText(
-    "",
+    "چند روز در هفته تمرین می کنید...",
     "extractday",
     height: 40.0,
 
   );
   InputText time = new InputText(
-    "",
+    "چند جلسه در روز تمرین می کنید ... ",
     "extracttime",
     height: 40.0,
 
   );
   InputText hours = new InputText(
-    "",
+    "چه ساعاتی در روز تمرین می کنید ...",
     "extracthours",
     height: 40.0,
 
@@ -50,13 +57,14 @@ class _StdInformationPageState extends State<StdInformationPage> {
   InputText fielddes = new InputText(
     "توضیحات خود را وارد نمایید...",
     "fieldstddes",
-    maxlines: 7,
+    maxlines: 8,
     height: 160.0,
+    maxlenght: 1200,
     radius: 10,
   );
   Button saveanalyze = new Button(
     [],
-    "/PlanePage",
+    "/SaveAnalyze3",
     "ذخیره آنالیز",
     40.0,
     30.0,
@@ -66,7 +74,6 @@ class _StdInformationPageState extends State<StdInformationPage> {
   );
   @override
   Widget build(BuildContext context) {
-    var _key = GlobalKey<FormState>();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -83,7 +90,7 @@ class _StdInformationPageState extends State<StdInformationPage> {
               child: Container(
 
                 margin: EdgeInsets.only(left: 25, right: 25, top: 30),
-                //color: Colors.white,
+
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -96,13 +103,25 @@ class _StdInformationPageState extends State<StdInformationPage> {
                           fontWeight: FontWeight.w600),
                     ),
                     field,
+                    SizedBox(height: 5,),
                     fielddes,
+                    SizedBox(height: 5,),
 
                     Extracurricular("تمرینات خارج از فصل مسابقه ",after),
+                    SizedBox(height: 5,),
+
                     Extracurricular("تمرینات پیش از فصل مسابقه ",befor),
+                    SizedBox(height: 5,),
+
                     Extracurricular("تمرینات فصل مسابقه             ",init),
+                    SizedBox(height: 10,),
+
                     day,
+                    SizedBox(height: 5,),
+
                     time,
+                    SizedBox(height: 5,),
+
                     hours,
                     saveanalyze
                   ],

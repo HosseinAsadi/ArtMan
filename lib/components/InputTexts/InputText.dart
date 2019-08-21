@@ -15,6 +15,7 @@ class InputText extends StatefulWidget {
   int maxlines;
   Color hintconlor;
   double hintsize;
+  double maxlenght;
 
   InputText(this._hint, this.id,
       {this.height,
@@ -25,7 +26,8 @@ class InputText extends StatefulWidget {
       this.textAlign,
       this.maxlines,
       this.hintconlor,
-      this.hintsize});
+      this.hintsize,
+      this.maxlenght});
 
   @override
   myInputText createState() {
@@ -38,7 +40,8 @@ class InputText extends StatefulWidget {
         maxlines: maxlines,
         hintconlor: hintconlor,
         alignment: textAlign,
-        hintsize: hintsize);
+        hintsize: hintsize,
+    maxlenght: maxlenght);
     return it;
   }
 }
@@ -55,6 +58,8 @@ class myInputText extends State<InputText> {
   int maxlines;
   Color hintconlor;
   double hintsize;
+  double maxlenght;
+
 
   myInputText(this.id,this._hint,
       {this.height,
@@ -65,7 +70,8 @@ class myInputText extends State<InputText> {
       this.alignment,
       this.maxlines,
       this.hintsize,
-      this.hintconlor});
+      this.hintconlor,
+      this.maxlenght});
 
   var ctrl = new TextEditingController();
 
@@ -89,7 +95,7 @@ class myInputText extends State<InputText> {
       child: TextField(
 
         inputFormatters: [
-          new LengthLimitingTextInputFormatter(30),
+          new LengthLimitingTextInputFormatter(maxlenght==null?30:maxlenght.toInt()),
         ],
         onChanged: (value){
           Kelid.setter(id, value);
@@ -100,7 +106,7 @@ class myInputText extends State<InputText> {
         maxLines: maxlines==null?1:maxlines,
 
         style: TextStyle(
-          fontSize: 14,
+          fontSize: hintsize==null?14:hintsize,
         ),
 
         textDirection: TextDirection.rtl,

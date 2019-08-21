@@ -1,4 +1,5 @@
 import 'package:art_man/components/Buttons/Button.dart';
+import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/InputTexts/text-area.dart';
 import 'package:art_man/componethosein/appbar.dart';
 import 'package:art_man/componethosein/row-analyze5.dart';
@@ -44,27 +45,27 @@ class SA5 extends State<SaveAnalyze3>{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('تعیین هدف:', style: TextStyle(color: Colors.white),),
+            Text('تعیین هدف:', style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),),
           ],
         ),
       ),
-      RowAnalyze5('افزایش قدرت'),
-      RowAnalyze5('استقامت بدن'),
-      RowAnalyze5('سرعت'),
-      RowAnalyze5('سرعت عکس العمل'),
-      RowAnalyze5('فشار خون بالا'),
-      RowAnalyze5('توان هوازی'),
-      RowAnalyze5('توان بی هوازی'),
-      RowAnalyze5('انعطاف پذیری'),
-      RowAnalyze5('چابکی بدن'),
-      RowAnalyze5('تعادل و هماهنگی'),
-      RowAnalyze5('هایپر تروفی'),
-      RowAnalyze5('ایجاد تکنیک حرکات خاص'),
-      RowAnalyze5('وارد نمایید..'),
+      RowAnalyze5('افزایش قدرت',"goal"),
+      RowAnalyze5('استقامت بدن',"goal"),
+      RowAnalyze5('سرعت',"goal"),
+      RowAnalyze5('سرعت عکس العمل',"goal"),
+      RowAnalyze5('فشار خون بالا',"goal"),
+      RowAnalyze5('توان هوازی',"goal"),
+      RowAnalyze5('توان بی هوازی',"goal"),
+      RowAnalyze5('انعطاف پذیری',"goal"),
+      RowAnalyze5('چابکی بدن',"goal"),
+      RowAnalyze5('تعادل و هماهنگی',"goal"),
+      RowAnalyze5('هایپر تروفی',"goal"),
+      RowAnalyze5('ایجاد تکنیک حرکات خاص',"goal"),
+      RowAnalyze5('وارد نمایید..',"goal"),
 
-      TextArea('اطلاعات تکمیلی را وارد کنید..', 90),
+      InputText('اطلاعات تکمیلی را وارد کنید..',"goal description",height: 100.0,maxlines: 4,maxlenght: 400,radius: 10,),
 
-      Button([],"/analyze2","ادامه آنالیز", 40.0, 10.0,),
+      Button([],"/SaveAnalyze","ادامه آنالیز", 40.0, 10.0,width: 120.0,),
 
     ],
   );

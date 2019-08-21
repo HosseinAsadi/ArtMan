@@ -4,11 +4,12 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  jalali_date: ^0.1.5
   shared_preferences: ^0.5.3+4
   flutter_uploader: ^1.0.3
   seekbar: ^0.0.2
@@ -19,6 +20,7 @@ dependencies:
   path_provider: ^1.2.0
   image: any
   path: any
+  dio: ^2.1.13
 
 
   flutter_localizations:
@@ -28,7 +30,6 @@ dependencies:
   image_picker: ^0.6.0+17
   image_cropper: ^1.0.2
   flutter_image_compress: ^0.6.3
-  dio: ^2.1.13
 
 
 dev_dependencies:
@@ -66,6 +67,17 @@ flutter:
     - assets/images/profile.png
     - assets/images/aaa.mp4
     - assets/images/icon.png
+    - assets/images/anatomi.jpg
+    - assets/images/aroundArmClose.png
+    - assets/images/waist.png
+    - assets/images/aroundLaver.png
+    - assets/images/aroundChest.png
+    - assets/images/aroundWrist.png
+    - assets/images/aroundNeck.png
+    - assets/images/widthComb.png
+    - assets/images/aroundLeg.png
+    - assets/images/leg.png
+    - assets/images/tall.png
 
  
   # example:

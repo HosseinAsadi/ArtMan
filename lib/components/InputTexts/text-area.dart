@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class TextArea extends StatelessWidget{
@@ -10,8 +11,8 @@ class TextArea extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
+        margin: EdgeInsets.all(10),
         height: _height,
         alignment: Alignment.topRight,
         padding: EdgeInsets.only(right: 5),

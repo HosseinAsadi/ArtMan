@@ -6,6 +6,7 @@ import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/MD5Generator.dart';
 import 'package:art_man/components/Utility/SetSex.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -18,8 +19,9 @@ class Membership extends StatefulWidget {
 
 class page extends State<Membership> {
   static bool _accept = false;
-  Button buttonenable = new Button([], '/profile', 'ورود به پنل کاربری', 40.0, 0.0,
+  Button buttonenable = new Button([], '/Profile', 'ورود به پنل کاربری', 40.0, 0.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0);
+  Strings strings=new Strings();
 
   MaterialText tilte = new MaterialText(
     40.0,
@@ -32,7 +34,14 @@ class page extends State<Membership> {
   );
 
   sender(){
-    Sender.apiRequest("${Strings.baseurl}/users/addUser",json.encode(
+
+      print(Kelid.getter("username"));
+      print(Kelid.getter("first_name"));
+      print(Kelid.getter("phone"));
+      print(Kelid.getter("city"));
+      print(Kelid.getter("country"));
+      print(Kelid.getter("sex"));
+    Post.apiRequest("${strings.baseurl}/users/addUser",json.encode(
         { "username" : Kelid.getter("username"),
           "password" : Hasher.GenerateMd5(Kelid.getter("password").toString()),
           "first_name" :  Kelid.getter("first_name"),
@@ -43,12 +52,19 @@ class page extends State<Membership> {
           "sex" : SetSex.sex(Kelid.getter("sex").toString())
         }));
   }
+  setusername()async{
+    SharedPrefrences sharedPrefrences=new SharedPrefrences();
+
+    await sharedPrefrences.setusername();
+    await sharedPrefrences.setsign();
+  }
 
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
     sender();
+    setusername();
   }
   @override
   Widget build(BuildContext context) {
@@ -74,7 +90,7 @@ class page extends State<Membership> {
                     children: <Widget>[
                       tilte,
                       Text(
-                        Strings.TEXTOFMEMBERSHIP,
+                        strings.TEXTOFMEMBERSHIP,
                         style: TextStyle(color: Colors.white, fontSize: 15),
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.justify,

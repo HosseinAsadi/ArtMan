@@ -1,5 +1,6 @@
 
 import 'package:art_man/components/Buttons/Button.dart';
+import 'package:art_man/components/Buttons/ImageSaver.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:flutter/material.dart';
 
@@ -19,19 +20,10 @@ class _StdAnalyzePage6State extends State<StdAnalyzePage6> {
     maxlines: 9,
 
   );
-  Button sendImage = new Button(
-    [],
-    "/",
-    "ارسال تصویر",
-    28.0,
-    10.0,
-    startcolor: Color(0xFF71C105),
-    endcolor: Color(0xFF71C105),
-    width: 100.0,
-  );
+
   Button continuebtn = new Button(
-    [],
-    "/MuscleGroupList",
+    ["ارسال تصویر"],
+    "/SaveAnalyzee",
     "ادامه آنالیز",
     40.0,
     30.0,
@@ -93,7 +85,7 @@ class _StdAnalyzePage6State extends State<StdAnalyzePage6> {
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.green, fontSize: 17,fontWeight: FontWeight.w700
                             ),),
-                            sendImage,
+                            ImageSender("ارسال تصویر"),
                             Text("در صورتی که مربی تشخیص دهد شاگرد نیاز به آزمایشات دارد باید از او بخواهد تا آزمایشات و آنالیز کامل بدن را انجام دهد و جواب آزمایش را برای او در قسمت های بالا آپلود کند",
                             style: TextStyle(color: Colors.grey,fontSize: 11,fontWeight: FontWeight.w200),)
                           ],

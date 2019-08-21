@@ -1,6 +1,6 @@
 import 'package:art_man/components/Buttons/virtualButton.dart';
 import 'package:art_man/components/Location.dart';
-import 'package:art_man/components/Networking/FetchData.dart';
+import 'package:art_man/components/Networking/FetchLocation.dart';
 import 'package:art_man/components/Toast/ShowSnackbar.dart';
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputPass.dart';
@@ -28,6 +28,7 @@ class SingInPage extends State<MyCustomForm> {
   UserData rslt;
   Button signinbtn;
   Button signupbtn;
+  Strings strings=new Strings();
 
   InputText username =
       new InputText("نام کاربری خود را وارد نمایید ...", "username");
@@ -39,7 +40,7 @@ class SingInPage extends State<MyCustomForm> {
     print(t);
     setState(() {
       type = t;
-      signinbtn = new Button([],
+      signinbtn = new Button(["username", "password"],
           type == "teachers" ? '/TeacherProfilePage' : "/Profile",
           "ورود",
           40.0,
@@ -48,7 +49,7 @@ class SingInPage extends State<MyCustomForm> {
           startcolor: Color(0xFF5AE400),
           endcolor: Color(0xFF0F8F00));
       signupbtn = new Button(
-          ["username", "password"],
+          [],
           type == "teachers" ? '/Register' : "/signuppage",
           "ثبت نام",
           40.0,
@@ -139,7 +140,7 @@ class SingInPage extends State<MyCustomForm> {
                           ),
                           onTap: () async {
                            await apiRequest(
-                                "${Strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
+                                "${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
 
 
                             if (rslt.result.toString() == "0" ) {

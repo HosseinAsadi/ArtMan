@@ -2,7 +2,8 @@ import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Location.dart';
-import 'package:art_man/components/Networking/FetchData.dart';
+import 'package:art_man/components/Networking/FetchLocation.dart';
+import 'package:art_man/components/Utility/CityOfCountrys.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -13,7 +14,7 @@ class SignUp extends StatefulWidget {
 }
 
 class MySingup extends State<SignUp> {
-
+  CityOfCountrys cityOfCountrys;
   static  List<String> countries=[];
   static List<String> cities;
   static Country country;
@@ -44,9 +45,15 @@ class MySingup extends State<SignUp> {
       for (int i = 0; i < country.result.length; i++) {
         countries.add(country.result[i].name);
       }
+      cityOfCountrys=new CityOfCountrys();
+
+      for(int i=0;i<country.result.length;i++)
+        cityOfCountrys.setCountry(country.result[i].name, country.result[i].citynames);
+
       complete = true;
     });
    }
+
 
   @override
   void initState() {
@@ -85,9 +92,7 @@ class MySingup extends State<SignUp> {
                             new DropDown("country",countries,
                                 "کشور محل زندگی خود را انتخاب نمایید ..."),
                             text("انتخاب شهر :"),
-                            new DropDown("city",[
-                              "alai"
-                            ], "شهر محل زندگی خود را انتخاب نمایید ..."),
+                            new DropDown("city",["FDF"], "شهر محل زندگی خود را انتخاب نمایید ..."),
                             text("انتخاب جنسیت :"),
                             new DropDown("sex",[
                               "مرد",

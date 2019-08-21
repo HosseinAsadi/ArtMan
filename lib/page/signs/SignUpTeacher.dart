@@ -3,7 +3,8 @@ import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Location.dart';
-import 'package:art_man/components/Networking/FetchData.dart';
+import 'package:art_man/components/Networking/FetchLocation.dart';
+import 'package:art_man/components/Utility/CityOfCountrys.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -18,6 +19,7 @@ class MySingupteacher extends State<Register> {
   static  List<String> countries=[];
   static List<String> cities;
   static Country country;
+  CityOfCountrys cityOfCountrys;
 
   bool complete = false;
 
@@ -45,7 +47,16 @@ class MySingupteacher extends State<Register> {
       for (int i = 0; i < country.result.length; i++) {
         countries.add(country.result[i].name);
       }
+      cityOfCountrys=new CityOfCountrys();
+      _setCityForCountry();
       complete = true;
+    });
+  }
+  _setCityForCountry(){
+    setState(() {
+      for(int i=0;i<country.result.length;i++)
+        cityOfCountrys.setCountry(country.result[i].name, country.result[i].citynames);
+
     });
   }
 

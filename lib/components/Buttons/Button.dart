@@ -135,10 +135,13 @@ class myBottom extends State<Button> {
           });
         },
         onTap: () {
-          if (_key != null)
-            if (Validator.isvalid(list)) {
-            _key.currentState.save();
+          Validator validator=new Validator();
 
+          if(list.length==0)
+          Navigator.pushNamed(context, goal);
+
+           else if (validator.isvalid(list)) {
+             print("----------------------------> validator is ok");
             Navigator.pushNamed(context, goal);
           }
 
@@ -149,8 +152,7 @@ class myBottom extends State<Button> {
                   style: TextStyle(color: Colors.white),
                 ),
                 backgroundColor: Colors.red[900]));
-          else
-            Navigator.pushNamed(context, goal);
+
         },
         child: Text(
           text,

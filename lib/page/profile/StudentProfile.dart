@@ -1,27 +1,66 @@
+import 'package:art_man/components/Networking/FetchLocation.dart';
+import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
+import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
+import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/components/Utility/StdInfo.dart';
+import 'package:art_man/components/Utility/Username.dart';
 import 'package:art_man/componethosein/profile-button.dart';
 import 'package:art_man/componethosein/top-profile-info.dart';
 import 'package:flutter/material.dart';
 
 
-class Profile extends StatefulWidget{
+class ProfilePage extends StatefulWidget{
+  static final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey<ScaffoldState>();
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return P();
+    return P(scaffoldkey);
   }
 
 }
 
-class P extends State<Profile>{
-  @override
+class P extends State<ProfilePage>{
+  String username;
+  StdProfile information;
+
+ bool complete=false;
+   GlobalKey<ScaffoldState> scaffoldkey;
+
+   P(this.scaffoldkey);
+   _getInformation() async {
+     String usernamee=await Username();
+     StdProfile info=await StdInfo(usernamee);
+     setState(()  {
+       username=usernamee;
+       information =info;
+       complete = true;
+     });
+
+
+   }
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getInformation();
+  }
+   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: setBackground(),
+      key: scaffoldkey,
+      body:complete? setBackground():Center(
+      child: Container(
+      width: 40,
+      height: 40,
+      child: CircularProgressIndicator(),
+    )),
     );
   }
 
   Widget setBackground() => Container(
+
     alignment: Alignment(1, 0),
     decoration: BoxDecoration(
       image: DecorationImage(
@@ -33,16 +72,19 @@ class P extends State<Profile>{
   );
 
   Widget body() => ListView(
-    shrinkWrap: true,
+   // shrinkWrap: true,
     children: <Widget>[
       TopProfile(),
-      coachSearch(),
-      ProfileButton("قسمت مربیان", Icons.print, Colors.green[800], '/analyze1'),
+      GestureDetector(
+        onTap: (){
+          Navigator.pushNamed(context, "/SearchPage");
+        },
+        child: coachSearch() ,
+      ),
+      ProfileButton("قسمت مربیان", Icons.print, Colors.green[800], '/MyTeachers'),
       ProfileButton("برنامه های تمرینی/غذایی", Icons.print, Colors.lightGreen[700], '/analyze5'),
       ProfileButton("آنالیزها", Icons.print, Colors.green[800], ''),
-      ProfileButton("تنظیمات کاربری", Icons.print, Colors.lightGreen[700], ''),
-      ProfileButton("پشتیبانی", Icons.print, Colors.green[800], ''),
-      ProfileButton("خروج از حساب کاربری", Icons.print, Colors.grey[800], ''),
+
     ],
   );
 

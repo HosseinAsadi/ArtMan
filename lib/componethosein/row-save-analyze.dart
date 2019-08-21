@@ -1,3 +1,4 @@
+import 'package:art_man/components/Utility/Tools.dart';
 import 'package:flutter/material.dart';
 
 class RowSaveAnalyze extends StatefulWidget {
@@ -28,12 +29,13 @@ class RSA extends State<RowSaveAnalyze> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: 140,
+            width: 130,
             height: 30,
-            padding: EdgeInsets.only(left: 9, right: 10, top: 5, bottom: 5),
-            margin: EdgeInsets.only(left: 8, right: 5),
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(left: 3, right: 3),
+            margin: EdgeInsets.only(left: 3, right: 3),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(25)),
+                color: Colors.white, borderRadius: BorderRadius.circular(15)),
             child: Text(
               this._title,
               style: TextStyle(
@@ -46,12 +48,14 @@ class RSA extends State<RowSaveAnalyze> {
           Container(
             width: 140,
             height: 30,
-            padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-            margin: EdgeInsets.only(left: 8),
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(left: 3, right: 3),
+            margin: EdgeInsets.only(left: 3),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(25)),
             child: Text(
               this._title1,
+              textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.green,
                   fontSize: 11,
@@ -66,13 +70,19 @@ class RSA extends State<RowSaveAnalyze> {
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Icon(
                 Icons.done,
-                size: 30,
+                size: 25,
                 color: this._isSelected ? Colors.green : Colors.grey,
               ),
             ),
             onTap: () {
               setState(() {
                 this._isSelected = true;
+                Tool tool=new Tool();
+                tool.selection=true;
+                tool.persianName=_title;
+                tool.englishName=_title1;
+                setTool(tool);
+
               });
             },
           ),
@@ -83,7 +93,7 @@ class RSA extends State<RowSaveAnalyze> {
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Icon(
                 Icons.close,
-                size: 30,
+                size: 25,
                 color: !this._isSelected ? Colors.red : Colors.grey,
               ),
             ),

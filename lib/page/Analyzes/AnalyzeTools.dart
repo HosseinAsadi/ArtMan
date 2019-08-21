@@ -1,6 +1,5 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/text-area.dart';
-import 'package:art_man/componethosein/appbar.dart';
 import 'package:art_man/componethosein/row-save-analyze.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,6 @@ import 'package:flutter/material.dart';
 class SaveAnalyzee extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return SA();
   }
 
@@ -22,11 +20,18 @@ class SA extends State<SaveAnalyzee>{
 
   }
 
-  Widget setBackground() => Container(
+  Widget setBackground() =>Scaffold(
+      body :Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
     alignment: Alignment(0, 0),
 
     child: body(),
-  );
+  ));
 
   Widget body() => Column(
     children: <Widget>[
@@ -36,7 +41,7 @@ class SA extends State<SaveAnalyzee>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('چه تجهیزاتی برای تمرین در اختیار دارید؟', style: TextStyle(color: Colors.white,fontSize: 13),),
-            Text('(اجباری)', style: TextStyle(color: Colors.red),)
+            Text('(اجباری)', style: TextStyle(color: Colors.red,fontSize: 11),)
           ],
         ),
       ),
@@ -56,9 +61,9 @@ class SA extends State<SaveAnalyzee>{
       RowSaveAnalyze("رول فوم", "Foam Roll"),
       RowSaveAnalyze("دستگاه اضافه", "Other"),
 
-      TextArea('توضیحات خود را وارد نمایید..', 90),
 
-      Button([],"/CoachExplan","ادامه آنالیز", 40.0, 10.0,)
+
+      Button([],"/StdInformationPage","ادامه آنالیز", 45.0, 10.0,width: 130.0,)
 
     ],
   );

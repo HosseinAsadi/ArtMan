@@ -12,13 +12,11 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
 
-
 class Uploader extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+
       theme: new ThemeData.dark(),
       home: new MyHomePage(),
     );
@@ -33,52 +31,50 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   File imageFile;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  bool uploaded=false;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       key: scaffoldKey,
       appBar: new AppBar(
-        title: new Text('Upload image'),
+        title: new Text('تنظیم پروفایل'),
       ),
-      body: new Column(
+      body:Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child:new Column(
         children: <Widget>[
           _buildPreviewImage(),
           _buildButtons(),
         ],
-      ),
+      )),
     );
   }
 
   Widget _buildPreviewImage() {
-    return new Expanded(
-      child: new Card(
-        elevation: 3.0,
+    return Expanded(
+        child:Center(
+      child:
+      new Card(
+        elevation: 5.0,
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.all(
             new Radius.circular(4.0),
           ),
         ),
-        child: new Stack(
-          children: <Widget>[
-            new Container(
-              constraints: new BoxConstraints.expand(),
-              child: imageFile == null
-                  ? new Image.asset('assets/profile.png', colorBlendMode: BlendMode.darken, color: Colors.black26, fit: BoxFit.cover)
-                  : new Image.file(imageFile, fit: BoxFit.cover),
-            ),
-            new Align(
-              alignment: AlignmentDirectional.center,
-              child: imageFile == null
-                  ? new Text(
-                'No selected image',
-              )
-                  : new Container(),
-            ),
-          ],
+        child: new Container(
+
+           height: 400,
+          child: imageFile == null
+              ? new Image.asset('assets/images/profile.png', color: Colors.black26,fit: BoxFit.fitWidth, )
+              : new Image.file(imageFile, fit: BoxFit.cover),
         ),
       ),
-    );
+        ));
   }
 
   Widget _buildButtons() {
@@ -89,19 +85,19 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           new IconButton(
-            icon: Icon(Icons.camera),
+            icon: Icon(Icons.camera_alt,color: Colors.white),
             onPressed: _takePhoto,
-            tooltip: 'Take photo',
+            tooltip: 'گرفتن عکس',
           ),
           new IconButton(
-            icon: Icon(Icons.file_upload),
-            onPressed: _uploadImage,
-            tooltip: 'Upload image',
+            icon:uploaded?Icon(Icons.check_circle,color: Colors.green,): Icon(Icons.file_upload,color: Colors.white,),
+            onPressed:uploaded? null:_uploadImage,
+            tooltip: 'آپلود عکس',
           ),
           new IconButton(
-            icon: Icon(Icons.image),
+            icon: Icon(Icons.image,color: Colors.white),
             onPressed: _selectGalleryImage,
-            tooltip: 'Select from gallery',
+            tooltip: 'انتخاب از گالری',
           ),
         ],
       ),
@@ -110,8 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _takePhoto() async {
     imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState(() {});
-    _cropImage();
+    setState(() {
+      _cropImage();
+    });
+
   }
 
   Future<Null> _cropImage() async {
@@ -124,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
         maxHeight: 512,
       );
 
-       var result = await FlutterImageCompress.compressAndGetFile(
+      var result = await FlutterImageCompress.compressAndGetFile(
         croppedFile.path,
         croppedFile.path,
         quality: 72,
@@ -134,22 +132,24 @@ class _MyHomePageState extends State<MyHomePage> {
         imageFile = result;
       });
 
-
     }
   }
 
-
   _uploadImage() async {
-    String username = await SharedPrefrences.getusername();
+    Strings strings=new Strings();
+    SharedPrefrences sharedPrefrences=new SharedPrefrences();
+    String username = await sharedPrefrences.getusername();
+    String user = await sharedPrefrences.gettype();
+
     var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     var length = await imageFile.length();
 
-    var uri = Uri.parse("${Strings.baseurl}/teachers/profileImage/$username");
+    var uri = Uri.parse("${strings.baseurl}/$user/profileImage/$username");
 
     var request = new http.MultipartRequest("PUT", uri);
     var multipartFile = new http.MultipartFile('file', stream, length,
         filename: basename(imageFile.path),
-    contentType:  MediaType('image', 'png'));
+        contentType:  MediaType('image', 'png'));
 
     request.files.add(multipartFile);
     var response = await request.send();
@@ -157,13 +157,17 @@ class _MyHomePageState extends State<MyHomePage> {
     response.stream.transform(utf8.decoder).listen((value) {
       print(value);
     });
+    setState(() {
+      uploaded=true;
+
+    });
   }
   _selectGalleryImage() async {
     imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       _cropImage();
     });
-    _cropImage();
+
+
   }
 }
-

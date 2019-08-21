@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:art_man/components/Networking/CheckConnection.dart';
+import 'package:art_man/components/Networking/SendAnalyzeResult.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,15 @@ class MySplashScreen extends State<SplashScreenPage> {
   int _start = 3;
   bool signstate;
   String type;
-
+  uploadAnalyze()async{
+    AnalyzeData upload=new AnalyzeData();
+   await upload.uploader();
+  }
   _getsignstate()async{
+    SharedPrefrences sharedPrefrences=new SharedPrefrences();
 
-   var sign=await SharedPrefrences.signState();
-  String tpe=await SharedPrefrences.gettype();
+   var sign=await sharedPrefrences.signState();
+  String tpe=await sharedPrefrences.gettype();
    setState(() {
      type=tpe;
      if(sign==null)

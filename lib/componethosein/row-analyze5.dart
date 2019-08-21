@@ -1,32 +1,38 @@
+import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/Utility/Goals.dart';
+import 'package:art_man/components/Utility/Keys.dart';
+import 'package:art_man/components/Utility/Sicks.dart';
 import 'package:flutter/material.dart';
 
 class RowAnalyze5 extends StatefulWidget {
   String _title;
   bool _isSelected = false;
-
+  String type;
   TextEditingController _controller;
 
-  RowAnalyze5(this._title);
+  RowAnalyze5(this._title,this.type);
 
   TextEditingController get controller => _controller;
 
   @override
   State<StatefulWidget> createState() {
-    RA ra = new RA(this._isSelected, this._title);
+    RA ra = new RA(this._isSelected, this._title,type);
     this._controller = ra._controller;
     return ra;
   }
 }
 
+
 class RA extends State<RowAnalyze5> {
   bool _isSelected = false;
   String _title;
+  String type;
 
   TextEditingController _controller = new TextEditingController();
   String text = ""; // empty string to carry what was there before it
   int maxLength = 15;
 
-  RA(this._isSelected, this._title);
+  RA(this._isSelected, this._title,this.type);
 
   TextEditingController get controller => _controller;
 
@@ -39,45 +45,63 @@ class RA extends State<RowAnalyze5> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: 150,
+            alignment: Alignment.center,
+            width: 110,
             height: 30,
-            padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-            margin: EdgeInsets.only(left: 8,bottom: 5),
+            padding: EdgeInsets.only(left: 5, right: 5, ),
+            margin: EdgeInsets.only(left: 4,bottom: 5),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(25)),
             child: Text(
               this._title,
               style: TextStyle(
                   color: Colors.green,
-                  fontSize: 11,
+                  fontSize: 9,
                   fontWeight: FontWeight.bold),
             ),
           ),
+
           GestureDetector(
             child: Container(
-              margin: EdgeInsets.only(left: 8),
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(left: 4),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Icon(
                 Icons.done,
-                size: 30,
+                size: 20,
                 color: this._isSelected ? Colors.green : Colors.grey,
               ),
             ),
             onTap: () {
               setState(() {
-                this._isSelected = true;
+                if(type=="sick"){
+                  this._isSelected = true;
+                  Sick sick=new Sick();
+                  sick.name=_title;
+                  sick.description=Kelid.getter(_title);
+                  sick.selection=true;
+                  setSick(sick);
+                }
+                if(type=="goal"){
+                  this._isSelected = true;
+                  Goal goal=new Goal();
+                  goal.name=_title;
+                  goal.description=Kelid.getter(_title);
+                  goal.selection=true;
+                  setGoal(goal);
+                }
               });
             },
           ),
           GestureDetector(
             child: Container(
-              margin: EdgeInsets.only(left: 8),
+              margin: EdgeInsets.only(left: 4),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Icon(
                 Icons.close,
-                size: 30,
+                size: 20,
                 color: !this._isSelected ? Colors.red : Colors.grey,
               ),
             ),
@@ -87,43 +111,21 @@ class RA extends State<RowAnalyze5> {
               });
             },
           ),
-          Container(
+          Expanded(
+            child:Container(
               height: 35,
-              width: 100,
-              alignment: Alignment(0, 0),
+              alignment: Alignment.topRight,
               margin: EdgeInsets.only(bottom: 5),
-              padding: EdgeInsets.only(right: 5),
+              padding: EdgeInsets.only(right: 7),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(25)),
-              child: TextField(
-                textDirection: TextDirection.rtl,
-                controller: _controller,
-                onChanged: onChange,
-                textAlign: TextAlign.right,
-                decoration: InputDecoration(
-                  hintText: 'توضیحات ...',
-                  hintStyle: TextStyle(fontSize: 12),
-                ),
-              )
-          ),
+              child: InputText("توضیحات ...",_title
+                ,textAlign: TextAlign.right
+                ,maxlenght: 60.0,hintsize: 11.0,maxlines: 2,)
+          )),
         ],
       ),
     );
   }
 
-  onChange(String newVal) {
-    if (newVal.length <= maxLength) {
-      text = newVal;
-    } else {
-      _controller.value = new TextEditingValue(
-          text: text,
-          selection: new TextSelection(
-              baseOffset: maxLength,
-              extentOffset: maxLength,
-              affinity: TextAffinity.downstream,
-              isDirectional: false),
-          composing: new TextRange(start: 0, end: maxLength));
-      _controller.text = text;
-    }
-  }
 }

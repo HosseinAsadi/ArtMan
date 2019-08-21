@@ -12,7 +12,7 @@ class StdPropertyBody extends StatefulWidget {
 class MyStdproperty extends State<StdPropertyBody> {
   Button bottom = new Button([],'/signinpage', "صفحه ورود/ثبت نام", 40.0, 10.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 150.0);
-
+  Strings strings=new Strings();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +33,7 @@ class MyStdproperty extends State<StdPropertyBody> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        Strings.titlestdprop,
+                        strings.titlestdprop,
                         textDirection: TextDirection.ltr,
                         style: TextStyle(
                             fontSize: 17,
@@ -55,7 +55,7 @@ class MyStdproperty extends State<StdPropertyBody> {
               child: Container(
                 margin: EdgeInsets.only(left: 10, right: 10),
                 child: Text(
-                  Strings.studentProperty,
+                  strings.studentProperty,
                   textDirection: TextDirection.ltr,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 11),

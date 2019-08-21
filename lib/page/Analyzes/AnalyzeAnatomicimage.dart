@@ -1,10 +1,7 @@
-
 import 'package:art_man/components/Buttons/Button.dart';
+import 'package:art_man/components/Buttons/ImageSaver.dart';
 import 'package:art_man/components/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
-import 'package:art_man/components/Location.dart';
-import 'package:art_man/components/Networking/FetchData.dart';
-
 import 'package:flutter/material.dart';
 
 class StdAnalyzePage extends StatefulWidget {
@@ -13,31 +10,51 @@ class StdAnalyzePage extends StatefulWidget {
 }
 
 class _StdAnalyzePageState extends State<StdAnalyzePage> {
+  InputText descriprion=new InputText("توضیحات .... ","desGoal",height: 150.0,maxlines: 7,radius: 10.0,);
 
-  InputText descriprion=new InputText("","descriprionState",height: 150,radius: 10,);
-  var _keyForm=GlobalKey<FormState>();
-  Button sendImage = new Button(
-    [],
-    '/',
-    "ارسال تصویر",
-    30.0,
-    40.0,
-    startcolor: Color(0xFF7FC81D),
-    endcolor: Color(0xFF7FC81D),
-    width: 90.0,
-    marginbottom: 40.0,
-  );
   DropDown jens = new DropDown("sex",["زن","مرد"],"جنسیت خود را وارد نمایید.");
-
+  Button countinue = new Button(
+    ["عکس از پهلو","عکس از پشت","عکس از جلو","sex"],
+    "/Analyze1",
+    "ادامه آنالیز",
+    40.0,
+    10.0,
+    startcolor: Color(0xFF5AE400),
+    endcolor: Color(0xFF0F8F00),
+    width: 100.0,
+    marginbottom: 4.0,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF7FC81D),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+          ),
+        ],
+        title: Text("آنالیز هنرجو"),
+      ),
 
-        child: Column(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView(
+          shrinkWrap: false,
           children: <Widget>[
             Center(
               child: Container(
+                margin: EdgeInsets.only(left: 20, right: 20, top: 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -75,9 +92,16 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
                               Image.asset(
                                 "assets/images/anatomic.png",
                                 height: 150,
-                                width: 140,
+                                width: 200,
                               ),
-                              sendImage
+                              Column(
+                                children: <Widget>[
+                                  ImageSender("عکس از پهلو"),
+                                  ImageSender("عکس از پشت"),
+                                  ImageSender("عکس از جلو"),
+                                ],
+                              )
+
                             ],
                           ),
                         ],
@@ -92,8 +116,6 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
                       ],
                     ),
                     Form(
-                      key: _keyForm,
-                      autovalidate: true,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
 
@@ -107,7 +129,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
                             ],
                           ),
                           descriprion,
-
+                          countinue,
                         ],
                       ),
                     ),
@@ -118,29 +140,29 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
             ),
           ],
         ),
-
+      ),
     );
   }
 
   text(text, fontwidth, fontsize, color) => Text(
-        text,
-        overflow: TextOverflow.ellipsis,
-        style:
-            TextStyle(color: color, fontWeight: fontwidth, fontSize: fontsize),
-      );
+    text,
+    overflow: TextOverflow.ellipsis,
+    style:
+    TextStyle(color: color, fontWeight: fontwidth, fontSize: fontsize),
+  );
 
   container(text, height,mrgtop) => Container(
-        alignment: Alignment(0, 0),
-        margin: EdgeInsets.only(top: mrgtop, bottom: 10),
-        padding: EdgeInsets.only(left: 10, right: 10),
-        height: height,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontWeight: FontWeight.w700, color: Colors.green, fontSize: 21),
-        ),
-      );
+    alignment: Alignment(0, 0),
+    margin: EdgeInsets.only(top: mrgtop, bottom: 10),
+    padding: EdgeInsets.only(left: 10, right: 10),
+    height: height,
+    decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(10))),
+    child: Text(
+      text,
+      style: TextStyle(
+          fontWeight: FontWeight.w700, color: Colors.green, fontSize: 21),
+    ),
+  );
 }

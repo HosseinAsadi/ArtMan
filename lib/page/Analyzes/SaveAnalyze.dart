@@ -1,15 +1,34 @@
 
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/InputTexts/SearchInputText.dart';
+import 'package:art_man/components/Networking/SendAnalyzeResult.dart';
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:flutter/material.dart';
 class SaveAnalyze extends StatefulWidget {
   @override
   _SaveAnalyzeState createState() => _SaveAnalyzeState();
 }
 
+
 class _SaveAnalyzeState extends State<SaveAnalyze> {
+  int reslult;
+  uploadAnalyze()async{
+    AnalyzeData upload=new AnalyzeData();
+   int rslt= await upload.uploader();
+   setState(() {
+     reslult=rslt;
+   });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    uploadAnalyze();
+
+  }
   var _key=GlobalKey<FormState>();
-  InputText getid = new InputText(
+  SearchInputText getid = new SearchInputText(
     "آیدی مربی خود را وارد نمایید...",
     "teacherid",
     height: 45.0,
@@ -19,7 +38,7 @@ class _SaveAnalyzeState extends State<SaveAnalyze> {
 
   );
   Button saveanalyze = new Button(
-    [],
+    ["teacherid"],
     "/StdInformationPage",
     "ذخیره آنالیز",
     40.0,
@@ -55,7 +74,7 @@ class _SaveAnalyzeState extends State<SaveAnalyze> {
           ),
         ),
         child: ListView(
-          shrinkWrap: true,
+          shrinkWrap: false,
           children: <Widget>[
             Center(
               child: Container(
@@ -83,7 +102,6 @@ class _SaveAnalyzeState extends State<SaveAnalyze> {
                     ),
                     getid,
                     saveanalyze,
-
                     ],
                   ),
                 ),
