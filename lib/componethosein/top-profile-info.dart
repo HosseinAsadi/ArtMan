@@ -1,9 +1,7 @@
 import 'package:art_man/components/Networking/FetchLocation.dart';
-import 'package:art_man/components/Networking/ImageUploader.dart';
 import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
-import 'package:art_man/page/profile/StudentProfile.dart';
 import 'package:flutter/material.dart';
 class TopProfile extends StatefulWidget {
 
@@ -21,11 +19,12 @@ class _TopProfileState extends State<TopProfile> {
   bool complete=false;
   UserProfile information;
   Strings strings=new Strings();
+
   _getInformation() async {
     Strings strings=new Strings();
-    SharedPrefrences sharedPrefrences=new SharedPrefrences();
 
-    username = await sharedPrefrences.getusername();
+    username = await getusername();
+    print("${strings.baseurl}/users/getUser/$username");
     UserProfile info = await GetLocation.fetchProfileInfo(
         "${strings.baseurl}/users/getUser/$username");
     setState(() {

@@ -1,4 +1,4 @@
-import 'package:art_man/page/SportPlanePage.dart';
+import 'package:art_man/page/SportPlan/SportPlanePage.dart';
 import 'package:flutter/material.dart';
 
 class PlanePage extends StatefulWidget {
@@ -8,7 +8,7 @@ class PlanePage extends StatefulWidget {
 
 class _PlanePageState extends State<PlanePage> {
   int _selectedIndex = 0;
-  SportPlanPage sportPlanPage = new SportPlanPage();
+
 
 
   void _onItemTapped(int index) {
@@ -51,28 +51,14 @@ class _PlanePageState extends State<PlanePage> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        drawer: Drawer(
-          child: Text("dfdf"),
-        ),
+
         body: TabBarView(
           children: [
-            sportPlanPage,
-            Icon(Icons.directions_transit),
+            new SportPlanPage("برنامه های من","درخواست برنامه ورزشی","/",""),
+        new SportPlanPage("برنامه های من","درخواست برنامه غذایی","/","")
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.alarm_on), title: Text("")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.play_circle_filled), title: Text("")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings), title: Text("")),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Color(0xFF00C0B6),
-          onTap: _onItemTapped,
-        ),
+
       ),
     );
   }

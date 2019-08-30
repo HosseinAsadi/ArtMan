@@ -1,5 +1,5 @@
 import 'package:art_man/components/Buttons/Button.dart';
-import 'package:art_man/components/DropDown.dart';
+import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/components/Lists/MakeList.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +9,7 @@ class PlanSport extends StatefulWidget {
 }
 
 class _PlanSportState extends State<PlanSport> {
- static List<String> weeks;
+ static List<String> weeks=new List();
   DropDown dropDown = new DropDown("week program",weeks,"برنامه چند هفته اجرا شود؟");
   Button save = new Button(
     [],
@@ -53,13 +53,12 @@ class _PlanSportState extends State<PlanSport> {
   );
 @override
   void initState() {
-    for(int i=1;i<31;i++)
-      weeks.add("$i");
+    for(int i=0;i<31;i++)
+      weeks.add("${i+1}");
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    var _key = GlobalKey<FormState>();
     return
       Scaffold(
         appBar: AppBar(
@@ -79,9 +78,7 @@ class _PlanSportState extends State<PlanSport> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        drawer: Drawer(
-          child: Text("dff"),
-        ),
+
         body: Center(
           child: Container(
             decoration: BoxDecoration(
@@ -97,8 +94,7 @@ class _PlanSportState extends State<PlanSport> {
                   child: Container(
                     margin: EdgeInsets.only(
                         left: 15, right: 15, top: 10, bottom: 10),
-                    child: Form(
-                      key: _key,
+
                       child: Column(
                         children: <Widget>[
                           dropDown,
@@ -109,29 +105,13 @@ class _PlanSportState extends State<PlanSport> {
                           pattern
                         ],
                       ),
-                    ),
+
                   ),
                 ),
               ],
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.alarm_on,
-                  size: 30,
-                ),
-                title: Padding(padding: EdgeInsets.all(0))),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.play_circle_filled, size: 30),
-                title: Padding(padding: EdgeInsets.all(0))),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings, size: 30),
-                title: Padding(padding: EdgeInsets.all(0))),
-          ],
-          selectedItemColor: Color(0xFF00C0B6),
-        ));
+       );
   }
 }

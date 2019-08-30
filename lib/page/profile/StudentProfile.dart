@@ -1,21 +1,20 @@
-import 'package:art_man/components/Networking/FetchLocation.dart';
+import 'package:art_man/components/Buttons/RequestButton.dart';
 import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
-import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
-import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/GetPing.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/StdInfo.dart';
-import 'package:art_man/components/Utility/Username.dart';
+import 'package:art_man/components/Buttons/profile-button.dart';
 import 'package:art_man/componethosein/profile-button.dart';
 import 'package:art_man/componethosein/top-profile-info.dart';
 import 'package:flutter/material.dart';
 
 
 class ProfilePage extends StatefulWidget{
-  static final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey<ScaffoldState>();
+ // static final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey<ScaffoldState>();
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return P(scaffoldkey);
+    return P();
   }
 
 }
@@ -25,11 +24,11 @@ class P extends State<ProfilePage>{
   StdProfile information;
 
  bool complete=false;
-   GlobalKey<ScaffoldState> scaffoldkey;
 
-   P(this.scaffoldkey);
+
+
    _getInformation() async {
-     String usernamee=await Username();
+     String usernamee=await getusername();
      StdProfile info=await StdInfo(usernamee);
      setState(()  {
        username=usernamee;
@@ -39,17 +38,24 @@ class P extends State<ProfilePage>{
 
 
    }
+   getpinge()async{
+    String ping= await getping();
+    if(ping!=null){
+      print("سرور در دسترس نیست");
+    }
+   }
    @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getpinge() ;
     _getInformation();
   }
    @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      key: scaffoldkey,
+
       body:complete? setBackground():Center(
       child: Container(
       width: 40,
@@ -74,58 +80,23 @@ class P extends State<ProfilePage>{
   Widget body() => ListView(
    // shrinkWrap: true,
     children: <Widget>[
+
       TopProfile(),
-      GestureDetector(
-        onTap: (){
-          Navigator.pushNamed(context, "/SearchPage");
-        },
-        child: coachSearch() ,
-      ),
-      ProfileButton("قسمت مربیان", Icons.print, Colors.green[800], '/MyTeachers'),
-      ProfileButton("برنامه های تمرینی/غذایی", Icons.print, Colors.lightGreen[700], '/analyze5'),
-      ProfileButton("آنالیزها", Icons.print, Colors.green[800], ''),
+      RequestButton(Icons.search,"جستجوی مربی","جستحو کردن مربی در صورت نیاز شما", Color(0xFFEDC40A),"/SearchPage"),
+
+      Container(margin: EdgeInsets.only(right:10,left: 10),child: Column(
+        children: <Widget>[
+          ProfileButtone("قسمت مربیان", Icons.print, Colors.green[800], '/MyTeachers'),
+          ProfileButtone("برنامه های تمرینی/غذایی", Icons.print, Colors.lightGreen[700], '/PlanePage'),
+          ProfileButtone("آنالیزها", Icons.print, Colors.green[800], '/AnalyzeList'),
+          ProfileButton(
+              "خروج از حساب کاربری", Icons.ac_unit, Color(0xFF4B4F4B), "/")
+        ],
+      ),)
 
     ],
   );
 
-  Widget coachSearch() =>Container(
-    margin: EdgeInsets.only(left: 16, right: 16, bottom: 20),
-    padding: EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: Colors.grey[300],
-      borderRadius: BorderRadius.circular(20)
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: new Color(0xFFEDC40A), width: 2),
-            borderRadius: BorderRadius.circular(30)
-          ),
-          child: Icon(Icons.search, color: new Color(0xFFEDC40A)),
-        ),
 
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: 200,
-              margin: EdgeInsets.only(left: 16, right: 16, bottom: 10),
-              child: Text('جستجوی مربی', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-            ),
-            Container(
-              width: 200,
-              margin: EdgeInsets.only(left: 16, right: 16),
-              child: Text('جستجو کردن مربی در صورت نیاز شما', style: TextStyle(color: Colors.black, fontSize: 13),),
-            ),
-          ],
-        )
-      ],
-    ),
-  );
 
 }

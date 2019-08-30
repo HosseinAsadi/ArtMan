@@ -1,19 +1,21 @@
+import 'dart:convert';
 
 class Sick{
   String name;
   bool  selection;
   String description;
 
-  Map<String, dynamic> toJsonAttr() => {
+  Map<String, dynamic> toJson()=> {
+
     'name': name,
     'selection': selection,
     'description': description
+
   };
 }
   List<Sick> sickss=new List();
   setSick(sick){
     sickss.add(sick);
-
   }
   sickLength(){
     return sickss.length;
@@ -25,6 +27,8 @@ class Sick{
     return sickss[index];
   }
   getAllSicks(){
+
     return sickss;
   }
+
 

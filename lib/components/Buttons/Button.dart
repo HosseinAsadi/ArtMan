@@ -1,9 +1,24 @@
+import 'dart:convert';
+import 'package:art_man/components/Networking/SendData.dart';
+import 'package:art_man/components/Toast/ShowToast.dart';
+import 'package:art_man/components/Toast/VeryfiyDialog.dart';
+import 'package:art_man/components/Utility/Classroom.dart';
+import 'package:art_man/components/Utility/GetMyTeachersList.dart';
+import 'package:art_man/components/Utility/GetTeachersList.dart';
+import 'package:art_man/components/Utility/Keys.dart';
+import 'package:art_man/components/Utility/MD5Generator.dart';
+import 'package:art_man/components/Utility/SetSex.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/components/Utility/Validator.dart';
+import 'package:art_man/components/Utility/Function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
-  String text, goal;
+
+  String text, goal,snackbarText,functioncode;
+  final Fucntionman function;
   bool task=false;
   List<String> list;
   double height;
@@ -14,7 +29,7 @@ class Button extends StatefulWidget {
   Color startcolor;
   Color endcolor,textcolor;
   double width;
-  var function;
+
   FontWeight fontWeight;
   double textsize;
   GlobalKey<FormState> _key;
@@ -34,7 +49,9 @@ class Button extends StatefulWidget {
       this.fontWeight,
       this.textsize,
       this.task,
-      this.function(arg)});
+      this.function,
+      this.snackbarText,
+      this.functioncode});
 
   @override
   myBottom createState() {
@@ -50,16 +67,18 @@ class Button extends StatefulWidget {
     fontWeight: fontWeight,
     textsize: textsize,
     task: task,
-    function: function);
+    function: function,
+    snackbarText: snackbarText,
+    functioncode: functioncode);
   }
 }
 
 class myBottom extends State<Button> {
-  String cityvalue = null, goal;
+  String cityvalue = null, goal,snackbarText,functioncode;
   String text;
   List<String> list;
   bool task=false;
-  var function;
+  Fucntionman function;
   double height;
   double margintop;
   double marginleft,marginbottom;
@@ -86,7 +105,9 @@ class myBottom extends State<Button> {
       this.textsize,
       this.fontWeight,
       this.task,
-      this.function});
+      this.function,
+      this.snackbarText,
+      this.functioncode});
 //MakeList makeList=new MakeList();
   @override
   @override
@@ -105,10 +126,11 @@ class myBottom extends State<Button> {
     }
 
 
-    return Container(
+    return AnimatedContainer(
       alignment: Alignment(0, 0),
       width: width,
       height: height,
+      duration: Duration(microseconds: 50),
       margin: EdgeInsets.only(top: margintop, left: left, right: right,bottom: bottom),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -118,37 +140,120 @@ class myBottom extends State<Button> {
               end: Alignment.topCenter,
               colors: [startcolor==null?Color(0xFF5AE100):startcolor, endcolor==null?Color(0xFF0F8F00):endcolor])),
       child: GestureDetector(
-        onTapDown: (tapDetails) {
+        onTapDown: (TapDetails) {
           setState(() {
-            width = width - 2;
+            --width ;
             --height;
-            startcolor = Colors.green[900];
-            endcolor = Colors.green[800];
+            startcolor = Colors.green[900].withOpacity(0.1);
+            endcolor = Colors.green[800].withOpacity(0.3);
           });
         },
         onTapUp: (TapUpDetails) {
+
           setState(() {
             startcolor = Color(0xFF5AE100);
             endcolor = Color(0xFF0F8F00);
-            width = width + 2;
+            ++width ;
             ++height;
           });
         },
-        onTap: () {
+        onTap: () async {
+         bool ismyteacher=false;
+
+          if(functioncode=="ذخیره آنالیز") {
+
+            List<TeacherInfo> myTeachers = await getStdInfo();
+            for(int i=0;i<myTeachers.length;i++){
+              if(Kelid.getter("teacherid")==myTeachers[i].username){
+                setState(() {
+                  ismyteacher=true;
+                });
+                CircularProgressIndicator();
+                function.uploadAnalyze(Kelid.getter("teacherid"));
+                ShowToast("آنالیز با موفقیت ارسال شد",Colors.green,Colors.white);
+                Navigator.pushNamed(context, goal);
+              }
+            }
+            if(!ismyteacher){
+
+              print("مربی وجود ندارد");
+              showDialog(
+                  context: context,
+                  builder: (_) => new AlertDialog(
+                    contentPadding: EdgeInsets.all(0.0),
+                    content: VerifyDialog("برای فرستادن آنالیز به این مربی باید آن را به لیست مربیان خود اضافه کنید آیا مایلید؟",id: "addTeacher",height: 170.0,)
+
+                  )
+              );
+            }
+
+          }
+
+               if(functioncode=="signin")
+               function.signInWork(Scaffold.of(context),context);
+               if(functioncode=="ورود به پنل کاربری مربی"){
+                 print("sender runned");
+                 //function.senderTeacherData();
+                 String result=await Post.apiRequest("${strings.baseurl}/teachers/addTeacher",json.encode(
+                     { "username" : Kelid.getter("username"),
+                       "password" :Hasher.GenerateMd5(Kelid.getter("password").toString()),
+                       "first_name" : Kelid.getter("first_name"),
+                       "last_name" : " ",
+                       "country" : Kelid.getter("country"),
+                       "city" : Kelid.getter("city"),
+                       "phone" : Kelid.getter("phone"),
+                     }));
+                if(result=="200" || result=="201"){
+                  await setusername();
+                  await setsign();
+                  print("setted username and signed");
+                }
+                if(result=="500")
+                  print("server error");
+               }
+               if(functioncode=="ورود به پنل کاربری هنرجو"){
+                 print("sender student runned");
+                // String result= await function.senderTeacherData();
+                 var result=await Post.apiRequest("${strings.baseurl}/users/addUser",json.encode(
+                     { "username" : Kelid.getter("username"),
+                       "password" : Hasher.GenerateMd5(Kelid.getter("password").toString()),
+                       "first_name" :  Kelid.getter("first_name"),
+                       "last_name" : " ",
+                       "country" : Kelid.getter("country"),
+                       "city" : Kelid.getter("city"),
+                       "phone" :  Kelid.getter("phone"),
+                       "sex" : SetSex.sex(Kelid.getter("sex").toString())
+                     }));
+
+                 if(result=="200" || result=="201"){
+                   await setusername();
+                   await setsign();
+                 }
+                 if(result=="500")
+                   Scaffold.of(context).showSnackBar(SnackBar(
+                       content: Text(
+                         snackbarText==null? "خطا در ارتباط با سرور":snackbarText,
+                         style: TextStyle(color: Colors.white),
+                       ),
+                       backgroundColor: Colors.red[900]));
+
+               //}
+
+          }
           Validator validator=new Validator();
 
           if(list.length==0)
           Navigator.pushNamed(context, goal);
 
-           else if (validator.isvalid(list)) {
-             print("----------------------------> validator is ok");
-            Navigator.pushNamed(context, goal);
+            if (validator.isvalid(list)  ) {
+              if(functioncode==null)
+                  Navigator.pushNamed(context, goal);
           }
 
           else
             Scaffold.of(context).showSnackBar(SnackBar(
                 content: Text(
-                  "لطفا همه ی فیلد ها را پر کنید",
+                 snackbarText==null? "لطفا همه ی فیلد ها را پر کنید":snackbarText,
                   style: TextStyle(color: Colors.white),
                 ),
                 backgroundColor: Colors.red[900]));

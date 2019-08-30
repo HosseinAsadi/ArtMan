@@ -21,7 +21,7 @@ class Goal{
   updategoal(index,goal){
   goals[index]=goal;
  }
-getGoal(index){
+Goal getGoal(index){
   return goals[index];
 }
 getAllGoals(){

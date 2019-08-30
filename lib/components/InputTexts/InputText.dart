@@ -16,6 +16,8 @@ class InputText extends StatefulWidget {
   Color hintconlor;
   double hintsize;
   double maxlenght;
+  TextInputType keyboardtype;
+  FontWeight fontWeight;
 
   InputText(this._hint, this.id,
       {this.height,
@@ -27,7 +29,9 @@ class InputText extends StatefulWidget {
       this.maxlines,
       this.hintconlor,
       this.hintsize,
-      this.maxlenght});
+      this.maxlenght,
+      this.keyboardtype,
+      this.fontWeight});
 
   @override
   myInputText createState() {
@@ -41,7 +45,9 @@ class InputText extends StatefulWidget {
         hintconlor: hintconlor,
         alignment: textAlign,
         hintsize: hintsize,
-    maxlenght: maxlenght);
+    maxlenght: maxlenght,
+    keyboardtype: keyboardtype,
+        fontwidth : fontWeight);
     return it;
   }
 }
@@ -59,7 +65,8 @@ class myInputText extends State<InputText> {
   Color hintconlor;
   double hintsize;
   double maxlenght;
-
+  TextInputType keyboardtype;
+  FontWeight fontwidth;
 
   myInputText(this.id,this._hint,
       {this.height,
@@ -71,7 +78,9 @@ class myInputText extends State<InputText> {
       this.maxlines,
       this.hintsize,
       this.hintconlor,
-      this.maxlenght});
+      this.maxlenght,
+      this.keyboardtype,
+      this.fontwidth});
 
   var ctrl = new TextEditingController();
 
@@ -90,9 +99,12 @@ class myInputText extends State<InputText> {
           border: Border.all(
               color: brdercolor == null ? Colors.white : brdercolor,
               width: brderwidth == null ? 0.0 : brderwidth),
-          color: Colors.white,
+          color: brdercolor,
           borderRadius: BorderRadius.circular(radius == null ? 25 : radius)),
       child: TextField(
+
+        keyboardType: keyboardtype==null?TextInputType.text:keyboardtype,
+        textInputAction: TextInputAction.next,
 
         inputFormatters: [
           new LengthLimitingTextInputFormatter(maxlenght==null?30:maxlenght.toInt()),
@@ -107,6 +119,7 @@ class myInputText extends State<InputText> {
 
         style: TextStyle(
           fontSize: hintsize==null?14:hintsize,
+
         ),
 
         textDirection: TextDirection.rtl,
@@ -119,7 +132,7 @@ class myInputText extends State<InputText> {
             hintText: _hint,
             errorStyle: TextStyle(height: 0),
             hintStyle: TextStyle(
-
+                fontWeight: fontwidth==null?FontWeight.normal:fontwidth,
                 color: hintconlor == null ? Colors.grey : hintconlor,
                 fontSize: hintsize == null ? 13 : hintsize)),
       ),

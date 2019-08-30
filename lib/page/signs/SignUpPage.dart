@@ -1,5 +1,5 @@
 import 'package:art_man/components/Buttons/Button.dart';
-import 'package:art_man/components/DropDown.dart';
+import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Location.dart';
 import 'package:art_man/components/Networking/FetchLocation.dart';
@@ -25,7 +25,7 @@ class MySingup extends State<SignUp> {
   InputText name =
   new InputText("نام و نام خانوادگی خود را وارد نمایید...", "first_name");
 
-  InputText phone = new InputText("شماره همراه خود را وارد نمایید...", "phone");
+  InputText phone = new InputText("شماره همراه خود را وارد نمایید...", "phone",maxlenght: 11.0,keyboardtype: TextInputType.phone,);
 
   Button button = new Button(
     ["first_name","phone","country","city","sex"],
@@ -58,14 +58,14 @@ class MySingup extends State<SignUp> {
   @override
   void initState() {
     super.initState();
-    _getlocation();
+   // _getlocation();
 
   }
 
   @override
   Widget build(BuildContext context) {
     button.setkey(_formkey);
-      return complete? Scaffold(
+      return true? Scaffold(
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -89,7 +89,7 @@ class MySingup extends State<SignUp> {
                             text("نام و نام خانوادگی:"),
                             name,
                             text("انتخاب کشور :"),
-                            new DropDown("country",countries,
+                            new DropDown("country",["iran"],
                                 "کشور محل زندگی خود را انتخاب نمایید ..."),
                             text("انتخاب شهر :"),
                             new DropDown("city",["FDF"], "شهر محل زندگی خود را انتخاب نمایید ..."),

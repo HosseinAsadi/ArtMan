@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:art_man/components/ImageAbout/GenerateThumbnails.dart';
 import 'package:art_man/components/Utility/HoursFormat.dart';
 import 'package:flutter/material.dart';
 import 'package:seekbar/seekbar.dart';
@@ -32,6 +30,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   var reminedtime;
   String image;
   String time;
+  IconData play=Icons.pause;
 
   double value = 0.0,savevlue=0.0;
   Timer _progressTimer;
@@ -45,13 +44,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
        _resumeProgressTimer();
        controller.play();
        loaded=true;
-
-       /*Thumb thumb=new Thumb();
-       image=  thumb.getImage("https://as4.cdn.asset.aparat.com/aparat-video/91317f5fa48477e61040d68a42ed2c1916364187-144p__31501.mp4");
-      print(image+"9999999999999999999999999999999999999999999999");*/
      });
-
-
    }
 
   @override
@@ -76,7 +69,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         value= ((savevlue*100)/reminedtime)/100;
         if (value >= 1) {
           _progressTimer.cancel();
-          _done = true;
+          play=Icons.play_arrow;
           value=0.0;
           savevlue=0.0;
         }
@@ -86,9 +79,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   void dispose() {
-    controller.dispose();
-    _progressTimer?.cancel();
     super.dispose();
+    controller.dispose();
   }
 
   @override
@@ -133,8 +125,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                               int x=(((valuee*1000)* (reminedtime))/1000).toInt();
                               savevlue=x.toDouble();
                               controller.seekTo(Duration(seconds:x));
-
-
                             },
 
                           ),
@@ -175,18 +165,21 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
                                       IconButton(
                                           icon: controller.value.isPlaying
-                                              ? Icon(Icons.pause,
+                                              ? Icon(play,
                                                   color: Colors.white)
-                                              : Icon(Icons.play_arrow,
+                                              : Icon(play,
                                                   color: Colors.white),
                                           onPressed: () {
                                             setState(() {
                                               if (controller.value.isPlaying) {
                                                 controller.pause();
                                                 _progressTimer?.cancel();
+                                                play=Icons.play_arrow;
                                               } else {
+
                                                 controller.play();
                                                 _resumeProgressTimer();
+                                                play=Icons.pause;
 
                                               }
                                             });
@@ -236,7 +229,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         ),
       ):Center(
 
-          child:Container(width: 50,height: 50,
+          child:Container(
+
+            width: 50,height: 50,
         child:  CircularProgressIndicator(),)),
     );
   }

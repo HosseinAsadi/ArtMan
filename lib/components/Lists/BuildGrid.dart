@@ -89,7 +89,7 @@ class ListTile {
                         children: <Widget>[
 
                           Text(
-                            "پاور لیفتینک",
+                            "تجهیزات",
                             style: TextStyle(
                                 color: fontcolor,
                                 fontWeight: FontWeight.w700,

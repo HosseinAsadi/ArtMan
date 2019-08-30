@@ -11,10 +11,8 @@ class Show extends StatefulWidget {
 class _MyAppState extends State<Show> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return null;
   }
-
 }
 
   // String _platformVersion = 'Unknown';

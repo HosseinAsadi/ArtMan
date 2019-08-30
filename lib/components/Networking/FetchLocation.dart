@@ -25,8 +25,9 @@ class GetLocation {
   static Future<UserData> fetchuser(url) async {
     UserData userData;
     final response = await http.get(url);
+   // print (response);
     if (response.statusCode == 200) {
-      print("----------------------------------connection to users is ok");
+
       var list = (json.decode(response.body));
       userData = UserData.fromJson(list);
       return userData;

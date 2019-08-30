@@ -1,4 +1,7 @@
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/Toast/VeryfiyDialog.dart';
+import 'package:art_man/components/Utility/Classroom.dart';
+import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
 import 'package:flutter/material.dart';
 
 class MakeList extends StatefulWidget {
@@ -9,59 +12,114 @@ class MakeList extends StatefulWidget {
 }
 
 class _MakeListState extends State<MakeList> {
-  double height = 90.0;
+  double height = 120.0;
   int week=1;
-  static InputText move = new InputText(
-    "حداقل یک حرکت به جلسه مورد نظر اضافه نمایید",
-    "move",
-    margintop: 0.0,
-    height: 25.0,
-  );
-  static InputText nameClass = new InputText(
-    "نام جلسه را وارد نمایید ...",
-    "classname",
-    margintop: 0.0,
-    height: 25.0,
-  );
-  static container(number) => Container(
-    margin: EdgeInsets.only(right: 15, left: 15, top: 7, bottom: 7),
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(15))),
-    child: Column(
-      children: <Widget>[
-        Container(
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 15),
-          child: Text(
-            "جلسه ${number}",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+  Color listItemcolor=Colors.white;
+
+  Widget _buildProductItem(BuildContext context, int number) {
+
+   return Container(
+          height: 110,
+          margin: EdgeInsets.only(right: 15, left: 15, bottom: 3),
+          decoration: BoxDecoration(
+              color: listItemcolor,
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+
+          child: GestureDetector(
+
+            onLongPress: () {
+              showDialog(
+                context: context,
+                builder: (_) =>
+                new AlertDialog(
+                    contentPadding: EdgeInsets.all(0.0),
+                    content: VerifyDialog(
+                      "آیا از حذف کردن این جلسه مطمئن هستید؟",id: "remove classroom",)
+                ),
+
+              );
+              setState(() {
+                listItemcolor = Colors.white;
+              });
+            },
+            onTapDown: (Detaial) {
+              setState(() {
+                if(number==0)
+                listItemcolor = Colors.white.withOpacity(0.3);
+              });
+            },
+            onTapUp: (Detaial) {
+              setState(() {
+                listItemcolor = Colors.white;
+              });
+            },
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MovesInClassroom(numberclass:  "${classes[number].numberclass}",),
+                  ));
+            },
+            child: Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.only(right: 15),
+                    child: Text(
+                      "جلسه ${classes[number].numberclass}",
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Container(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "حداقل یک حرکت به جلسه مورد نظر اضافه کنید",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                      )),
+                  Container(
+                    child: InputText(
+                      "نام جلسه را وارد نمایید ...",
+                      "classname",
+                      margintop: 8.0,
+                      height: 30.0,
+                      hintsize: 16,
+                      brdercolor: Colors.white.withOpacity(0.0),
+
+                    ),
+                  ),
+                ]),
           ),
-        ),
-        Container(child: move),
-        Container(
-          child: nameClass,
-        ),
-      ],
-    ),
-  );
-  List<Container> _listViewData = [container(1)];
-
-  _onSubmit() {
-    setState(() {
-      _listViewData.add(container(++week));
-    });
+        );
   }
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Classroom classroom=new Classroom();
+    classroom.numberclass="1";
+    classroom.nameclass="";
+    classes.add(classroom);
+  }
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 20,left: 12,right: 12),
           height: height,
-          child: Column(children: _listViewData),
-        ),
+
+          child: new  ListView.builder(
+          reverse: false,
+          itemBuilder: _buildProductItem,
+          itemCount: classes.length,
+          ),
+          ),
+
         Container(
           alignment: Alignment(0, 0),
           width: 30,
@@ -71,32 +129,23 @@ class _MakeListState extends State<MakeList> {
           ),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              //border: Border.all(color: bordercolor,width: borderwidth),
               gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [Colors.yellow[700], Colors.yellow[700]])),
           child: GestureDetector(
-            /* onTapDown: (tapDetails) {
-              setState(() {
-                width = width - 2;
-                --height;
-                startcolor = Colors.green[900];
-                endcolor = Colors.green[800];
-              });
-            },
-            onTapUp: (TapUpDetails) {
-              setState(() {
-                startcolor = Color(0xFF5AE100);
-                endcolor = Color(0xFF0F8F00);
-                width = width + 2;
-                ++height;
-              });
-            },*/
+
             onTap: () {
               setState(() {
-                _onSubmit();
-                height += 90;
+
+                setState(() {
+
+                  Classroom classroom=new Classroom();
+                  classroom.numberclass=(classes.length+1).toString();
+                  classroom.nameclass="";
+                  classes.add(classroom);
+                });
+                height += 120.0;
               });
             },
             child: Text(
@@ -105,11 +154,22 @@ class _MakeListState extends State<MakeList> {
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w900,
-                  fontSize: 25),
+                  fontSize: 23),
             ),
           ),
         )
       ],
     );
   }
+
+
+
+
 }
+
+
+
+
+
+
+

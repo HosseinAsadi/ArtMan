@@ -36,9 +36,7 @@ class _SportFieldState extends State<SportField> {
           )
         ],
       ),
-      drawer: Drawer(
-        child: Text(""),
-      ),
+
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -52,15 +50,7 @@ class _SportFieldState extends State<SportField> {
     width: 200,
     child:  buildGrid),),
       ),),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.alarm_on,size: 30,), title: Padding(padding: EdgeInsets.all(0))),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_filled,size: 30), title: Padding(padding: EdgeInsets.all(0))),
-          BottomNavigationBarItem(icon: Icon(Icons.settings,size: 30), title: Padding(padding: EdgeInsets.all(0))),
-        ],
-        selectedItemColor: Color(0xFF00C0B6),
-      ),
+
     );
   }
 

@@ -47,7 +47,7 @@ class CustomRadioState extends State<CustomRadio> {
                 if(isradio){
                   sampleData.forEach((element) => element.isSelected = false);
                   sampleData[index].isSelected = true;
-                  Kelid.setter(id, "alergy entered");
+                  Kelid.setter(id,items[index]);
                 }
                 else{
                   if(index==sampleData.length-1){

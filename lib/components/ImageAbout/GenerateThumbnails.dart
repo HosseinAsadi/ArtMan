@@ -1,18 +1,18 @@
-import 'package:thumbnails/thumbnails.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
-class Thumb{
 
- getImage(videoPathUrl) async {
-  var appDocDir = await getApplicationDocumentsDirectory();
-  final folderPath =appDocDir.path;// "/storage/emulated/0/download";
-  String thumb = await Thumbnails.getThumbnail(
-      thumbnailFolder: folderPath,
-      videoFile: videoPathUrl,
-      imageType: ThumbFormat.JPEG,//this image will store in created folderpath
-      quality: 30);
-  print("++++++++++++++++++++++++++++++++++++++++++++++++++++++"+thumb);
-  return thumb;
+
+ getImageThumbnail(videoPathUrl) async {
+   final uint8list = await VideoThumbnail.thumbnailFile(
+     video: videoPathUrl,
+     thumbnailPath:(await getTemporaryDirectory()).path,//*///"/storage/emulated/0",//
+     imageFormat: ImageFormat.WEBP,
+     maxHeightOrWidth: 0, // the original resolution of the video
+     quality: 75,
+   );
 }
 
-}
+
+
+

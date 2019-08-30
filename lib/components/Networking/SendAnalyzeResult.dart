@@ -11,21 +11,21 @@ import 'package:art_man/components/Utility/Tools.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 class AnalyzeData {
+  String username;
 
  Future<File> getimageFile(text)async{
     final directory = await getApplicationDocumentsDirectory();
     return File("${directory.path}/$text.png");
   }
-  getUserName()async{
+ Future<String> getUserName()async{
 
-      SharedPrefrences sharedPrefrences=new SharedPrefrences();
-      return await sharedPrefrences.getusername();
+      return await getusername();
   }
   gettype()async{
 
-    SharedPrefrences sharedPrefrences=new SharedPrefrences();
-    return await sharedPrefrences.gettype();
+    return await gettype();
   }
+
   updateSicks(){
     for(int i=0;i<sickLength();i++){
       Sick sick=getSick(i);
@@ -46,19 +46,24 @@ class AnalyzeData {
    }
 
   }
+
   getJsonList(Sicks){
    for(int i=0;i<10;i++){
 
    }
   }
 
-  Future<int> uploader() async {
+  Future<int> uploader(teacher) async {
     Response response;
+    String username=await getUserName();
+
     Dio dio = new Dio();
     updategoals();
     updateSicks();
     Strings strings=new Strings();
+
     FormData formData = new FormData.from({
+
       "hip":Kelid.getter("aroundLaver"),
       "neck": Kelid.getter("aroundNeck"),
       "arm_close":Kelid.getter("aroundArmClose"),
@@ -103,9 +108,12 @@ class AnalyzeData {
 
       "digestion":getDigestions(),//list
       "abnormalcy":getAbnormalacys(),//list
-      "sicks":jsonEncode(getAllSicks().map((e) => e.toJson()).toList()),//list
+
       "tools": jsonEncode(getAllTools().map((e) => e.toJson()).toList()),//list
-      "goals" : jsonEncode(getAllGoals()),
+
+      "sicks":jsonEncode(getAllSicks().map((e) => e.toJson()).toList()),//list
+
+      "goals" :jsonEncode(getAllGoals().map((e) => e.toJson()).toList()),//list
 
       "sicksdescriptiontotal": Kelid.getter("seak description"),
       "goal_description": Kelid.getter("goal description"),
@@ -120,8 +128,52 @@ class AnalyzeData {
           contentType: ContentType('image', 'png')),
 
     });
-    response = await dio.post("${strings.baseurl}/analyze/alitapredator/sepehr", data: formData);
-    print("----------> response is  :"+response.toString());
+
+    response = await dio.post("${strings.baseurl}/analyze/$username/${Kelid.getter("teacherid")}", data: formData);
+    print(response.statusCode);
     return response.statusCode;
   }
 }
+
+
+
+
+
+
+/*
+StringToolToObject(data){
+  String myJSON = data;
+
+  final List parsedList = json.decode(myJSON);
+
+  tools = parsedList.map((val) =>  Tool.fromJson(val)).toList();
+
+}
+
+StringGoalToObject(data){
+  String myJSON = data;
+
+  final List parsedList = json.decode(myJSON);
+
+  goals = parsedList.map((val) =>  Goal.fromJson(val)).toList();
+
+}
+
+
+
+getTools(){
+
+  String sick="";
+  for(int i=0;i<tools.length;i++){
+    sick+=tools[i].name+ " , ";
+  }
+  return sick;
+}
+getGoals(){
+
+  String sick="";
+  for(int i=0;i<goals.length;i++){
+    sick+=goals[i].name+ " , ";
+  }
+  return sick;
+}*/

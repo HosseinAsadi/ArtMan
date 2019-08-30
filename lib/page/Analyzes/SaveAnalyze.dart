@@ -1,11 +1,19 @@
 
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
-import 'package:art_man/components/InputTexts/SearchInputText.dart';
+import 'package:art_man/components/InputTexts/ListInputText.dart';
+import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
+import 'package:art_man/components/Networking/FetchTeachersList.dart';
 import 'package:art_man/components/Networking/SendAnalyzeResult.dart';
+import 'package:art_man/components/Utility/Function.dart';
+import 'package:art_man/components/Utility/GetTeachersList.dart';
 import 'package:art_man/components/Utility/Keys.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/components/Utility/StdInfo.dart';
+import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:flutter/material.dart';
 class SaveAnalyze extends StatefulWidget {
+
   @override
   _SaveAnalyzeState createState() => _SaveAnalyzeState();
 }
@@ -13,39 +21,60 @@ class SaveAnalyze extends StatefulWidget {
 
 class _SaveAnalyzeState extends State<SaveAnalyze> {
   int reslult;
-  uploadAnalyze()async{
-    AnalyzeData upload=new AnalyzeData();
-   int rslt= await upload.uploader();
-   setState(() {
-     reslult=rslt;
-   });
+
+
+
+  List<TeacherInfo> myTeachers=new List();
+
+  getStdInfo()async{
+
+    String usernamee=await getusername();
+    print("in complete");
+
+    StdProfile info=await StdInfo(usernamee);
+    TeachersList teachers=await GetTeachersList();
+    setState(()  {
+
+      for(int i=0;i<info.result.length;i++){
+        if(info.result[i].username==usernamee)
+          for(int j=0;j<info.result[i].MyTeachers.length;j++)
+            if(info.result[i].MyTeachers[j].access){
+              for(int k=0;k<teachers.result.length;k++){
+                if(teachers.result[k].username==info.result[i].MyTeachers[j].username){
+                  TeacherInfo teacher=new TeacherInfo();
+                  teacher.username=info.result[i].MyTeachers[j].username;
+                  teacher.name=teachers.result[k].firstname;
+                  teacher.imageprofile=teachers.result[k].profilephoto ;
+                  myTeachers.add(teacher);
+                }
+              }
+            }
+      }
+
+      print("complete & "+myTeachers.length.toString());
+
+    });
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    uploadAnalyze();
-
+    getStdInfo();
   }
   var _key=GlobalKey<FormState>();
-  SearchInputText getid = new SearchInputText(
-    "آیدی مربی خود را وارد نمایید...",
-    "teacherid",
-    height: 45.0,
-    margintop: 10.0,
-    radius: 30,
 
-
-  );
   Button saveanalyze = new Button(
     ["teacherid"],
-    "/StdInformationPage",
+    "/AnalyzeList",
     "ذخیره آنالیز",
     40.0,
     30.0,
     startcolor: Color(0xFF5AE400),
     endcolor: Color(0xFF0F8F00),
     width: 100.0,
+    function: new Fucntionman(),
+    functioncode: "ذخیره آنالیز",
   );
   @override
   Widget build(BuildContext context) {
@@ -63,9 +92,7 @@ class _SaveAnalyzeState extends State<SaveAnalyze> {
         ],
         title: Text("آنالیز هنرجو"),
       ),
-      drawer: Drawer(
-        child: Text("dff"),
-      ),
+
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -100,7 +127,16 @@ class _SaveAnalyzeState extends State<SaveAnalyze> {
 
 
                     ),
-                    getid,
+                    new ListInputText(
+          myTeachers,
+          "آیدی مربی خود را وارد نمایید...",
+          "teacherid",
+          height: 45.0,
+          margintop: 10.0,
+          radius: 30,
+
+
+        ),
                     saveanalyze,
                     ],
                   ),

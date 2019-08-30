@@ -1,16 +1,13 @@
-import 'dart:io';
 
-class CheckConnection{
- static Future<bool> checkConnection() async {
-   bool connection=false;
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        connection=true;
-        return connection;
+import 'package:connectivity/connectivity.dart';
+
+  Future<bool> checkConnection() async {
+      print("check connectionnnnnnnnnnnnnnnnnnn");
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+        return true;
+      } else  {
+        return false;
       }
-      else{
-        connection=false;
-        return connection;
-      }
+
   }
-}

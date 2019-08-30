@@ -5,6 +5,7 @@ import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/GetTeachersList.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
+import 'package:art_man/components/Widgets/BackgroandwithListview.dart';
 import 'package:art_man/page/lists/LisviewGenerator.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,6 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       body: infoloaded
           ? Container(
-              height: MediaQuery.of(context).size.height,
               child: Column(
                 children: <Widget>[
                   SizedBox(
@@ -119,16 +119,18 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                   ),
+
                   ListViewGenerator(newlistsearch)
                 ],
               ),
             )
-          : Center(
-              child: Container(
-              width: 40,
-              height: 40,
-              child: CircularProgressIndicator(),
-            )),
+          :Background(Center(
+          child: Container(
+            margin: EdgeInsets.only(top: 200),
+            width: 40,
+            height: 40,
+            child: CircularProgressIndicator(),
+          )),)
     );
   }
 

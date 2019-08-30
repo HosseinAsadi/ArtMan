@@ -137,9 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _uploadImage() async {
     Strings strings=new Strings();
-    SharedPrefrences sharedPrefrences=new SharedPrefrences();
-    String username = await sharedPrefrences.getusername();
-    String user = await sharedPrefrences.gettype();
+    String username = await getusername();
+    String user = await gettype();
 
     var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     var length = await imageFile.length();

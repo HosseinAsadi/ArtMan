@@ -1,5 +1,6 @@
 import 'package:art_man/components/Utility/CityOfCountrys.dart';
 import 'package:art_man/components/Utility/Keys.dart';
+import 'package:art_man/components/Utility/ListMoves.dart';
 import 'package:flutter/material.dart';
 
 class DropDown extends StatefulWidget {
@@ -61,11 +62,19 @@ class myDropDown extends State<DropDown> {
                 cities=new CityOfCountrys();
                 list=cities.getCities(Kelid.getter("country"));
               }
+              if(id=="sport tools"){
+                filterTools(newValue);
+              }
+              if(id=="muscle group"){
+                filterMuscles(newValue);
+              }
+
               this.cityvalue = newValue;
               Kelid.setter(id, cityvalue);
 
             });
           },
+
           value: cityvalue,
           isExpanded: true,
           underline: Text(""),

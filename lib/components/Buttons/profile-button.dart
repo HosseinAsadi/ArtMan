@@ -1,3 +1,5 @@
+import 'package:art_man/components/Toast/VeryfiyDialog.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/material.dart';
 
 class ProfileButton extends StatefulWidget{
@@ -36,7 +38,6 @@ class PB extends State<ProfileButton>{
           children: <Widget>[
             Icon(_icon),
             Container(
-              alignment: Alignment(0, 0),
               width: 220,
               height: 60,
               child: Text(_text,
@@ -50,7 +51,17 @@ class PB extends State<ProfileButton>{
         ),
       ),
       onTap: (){
+        print("exiting runned");
         setState(() {
+          if(_text=="خروج از حساب کاربری"){
+            showDialog(
+                context: context,
+                builder: (_) => new AlertDialog(
+                  contentPadding: EdgeInsets.all(0.0),
+                  content: VerifyDialog("آیامطمئنید می خواهید از حساب کاربری خود خارج شوید؟",id:"remove"),)
+            );
+          }
+          else
           Navigator.pushNamed(context, _navigatorPush);
         });
       },

@@ -1,9 +1,9 @@
 import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
 import 'package:art_man/components/Networking/FetchTeachersList.dart';
 import 'package:art_man/components/Utility/GetTeachersList.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/StdInfo.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
-import 'package:art_man/components/Utility/Username.dart';
 import 'package:art_man/page/lists/LisviewGenerator.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +16,9 @@ class _StateMyTeachers extends State<MyTeachers> {
   String username;
   List<TeacherInfo> myTeachers=new List();
   bool complete=false;
+
   getStdInfo()async{
-    String usernamee=await Username();
+    String usernamee=await getusername();
     StdProfile info=await StdInfo(usernamee);
     TeachersList teachers=await GetTeachersList();
     setState(()  {
@@ -50,7 +51,9 @@ class _StateMyTeachers extends State<MyTeachers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: complete? Container(
+      body: complete? myTeachers.length==0?Center(
+        child: Container(child: Text("هیچ مربی برای شما یافت نشد"),),
+      ):Container(
         height: MediaQuery.of(context).size.height,
         child: ListViewGenerator(myTeachers),
       ):CircularProgressIndicator(),

@@ -31,7 +31,7 @@ class SMSV extends State<SMSVerify> {
   );
 
 
-  InputText _ctf = new InputText("کد تاییدیه را وارد نمایید..", "sms");
+  InputText _ctf = new InputText("کد تاییدیه را وارد نمایید..", "sms",keyboardtype: TextInputType.number,maxlenght: 5.0,);
 
 
 
@@ -45,7 +45,7 @@ class SMSV extends State<SMSVerify> {
         "${strings.baseurl}/admin/sendSMS",
         json.encode({
           "code": verifycode,
-          "phone": Kelid.getter("phone"),
+          "number": Kelid.getter("phone"),
         }));
   }
 
@@ -125,11 +125,11 @@ class SMSV extends State<SMSVerify> {
 
                   else if(Kelid.getter("sms")==null || Kelid.getter("sms")=="")
                     {
-                      Snakbar.ShowSnackbar(_scaffoldkey, "لطفا کد تایید را وارد کنید");
+                      ShowSnackbar(_scaffoldkey, "لطفا کد تایید را وارد کنید");
                     }
                   else
                     {
-                      Snakbar.ShowSnackbar(_scaffoldkey, "کد وارد شده نادرست است");
+                      ShowSnackbar(_scaffoldkey, "کد وارد شده نادرست است");
                     }
 
               },

@@ -2,7 +2,6 @@ import 'package:art_man/components/Buttons/profile-button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
 import 'package:art_man/components/InputTexts/OnlineInputText.dart';
 import 'package:art_man/components/Networking/FetchLocation.dart';
-import 'package:art_man/components/Networking/ImageUploader.dart';
 import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
@@ -23,8 +22,9 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
   String about;
   String bio;
   bool complete = false;
-  static String username;
-  static String imagename;
+  String username;
+  String imagename;
+
   var _key = GlobalKey<ScaffoldState>();
 
   MaterialText id;
@@ -35,27 +35,22 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
     backgroundColor: Color(0xFF71C105),
     right: 10,
   );
-  ProfileButton btnplan = new ProfileButton("برنامه تمرینی / غذایی",
-      Icons.ac_unit, Color(0xFF088B00), "/StdAnalyzePage");
-  ProfileButton btnlist = new ProfileButton(
-      "لیست هنرجویان", Icons.ac_unit, Color(0xFF71C105), "/StdAnalyzePage6");
-  ProfileButton btnsprt = new ProfileButton(
-      "پشتیبانی", Icons.ac_unit, Color(0xFF088B00), "/SportField");
-  ProfileButton btnexit = new ProfileButton(
-      "خروج از حساب کاربری", Icons.ac_unit, Color(0xFF4B4F4B), "/");
-  Strings strings=new Strings();
-  _getInformation() async {
-    SharedPrefrences sharedPrefrences=new SharedPrefrences();
 
-    username = await sharedPrefrences.getusername();
+
+
+  Strings strings=new Strings();
+
+  getInformation() async {
+    username = await getusername();
+    print("${strings.baseurl}/teachers/getTeacher/$username");
+
     UserProfile info = await GetLocation.fetchProfileInfo(
         "${strings.baseurl}/teachers/getTeacher/$username");
+
     setState(() {
       information = info;
-
       setState(() {
         name = information.result[0].firstname;
-
         country = information.result[0].country;
         city = information.result[0].city;
         about = information.result[0].about;
@@ -70,14 +65,15 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
         fontsize: 14,
       );
       complete = true;
+
     });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
-    _getInformation();
+    getInformation();
   }
 
   @override
@@ -86,8 +82,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
 
     return Scaffold(
       key: _key,
-      body: Builder(
-        builder: (context) => complete
+      body:  complete
             ? Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -134,7 +129,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
                                         text(name, FontWeight.w800, 24.0),
-                                        new OnlineInputText(
+                                         OnlineInputText(
                                           color: Colors.white.withOpacity(0.0),
                                           hintconlor: Colors.white,
                                           radius: 40.0,
@@ -186,7 +181,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
-                                  child: new OnlineInputText(
+                                  child:/* new OnlineInputText(
                                     color: Colors.white.withOpacity(0.0),
                                     hintconlor: Colors.black,
                                     radius: 40.0,
@@ -201,7 +196,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                     textcolor: Colors.black,
                                     height: 150.0,
                                     length: 1500.0,
-                                  ),
+                                  ),*/Container(),
                                 ),
                                 new Positioned(
                                     bottom: 2,
@@ -238,10 +233,14 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                 ],
                               ),
                             ),
-                            btnplan,
-                            btnlist,
-                            btnsprt,
-                            btnexit
+                            ProfileButton("برنامه تمرینی / غذایی",
+                                Icons.ac_unit, Color(0xFF088B00), "/PlaneSportTeacher"),
+                             ProfileButton(
+                                "لیست هنرجویان", Icons.ac_unit, Color(0xFF71C105), "/StdAnalyzePage6"),
+                            ProfileButton(
+                                "پشتیبانی", Icons.ac_unit, Color(0xFF088B00), "/SportField"),
+                            ProfileButton(
+                                "خروج از حساب کاربری", Icons.ac_unit, Color(0xFF4B4F4B), "/")
                           ],
                         ),
                       ),
@@ -255,7 +254,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 height: 40,
                 child: CircularProgressIndicator(),
               )),
-      ),
+
     );
   }
 

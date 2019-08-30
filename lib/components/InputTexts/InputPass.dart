@@ -28,6 +28,8 @@ class myInputPass extends State<InputPass> {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: TextField(
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.number,
         inputFormatters: [
           new LengthLimitingTextInputFormatter(30),
         ],

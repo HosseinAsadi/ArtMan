@@ -49,8 +49,7 @@ class _OnlineInputTextState extends State<OnlineInputText> {
   var ctrl = new TextEditingController();
   getusername()async
   {
-    SharedPrefrences sharedPrefrences=new SharedPrefrences();
-    username= await sharedPrefrences.getusername();
+    username= await getusername();
   }
   @override
   void initState() {

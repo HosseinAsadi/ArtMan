@@ -44,9 +44,8 @@ class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
   Strings strings = new Strings();
 
   _getInformation() async {
-    SharedPrefrences sharedPrefrences = new SharedPrefrences();
 
-    username = await sharedPrefrences.getusername();
+    username = await getusername();
     print("${strings.baseurl}/teachers/getTeacher/$teacherUsername");
     UserProfile info = await GetLocation.fetchProfileInfo(
         "${strings.baseurl}/teachers/getTeacher/$teacherUsername");
@@ -216,15 +215,8 @@ class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
                                 ],
                               ),
                             ),
-                            myTeacher?Container(height: 0,width: 0,):
-                                Container(
-                                     child: GestureDetector(
-                                       onTap: (){
-                                         AddTeacher(teacherUsername,username);
-                                       },
-                                       child: Icon(Icons.add_circle,color: Colors.green,)
-                                     ),
-                                )
+                            myTeacher?updater("حذف از لیست مربیان من","delete"):
+                            updater("افزودن مربی به لیست مربیان من","add")
                           ],
                         ),
                       ),
@@ -248,4 +240,32 @@ class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
         style: TextStyle(
             color: Colors.white, fontWeight: fontwidth, fontSize: fontsize),
       );
+
+  updater(text,task)=>Container(
+    alignment: Alignment.center,
+      child:Column(children: <Widget>[
+        GestureDetector(
+            onTap: (){
+              deleteTeacher(teacherUsername,username);
+              setState(() {
+                if(task=="add"){
+                  AddTeacher(teacherUsername,username);
+                  setState(() {
+                    myTeacher=true;
+                  });
+                }
+                else{
+                  deleteTeacher(teacherUsername,username);
+                  setState(() {
+                    myTeacher=false;
+                  });
+                }
+
+              });
+            },
+            child:task=="add"? Icon(Icons.add_circle,color: Colors.green,size: 50,):Icon(Icons.remove_circle,color: Colors.red,size: 50,)
+        ),
+        Container(margin: EdgeInsets.only(top: 10),child: Text(text,style: TextStyle(color: Colors.white,fontSize: 15),),)
+      ],)
+  );
 }

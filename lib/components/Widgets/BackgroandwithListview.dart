@@ -3,10 +3,12 @@ class Background extends StatelessWidget {
   Widget body;
   Drawer drawer;
   AppBar appBar;
+
   Background(this.body,{this.drawer,this.appBar});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
