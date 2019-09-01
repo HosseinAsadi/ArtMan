@@ -35,7 +35,7 @@ class _SportPlanPageState extends State<SportPlanPage> {
             ),
 
           child:Container(
-            margin: EdgeInsets.only(right: 30,left: 30),
+            margin: EdgeInsets.only(right: 10,left: 10),
             child:  Column(
               children: <Widget>[
                 Button([],FoodRoute,button1Text,35.0,80.0,startcolor: Color(0xFF088B00),endcolor:Color(0xFF088B00) ,marginbottom: 10.0,),

@@ -52,3 +52,12 @@ setType(typee) async{
      prefs.clear();
    }
 
+Future<String> getToken()async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('token');
+}
+setToken(token) async{
+  SharedPreferences type = await SharedPreferences.getInstance();
+  await type.setString('token', token);
+}
+

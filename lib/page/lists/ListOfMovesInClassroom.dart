@@ -1,13 +1,9 @@
-import 'package:art_man/components/Buttons/VerifyButton.dart';
-import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
-import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/page/SportPlan/SelectSportExtract.dart';
 import 'package:art_man/page/lists/ListviewOfClass.dart';
 import 'package:flutter/material.dart';
 
-import 'ListviewOFMoves.dart';
 
 class MovesInClassroom extends StatefulWidget {
   String numberclass;
@@ -41,10 +37,32 @@ class _MovesInClassroomState extends State<MovesInClassroom> {
       }
     }
   }
-
+  Future<Null> onWillPop() {
+    Navigator.pushNamed(context, "/PlanSport");
+    /*
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Are you sure?'),
+        content: new Text('Do you want to exit an App'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No'),
+          ),
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: new Text('Yes'),
+          ),
+        ],
+      ),
+    ) ?? false;*/
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return   new WillPopScope(
+        onWillPop: onWillPop,
+        child:Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
         leading: Text(
@@ -76,11 +94,6 @@ class _MovesInClassroomState extends State<MovesInClassroom> {
         ),
       ),
 
-
-     // new ListViewMoves(newlistsearch:movess,color: Colors.green,radius: 30.0,id:"moves in class",),
-
-
-
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blue[700],
           child: Icon(
@@ -96,6 +109,6 @@ class _MovesInClassroomState extends State<MovesInClassroom> {
                       ),
                 ));
           }),
-    );
+    ));
   }
 }

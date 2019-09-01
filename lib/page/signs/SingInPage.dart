@@ -32,7 +32,8 @@ class SingInPage extends State<MyCustomForm> {
        20.0,
        marginright: 5.0,
        startcolor: Color(0xFF5AE400),
-       endcolor: Color(0xFF0F8F00));
+       endcolor: Color(0xFF0F8F00),
+  functioncode: "signin",);
    }
   @override
   void initState() {

@@ -2,6 +2,7 @@ import 'package:art_man/components/Buttons/profile-button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
 import 'package:art_man/components/InputTexts/OnlineInputText.dart';
 import 'package:art_man/components/Networking/FetchLocation.dart';
+import 'package:art_man/components/Networking/ImageUploader.dart';
 import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class TeacherProfilePage extends StatefulWidget {
+  TeacherProfilePage({Key key}) : super(key: key);
   @override
   _TeacherProfilePageState createState() => _TeacherProfilePageState();
 }
@@ -105,7 +107,11 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                 Container(
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(context, "/Uploader");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Uploader(text: 'teacher',),
+                                          ));
                                     },
                                     child: ClipRRect(
                                       child: "" == "$imagename"

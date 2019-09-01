@@ -53,8 +53,8 @@ class _PlaneSportTeacherState extends State<PlaneSportTeacher> {
 
         body: TabBarView(
           children: [
-            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه","/PlanSport",""),
-            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه","","")
+            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه غذایی","غذایی",""),
+            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه ورزشی","ورزشی","")
           ],
         ),
 

@@ -228,6 +228,7 @@ class myBottom extends State<Button> {
                  if(result=="200" || result=="201"){
                    await setusername();
                    await setsign();
+                   print("setted username and signed");
                  }
                  if(result=="500")
                    Scaffold.of(context).showSnackBar(SnackBar(

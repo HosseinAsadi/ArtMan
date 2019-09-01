@@ -1,20 +1,28 @@
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/Classroom.dart';
+import 'package:art_man/components/Utility/FoodPlan.dart';
 import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
 import 'package:flutter/material.dart';
 
 class MakeList extends StatefulWidget {
+  String planType;
+
+  MakeList(this.planType);
+
   @override
   _MakeListState createState() {
-    return _MakeListState();
+    return _MakeListState(planType);
   }
 }
 
 class _MakeListState extends State<MakeList> {
+
   double height = 120.0;
-  int week=1;
   Color listItemcolor=Colors.white;
+  String planType;
+
+  _MakeListState(this.planType);
 
   Widget _buildProductItem(BuildContext context, int number) {
 
@@ -34,7 +42,7 @@ class _MakeListState extends State<MakeList> {
                 new AlertDialog(
                     contentPadding: EdgeInsets.all(0.0),
                     content: VerifyDialog(
-                      "آیا از حذف کردن این جلسه مطمئن هستید؟",id: "remove classroom",)
+                     planType=="ورزشی"? "آیا از حذف کردن این جلسه مطمئن هستید؟":"آیا از حذف کردن این هفته مطمئن هستید؟",id: "remove classroom",)
                 ),
 
               );
@@ -57,7 +65,7 @@ class _MakeListState extends State<MakeList> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MovesInClassroom(numberclass:  "${classes[number].numberclass}",),
+                    builder: (context) => MovesInClassroom(numberclass: planType=="ورزشی"? "${classes[number].numberclass}":"${weeaks[number].numerWeek}",),
                   ));
             },
             child: Column(
@@ -66,12 +74,12 @@ class _MakeListState extends State<MakeList> {
                     alignment: Alignment.centerRight,
                     padding: EdgeInsets.only(right: 15),
                     child: Text(
-                      "جلسه ${classes[number].numberclass}",
+                      planType=="ورزشی"? "جلسه ${classes[number].numberclass}":" هفته ${weeaks[number].numerWeek}",
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  Container(
+                  planType=="ورزشی"?  Container(
                       alignment: Alignment.centerRight,
                       child: Text(
                         "حداقل یک حرکت به جلسه مورد نظر اضافه کنید",
@@ -79,10 +87,10 @@ class _MakeListState extends State<MakeList> {
                           color: Colors.grey,
                           fontSize: 14,
                         ),
-                      )),
+                      )):Container(width: 0,height: 0,),
                   Container(
                     child: InputText(
-                      "نام جلسه را وارد نمایید ...",
+                      planType=="ورزشی"?"نام جلسه را وارد نمایید ...":"توضیحات .....",
                       "classname",
                       margintop: 8.0,
                       height: 30.0,
@@ -97,12 +105,32 @@ class _MakeListState extends State<MakeList> {
   }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Classroom classroom=new Classroom();
-    classroom.numberclass="1";
-    classroom.nameclass="";
-    classes.add(classroom);
+    planType=="ورزشی"?costumclass() :costumweek();
+  }
+  costumclass(){
+    if(classes.length==0){
+      Classroom classroom=new Classroom();
+      classroom.numberclass="1";
+      classroom.nameclass="";
+      classes.add(classroom);
+    }
+  }
+  costumweek(){
+
+    if(weeaks.length==0){
+      Week week=new Week();
+      List<Meals> meals=new List();
+      Meals meal=new Meals();
+      meal.title="صبحانه";
+      meal.description="";
+      meals.add(meal);
+      week.days=["شنبه"];
+      week.desWeek="";
+      week.numerWeek="1";
+      week.meals=meals;
+      weeaks.add(week);
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -116,7 +144,7 @@ class _MakeListState extends State<MakeList> {
           child: new  ListView.builder(
           reverse: false,
           itemBuilder: _buildProductItem,
-          itemCount: classes.length,
+          itemCount: planType=="ورزشی"?classes.length:weeaks.length,
           ),
           ),
 
@@ -139,11 +167,26 @@ class _MakeListState extends State<MakeList> {
               setState(() {
 
                 setState(() {
+                  if(planType=="ورزشی"){
+                    Classroom classroom=new Classroom();
+                    classroom.numberclass=(classes.length+1).toString();
+                    classroom.nameclass="";
+                    classes.add(classroom);
+                  }
+                  else{
+                    Week week=new Week();
+                    List<Meals> meals=new List();
+                    Meals meal=new Meals();
+                    meal.title="صبحانه";
+                    meal.description="";
+                    meals.add(meal);
+                    week.days=["شنبه"];
+                    week.desWeek="";
+                    week.numerWeek="1";
+                    week.meals=meals;
+                    weeaks.add(week);
+                  }
 
-                  Classroom classroom=new Classroom();
-                  classroom.numberclass=(classes.length+1).toString();
-                  classroom.nameclass="";
-                  classes.add(classroom);
                 });
                 height += 120.0;
               });

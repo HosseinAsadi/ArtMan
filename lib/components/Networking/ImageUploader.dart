@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/page/profile/StudentProfile.dart';
+import 'package:art_man/page/profile/TeacherProfilePage.dart';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -13,27 +15,33 @@ import 'package:path/path.dart';
 
 
 class Uploader extends StatelessWidget {
+  final String text;
+  Uploader({Key key, @required this.text}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-
       theme: new ThemeData.dark(),
-      home: new MyHomePage(),
+      home: new MyHomePage(text),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  String type;
+  MyHomePage(this.type);
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => new _MyHomePageState(type);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String type;
+  _MyHomePageState(this.type);
   File imageFile;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool uploaded=false;
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
       key: scaffoldKey,
       appBar: new AppBar(
@@ -139,17 +147,17 @@ class _MyHomePageState extends State<MyHomePage> {
     Strings strings=new Strings();
     String username = await getusername();
     String user = await gettype();
-
+    String token= await getToken();
     var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     var length = await imageFile.length();
 
     var uri = Uri.parse("${strings.baseurl}/$user/profileImage/$username");
-
+    print("${strings.baseurl}/$user/profileImage/$username");
     var request = new http.MultipartRequest("PUT", uri);
     var multipartFile = new http.MultipartFile('file', stream, length,
         filename: basename(imageFile.path),
         contentType:  MediaType('image', 'png'));
-
+    request.headers['token'] = token;
     request.files.add(multipartFile);
     var response = await request.send();
     print(response.statusCode);
@@ -157,7 +165,15 @@ class _MyHomePageState extends State<MyHomePage> {
       print(value);
     });
     setState(() {
-      uploaded=true;
+      if(response.statusCode==201){
+        uploaded=true;
+        Navigator.push(
+            scaffoldKey.currentContext,
+            MaterialPageRoute(
+              builder: (context) =>type=="student"? ProfilePage():TeacherProfilePage(),
+            ));
+      }
+      
 
     });
   }
@@ -169,4 +185,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   }
+
+
 }

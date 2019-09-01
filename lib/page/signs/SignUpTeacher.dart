@@ -17,9 +17,8 @@ class Register extends StatefulWidget {
 class MySingupteacher extends State<Register> {
 
   static  List<String> countries=[];
-  static List<String> cities;
   static Country country;
-  CityOfCountrys cityOfCountrys;
+
 
   bool complete = false;
 
@@ -46,19 +45,13 @@ class MySingupteacher extends State<Register> {
       country=location;
       for (int i = 0; i < country.result.length; i++) {
         countries.add(country.result[i].name);
+        setCountry(country.result[i].name, country.result[i].citynames);
       }
-      cityOfCountrys=new CityOfCountrys();
-      _setCityForCountry();
+
       complete = true;
     });
   }
-  _setCityForCountry(){
-    setState(() {
-      for(int i=0;i<country.result.length;i++)
-        cityOfCountrys.setCountry(country.result[i].name, country.result[i].citynames);
 
-    });
-  }
 
   @override
   void initState() {

@@ -1,14 +1,24 @@
+import 'dart:convert';
+
 import 'package:art_man/components/Buttons/Button.dart';
+import 'package:art_man/components/Networking/SendPlanSport.dart';
+import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/components/Lists/MakeList.dart';
 import 'package:flutter/material.dart';
 
 class PlanSport extends StatefulWidget {
+  String typeplan;
+  PlanSport({Key key, @required this.typeplan}) : super(key: key);
+
   @override
-  _PlanSportState createState() => _PlanSportState();
+  _PlanSportState createState() => _PlanSportState(typeplan);
 }
 
 class _PlanSportState extends State<PlanSport> {
+  String typeplan;
+  _PlanSportState(this.typeplan);
  static List<String> weeks=new List();
   DropDown dropDown = new DropDown("week program",weeks,"برنامه چند هفته اجرا شود؟");
   Button save = new Button(
@@ -51,12 +61,26 @@ class _PlanSportState extends State<PlanSport> {
     endcolor: Color(0xFF139101),
     width: 200.0,
   );
+ sender() async{
+
+
+Strings strings=new Strings();
+String username=await getusername();
+  await SendPlanSport(
+       "${strings.baseurl}/sportPlan/addSportPlan/uuu/$username",
+       json.encode({
+         "sessions": 1,
+       }));
+ }
 @override
   void initState() {
     for(int i=0;i<31;i++)
       weeks.add("${i+1}");
     super.initState();
+    sender();
+   // getjson();
   }
+
   @override
   Widget build(BuildContext context) {
     return
@@ -74,7 +98,7 @@ class _PlanSportState extends State<PlanSport> {
             ),
           ],
           title: Text(
-            "برنامه ورزشی",
+            typeplan=="ورزشی"? "برنامه ورزشی":"برنامه غذایی",
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -97,8 +121,8 @@ class _PlanSportState extends State<PlanSport> {
 
                       child: Column(
                         children: <Widget>[
-                          dropDown,
-                          MakeList(),
+                         typeplan=="ورزشی" ?dropDown:Container(width: 0,height: 0,),
+                          MakeList(typeplan),
                           save,
                           sendplan,
                           selectpattern,

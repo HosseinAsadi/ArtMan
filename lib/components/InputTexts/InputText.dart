@@ -99,7 +99,7 @@ class myInputText extends State<InputText> {
           border: Border.all(
               color: brdercolor == null ? Colors.white : brdercolor,
               width: brderwidth == null ? 0.0 : brderwidth),
-          color: brdercolor,
+          color: brdercolor == null ? Colors.white : brdercolor,
           borderRadius: BorderRadius.circular(radius == null ? 25 : radius)),
       child: TextField(
 

@@ -19,7 +19,7 @@ class myDropDown extends State<DropDown> {
   String _hint,id;
   List<String> list;
   double fontsize;
-  CityOfCountrys cities;
+
   Color backgroundColor,fontcolor,arrowcolor;
 
   myDropDown(this.id,this.list,this._hint,{this.backgroundColor,this.fontcolor,this.arrowcolor,this.fontsize});
@@ -28,10 +28,7 @@ class myDropDown extends State<DropDown> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(Kelid.getter(id)=="city"){
-       cities=new CityOfCountrys();
-      list=cities.getCities(Kelid.getter("country"));
-    }
+
   }
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,7 @@ class myDropDown extends State<DropDown> {
 
         child:DropdownButton<String>(
 
-          items: list.map<DropdownMenuItem<String>>((String value) {
+          items:list.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value,style: TextStyle(fontSize:fontsize==null?14: fontsize),),
@@ -58,9 +55,11 @@ class myDropDown extends State<DropDown> {
 
           onChanged: (String newValue) {
             setState(() {
-              if(Kelid.getter(id)=="country"){
-                cities=new CityOfCountrys();
-                list=cities.getCities(Kelid.getter("country"));
+              if(id=="country"){
+                if(citiys.length!=0)
+                citiys.clear();
+                citiys=getCities(newValue);
+               // print("list of cities"+citiys[0]);
               }
               if(id=="sport tools"){
                 filterTools(newValue);

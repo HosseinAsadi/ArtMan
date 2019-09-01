@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:http/http.dart' as http;
 
 class Moves{
@@ -39,7 +40,8 @@ class Result{
 
 Future<Moves> fetchMoves(url) async {
   Moves information;
-  final response = await http.get(url);
+  String token=await getToken();
+  final response = await http.get(url,headers: {"token":token});
   if (response.statusCode == 200) {
     print("connection to fetch categories is ok");
     var list = (json.decode(response.body));

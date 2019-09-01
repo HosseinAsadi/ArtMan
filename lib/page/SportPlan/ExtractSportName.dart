@@ -1,10 +1,13 @@
 
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/page/VideoAbout/VideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ExtractSportName extends StatefulWidget {
+  String classnumber;
+  ExtractSportName({Key key, @required this.classnumber}) : super(key: key);
   @override
   _ExtractSportNameState createState() => _ExtractSportNameState();
 }
@@ -101,71 +104,83 @@ class _ExtractSportNameState extends State<ExtractSportName> {
               children: <Widget>[
                 Center(
                   child: Container(
-                    margin: EdgeInsets.only(
-                        left: 15, right: 15, top: 10, bottom: 10),
-                    child: Form(
-                      // key: _key,
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "نام تمرین ورزشی",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          Text("حداقل باید یک ست داشته باشد.",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500)),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              shape(120.0, 70.0, "استراحت", "(اختیاری)", rest,
-                                  Colors.green),
-                              shape(120.0, 70.0, "ست", "(اختیاری)", rest,
-                                  Colors.green),
-                            ],
-                          ),
-                          Container(
-                            width: 110,
-                            child: Column(
-                              children: <Widget>[
-                                repeat,
-                                second,
-                                calary,
-                                metr,
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              shape(100.0, 70.0, "سیستم تمرین", "(اختیاری)",
-                                  rest, Colors.green,
-                                  fontsize: 11.0),
-                              shape(100.0, 70.0, "تمپو", "(اختیاری)", rest,
-                                  Colors.green),
-                              shape(100.0, 70.0, "RM1", "(اختیاری)", rest,
-                                  Colors.green),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          shape(300.0, 100.0, "توضیحات ویژه شما مربی عزیز", "",
-                              desmorabi, Colors.grey),
-                          ok
-                        ],
-                      ),
+                    child:Column(
+                children: <Widget>[
+              Container(
+              height: 210,
+              child: VideoPlayerApp(),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                  left: 15, right: 15, top: 10, bottom: 10),
+              child: Column(
+                children: <Widget>[
+
+
+
+                  Text(
+                    "نام تمرین ورزشی",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  Text("حداقل باید یک ست داشته باشد.",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500)),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      shape(120.0, 70.0, "استراحت", "(اختیاری)", rest,
+                          Colors.green),
+                      shape(120.0, 70.0, "ست", "(اختیاری)", rest,
+                          Colors.green),
+                    ],
+                  ),
+                  Container(
+                    width: 110,
+                    child: Column(
+                      children: <Widget>[
+                        repeat,
+                        second,
+                        calary,
+                        metr,
+                      ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      shape(100.0, 70.0, "سیستم تمرین", "(اختیاری)",
+                          rest, Colors.green,
+                          fontsize: 11.0),
+                      shape(100.0, 70.0, "تمپو", "(اختیاری)", rest,
+                          Colors.green),
+                      shape(100.0, 70.0, "RM1", "(اختیاری)", rest,
+                          Colors.green),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  shape(300.0, 100.0, "توضیحات ویژه شما مربی عزیز", "",
+                      desmorabi, Colors.grey),
+                  ok
+                ],
+              ),
+            )
+              ],
+            )
+
+
                   ),
                 ),
               ],

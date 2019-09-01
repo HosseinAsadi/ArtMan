@@ -1,3 +1,4 @@
+import 'package:art_man/page/SportPlan/PlanSport.dart';
 import 'package:flutter/material.dart';
 class RequestButton extends StatefulWidget {
   IconData icon;
@@ -26,6 +27,7 @@ class _RequestButtonState extends State<RequestButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
+        ////?fix PlanSport(typeplan:routgoal ,),
         Navigator.pushNamed(context, routgoal);
       },
       child: coachSearch() ,
@@ -56,12 +58,12 @@ class _RequestButtonState extends State<RequestButton> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              width: 200,
+              width: 185,
               margin: EdgeInsets.only(left: 16, right: 16, bottom: 10),
               child: Text(titleText, style: TextStyle(color:textColor==null? Colors.black:textColor, fontWeight: FontWeight.bold),),
             ),
             Container(
-              width: 200,
+              width: 185,
               margin: EdgeInsets.only(left: 16, right: 16),
               child: Text(contentText, style: TextStyle(color:textColor==null? Colors.black:textColor, fontSize: 13),),
             ),

@@ -41,7 +41,7 @@ class SMSV extends State<SMSVerify> {
     setState(() {
       verifycode = RandromGenerator.Generate().toString();
     });
-    Post.apiRequest(
+    Post.SendSmS(
         "${strings.baseurl}/admin/sendSMS",
         json.encode({
           "code": verifycode,

@@ -1,6 +1,8 @@
 import 'package:art_man/components/ImageAbout/GenerateThumbnails.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Toast/OptionsDialogforSelect.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
+import 'package:art_man/page/SportPlan/ExtractSportName.dart';
 import 'package:flutter/material.dart';
 
 class ListViewClass extends StatefulWidget {
@@ -29,7 +31,7 @@ class _ListViewClassState extends State<ListViewClass> {
   _ListViewClassState(this.newlistsearch, this.route,
       {this.color, this.radius, this.id});
 
-  thumbnail(videourl, index) async {
+  thumbnail(videourl,index) async {
     String image = await getImageThumbnail(videourl);
     Moveslist teacherInfo = new Moveslist();
     teacherInfo.fa = newlistsearch[index].fa;
@@ -44,11 +46,7 @@ class _ListViewClassState extends State<ListViewClass> {
     print("thumbnail generated and uri is :" + image);
   }
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
 
-  }
   @override
   Widget build(BuildContext context) {
 
@@ -74,10 +72,31 @@ class _ListViewClassState extends State<ListViewClass> {
         ),
         child:GestureDetector(
             onLongPress: (){
-
+              showDialog(
+                  context: context,
+                  builder: (_) => new AlertDialog(
+                    contentPadding: EdgeInsets.all(0.0),
+                    content: OptionsDialog(),
+                  )
+              );
             },
             onTap: (){
-
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ExtractSportName(classnumber: (index+1).toString(),),
+                  ));
+            },
+            /*onTapDown: (Details){
+              setState(() {
+                if()
+                color=Colors.white.withOpacity(0.2);
+              });
+            },*/
+            onTapUp: (Details){
+              setState(() {
+                color=Colors.white;
+              });
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

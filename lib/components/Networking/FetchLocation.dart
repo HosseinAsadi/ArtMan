@@ -4,6 +4,7 @@ import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
 import 'package:art_man/components/Networking/FetchTeachersList.dart';
 import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:http/http.dart' as http;
 
 class GetLocation {
@@ -24,20 +25,24 @@ class GetLocation {
 
   static Future<UserData> fetchuser(url) async {
     UserData userData;
-    final response = await http.get(url);
-   // print (response);
-    if (response.statusCode == 200) {
 
+    final response = await http.get(url);
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+       print(response.statusCode);
       var list = (json.decode(response.body));
       userData = UserData.fromJson(list);
       return userData;
     }
   }
 
-
   static Future<UserProfile> fetchProfileInfo(url) async {
     UserProfile information;
-    final response = await http.get(url);
+    String token=await getToken();
+
+    final response = await http.get(url,headers: {"token" : token});
+
     if (response.statusCode == 200) {
       print("connection is ok");
       var list = (json.decode(response.body));
@@ -48,13 +53,15 @@ class GetLocation {
     }
   }
 
-
   static Future<StdProfile> fetchProfilestudent(url) async {
     StdProfile information;
-    final response = await http.get(url);
+    String token=await getToken();
+
+    final response = await http.get(url,headers: {"token":token});
     if (response.statusCode == 200) {
       print("connection is ok");
       var list = (json.decode(response.body));
+
       information = StdProfile.fromJson(list);
       return information;
     } else {
@@ -66,7 +73,9 @@ class GetLocation {
 
   static Future<TeachersList> fetchTeachersList(url) async {
     TeachersList information;
-    final response = await http.get(url);
+    String token=await getToken();
+
+    final response = await http.get(url,headers: {"token":token});
     if (response.statusCode == 200) {
       print("connection to fetch teacherslist is ok");
       var list = (json.decode(response.body));

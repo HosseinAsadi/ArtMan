@@ -35,6 +35,7 @@ class Fucntionman{
    if (rslt.result.toString() == "1") {
      await setsign();
      await setusername();
+    // await setToken(token);
      await setDate(DateTime.now().toString());
      Navigator.pushNamed(
        context,
@@ -57,6 +58,7 @@ class Fucntionman{
           "city" : Kelid.getter("city"),
           "phone" : Kelid.getter("phone"),
         }));
+   print(result);
    return result;
   }
 
@@ -71,6 +73,7 @@ class Fucntionman{
           "phone" :  Kelid.getter("phone"),
           "sex" : SetSex.sex(Kelid.getter("sex").toString())
         }));
+    print(result);
     return result;
   }
 }

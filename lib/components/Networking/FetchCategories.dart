@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:http/http.dart' as http;
 
 class Categories{
@@ -55,7 +56,8 @@ factory Muscles.fromJson(Map jsonMap) {
 
 Future<Categories> fetchCategories(url) async {
   Categories information;
-  final response = await http.get(url);
+  String token=await getToken();
+  final response = await http.get(url,headers: {"token":token});
   if (response.statusCode == 200) {
     print("connection to fetch categories is ok");
     var list = (json.decode(response.body));
