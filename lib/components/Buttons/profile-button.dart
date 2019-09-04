@@ -1,5 +1,6 @@
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/page/lists/MyStudents.dart';
 import 'package:flutter/material.dart';
 
 class ProfileButton extends StatefulWidget{
@@ -14,7 +15,6 @@ class ProfileButton extends StatefulWidget{
     // TODO: implement createState
     return PB(this._text, this._icon, this._color, this._navigatorPush);
   }
-
 }
 
 class PB extends State<ProfileButton>{
@@ -53,6 +53,11 @@ class PB extends State<ProfileButton>{
       onTap: (){
         print("exiting runned");
         setState(() {
+          if(_text=="لیست هنرجویان"){
+            /*Navigator.push(context, MaterialPageRoute(
+              builder: (context) => MyStudents(userslist: ,),
+            ));*/
+          }
           if(_text=="خروج از حساب کاربری"){
             showDialog(
                 context: context,

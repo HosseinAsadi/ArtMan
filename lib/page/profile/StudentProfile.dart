@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget{
  // static final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey<ScaffoldState>();
-  ProfilePage({Key key,}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
+    // TODO: implement createState
     return P();
   }
 
@@ -46,6 +46,7 @@ class P extends State<ProfilePage>{
    }
    @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     getpinge() ;
     _getInformation();

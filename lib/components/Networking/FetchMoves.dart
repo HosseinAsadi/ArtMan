@@ -19,11 +19,12 @@ class Result{
   final String en;
   final String description;
   final String videoURL;
+  final String id;
   final int exercise;
   final int muscles;
   final int equipment;
 
-  Result._({ this.fa,this.equipment,this.muscles,this.exercise,this.en,this.description,this.videoURL});
+  Result._({this.id, this.fa,this.equipment,this.muscles,this.exercise,this.en,this.description,this.videoURL});
   factory Result.fromJson(Map jsonMap) {
     return new Result._(
        fa: jsonMap['fa'] ,
@@ -33,6 +34,7 @@ class Result{
        exercise: jsonMap['exercise'] ,
       muscles : jsonMap['muscles'] ,
        equipment: jsonMap['equipment'] ,
+      id: jsonMap['_id'] ,
 
     );
   }

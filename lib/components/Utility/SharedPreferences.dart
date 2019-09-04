@@ -51,7 +51,6 @@ setType(typee) async{
      user.clear();
      prefs.clear();
    }
-
 Future<String> getToken()async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString('token');

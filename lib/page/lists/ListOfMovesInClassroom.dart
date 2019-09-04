@@ -1,5 +1,6 @@
 import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
+import 'package:art_man/page/SportPlan/PlanSport.dart';
 import 'package:art_man/page/SportPlan/SelectSportExtract.dart';
 import 'package:art_man/page/lists/ListviewOfClass.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class MovesInClassroom extends StatefulWidget {
 
 class _MovesInClassroomState extends State<MovesInClassroom> {
   String text;
+  String navigationbarState="add";
 
   _MovesInClassroomState(this.text);
 
@@ -23,22 +25,31 @@ class _MovesInClassroomState extends State<MovesInClassroom> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     for (int i = 0; i < getClassrommslength(); i++) {
-      print(classes[i].numberclass+"     ");
-      print(getClassrommslength().toString()+"  number class that inputted is"+ text);
+
       if (classes[i].numberclass == text) {
-        print("condidation accepted");
+
         setState(() {
           movess = classes[i].moves==null?movess:classes[i].moves;
         });
-        print("new moves lenght"+movess.length.toString());
       }
     }
   }
+
+  void callback(String state) {
+    setState(() {
+      this.navigationbarState = state;
+    });
+  }
   Future<Null> onWillPop() {
-    Navigator.pushNamed(context, "/PlanSport");
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => PlanSport(typeplan: 'ورزشی',),
+    ));
+
+    print("back pressed runned");
     /*
     return showDialog(
       context: context,
@@ -89,7 +100,7 @@ class _MovesInClassroomState extends State<MovesInClassroom> {
               fit: BoxFit.cover,
             ),
           ),
-          child:  new ListViewClass( movess,color: Colors.white,radius: 30.0,id: "sports",)
+          child:  new ListViewClass(this.callback, movess,color: Colors.white,radius: 30.0,id: "sports",classnumber:text)
 
         ),
       ),
@@ -97,17 +108,32 @@ class _MovesInClassroomState extends State<MovesInClassroom> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blue[700],
           child: Icon(
-            Icons.add,
+          navigationbarState=="del"? Icons.delete:  Icons.add,
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SelectSportExtract(
-                        numberclass: text,
-                      ),
-                ));
+            if(navigationbarState=="done") {
+              //add to super sets
+            }
+            if(navigationbarState=="del") {
+              print("${int.parse(text)-1},$selectionMovesForRemove");
+
+              deleteMoveFromClassroom(int.parse(text)-1,selectionMovesForRemove);
+              setState(() {
+                movess=classes[int.parse(text)-1].moves;
+              });
+
+            }
+    if(navigationbarState=="add") {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        SelectSportExtract(
+                          numberclass: text,
+                        ),
+                  ));
+            }
           }),
     ));
   }

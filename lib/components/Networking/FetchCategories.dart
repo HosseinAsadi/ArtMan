@@ -19,11 +19,13 @@ class Categories{
 class Equipment{
 String en;
 String fa;
-Equipment._({ this.en,this.fa});
+int id;
+Equipment._({ this.en,this.fa,this.id});
 factory Equipment.fromJson(Map jsonMap) {
   return new Equipment._(
     en : jsonMap['en'] ,
     fa : jsonMap['fa'] ,
+    id : jsonMap['id'] ,
 
   );
 }
@@ -32,11 +34,14 @@ factory Equipment.fromJson(Map jsonMap) {
 class Exercise{
 String en;
 String fa;
-Exercise._({ this.en,this.fa});
+int id;
+
+Exercise._({ this.en,this.fa,this.id});
 factory Exercise.fromJson(Map jsonMap) {
   return new Exercise._(
     en : jsonMap['en'] ,
     fa : jsonMap['fa'] ,
+    id : jsonMap['id'] ,
 
   );
 }
@@ -44,11 +49,14 @@ factory Exercise.fromJson(Map jsonMap) {
 class Muscles{
 String en;
 String fa;
-Muscles._({ this.en,this.fa});
+int id;
+
+Muscles._({ this.en,this.fa,this.id});
 factory Muscles.fromJson(Map jsonMap) {
   return new Muscles._(
     en : jsonMap['en'] ,
     fa : jsonMap['fa'] ,
+    id : jsonMap['id'] ,
 
   );
 }

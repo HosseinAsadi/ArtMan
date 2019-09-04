@@ -119,11 +119,8 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                   ),
-                  Container(
-                    height: (MediaQuery.of(context).size.height-120),
-                    child:  ListViewGenerator(newlistsearch),
-                  )
 
+                  ListViewGenerator(newlistsearch)
                 ],
               ),
             )

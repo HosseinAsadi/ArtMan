@@ -4,6 +4,7 @@ import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Networking/FetchCategories.dart';
 import 'package:art_man/components/Networking/FetchMoves.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/ListMoves.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
@@ -23,11 +24,45 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
   Color iconColor=  Color(0xFFEDC40A),dropdwonColor= Color(0xFFF1C60D);
 
   List<Moveslist> myTeachers=new List();
+  List<Moveslist> filterlist=new List();
+  List<Musclee> muscleses=new List();
+  List<Exercisee> exercisees=new List();
+  List<Equipmente> equipmentes=new List();
+  List<String> equipments=new List();
   List<String> muscles=new List();
-  List<String> exercise=new List();
-  List<String> equipment=new List();
 
   Strings strings =new Strings();
+  void callback(String value,String filter) {
+    setState(() {
+      for(int i=0;i<myTeachers.length;i++){
+        if(filter=="sport tools")
+        {
+          for(int j=0;j<exercisees.length;j++){
+            if(muscleses[j].fa==value){
+              if(myTeachers[i].equipment!=exercisees[j].id) {
+                myTeachers.removeAt(i);
+              }
+
+            }
+          }
+        }
+        if(filter=="muscle group")
+        {
+          if(filter=="sport tools")
+          {
+            for(int j=0;j<muscleses.length;j++){
+              if(muscleses[j].fa==value){
+                if(myTeachers[i].muscles!=muscleses[j].id) {
+                  myTeachers.removeAt(i);
+                }
+
+              }
+            }
+          }
+        }
+      }
+    });
+  }
   getMoves()async{
    Moves movess=await fetchMoves("${strings.baseurl}/admin/getsportingMoves");
    setState(() {
@@ -35,6 +70,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
        Moveslist teacherInfo=new Moveslist();
        teacherInfo.fa=movess.result[i].fa;
        teacherInfo.en=movess.result[i].en;
+       teacherInfo.id=movess.result[i].id;
        teacherInfo.exercise=movess.result[i].exercise;
        teacherInfo.equipment=movess.result[i].equipment;
        teacherInfo.muscles=movess.result[i].muscles;
@@ -43,6 +79,10 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
        myTeachers.add(teacherInfo);
        addMove(teacherInfo);
      }
+    /* if(classes[(int.parse(numberclass)-1)].moves.length!=0){
+       myTeachers.clear();
+       myTeachers=
+     }*/
    });
   }
   getCategories()async{
@@ -51,13 +91,27 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
    setState(() {
 
     for(int i=0;i<categys.equipment.length;i++){
-      equipment.add(categys.equipment[i].fa);
+      Equipmente equipmente=new Equipmente();
+      equipmente.fa=categys.equipment[i].fa;
+      equipmente.en=categys.equipment[i].en;
+      equipmente.id=categys.equipment[i].id;
+      equipmentes.add(equipmente);
+      equipments.add(categys.equipment[i].fa);
     }
     for(int i=0;i<categys.exercise.length;i++){
-      exercise.add(categys.exercise[i].fa);
+      Musclee musclee=new Musclee();
+      musclee.fa=categys.exercise[i].fa;
+      musclee.en=categys.exercise[i].en;
+      musclee.id=categys.exercise[i].id;
+      muscleses.add(musclee);
+      muscles.add(categys.exercise[i].fa);
     }
     for(int i=0;i<categys.muscles.length;i++){
-      muscles.add(categys.muscles[i].fa);
+      Exercisee exercisee=new Exercisee();
+      exercisee.fa=categys.muscles[i].fa;
+      exercisee.en=categys.muscles[i].en;
+      exercisee.id=categys.muscles[i].id;
+      exercisees.add(exercisee);
     }
 
    });
@@ -81,7 +135,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
             child: InkWell(
               onTap: (){
                 setState(() {
-
+                  getMoves();
                 });
               },
               child: Text(
@@ -182,14 +236,16 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                           backgroundColor: dropdwonColor,
                           fontcolor: Colors.black,
                           arrowcolor: Colors.black,
+                          callback: this.callback,
                         ),
                         SizedBox(height: 10,),
 
-                        DropDown("sport tools",equipment,
+                        DropDown("sport tools",equipments,
                           "تجهیزات ورزشی",
                           backgroundColor: dropdwonColor,
                           fontcolor: Colors.black,
                           arrowcolor: Colors.black,
+                          callback: this.callback,
                         ),
                         Container(
                            height: 300,

@@ -11,6 +11,7 @@ import 'package:art_man/page/Analyzes/analyzeSicks.dart';
 import 'package:art_man/page/Analyzes/analyzeDetailsInfo.dart';
 import 'package:art_man/page/Analyzes/AnalyzeTools.dart';
 import 'package:art_man/page/Analyzes/AnalyzeSetGoal.dart';
+import 'package:art_man/page/FoodPlan/addSportPlan.dart';
 import 'package:art_man/page/SportPlan/PlanPageStudent.dart';
 import 'package:art_man/page/SportPlan/PlanSport.dart';
 import 'package:art_man/page/SportPlan/PlanePageTeacher.dart';
@@ -23,6 +24,7 @@ import 'package:art_man/page/description/StdPropertyPage.dart';
 import 'package:art_man/page/description/coach-atributies-explanations.dart';
 import 'package:art_man/page/lists/AnalyzesList.dart';
 import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
+import 'package:art_man/page/lists/ListOfPlansOfTeacher.dart';
 import 'package:art_man/page/lists/MyTeachersList.dart';
 import 'package:art_man/page/lists/SearchPage.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
@@ -122,6 +124,8 @@ class MyApp extends StatelessWidget {
         '/AnalyzeResult': (context) => AnalyzeResult(),
         '/PlaneSportTeacher': (context) => PlaneSportTeacher(),
         '/MovesInClassroom': (context) => MovesInClassroom(),
+        '/ListPlanOfTeacher': (context) => ListPlanOfTeacher(),
+        '/AddMeal': (context) => AddMeal(),
       },
     );
   }

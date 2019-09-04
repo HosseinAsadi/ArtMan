@@ -39,7 +39,7 @@ class _OnlineInputTextState extends State<OnlineInputText> {
  bool send=false;
  double iconsize;
  String fileforsend;
- String username;
+
  String id;
 
   _OnlineInputTextState( this.color, this.hintconlor, this.radius,
@@ -47,15 +47,11 @@ class _OnlineInputTextState extends State<OnlineInputText> {
       this.iconsize, this.fileforsend,  this.id,this.textcolor,{this.height,this.length});
 
   var ctrl = new TextEditingController();
-  getusername()async
-  {
-    username= await getusername();
-  }
-  @override
+
+ @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getusername();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -113,10 +109,10 @@ class _OnlineInputTextState extends State<OnlineInputText> {
           right: right,
           top: top,
           child: GestureDetector(
-            onTap: (){
+            onTap: ()async{
               Strings strings=new Strings();
-
-              Put.apiRequest("${strings.baseurl}/teachers/$fileforsend", json.encode({
+              String username=await getusername();
+             await Put.apiRequest("${strings.baseurl}/teachers/$fileforsend", json.encode({
                 "username" : username,
                 "$fileforsend" : Kelid.getter(id),
               }));

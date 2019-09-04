@@ -1,5 +1,4 @@
 import 'package:art_man/components/Networking/FetchLocation.dart';
-import 'package:art_man/components/Networking/ImageUploader.dart';
 import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
@@ -55,11 +54,7 @@ class _TopProfileState extends State<TopProfile> {
         children: <Widget>[
           Container(width: 100,height: 100,child: GestureDetector(
             onTap: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Uploader(text: 'student',),
-                  ));
+              Navigator.pushNamed(context, "/Uploader");
 
 
 

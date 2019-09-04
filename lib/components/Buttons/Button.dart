@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:art_man/components/Networking/SendData.dart';
+import 'package:art_man/components/Networking/SendPlanSport.dart';
+import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/Classroom.dart';
@@ -12,6 +14,7 @@ import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/components/Utility/Validator.dart';
 import 'package:art_man/components/Utility/Function.dart';
+import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +32,7 @@ class Button extends StatefulWidget {
   Color startcolor;
   Color endcolor,textcolor;
   double width;
-
+  Function callback;
   FontWeight fontWeight;
   double textsize;
   GlobalKey<FormState> _key;
@@ -51,7 +54,8 @@ class Button extends StatefulWidget {
       this.task,
       this.function,
       this.snackbarText,
-      this.functioncode});
+      this.functioncode,
+      this.callback});
 
   @override
   myBottom createState() {
@@ -159,7 +163,42 @@ class myBottom extends State<Button> {
         },
         onTap: () async {
          bool ismyteacher=false;
+         if(functioncode=="save_khorak"){
+           this.widget.callback();
+         }
+         if(functioncode=="saveAsPattern"){
+         Kelid.setter("savePattern", "ok");//sorrii
+           await SaveAsPattern();
+         ShowToast("ذخیره موقت با موفقیت انجام شد",Colors.green,Colors.white);
 
+         }
+         if(functioncode=="sendplan"){
+           Kelid.setter("sended", "ok");//sorrii
+             Strings strings=new Strings();
+             String username=await getusername();
+             if(checkEveryThingForPlanIsOk()) {
+             String result=  await SendPlanSport(
+                   "${strings.baseurl}/sportPlan/addSportPlan/uuu/$username");
+             if(result=="200" || result=="201")
+
+               ShowToast("برنامه با موفقیت ارسال شد",Colors.green,Colors.white);
+
+             }
+             else{
+               showsnackbar("لطفا آپشن های همه حرکات را ست کنید");
+             }
+
+         }
+          if(functioncode=="add_option_to_one_move"){
+            Validator validator=new Validator();
+
+            if (validator.isvalid(list)  ) {
+                saveOptions();//
+               Navigator.push(context, MaterialPageRoute(builder: (context)=>MovesInClassroom( numberclass: getclassroom().toString(),)));
+            }
+            else
+              showsnackbar("لطفا همه ی فیلد ها را پر کنید");
+          }
           if(functioncode=="ذخیره آنالیز") {
 
             List<TeacherInfo> myTeachers = await getStdInfo();
@@ -190,7 +229,7 @@ class myBottom extends State<Button> {
           }
 
                if(functioncode=="signin")
-               function.signInWork(Scaffold.of(context),context);
+               function.signInWork(context);
                if(functioncode=="ورود به پنل کاربری مربی"){
                  print("sender runned");
                  //function.senderTeacherData();
@@ -226,9 +265,9 @@ class myBottom extends State<Button> {
                      }));
 
                  if(result=="200" || result=="201"){
+                   print("user signedddddddddddddddddddd");
                    await setusername();
                    await setsign();
-                   print("setted username and signed");
                  }
                  if(result=="500")
                    Scaffold.of(context).showSnackBar(SnackBar(
@@ -243,8 +282,8 @@ class myBottom extends State<Button> {
           }
           Validator validator=new Validator();
 
-          if(list.length==0)
-          Navigator.pushNamed(context, goal);
+           if(list.length==0)
+           Navigator.pushNamed(context, goal);
 
             if (validator.isvalid(list)  ) {
               if(functioncode==null)
@@ -252,12 +291,7 @@ class myBottom extends State<Button> {
           }
 
           else
-            Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text(
-                 snackbarText==null? "لطفا همه ی فیلد ها را پر کنید":snackbarText,
-                  style: TextStyle(color: Colors.white),
-                ),
-                backgroundColor: Colors.red[900]));
+              showsnackbar("لطفا همه ی فیلد ها را پر کنید");
 
         },
         child: Text(
@@ -269,5 +303,13 @@ class myBottom extends State<Button> {
         ),
       ),
     );
+  }
+  showsnackbar(textsnak){
+    Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text(
+          snackbarText==null? textsnak:snackbarText,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red[900]));
   }
 }

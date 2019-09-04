@@ -27,8 +27,11 @@ class _RequestButtonState extends State<RequestButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        ////?fix PlanSport(typeplan:routgoal ,),
-        Navigator.pushNamed(context, routgoal);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PlanSport(typeplan: routgoal,),
+            ));
       },
       child: coachSearch() ,
     );
@@ -58,12 +61,12 @@ class _RequestButtonState extends State<RequestButton> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              width: 185,
+              width: 200,
               margin: EdgeInsets.only(left: 16, right: 16, bottom: 10),
               child: Text(titleText, style: TextStyle(color:textColor==null? Colors.black:textColor, fontWeight: FontWeight.bold),),
             ),
             Container(
-              width: 185,
+              width: 200,
               margin: EdgeInsets.only(left: 16, right: 16),
               child: Text(contentText, style: TextStyle(color:textColor==null? Colors.black:textColor, fontSize: 13),),
             ),

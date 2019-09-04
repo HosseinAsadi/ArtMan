@@ -1,6 +1,7 @@
 import 'package:art_man/components/ImageAbout/GenerateThumbnails.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Toast/OptionsDialogforSelect.dart';
+import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/page/SportPlan/ExtractSportName.dart';
 import 'package:flutter/material.dart';
@@ -9,15 +10,18 @@ class ListViewClass extends StatefulWidget {
   MaterialPageRoute route;
   Color color;
   double radius;
-  String id;
+  String id,classnumber;
   List<Moveslist> newlistsearch;
-  ListViewClass(this.newlistsearch,
-      {this.route, this.color, this.radius, this.id});
+  Function callback;
+
+
+  ListViewClass(this.callback,this.newlistsearch,
+      {this.route, this.color, this.radius, this.id,this.classnumber});
 
   @override
   _ListViewClassState createState() =>
       _ListViewClassState(newlistsearch, route,
-        color: color, radius: radius, id: id,);
+        color: color, radius: radius, id: id,classnumber:classnumber);
 }
 
 class _ListViewClassState extends State<ListViewClass> {
@@ -27,11 +31,19 @@ class _ListViewClassState extends State<ListViewClass> {
   Color color;
   double radius;
   String id;
-
+  String selection;
+  String classnumber;
+  OptionsDialog dialog;
+  void setselection(String isselection) {
+    setState(() {
+      this.selection = isselection;
+      print("selection runned0 "+selection.toString());
+    });
+  }
   _ListViewClassState(this.newlistsearch, this.route,
-      {this.color, this.radius, this.id});
+      {this.color, this.radius, this.id,this.classnumber});
 
-  thumbnail(videourl,index) async {
+  thumbnail(videourl, index) async {
     String image = await getImageThumbnail(videourl);
     Moveslist teacherInfo = new Moveslist();
     teacherInfo.fa = newlistsearch[index].fa;
@@ -46,7 +58,11 @@ class _ListViewClassState extends State<ListViewClass> {
     print("thumbnail generated and uri is :" + image);
   }
   @override
+  void initState() {
+    super.initState();
+    dialog = OptionsDialog(this.setselection,this.widget.callback);
 
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -76,30 +92,16 @@ class _ListViewClassState extends State<ListViewClass> {
                   context: context,
                   builder: (_) => new AlertDialog(
                     contentPadding: EdgeInsets.all(0.0),
-                    content: OptionsDialog(),
+                    content: OptionsDialog(this.setselection,this.widget.callback),
                   )
               );
             },
             onTap: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ExtractSportName(classnumber: (index+1).toString(),),
-                  ));
-            },
-            /*onTapDown: (Details){
-              setState(() {
-                if()
-                color=Colors.white.withOpacity(0.2);
-              });
-            },*/
-            onTapUp: (Details){
-              setState(() {
-                color=Colors.white;
-              });
+              Navigator.push(context, 
+              MaterialPageRoute(builder:(context) => ExtractSportName(currentclass:classnumber,currentmove:index.toString())));
             },
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(left: 20),
@@ -125,8 +127,23 @@ class _ListViewClassState extends State<ListViewClass> {
                       ),
                     ],
                   ),),
-
-
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(right: 10),
+                    width: 50,child: !newlistsearch[index].optionfilled?
+                  Text("ناقص",style: TextStyle(color: Colors.red,fontSize: 11),):
+                Text("کامل",style: TextStyle(color: Colors.green,fontSize: 11),)),
+                selection==null?Container(height: 0,width: 0,):Container(width: 20,
+                  margin: EdgeInsets.only(left: 20),
+                  alignment: Alignment.center,
+                  child: IconButton(icon: !newlistsearch[index].selectfordelete? Icon(Icons.radio_button_unchecked,size: 30,color: Colors.grey[800],):
+                  Icon(Icons.check_circle_outline,color: Colors.blue[800],size: 30,),
+                      onPressed: (){
+                        selectionMovesForRemove.add(index);
+                        setState(() {
+                          newlistsearch[index].selectfordelete=!newlistsearch[index].selectfordelete;
+                        });
+                      }),)
               ],
             )
         ),

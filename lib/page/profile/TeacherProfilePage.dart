@@ -2,7 +2,6 @@ import 'package:art_man/components/Buttons/profile-button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
 import 'package:art_man/components/InputTexts/OnlineInputText.dart';
 import 'package:art_man/components/Networking/FetchLocation.dart';
-import 'package:art_man/components/Networking/ImageUploader.dart';
 import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class TeacherProfilePage extends StatefulWidget {
-  TeacherProfilePage({Key key}) : super(key: key);
   @override
   _TeacherProfilePageState createState() => _TeacherProfilePageState();
 }
@@ -26,6 +24,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
   bool complete = false;
   String username;
   String imagename;
+  List<String> students;
 
   var _key = GlobalKey<ScaffoldState>();
 
@@ -58,6 +57,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
         about = information.result[0].about;
         imagename = information.result[0].profilephoto;
         bio = information.result[0].biografi;
+        students = information.result[0].users_id;
       });
       id = new MaterialText(
         20.0,
@@ -107,11 +107,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                 Container(
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Uploader(text: 'teacher',),
-                                          ));
+                                      Navigator.pushNamed(context, "/Uploader");
                                     },
                                     child: ClipRRect(
                                       child: "" == "$imagename"
@@ -187,7 +183,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
-                                  child:/* new OnlineInputText(
+                                  child: new OnlineInputText(
                                     color: Colors.white.withOpacity(0.0),
                                     hintconlor: Colors.black,
                                     radius: 40.0,
@@ -202,7 +198,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                     textcolor: Colors.black,
                                     height: 150.0,
                                     length: 1500.0,
-                                  ),*/Container(),
+                                  ),
                                 ),
                                 new Positioned(
                                     bottom: 2,

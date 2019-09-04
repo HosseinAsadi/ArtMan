@@ -14,6 +14,7 @@ class SignUp extends StatefulWidget {
 }
 
 class MySingup extends State<SignUp> {
+  CityOfCountrys cityOfCountrys;
   static  List<String> countries=[];
   static List<String> cities;
   static Country country;
@@ -43,9 +44,11 @@ class MySingup extends State<SignUp> {
       country=location;
       for (int i = 0; i < country.result.length; i++) {
         countries.add(country.result[i].name);
-        setCountry(country.result[i].name, country.result[i].citynames);
       }
+      cityOfCountrys=new CityOfCountrys();
 
+      for(int i=0;i<country.result.length;i++)
+        cityOfCountrys.setCountry(country.result[i].name, country.result[i].citynames);
 
       complete = true;
     });
@@ -86,10 +89,10 @@ class MySingup extends State<SignUp> {
                             text("نام و نام خانوادگی:"),
                             name,
                             text("انتخاب کشور :"),
-                            new DropDown("country",["iran","usa","پاکستان"],
+                            new DropDown("country",["iran"],
                                 "کشور محل زندگی خود را انتخاب نمایید ..."),
                             text("انتخاب شهر :"),
-                            new DropDown("city",["losonjeles"], "شهر محل زندگی خود را انتخاب نمایید ..."),
+                            new DropDown("city",["FDF"], "شهر محل زندگی خود را انتخاب نمایید ..."),
                             text("انتخاب جنسیت :"),
                             new DropDown("sex",[
                               "مرد",

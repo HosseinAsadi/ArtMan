@@ -53,9 +53,6 @@ class PBe extends State<ProfileButtone>{
           Navigator.pushNamed(context, this._navigatorPush);
         });
       },
-      onTapDown: (Details){
-
-      },
     );
   }
 

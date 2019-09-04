@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:art_man/components/Buttons/Button.dart';
+import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Networking/SendPlanSport.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
@@ -19,8 +20,10 @@ class PlanSport extends StatefulWidget {
 class _PlanSportState extends State<PlanSport> {
   String typeplan;
   _PlanSportState(this.typeplan);
- static List<String> weeks=new List();
-  DropDown dropDown = new DropDown("week program",weeks,"برنامه چند هفته اجرا شود؟");
+   List<String> weeks=new List();
+
+
+
   Button save = new Button(
     [],
     "/",
@@ -32,7 +35,7 @@ class _PlanSportState extends State<PlanSport> {
     width: 110.0,
   );
   Button sendplan = new Button(
-    [],
+    ["sended"],
     "/",
     "ارسال برنامه",
     30.0,
@@ -40,6 +43,7 @@ class _PlanSportState extends State<PlanSport> {
     startcolor: Color(0xFF6CBF02),
     endcolor: Color(0xFF139101),
     width: 110.0,
+    functioncode: "sendplan",
   );
   Button selectpattern = new Button(
     [],
@@ -52,7 +56,7 @@ class _PlanSportState extends State<PlanSport> {
     width: 200.0,
   );
   Button pattern = new Button(
-    [],
+    ["saveAsPattern"],
     "/",
     "ذخیره به عنوان الگو",
     30.0,
@@ -60,30 +64,44 @@ class _PlanSportState extends State<PlanSport> {
     startcolor: Color(0xFF6CBF02),
     endcolor: Color(0xFF139101),
     width: 200.0,
+    functioncode: "saveAsPattern",
   );
- sender() async{
 
-
-Strings strings=new Strings();
-String username=await getusername();
-  await SendPlanSport(
-       "${strings.baseurl}/sportPlan/addSportPlan/uuu/$username",
-       json.encode({
-         "sessions": 1,
-       }));
- }
 @override
   void initState() {
     for(int i=0;i<31;i++)
       weeks.add("${i+1}");
     super.initState();
-    sender();
-   // getjson();
-  }
 
+  }
+  Future<Null> onWillPop() {
+    Navigator.pushNamed(context, "/PlaneSportTeacher");
+
+    print("back pressed runned");
+    /*
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Are you sure?'),
+        content: new Text('Do you want to exit an App'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No'),
+          ),
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: new Text('Yes'),
+          ),
+        ],
+      ),
+    ) ?? false;*/
+  }
   @override
   Widget build(BuildContext context) {
-    return
+    return new WillPopScope(
+        onWillPop: onWillPop,
+        child:
       Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.white),
@@ -121,7 +139,8 @@ String username=await getusername();
 
                       child: Column(
                         children: <Widget>[
-                         typeplan=="ورزشی" ?dropDown:Container(width: 0,height: 0,),
+                         typeplan=="ورزشی" ?DropDown("week_program",weeks,"برنامه چند هفته اجرا شود؟")
+                             :Container(height: 0,width: 0,),
                           MakeList(typeplan),
                           save,
                           sendplan,
@@ -136,6 +155,6 @@ String username=await getusername();
             ),
           ),
         ),
-       );
+       ));
   }
 }

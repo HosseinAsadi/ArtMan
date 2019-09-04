@@ -15,33 +15,27 @@ import 'package:path/path.dart';
 
 
 class Uploader extends StatelessWidget {
-  final String text;
-  Uploader({Key key, @required this.text}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+
       theme: new ThemeData.dark(),
-      home: new MyHomePage(text),
+      home: new MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  String type;
-  MyHomePage(this.type);
   @override
-  _MyHomePageState createState() => new _MyHomePageState(type);
+  _MyHomePageState createState() => new _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String type;
-  _MyHomePageState(this.type);
   File imageFile;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool uploaded=false;
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
       key: scaffoldKey,
       appBar: new AppBar(
@@ -167,13 +161,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if(response.statusCode==201){
         uploaded=true;
-        Navigator.push(
-            scaffoldKey.currentContext,
-            MaterialPageRoute(
-              builder: (context) =>type=="student"? ProfilePage():TeacherProfilePage(),
-            ));
       }
-      
+
 
     });
   }
@@ -185,6 +174,4 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   }
-
-
 }

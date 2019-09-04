@@ -1,7 +1,8 @@
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/Classroom.dart';
-import 'package:art_man/components/Utility/FoodPlan.dart';
+import 'package:art_man/components/Utility/FoodClasses.dart';
+import 'package:art_man/page/FoodPlan/addSportPlan.dart';
 import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
 import 'package:flutter/material.dart';
 
@@ -62,19 +63,24 @@ class _MakeListState extends State<MakeList> {
               });
             },
             onTap: () {
-              Navigator.push(
+              planType=="ورزشی"? Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MovesInClassroom(numberclass: planType=="ورزشی"? "${classes[number].numberclass}":"${weeaks[number].numerWeek}",),
+                    builder: (context) => MovesInClassroom(numberclass: "${classes[number].numberclass}",),
+                  )):Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddMeal(),
                   ));
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
                     alignment: Alignment.centerRight,
                     padding: EdgeInsets.only(right: 15),
                     child: Text(
-                      planType=="ورزشی"? "جلسه ${classes[number].numberclass}":" هفته ${weeaks[number].numerWeek}",
+                      planType=="ورزشی"? "جلسه ${classes[number].numberclass}":" برنامه ${1+number}",
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.w500),
                     ),
@@ -89,8 +95,9 @@ class _MakeListState extends State<MakeList> {
                         ),
                       )):Container(width: 0,height: 0,),
                   Container(
+                    alignment: Alignment.bottomRight,
                     child: InputText(
-                      planType=="ورزشی"?"نام جلسه را وارد نمایید ...":"توضیحات .....",
+                      planType=="ورزشی"?"نام جلسه را وارد نمایید ...":"نام برنامه ...",
                       "classname",
                       margintop: 8.0,
                       height: 30.0,
@@ -99,10 +106,11 @@ class _MakeListState extends State<MakeList> {
 
                     ),
                   ),
+                  SizedBox(height: 17,)
                 ]),
           ),
         );
-  }
+  } //element of make list
   @override
   void initState() {
     super.initState();
@@ -118,18 +126,9 @@ class _MakeListState extends State<MakeList> {
   }
   costumweek(){
 
-    if(weeaks.length==0){
-      Week week=new Week();
-      List<Meals> meals=new List();
-      Meals meal=new Meals();
-      meal.title="صبحانه";
-      meal.description="";
-      meals.add(meal);
-      week.days=["شنبه"];
-      week.desWeek="";
-      week.numerWeek="1";
-      week.meals=meals;
-      weeaks.add(week);
+    if(plans.length==0){
+      Plan plan=new Plan();
+      plans.add(plan);
     }
   }
   @override
@@ -144,7 +143,7 @@ class _MakeListState extends State<MakeList> {
           child: new  ListView.builder(
           reverse: false,
           itemBuilder: _buildProductItem,
-          itemCount: planType=="ورزشی"?classes.length:weeaks.length,
+          itemCount: planType=="ورزشی"?classes.length:plans.length,
           ),
           ),
 
@@ -174,17 +173,8 @@ class _MakeListState extends State<MakeList> {
                     classes.add(classroom);
                   }
                   else{
-                    Week week=new Week();
-                    List<Meals> meals=new List();
-                    Meals meal=new Meals();
-                    meal.title="صبحانه";
-                    meal.description="";
-                    meals.add(meal);
-                    week.days=["شنبه"];
-                    week.desWeek="";
-                    week.numerWeek="1";
-                    week.meals=meals;
-                    weeaks.add(week);
+                    Plan plan=new Plan();
+                    plans.add(plan);
                   }
 
                 });

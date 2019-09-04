@@ -1,18 +1,25 @@
 
+
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/page/VideoAbout/VideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ExtractSportName extends StatefulWidget {
-  String classnumber;
-  ExtractSportName({Key key, @required this.classnumber}) : super(key: key);
+  String currentmove;
+  String currentclass;
+  ExtractSportName({Key key, @required this.currentclass,this.currentmove}) : super(key: key);
   @override
-  _ExtractSportNameState createState() => _ExtractSportNameState();
+  _ExtractSportNameState createState() => _ExtractSportNameState(currentclass,currentmove);
 }
 
 class _ExtractSportNameState extends State<ExtractSportName> {
+  String currentmove;
+  String currentclass;
+  _ExtractSportNameState(this.currentclass,this.currentmove);
+
   InputText rest = new InputText(
     "",
     "rest",
@@ -20,8 +27,9 @@ class _ExtractSportNameState extends State<ExtractSportName> {
   );
   InputText seet = new InputText(
     "",
-    "seet",
+    "set",
     height: 30,
+    keyboardtype: TextInputType.number,
   );
   InputText practicSystem = new InputText("", "practicSystem");
   InputText tempo = new InputText("", "tempo");
@@ -36,6 +44,7 @@ class _ExtractSportNameState extends State<ExtractSportName> {
     hintconlor: Colors.green,
     hintsize: 14,
     margintop: 5.0,
+    keyboardtype: TextInputType.number,
   );
   InputText second = new InputText(
     "ثانیه",
@@ -45,6 +54,7 @@ class _ExtractSportNameState extends State<ExtractSportName> {
     hintconlor: Colors.green,
     hintsize: 14,
     margintop: 5.0,
+    keyboardtype: TextInputType.number,
   );
   InputText calary = new InputText(
     "کالری",
@@ -54,6 +64,7 @@ class _ExtractSportNameState extends State<ExtractSportName> {
     hintconlor: Colors.green,
     hintsize: 14,
     margintop: 5.0,
+    keyboardtype: TextInputType.number,
   );
   InputText metr = new InputText(
     "متر",
@@ -63,15 +74,25 @@ class _ExtractSportNameState extends State<ExtractSportName> {
     hintconlor: Colors.green,
     hintsize: 14,
     margintop: 5.0,
+    keyboardtype: TextInputType.number,
   );
   Button ok = new Button(
-    [],
+    ["metr","calary","second","repeat"],
     "/SportField",
     "تایید تمرین",
     35.0,
     20.0,
     width: 100.0,
+    functioncode: "add_option_to_one_move",
   );
+  setindexs(currentclass,currentmove){
+    setCurrentIndex(currentclass,currentmove);
+  }
+  @override
+  void initState() {
+    super.initState();
+    setindexs(currentclass,currentmove);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,21 +123,21 @@ class _ExtractSportNameState extends State<ExtractSportName> {
             child: ListView(
               shrinkWrap: false,
               children: <Widget>[
+
                 Center(
                   child: Container(
                     child:Column(
                 children: <Widget>[
-              Container(
-              height: 210,
-              child: VideoPlayerApp(),
-            ),
+
             Container(
               margin: EdgeInsets.only(
                   left: 15, right: 15, top: 10, bottom: 10),
               child: Column(
                 children: <Widget>[
-
-
+                /*SizedBox(
+                  height: 120,
+                  child:  VideoPlayerApp(),
+                ),*/
 
                   Text(
                     "نام تمرین ورزشی",

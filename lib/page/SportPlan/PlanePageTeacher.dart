@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:art_man/components/Networking/SendPlanSport.dart';
+import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/page/SportPlan/SportPlanePage.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +20,25 @@ class _PlaneSportTeacherState extends State<PlaneSportTeacher> {
     setState(() {
       _selectedIndex = index;
     });
+
   }
+  /*sender() async{
+    Strings strings=new Strings();
+    String username=await getusername();
+    await SendPlanSport(
+        "${strings.baseurl}/sportPlan/addSportPlan/uuu/$username",
+        json.encode({
+          "sessions": 1,
+        }));
+  }*/
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //sender();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -47,14 +70,14 @@ class _PlaneSportTeacherState extends State<PlaneSportTeacher> {
           ),
           title: Text(
             'برنامه های ورزشی و غذایی',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white,fontSize: 14),
           ),
         ),
 
         body: TabBarView(
           children: [
-            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه غذایی","غذایی",""),
-            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه ورزشی","ورزشی","")
+            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه غذایی","غذایی","//ListPlanOfTeacher"),
+            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه ورزشی","ورزشی","/ListPlanOfTeacher")
           ],
         ),
 

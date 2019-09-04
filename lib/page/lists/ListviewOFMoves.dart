@@ -1,5 +1,6 @@
 import 'package:art_man/components/ImageAbout/GenerateThumbnails.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/ListMoves.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:flutter/material.dart';
@@ -68,69 +69,73 @@ class _ListViewMovesState extends State<ListViewMoves> {
             borderRadius: BorderRadius.all(
                 Radius.circular(radius == null ? 3.0 : radius)),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(left: 20),
-                width: 40,
-                height: 40,
-                child: ClipRRect(
-                  child: Image.asset("assets/images/morabi.jpeg"),
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          child: GestureDetector(
+            onTap: (){
+              setState(() {
+                if(newlistsearch[index].isselected)
+                {
+                  Moveslist teacherInfo = new Moveslist();
+                  teacherInfo.fa = newlistsearch[index].fa;
+                  teacherInfo.en = newlistsearch[index].en;
+                  teacherInfo.description = newlistsearch[index].description;
+                  teacherInfo.muscles = newlistsearch[index].muscles;
+                  teacherInfo.equipment = newlistsearch[index].equipment;
+                  teacherInfo.exercise = newlistsearch[index].exercise;
+                  teacherInfo.isselected = false;
+                  teacherInfo.videourl = newlistsearch[index].videourl;
+                  newlistsearch[index] = teacherInfo;
+                }
+                else{
+                  Moveslist teacherInfo = new Moveslist();
+                  teacherInfo.fa = newlistsearch[index].fa;
+                  teacherInfo.en = newlistsearch[index].en;
+                  teacherInfo.description = newlistsearch[index].description;
+                  teacherInfo.muscles = newlistsearch[index].muscles;
+                  teacherInfo.equipment = newlistsearch[index].equipment;
+                  teacherInfo.exercise = newlistsearch[index].exercise;
+                  teacherInfo.isselected = true;
+                  teacherInfo.videourl = newlistsearch[index].videourl;
+                  newlistsearch[index] = teacherInfo;
+                }
+
+              });
+            },
+            child:  Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 20),
+                  width: 40,
+                  height: 40,
+                  child: ClipRRect(
+                    child: Image.asset("assets/images/morabi.jpeg"),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 30),
-                child:  Column(
-                  children: <Widget>[
-                    Text("${newlistsearch[index].fa}",
+                Container(
+                  margin: EdgeInsets.only(left: 30),
+                  child:  Column(
+                    children: <Widget>[
+                      Text("${newlistsearch[index].fa}",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                      Text(
+                        "${newlistsearch[index].en}",
                         style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold)),
-                    Text(
-                      "${newlistsearch[index].en}",
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.normal),
-                    ),
-                  ],
-                ),),
+                            color: Colors.black, fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  ),),
 
-              Container(width: 20,
-                margin: EdgeInsets.only(left: 20),
-                alignment: Alignment.center,
-                child: IconButton(icon: !newlistsearch[index].isselected? Icon(Icons.radio_button_unchecked,size: 30,color: Colors.grey[800],):
-                Icon(Icons.check_circle_outline,color: Colors.blue[800],size: 30,), onPressed: (){
-                  setState(() {
-                    if(newlistsearch[index].isselected)
-                    {
-                      Moveslist teacherInfo = new Moveslist();
-                      teacherInfo.fa = newlistsearch[index].fa;
-                      teacherInfo.en = newlistsearch[index].en;
-                      teacherInfo.description = newlistsearch[index].description;
-                      teacherInfo.muscles = newlistsearch[index].muscles;
-                      teacherInfo.equipment = newlistsearch[index].equipment;
-                      teacherInfo.exercise = newlistsearch[index].exercise;
-                      teacherInfo.isselected = false;
-                      teacherInfo.videourl = newlistsearch[index].videourl;
-                      newlistsearch[index] = teacherInfo;
-                    }
-                    else{
-                      Moveslist teacherInfo = new Moveslist();
-                      teacherInfo.fa = newlistsearch[index].fa;
-                      teacherInfo.en = newlistsearch[index].en;
-                      teacherInfo.description = newlistsearch[index].description;
-                      teacherInfo.muscles = newlistsearch[index].muscles;
-                      teacherInfo.equipment = newlistsearch[index].equipment;
-                      teacherInfo.exercise = newlistsearch[index].exercise;
-                      teacherInfo.isselected = true;
-                      teacherInfo.videourl = newlistsearch[index].videourl;
-                      newlistsearch[index] = teacherInfo;
-                    }
-
-                  });
-                }),)
-            ],
-          ));
+                Container(width: 20,
+                  margin: EdgeInsets.only(left: 20),
+                  alignment: Alignment.center,
+                  child: IconButton(icon: !newlistsearch[index].isselected? Icon(Icons.radio_button_unchecked,size: 30,color: Colors.grey[800],):
+                  Icon(Icons.check_circle_outline,color: Colors.blue[800],size: 30,),
+                      onPressed: null),)
+              ],
+            )),
+          );
   }
 }

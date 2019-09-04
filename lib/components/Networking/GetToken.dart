@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 class Resulte{
@@ -23,8 +22,8 @@ class Token{
 }
 
 Future<Resulte> fetchToken(response) async {
-    Resulte userData;
-    var list = (json.decode(response.toString()));
-    userData = Resulte.fromJson(list);
-    return userData;
-  }
+  Resulte userData;
+  var list = (json.decode(response.toString()));
+  userData = Resulte.fromJson(list);
+  return userData;
+}
