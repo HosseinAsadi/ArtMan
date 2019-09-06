@@ -18,7 +18,7 @@ class Post{
     print(reply);
     if(response.statusCode==200|| response.statusCode==201){
       Resulte resulte=await fetchToken(reply);
-      print("sign up is ok");
+      print("sign up is okkkkkkkkkkkkkkkkkkkkkkkkkkk");
       await setToken(resulte.toke.token);
       print(resulte.toke.token);
     }

@@ -2,6 +2,7 @@ import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/FoodClasses.dart';
+import 'package:art_man/page/FoodPlan/Meal.dart';
 import 'package:art_man/page/FoodPlan/addSportPlan.dart';
 import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class _MakeListState extends State<MakeList> {
                   )):Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddMeal(),
+                    builder: (context) => MealsPage(numberplan: number.toString(),),
                   ));
             },
             child: Column(

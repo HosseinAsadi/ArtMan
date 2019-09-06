@@ -1,6 +1,11 @@
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/FoodClasses.dart';
+import 'package:art_man/components/Utility/FoodPlanClasses.dart';
+import 'package:art_man/components/Utility/Keys.dart';
+import 'package:art_man/components/Utility/Validator.dart';
+import 'package:art_man/page/FoodPlan/Food.dart';
 import 'package:flutter/material.dart';
 
 class MakeMeals extends StatefulWidget {
@@ -30,7 +35,7 @@ class _MakeMealsState extends State<MakeMeals> {
               color: listItemcolor,
               borderRadius: BorderRadius.all(Radius.circular(15))),
 
-          child: GestureDetector(
+          child: InkWell(
 
             onLongPress: () {
               showDialog(
@@ -53,10 +58,9 @@ class _MakeMealsState extends State<MakeMeals> {
                   listItemcolor = Colors.white.withOpacity(0.3);
               });
             },
-            onTapUp: (Detaial) {
-              setState(() {
-                listItemcolor = Colors.white;
-              });
+
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsPage()));
             },
 
             child: Column(
@@ -66,7 +70,7 @@ class _MakeMealsState extends State<MakeMeals> {
                     alignment: Alignment.centerRight,
                     padding: EdgeInsets.only(right: 15),
                     child: Text(
-                      "برنامه ${number+1}",
+                      "وعده ${number+1}",
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.w500),
                     ),
@@ -75,7 +79,7 @@ class _MakeMealsState extends State<MakeMeals> {
                   Container(
                     alignment: Alignment.bottomRight,
                     child: InputText(
-                      "نام برنامه ...",
+                      "نام وعده ...",
                       "meal_name",
                       margintop: 8.0,
                       height: 30.0,
@@ -85,16 +89,12 @@ class _MakeMealsState extends State<MakeMeals> {
                     ),
                   ),
                   // checkbox
-                  SizedBox(height: 17,),
+
 
                 ]),
           ),
         ),
-        Positioned(
-          bottom: 0,
-          right: MediaQuery.of(context).size.width/3+20,
-          child: Adder("افزودن وعده"),
-        )
+
       ],
     ) ;
 
@@ -118,12 +118,12 @@ class _MakeMealsState extends State<MakeMeals> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 20,left: 12,right: 12),
-          height: height,
+          height:meals.length==0?height: height*meals.length,
 
           child: new  ListView.builder(
             reverse: false,
             itemBuilder: _buildProductItem,
-            itemCount: 1,
+            itemCount: meals.length+1,
           ),
         ),
 Adder("+")
@@ -134,13 +134,17 @@ Adder("+")
 Adder(text){
     return  Container(
       alignment: Alignment(0, 0),
+      padding: EdgeInsets.all(5),
 
-      height: 30,
+
+      width: 60,
+      height: 60,
       margin: EdgeInsets.only(
         top: 10,
+        bottom: 10
       ),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(50),
           gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
@@ -152,8 +156,21 @@ Adder(text){
 
             setState(() {
 
+              if (Kelid.getter("meal_name")!="" ) {
+                Meale meal=new Meale();
+                meal.name=Kelid.getter("meal_name");
+                meal.fill=true;
+                meal.Foods=foods;
+                meals.add(meal);
+                Kelid.setter("meal_name", "");
+                foods.clear();
+                height += 120.0;
+              }
+
+              else
+                ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
+
             });
-            height += 120.0;
           });
         },
         child: Text(
@@ -162,7 +179,7 @@ Adder(text){
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w900,
-              fontSize: 23),
+              fontSize: 29),
         ),
       ),
     );

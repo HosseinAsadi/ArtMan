@@ -1,17 +1,81 @@
+import 'package:art_man/components/Networking/AnayzeResult.dart';
+import 'package:art_man/components/Networking/FetchAnalyzeReslulte.dart';
+import 'package:art_man/components/Networking/FetchLocation.dart';
+import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
+import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
+import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/GetTeachersList.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Widgets/BackgroandwithListview.dart';
 import 'package:art_man/components/Widgets/Driver.dart';
 import 'package:flutter/material.dart';
 
 class AnalyzeResult extends StatefulWidget {
+  String index;
+  String date;
+  AnalyzeResult({Key key,this.index,this.date}) : super(key: key);
   @override
-  _AnalyzeResultState createState() => _AnalyzeResultState();
+  _AnalyzeResultState createState() => _AnalyzeResultState(index,date);
 }
 
+
 class _AnalyzeResultState extends State<AnalyzeResult> {
+  String index;
+  int weight,hr,tee;
+  double bmi,whr,bai,bf;
+  String date,name,username;
+  bool complete=false;
+  _AnalyzeResultState(this.index,this.date);
+  String stdUsername;
+  _getInformation() async {
+    Strings strings=new Strings();
+
+    username = await getusername();
+
+    StdProfile info = await GetLocation.fetchProfilestudent(
+        "${strings.baseurl}/users/getUser/$username");
+
+    setState(() {
+
+
+      setState(() {
+
+        name = info.result[0].firstname;
+
+      });
+
+
+    });
+  }
+  getresult()async{
+    String username=await getusername();
+    setState(() {
+       stdUsername= username;
+    });
+    AnalyzeAnswers analyzeAnswe = (await fetchAnalyzeReslult("${strings.baseurl}/analyze/getFromUser/$stdUsername")) ;
+    setState(() {
+    weight = analyzeAnswe.result[int.parse(index)].outcomes.ibw;
+    bmi = analyzeAnswe.result[int.parse(index)].outcomes.bmi;
+    whr = analyzeAnswe.result[int.parse(index)].outcomes.whr;
+     bai= analyzeAnswe.result[int.parse(index)].outcomes.bai;
+    bf = analyzeAnswe.result[int.parse(index)].outcomes.bf;
+    hr = analyzeAnswe.result[int.parse(index)].outcomes.hr;
+    tee = analyzeAnswe.result[int.parse(index)].outcomes.tee;
+    });
+   complete=true;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getInformation();
+    getresult();
+  }
   @override
   Widget build(BuildContext context) {
     return Background(
-      Container(
+     complete? Container(
         margin: EdgeInsets.only(top: 30),
         child: Column(
           children: <Widget>[
@@ -26,53 +90,64 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Row(children: <Widget>[
-                        TexT("تاریخ :"),
-                        MaterialContainer(''),
-                        TexT("نام و نام خانوادگی :"),
-                        MaterialContainer('')
+                      Container(
+                height: 60,
+                      child: ListView(
+                        reverse: false,
+                          scrollDirection: Axis.horizontal,
+                        children: <Widget>[
 
-                      ],),
+                      Row(children: <Widget>[
+
+                          MaterialContainer('$date'),
+                TexT("نام و نام خانوادگی :"),
+                MaterialContainer('$name')
+
+                ],),]),
+                      ) ,
+
+
+
                       drivere(),
 
                       TexT("وزن شما (IBW)"),
-                      Value(" = Kg", ''),
+                      Value(" = Kg", '$weight'),
                       drivere(),
                       TexT("وزن ایده آل (IBW)"),
                       Value(" = Kg", ''),
                       drivere(),
 
                       TexT("شاخص توده بدن (BMI)"),
-                      Value(" = Amount", ''),
+                      Value(" = Amount", '$bmi'),
                       Value(" = Type", ''),
                       drivere(),
 
                       TexT("نسبت دور کمر به دور باسن (WHR)"),
-                      Value(" = Ratio", ''),
+                      Value(" = Ratio", '$whr'),
                       Value(" = Type", ''),
                       drivere(),
 
 
                       TexT("شاخص چاقی بدن (BAI)"),
-                      Value(" = Precent", ''),
+                      Value(" = Precent", '$bai'),
                       Value(" = Type", ''),
                       drivere(),
 
 
                       TexT("چربی بدن (BF)"),
-                      Value(" = Precent", ''),
+                      Value(" = Precent", '$bf'),
                       Value(" = Type", ''),
                       drivere(),
 
 
                       TexT("ضربان قلب (HR)"),
-                      Value(" = Max", ''),
+                      Value("= Max", '$hr'),
                       Value(" = Target", ''),
                       drivere(),
 
 
                       TexT("مجموع انرژی مورد نیاز روزانه برای شما (TEE)"),
-                      Value(" = KC", ''),
+                      Value(" = KC", '$tee'),
 
                     ],
                   ),
@@ -81,7 +156,7 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
             ),
           ],
         ),
-      )
+      ):Center(child: CircularProgressIndicator(),)
     );
   }
   TexT(data,{color}) {
@@ -100,8 +175,9 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          TexT(unit),
+
           TexT(value,color:Colors.green),
+          TexT(unit),
 
         ],
       ),

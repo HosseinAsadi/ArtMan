@@ -27,6 +27,8 @@ class _RequestButtonState extends State<RequestButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
+        routgoal=="/SearchPage"?
+            Navigator.pushNamed(context, "/SearchPage"):
         Navigator.push(
             context,
             MaterialPageRoute(

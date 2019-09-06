@@ -14,11 +14,14 @@ class SignUp extends StatefulWidget {
 }
 
 class MySingup extends State<SignUp> {
-  CityOfCountrys cityOfCountrys;
-  static  List<String> countries=[];
-  static List<String> cities;
-  static Country country;
 
+    List<String> countries=new List();
+    List<String> sex=[
+      "مرد",
+      "زن"
+    ];
+    static Country country;
+  bool newdrop=false;
   bool complete = false;
 
   final _formkey = GlobalKey<FormState>();
@@ -38,6 +41,7 @@ class MySingup extends State<SignUp> {
     startcolor: Color(0xFF5AE400),
     endcolor: Color(0xFF0F8F00),
   );
+
    _getlocation()async{
      Country location = await GetLocation.fetchData();
     setState(() {
@@ -45,22 +49,31 @@ class MySingup extends State<SignUp> {
       for (int i = 0; i < country.result.length; i++) {
         countries.add(country.result[i].name);
       }
-      cityOfCountrys=new CityOfCountrys();
+
 
       for(int i=0;i<country.result.length;i++)
-        cityOfCountrys.setCountry(country.result[i].name, country.result[i].citynames);
-
+        setCountry(country.result[i].name, country.result[i].citynames);
+       print(citiess.length);
       complete = true;
     });
    }
+     callbackCities(country){
+     setState(() {
+       print(country);
+       cities=getCities(country);
+       newdrop=true;
 
+     });
+ }
 
   @override
   void initState() {
     super.initState();
-   // _getlocation();
+    _getlocation();
+
 
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,15 +102,14 @@ class MySingup extends State<SignUp> {
                             text("نام و نام خانوادگی:"),
                             name,
                             text("انتخاب کشور :"),
-                            new DropDown("country",["iran"],
-                                "کشور محل زندگی خود را انتخاب نمایید ..."),
+                            new DropDown("country",countries,
+                                "کشور محل زندگی خود را انتخاب نمایید ...",callback: this.callbackCities,),
                             text("انتخاب شهر :"),
-                            new DropDown("city",["FDF"], "شهر محل زندگی خود را انتخاب نمایید ..."),
-                            text("انتخاب جنسیت :"),
-                            new DropDown("sex",[
-                              "مرد",
-                              "زن"
-                            ], "جنسیت خود را انتخاب نمایید ..."),
+                          new DropDown("city",["شهر"], "شهر محل زندگی خود را انتخاب نمایید ..."),
+
+                          text("انتخاب جنسیت :"),
+
+                            new DropDown("sex",sex, "جنسیت خود را انتخاب نمایید ..."),
                             text("شماره همراه :"),
                             phone,
                             Row(

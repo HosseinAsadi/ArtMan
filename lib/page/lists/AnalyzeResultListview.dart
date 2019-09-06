@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
+import 'package:art_man/page/Analyzes/Branch.dart';
 import 'package:art_man/page/Analyzes/SummaryAnswer.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +43,11 @@ class _AnalyzeResultListviewState extends State<AnalyzeResultListview> {
             Navigator.push(
                 context,
                 route==null?MaterialPageRoute(
-                  builder: (context) => AnalyzeAnswer(index: "$index",),
+                  builder: (context) => Branch(index: "$index",date: newlistsearch[index].username,),
                 ):route
             );
 
           },
-          // ${strings.baseurl}/images/teachers/${newlistsearch[index].imageprofile}
           leading: Container(
             width: 40,
             height: 40,

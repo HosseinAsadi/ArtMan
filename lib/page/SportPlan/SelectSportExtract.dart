@@ -1,12 +1,11 @@
-import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/Buttons/VerifyButton.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Networking/FetchCategories.dart';
 import 'package:art_man/components/Networking/FetchMoves.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/Classroom.dart';
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/ListMoves.dart';
-import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/page/lists/ListviewOFMoves.dart';
 import 'package:flutter/material.dart';
@@ -23,46 +22,96 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
   _SelectSportExtractState(this.numberclass);
   Color iconColor=  Color(0xFFEDC40A),dropdwonColor= Color(0xFFF1C60D);
 
-  List<Moveslist> myTeachers=new List();
-  List<Moveslist> filterlist=new List();
+  List<Moveslist> myMoves=new List();
+  List<Moveslist> filtertools=new List();
+  List<Moveslist> filtermuscls=new List();
+  List<Moveslist> filterexercise=new List();
+  List<Moveslist> oldmovess=new List();
   List<Musclee> muscleses=new List();
   List<Exercisee> exercisees=new List();
   List<Equipmente> equipmentes=new List();
   List<String> equipments=new List();
   List<String> muscles=new List();
+  List<String> exercises=new List();
 
   Strings strings =new Strings();
   void callback(String value,String filter) {
     setState(() {
-      for(int i=0;i<myTeachers.length;i++){
-        if(filter=="sport tools")
+        myMoves=oldmovess;//return total list
+        if(filter=="sport tools")//filter base on tools
         {
-          for(int j=0;j<exercisees.length;j++){
-            if(muscleses[j].fa==value){
-              if(myTeachers[i].equipment!=exercisees[j].id) {
-                myTeachers.removeAt(i);
+          print("callback runned");
+          for(int j=0;j<equipmentes.length;j++){
+
+            if(equipmentes[j].fa==value){
+              for(int i=0;i<myMoves.length;i++){
+              if(myMoves[i].equipment==equipmentes[j].id) {
+                filtertools.add(myMoves[i]);
               }
 
             }
           }
         }
-        if(filter=="muscle group")
-        {
-          if(filter=="sport tools")
-          {
-            for(int j=0;j<muscleses.length;j++){
-              if(muscleses[j].fa==value){
-                if(myTeachers[i].muscles!=muscleses[j].id) {
-                  myTeachers.removeAt(i);
+      }
+        if(filter=="field_sport")//filter base on tools
+            {
+          for(int j=0;j<exercisees.length;j++){
+
+            if(exercisees[j].fa==value){
+              for(int i=0;i<myMoves.length;i++){
+                if(myMoves[i].exercise==exercisees[j].id) {
+                  filterexercise.add(myMoves[i]);
                 }
 
               }
             }
           }
         }
+        if(filter=="muscle group")//filter base on tools
+            {
+          for(int j=0;j<muscleses.length;j++){
+
+            if(muscleses[j].fa==value){
+              for(int i=0;i<myMoves.length;i++){
+                print(myMoves[i].muscles);
+                print(muscleses[j].id);
+                print("**********************");
+                if(myMoves[i].muscles==muscleses[j].id) {
+                  filtermuscls.add(myMoves[i]);
+                }
+
+              }
+            }
+          }
+          print(filtermuscls.length);
+        }//every filters operate
+      // operate on base list
+        myMoves.clear();
+      for(int i=0;i<oldmovess.length;i++){
+        for(int j=0;j<filtermuscls.length;j++){
+          if(oldmovess[i].muscles==filtermuscls[j].muscles){
+            myMoves.add(oldmovess[i]);
+          }
+        }
+
       }
+        for(int i=0;i<oldmovess.length;i++) {
+          for (int j = 0; j < filterexercise.length; j++) {
+            if (oldmovess[i].exercise == filterexercise[j].exercise) {
+              myMoves.add(oldmovess[i]);
+            }
+          }
+        }
+        for(int i=0;i<oldmovess.length;i++) {
+          for (int j = 0; j < filtertools.length; j++) {
+            if (oldmovess[i].muscles == filtertools[j].equipment) {
+              myMoves.add(oldmovess[i]);
+            }
+          }
+        }
     });
   }
+
   getMoves()async{
    Moves movess=await fetchMoves("${strings.baseurl}/admin/getsportingMoves");
    setState(() {
@@ -76,9 +125,11 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
        teacherInfo.muscles=movess.result[i].muscles;
        teacherInfo.description=movess.result[i].description;
        teacherInfo.videourl="${strings.baseurl}/videos/${movess.result[i].videoURL}";
-       myTeachers.add(teacherInfo);
-       addMove(teacherInfo);
+       myMoves.add(teacherInfo);
+       oldmovess.add(teacherInfo);
+
      }
+
     /* if(classes[(int.parse(numberclass)-1)].moves.length!=0){
        myTeachers.clear();
        myTeachers=
@@ -99,19 +150,20 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
       equipments.add(categys.equipment[i].fa);
     }
     for(int i=0;i<categys.exercise.length;i++){
-      Musclee musclee=new Musclee();
+      Exercisee musclee=new Exercisee();
       musclee.fa=categys.exercise[i].fa;
       musclee.en=categys.exercise[i].en;
       musclee.id=categys.exercise[i].id;
-      muscleses.add(musclee);
-      muscles.add(categys.exercise[i].fa);
+      exercisees.add(musclee);
+      exercises.add(categys.exercise[i].fa);
     }
     for(int i=0;i<categys.muscles.length;i++){
-      Exercisee exercisee=new Exercisee();
-      exercisee.fa=categys.muscles[i].fa;
-      exercisee.en=categys.muscles[i].en;
-      exercisee.id=categys.muscles[i].id;
-      exercisees.add(exercisee);
+      Musclee musclee=new Musclee();
+      musclee.fa=categys.muscles[i].fa;
+      musclee.en=categys.muscles[i].en;
+      musclee.id=categys.muscles[i].id;
+      muscleses.add(musclee);
+      muscles.add(categys.muscles[i].fa);
     }
 
    });
@@ -135,7 +187,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
             child: InkWell(
               onTap: (){
                 setState(() {
-                  getMoves();
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectSportExtract(numberclass: numberclass,)));
                 });
               },
               child: Text(
@@ -160,6 +212,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
               fit: BoxFit.cover,
             ),
           ),
+
           child: ListView(
             shrinkWrap: false,
             children: <Widget>[
@@ -171,7 +224,28 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                     // key: _key,
                     child: Column(
                       children: <Widget>[
-                        SizedBox(
+                        GestureDetector(
+                    onTapDown: (details){
+                  setState(() {
+                  iconColor=Color(0xFFEDC40A).withOpacity(0.2);
+                  });
+
+                  },
+                    onTapUp: (details){
+                      setState(() {
+                        iconColor=Color(0xFFEDC40A);
+                      });
+
+                    },
+                    onTap: (){
+
+                      setState(() {
+                        filterMoves(oldmovess);
+
+                      });
+
+                    },
+                       child: SizedBox(
                           height: 160,
                           child: Container(
                             padding: EdgeInsets.only(right: 10),
@@ -183,28 +257,9 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                             ),
                             child: Row(
                               children: <Widget>[
-                                GestureDetector(
-                                  onTapDown: (details){
-                                    setState(() {
-                                      iconColor=Color(0xFFEDC40A).withOpacity(0.2);
-                                    });
 
-                                  },
-                                  onTapUp: (details){
-                                    setState(() {
-                                      iconColor=Color(0xFFEDC40A);
-                                    });
 
-                                  },
-                                  onTap: (){
-
-                                    setState(() {
-                                      filterMoves(myTeachers);
-
-                                    });
-
-                                  },
-                                  child: AnimatedContainer(
+                                   AnimatedContainer(
                                     width: width,
                                     height: height,
                                     duration: Duration(microseconds: 2000),
@@ -213,9 +268,9 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                                         border: Border.all(color: iconColor, width: 2),
                                         borderRadius: BorderRadius.circular(30)
                                     ),
-                                    child: Icon(Icons.search,size: 40, color: iconColor),
+                                     child: Icon(Icons.search,size: 40, color: iconColor),
                                   ),
-                                ),
+
                                 Expanded(
                                     child:Container(
                                         margin: EdgeInsets.all(4),
@@ -225,12 +280,21 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                                     )
 
                                 )
-                              ],
-                            ),
-                          ),
-                        ),
+                              ] ), ),),),
+
 
                         SizedBox(height: 15,),
+
+                        DropDown("field_sport",exercises,
+                          "رشته ورزشی",
+                          backgroundColor: dropdwonColor,
+                          fontcolor: Colors.black,
+                          arrowcolor: Colors.black,
+                          callback: this.callback,
+                        ),
+
+                        SizedBox(height: 10,),
+
                         DropDown("muscle group",muscles,
                           "گروه عضلانی",
                           backgroundColor: dropdwonColor,
@@ -238,6 +302,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                           arrowcolor: Colors.black,
                           callback: this.callback,
                         ),
+
                         SizedBox(height: 10,),
 
                         DropDown("sport tools",equipments,
@@ -247,6 +312,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                           arrowcolor: Colors.black,
                           callback: this.callback,
                         ),
+
                         Container(
                            height: 300,
                           padding: EdgeInsets.all(10),
@@ -255,7 +321,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(20))
                           ),
-                          child: new ListViewMoves(color: Colors.green,radius: 30.0,id: "sports",)
+                          child: new ListViewMoves(myMoves,color: Colors.green,radius: 30.0,id: "sports",)
 
                         ),
                         VerifyButton(numberclass,"/MovesInClassroom","تایید موقت",30.0,10.0,width: 100.0,functioncode: "justverify",)
@@ -269,5 +335,17 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
         ),
       ),
     );
+  }
+  filterMoves(List<Moveslist> oldmoves){
+    myMoves.clear();
+    for(int i=0;i<oldmoves.length;i++){
+      if(oldmoves[i].fa.contains(Kelid.getter("searchExercise")) ||
+          oldmoves[i].en.contains(Kelid.getter("searchExercise")))
+        myMoves.add(oldmoves[i]);
+    }
+    setState(() {
+      FocusScope.of(context).requestFocus(new FocusNode());
+    });
+
   }
 }

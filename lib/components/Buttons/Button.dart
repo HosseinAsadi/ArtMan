@@ -130,7 +130,8 @@ class myBottom extends State<Button> {
     }
 
 
-    return AnimatedContainer(
+    return GestureDetector(
+     child: AnimatedContainer(
       alignment: Alignment(0, 0),
       width: width,
       height: height,
@@ -143,157 +144,7 @@ class myBottom extends State<Button> {
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [startcolor==null?Color(0xFF5AE100):startcolor, endcolor==null?Color(0xFF0F8F00):endcolor])),
-      child: GestureDetector(
-        onTapDown: (TapDetails) {
-          setState(() {
-            --width ;
-            --height;
-            startcolor = Colors.green[900].withOpacity(0.1);
-            endcolor = Colors.green[800].withOpacity(0.3);
-          });
-        },
-        onTapUp: (TapUpDetails) {
 
-          setState(() {
-            startcolor = Color(0xFF5AE100);
-            endcolor = Color(0xFF0F8F00);
-            ++width ;
-            ++height;
-          });
-        },
-        onTap: () async {
-         bool ismyteacher=false;
-         if(functioncode=="save_khorak"){
-           this.widget.callback();
-         }
-         if(functioncode=="saveAsPattern"){
-         Kelid.setter("savePattern", "ok");//sorrii
-           await SaveAsPattern();
-         ShowToast("ذخیره موقت با موفقیت انجام شد",Colors.green,Colors.white);
-
-         }
-         if(functioncode=="sendplan"){
-           Kelid.setter("sended", "ok");//sorrii
-             Strings strings=new Strings();
-             String username=await getusername();
-             if(checkEveryThingForPlanIsOk()) {
-             String result=  await SendPlanSport(
-                   "${strings.baseurl}/sportPlan/addSportPlan/uuu/$username");
-             if(result=="200" || result=="201")
-
-               ShowToast("برنامه با موفقیت ارسال شد",Colors.green,Colors.white);
-
-             }
-             else{
-               showsnackbar("لطفا آپشن های همه حرکات را ست کنید");
-             }
-
-         }
-          if(functioncode=="add_option_to_one_move"){
-            Validator validator=new Validator();
-
-            if (validator.isvalid(list)  ) {
-                saveOptions();//
-               Navigator.push(context, MaterialPageRoute(builder: (context)=>MovesInClassroom( numberclass: getclassroom().toString(),)));
-            }
-            else
-              showsnackbar("لطفا همه ی فیلد ها را پر کنید");
-          }
-          if(functioncode=="ذخیره آنالیز") {
-
-            List<TeacherInfo> myTeachers = await getStdInfo();
-            for(int i=0;i<myTeachers.length;i++){
-              if(Kelid.getter("teacherid")==myTeachers[i].username){
-                setState(() {
-                  ismyteacher=true;
-                });
-                CircularProgressIndicator();
-                function.uploadAnalyze(Kelid.getter("teacherid"));
-                ShowToast("آنالیز با موفقیت ارسال شد",Colors.green,Colors.white);
-                Navigator.pushNamed(context, goal);
-              }
-            }
-            if(!ismyteacher){
-
-              print("مربی وجود ندارد");
-              showDialog(
-                  context: context,
-                  builder: (_) => new AlertDialog(
-                    contentPadding: EdgeInsets.all(0.0),
-                    content: VerifyDialog("برای فرستادن آنالیز به این مربی باید آن را به لیست مربیان خود اضافه کنید آیا مایلید؟",id: "addTeacher",height: 170.0,)
-
-                  )
-              );
-            }
-
-          }
-
-               if(functioncode=="signin")
-               function.signInWork(context);
-               if(functioncode=="ورود به پنل کاربری مربی"){
-                 print("sender runned");
-                 //function.senderTeacherData();
-                 String result=await Post.apiRequest("${strings.baseurl}/teachers/addTeacher",json.encode(
-                     { "username" : Kelid.getter("username"),
-                       "password" :Hasher.GenerateMd5(Kelid.getter("password").toString()),
-                       "first_name" : Kelid.getter("first_name"),
-                       "last_name" : " ",
-                       "country" : Kelid.getter("country"),
-                       "city" : Kelid.getter("city"),
-                       "phone" : Kelid.getter("phone"),
-                     }));
-                if(result=="200" || result=="201"){
-                  await setusername();
-                  await setsign();
-                  print("setted username and signed");
-                }
-                if(result=="500")
-                  print("server error");
-               }
-               if(functioncode=="ورود به پنل کاربری هنرجو"){
-                 print("sender student runned");
-                // String result= await function.senderTeacherData();
-                 var result=await Post.apiRequest("${strings.baseurl}/users/addUser",json.encode(
-                     { "username" : Kelid.getter("username"),
-                       "password" : Hasher.GenerateMd5(Kelid.getter("password").toString()),
-                       "first_name" :  Kelid.getter("first_name"),
-                       "last_name" : " ",
-                       "country" : Kelid.getter("country"),
-                       "city" : Kelid.getter("city"),
-                       "phone" :  Kelid.getter("phone"),
-                       "sex" : SetSex.sex(Kelid.getter("sex").toString())
-                     }));
-
-                 if(result=="200" || result=="201"){
-                   print("user signedddddddddddddddddddd");
-                   await setusername();
-                   await setsign();
-                 }
-                 if(result=="500")
-                   Scaffold.of(context).showSnackBar(SnackBar(
-                       content: Text(
-                         snackbarText==null? "خطا در ارتباط با سرور":snackbarText,
-                         style: TextStyle(color: Colors.white),
-                       ),
-                       backgroundColor: Colors.red[900]));
-
-               //}
-
-          }
-          Validator validator=new Validator();
-
-           if(list.length==0)
-           Navigator.pushNamed(context, goal);
-
-            if (validator.isvalid(list)  ) {
-              if(functioncode==null)
-                  Navigator.pushNamed(context, goal);
-          }
-
-          else
-              showsnackbar("لطفا همه ی فیلد ها را پر کنید");
-
-        },
         child: Text(
           text,
           textAlign: TextAlign.center,
@@ -302,6 +153,159 @@ class myBottom extends State<Button> {
           fontSize: textsize==null?16:textsize),
         ),
       ),
+      onTapDown: (TapDetails) {
+        setState(() {
+          --width ;
+          --height;
+          startcolor = Colors.green[900].withOpacity(0.1);
+          endcolor = Colors.green[800].withOpacity(0.3);
+        });
+      },
+      onTapUp: (TapUpDetails) {
+
+        setState(() {
+          startcolor = Color(0xFF5AE100);
+          endcolor = Color(0xFF0F8F00);
+          ++width ;
+          ++height;
+        });
+      },
+      onTap: () async {
+        bool ismyteacher=false;
+        if(functioncode=="saveeditonfood"){
+          this.widget.callback();
+        }
+        if(functioncode=="save_khorak"){
+          this.widget.callback();
+        }
+        if(functioncode=="saveAsPattern"){
+          Kelid.setter("savePattern", "ok");//sorrii
+          await SaveAsPattern();
+          ShowToast("ذخیره موقت با موفقیت انجام شد",Colors.green,Colors.white);
+
+        }
+        if(functioncode=="sendplan"){
+          Kelid.setter("sended", "ok");//sorrii
+          Strings strings=new Strings();
+          String username=await getusername();
+          if(checkEveryThingForPlanIsOk()) {
+            String result=  await SendPlanSport(
+                "${strings.baseurl}/sportPlan/addSportPlan/uuu/$username");
+            if(result=="200" || result=="201")
+
+              ShowToast("برنامه با موفقیت ارسال شد",Colors.green,Colors.white);
+
+          }
+          else{
+            showsnackbar("لطفا آپشن های همه حرکات را ست کنید");
+          }
+
+        }
+        if(functioncode=="add_option_to_one_move"){
+          Validator validator=new Validator();
+
+          if (validator.isvalid(list)  ) {
+            saveOptions();//
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MovesInClassroom( numberclass: getclassroom().toString(),)));
+          }
+          else
+            showsnackbar("لطفا همه ی فیلد ها را پر کنید");
+        }
+        if(functioncode=="ذخیره آنالیز") {
+
+          List<TeacherInfo> myTeachers = await getStdInfo();
+          for(int i=0;i<myTeachers.length;i++){
+            if(Kelid.getter("teacherid")==myTeachers[i].username){
+              setState(() {
+                ismyteacher=true;
+              });
+              CircularProgressIndicator();
+              function.uploadAnalyze(Kelid.getter("teacherid"));
+              ShowToast("آنالیز با موفقیت ارسال شد",Colors.green,Colors.white);
+              Navigator.pushNamed(context, goal);
+            }
+          }
+          if(!ismyteacher){
+
+            print("مربی وجود ندارد");
+            showDialog(
+                context: context,
+                builder: (_) => new AlertDialog(
+                    contentPadding: EdgeInsets.all(0.0),
+                    content: VerifyDialog("برای فرستادن آنالیز به این مربی باید آن را به لیست مربیان خود اضافه کنید آیا مایلید؟",id: "addTeacher",height: 170.0,)
+
+                )
+            );
+          }
+
+        }
+
+        if(functioncode=="signin")
+          function.signInWork(context);
+        if(functioncode=="ورود به پنل کاربری مربی"){
+          print("sender runned");
+          //function.senderTeacherData();
+          String result=await Post.apiRequest("${strings.baseurl}/teachers/addTeacher",json.encode(
+              { "username" : Kelid.getter("username"),
+                "password" :Hasher.GenerateMd5(Kelid.getter("password").toString()),
+                "first_name" : Kelid.getter("first_name"),
+                "last_name" : " ",
+                "country" : Kelid.getter("country"),
+                "city" : Kelid.getter("city"),
+                "phone" : Kelid.getter("phone"),
+              }));
+          if(result=="200" || result=="201"){
+            await setusername();
+            await setsign();
+            print("setted username and signed");
+          }
+          if(result=="500")
+            print("server error");
+        }
+        if(functioncode=="ورود به پنل کاربری هنرجو"){
+          print("sender student runned");
+          // String result= await function.senderTeacherData();
+          var result=await Post.apiRequest("${strings.baseurl}/users/addUser",json.encode(
+              { "username" : Kelid.getter("username"),
+                "password" : Hasher.GenerateMd5(Kelid.getter("password").toString()),
+                "first_name" :  Kelid.getter("first_name"),
+                "last_name" : " ",
+                "country" : Kelid.getter("country"),
+                "city" : Kelid.getter("city"),
+                "phone" :  Kelid.getter("phone"),
+                "sex" : SetSex.sex(Kelid.getter("sex").toString())
+              }));
+
+          if(result=="200" || result=="201"){
+            print("user signedddddddddddddddddddd");
+            await setusername();
+            await setsign();
+          }
+          if(result=="500")
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  snackbarText==null? "خطا در ارتباط با سرور":snackbarText,
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.red[900]));
+
+          //}
+
+        }
+        Validator validator=new Validator();
+
+        if(list.length==0)
+          Navigator.pushNamed(context, goal);
+
+        if (validator.isvalid(list)  ) {
+          if(functioncode==null)
+            Navigator.pushNamed(context, goal);
+        }
+
+        else
+          showsnackbar("لطفا همه ی فیلد ها را پر کنید");
+
+      },
     );
   }
   showsnackbar(textsnak){

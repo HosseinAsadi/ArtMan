@@ -1,3 +1,4 @@
+
 import 'package:art_man/components/Buttons/RequestButton.dart';
 import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
 import 'package:art_man/components/Utility/GetPing.dart';
@@ -7,10 +8,11 @@ import 'package:art_man/components/Buttons/profile-button.dart';
 import 'package:art_man/componethosein/profile-button.dart';
 import 'package:art_man/componethosein/top-profile-info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 class ProfilePage extends StatefulWidget{
- // static final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey<ScaffoldState>();
+  // static final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey<ScaffoldState>();
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -22,47 +24,67 @@ class ProfilePage extends StatefulWidget{
 class P extends State<ProfilePage>{
   String username;
   StdProfile information;
-
- bool complete=false;
-
-
-
-   _getInformation() async {
-     String usernamee=await getusername();
-     StdProfile info=await StdInfo(usernamee);
-     setState(()  {
-       username=usernamee;
-       information =info;
-       complete = true;
-     });
+  bool isUser=true;
+  bool complete=false;
 
 
-   }
-   getpinge()async{
-    String ping= await getping();
-    if(ping!=null){
-      print("سرور در دسترس نیست");
-    }
-   }
-   @override
+
+  _getInformation() async {
+    String usernamee=await getusername();
+    StdProfile info=await StdInfo(usernamee);
+    setState(()  {
+      username=usernamee;
+      information =info;
+
+      complete = true;
+    });
+
+
+  }
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getpinge() ;
+
     _getInformation();
   }
-   @override
+  Future<Null> onWillPop() {
+
+    /*Navigator.pushNamed(context, "/PlaneSportTeacher");
+
+    print("back pressed runned");*/
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text('آیا مطمئنید میخواهید از برنامه خارج شوید؟'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: new Text('خیر',style: TextStyle(color: Colors.red),),
+          ),
+          new FlatButton(
+            onPressed: () => SystemNavigator.pop(),
+            child: new Text('بله',style: TextStyle(color: Colors.blue)),
+          ),
+        ],
+      ),
+    ) ?? false;
+  }
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
+    return new WillPopScope(
+        onWillPop: onWillPop,
+        child:Scaffold(
 
       body:complete? setBackground():Center(
-      child: Container(
-      width: 40,
-      height: 40,
-      child: CircularProgressIndicator(),
-    )),
-    );
+          child: Container(
+            width: 40,
+            height: 40,
+            child: CircularProgressIndicator(),
+          )),
+    ));
   }
 
   Widget setBackground() => Container(
@@ -78,7 +100,7 @@ class P extends State<ProfilePage>{
   );
 
   Widget body() => ListView(
-   // shrinkWrap: true,
+    // shrinkWrap: true,
     children: <Widget>[
 
       TopProfile(),

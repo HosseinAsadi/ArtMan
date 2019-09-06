@@ -19,7 +19,7 @@ class _SearchPageState extends State<SearchPage> {
   TeachersList _teachersList;
   List<TeacherInfo> information = new List();
   List<TeacherInfo> newlistsearch = new List();
-  bool infoloaded = false;
+  bool infoloaded = false,issearched=false;
   double width=30,height=30;
   Strings strings=new Strings();
 
@@ -92,6 +92,7 @@ class _SearchPageState extends State<SearchPage> {
                                 if(Kelid.getter("searchTeacher")==""){
                                   newlistsearch.clear();
                                 }
+                                issearched=true;
                               });
 
                             },
@@ -119,8 +120,16 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                   ),
+                  Expanded(
+                    flex: 1,
+                    child:newlistsearch.length==0 && issearched?Container(
+                      padding: EdgeInsets.all(10),
+                      height: 120,
+                      child: Text("هیچ مربی با مشخصات داده شده یافت نشد",style: TextStyle(fontSize: 16),),
+                    ): ListViewGenerator(newlistsearch) ,
+                  ),
 
-                  ListViewGenerator(newlistsearch)
+
                 ],
               ),
             )

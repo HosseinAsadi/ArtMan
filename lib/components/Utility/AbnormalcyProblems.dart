@@ -1,8 +1,10 @@
 
-  List<String> abnormalacy=new List();
+  import 'dart:convert';
+
+List<String> abnormalacy=new List();
   setAbnormalacy(item){
-    abnormalacy.add(item);
+    abnormalacy=item;
   }
   getAbnormalacys(){
-    return abnormalacy;
+    return jsonDecode(jsonEncode(abnormalacy.toString()));
   }

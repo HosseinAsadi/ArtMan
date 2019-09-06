@@ -7,3 +7,8 @@ Future<TeachersList> GetTeachersList()async{
   return await GetLocation.fetchTeachersList(
       "${strings.baseurl}/admin/getTeachers");
 }
+
+Future<TeachersList> GetUsersList()async{
+  return await GetLocation.fetchTeachersList(
+      "${strings.baseurl}/admin/getUsers");
+}

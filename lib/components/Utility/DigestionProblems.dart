@@ -1,8 +1,15 @@
 
-  List<String> digestion=new List();
+  import 'dart:convert';
+
+List<String> digestions=new List();
   setDigestion(item){
-    digestion.add(item);
+    digestions=item;
   }
   getDigestions(){
-    return digestion;
+    print(digestions.toString());
+   // Digestion digestion=new Digestion(digestions);
+    return jsonDecode(jsonEncode(digestions.toString()));
   }
+
+
+

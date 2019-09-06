@@ -10,25 +10,26 @@ class ListViewMoves extends StatefulWidget {
   Color color;
   double radius;
   String id;
+  List<Moveslist> moves;
 
-  ListViewMoves(
-      {this.route, this.color, this.radius, this.id});
+  ListViewMoves(this.moves
+      ,{this.route, this.color, this.radius, this.id});
 
   @override
   _ListViewMovesState createState() =>
-      _ListViewMovesState( route,
+      _ListViewMovesState(moves, route,
           color: color, radius: radius, id: id);
 }
 
 class _ListViewMovesState extends State<ListViewMoves> {
   Strings strings = new Strings();
-  List<Moveslist> newlistsearch=getMoveList();
+  List<Moveslist> newlistsearch;
   MaterialPageRoute route;
   Color color;
   double radius;
   String id;
 
-  _ListViewMovesState( this.route,
+  _ListViewMovesState(this.newlistsearch, this.route,
       {this.color, this.radius, this.id});
 
   thumbnail(videourl, index) async {
@@ -45,7 +46,16 @@ class _ListViewMovesState extends State<ListViewMoves> {
     newlistsearch[index] = teacherInfo;
     print("thumbnail generated and uri is :" + image);
   }
+@override
+  void didUpdateWidget(ListViewMoves oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    if(oldWidget.moves!=widget.moves){
+      setState(() {
 
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
 

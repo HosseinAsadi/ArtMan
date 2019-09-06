@@ -15,6 +15,7 @@ import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/MD5Generator.dart';
 import 'package:art_man/components/Utility/SetSex.dart';
 import 'package:flutter/material.dart';
+import 'package:jalali_date/jalali_date.dart';
 
 import 'GetTeachersList.dart';
 import 'Keys.dart';
@@ -34,7 +35,7 @@ class Fucntionman{
    Strings strings=new Strings();
 
    var rslt = await GetLocation.login("${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
-
+    print("${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
    if (rslt == "0" ) {
     ShowToast("نام کاربری یا رمز عبور اشتباه است",Colors.red,Colors.white);
    }
@@ -42,7 +43,12 @@ class Fucntionman{
      await setsign();
      await setusername();
 
-     await setDate(DateTime.now().toString());
+
+
+       String date= PersianDate.fromDateTime(DateTime.parse(DateTime.now().toString()))
+           .toString(showTime: false);
+
+     await setDate(date);
      Navigator.pushNamed(
        context,
        type == "teachers"

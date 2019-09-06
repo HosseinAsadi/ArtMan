@@ -16,10 +16,10 @@ class Register extends StatefulWidget {
 
 class MySingupteacher extends State<Register> {
 
-  static  List<String> countries=[];
-  static List<String> cities;
+    List<String> countries=[];
+
   static Country country;
-  CityOfCountrys cityOfCountrys;
+
 
   bool complete = false;
 
@@ -40,6 +40,14 @@ class MySingupteacher extends State<Register> {
     startcolor: Color(0xFF5AE400),
     endcolor: Color(0xFF0F8F00),
   );
+    callbackCities(country){
+      setState(() {
+        print(country);
+        cities=getCities(country);
+        
+
+      });
+    }
   _getlocation()async{
     Country location = await GetLocation.fetchData();
     setState(() {
@@ -47,7 +55,7 @@ class MySingupteacher extends State<Register> {
       for (int i = 0; i < country.result.length; i++) {
         countries.add(country.result[i].name);
       }
-      cityOfCountrys=new CityOfCountrys();
+
       _setCityForCountry();
       complete = true;
     });
@@ -55,7 +63,7 @@ class MySingupteacher extends State<Register> {
   _setCityForCountry(){
     setState(() {
       for(int i=0;i<country.result.length;i++)
-        cityOfCountrys.setCountry(country.result[i].name, country.result[i].citynames);
+        setCountry(country.result[i].name, country.result[i].citynames);
 
     });
   }
@@ -63,7 +71,7 @@ class MySingupteacher extends State<Register> {
   @override
   void initState() {
     super.initState();
-  //  _getlocation();
+    _getlocation();
 
   }
 
@@ -94,12 +102,10 @@ class MySingupteacher extends State<Register> {
                           text("نام و نام خانوادگی:"),
                           name,
                           text("انتخاب کشور :"),
-                          new DropDown("country",["iran"],
-                              "کشور محل زندگی خود را انتخاب نمایید ..."),
+                           DropDown("country",countries,
+                            "کشور محل زندگی خود را انتخاب نمایید ...",callback: this.callbackCities,),
                           text("انتخاب شهر :"),
-                          new DropDown("city",[
-                            "alai"
-                          ], "شهر محل زندگی خود را انتخاب نمایید ..."),
+                          new DropDown("city",[], "شهر محل زندگی خود را انتخاب نمایید ..."),
                           text("شماره همراه :"),
                           phone,
                           Row(

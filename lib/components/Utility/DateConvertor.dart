@@ -1,7 +1,9 @@
 
 getPersianDate(String date){
+  print(date);
   List<String> persiandate=new List();
   persiandate=date.split("/");
+  print(persiandate);
   switch(persiandate[1]){
     case "1":
       {

@@ -84,8 +84,8 @@ class Awnser{
   final String tools;
   final String goals;
 
-  final List<String> digestion;
-  final List<String> abnormalcy;
+  final String digestion;
+  final String abnormalcy;
 
   Awnser._({ this.hip,this.neck,this.arm_close,this.fore,
   this.chest,this.thigh,this.delt,this.height,
@@ -146,8 +146,8 @@ class Awnser{
       business: jsonMap['business'],
      goals : jsonMap['goals'],
      tools : jsonMap['tools'],
-     /* abnormalcy : jsonMap['abnormalcy'].cast<String>(),
-      digestion : jsonMap['digestion'].cast<String>(),*/
+      abnormalcy : jsonMap['abnormalcy'],
+      digestion : jsonMap['digestion']
 
     );
   }

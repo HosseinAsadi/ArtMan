@@ -16,8 +16,9 @@ class GetLocation {
 
     Country country;
     final response = await http.get("${strings.baseurl}/country/getCountry");
+    print(response.statusCode);
     if (response.statusCode == 200) {
-      print("connection is ok");
+      print("get location is ok");
       var list = (json.decode(response.body));
       country = Country.fromJson(list);
       return country;
@@ -59,21 +60,20 @@ class GetLocation {
     }
   }
 
-  static Future<UserProfile> fetchProfileInfo(url) async {
-    UserProfile information;
+  static Future<TeacherProfile> fetchProfileTeacher(url) async {
+    TeacherProfile information;
     String token=await getToken();
     print(token);
     final response = await http.get(url,headers: {"token":token});
     if (response.statusCode == 200) {
       print("connection is ok");
       var list = (json.decode(response.body));
-      information = UserProfile.fromJson(list);
+      information = TeacherProfile.fromJson(list);
       return information;
     } else {
       throw Exception('Failed to load countreis');
     }
   }
-
 
   static Future<StdProfile> fetchProfilestudent(url) async {
     StdProfile information;

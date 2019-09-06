@@ -4,7 +4,6 @@ class Validator{
   isvalid(List<String> list){
    if(list.length>0)
    for(int i=0;i<list.length;i++){
-       //print("...............................................> "+ Kelid.getter(list[i]));
      if(Kelid.getterforValidator(list[i])==null || Kelid.getterforValidator(list[i])==""){
        return false;
      }

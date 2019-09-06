@@ -32,6 +32,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
   );
   dateSetter()async{
     String datetime= await getDate();
+
     setState(() {
       date= getPersianDate(datetime);
     });

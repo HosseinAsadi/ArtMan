@@ -56,8 +56,12 @@ class AnalyzeData {
   Future<int> uploader(teacher) async {
     Response response;
     String username=await getUserName();
-
+   String token=await getToken();
     Dio dio = new Dio();
+    dio.options.headers = {
+      'token': token,
+
+    };
     updategoals();
     updateSicks();
     Strings strings=new Strings();

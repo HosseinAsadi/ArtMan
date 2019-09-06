@@ -1,4 +1,5 @@
 import 'package:art_man/components/Networking/FetchLocation.dart';
+import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
 import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
@@ -17,16 +18,17 @@ class _TopProfileState extends State<TopProfile> {
   String city;
   String imagename;
   bool complete=false;
-  UserProfile information;
+  StdProfile information;
   Strings strings=new Strings();
 
   _getInformation() async {
     Strings strings=new Strings();
 
     username = await getusername();
-    print("${strings.baseurl}/users/getUser/$username");
-    UserProfile info = await GetLocation.fetchProfileInfo(
+
+    StdProfile info = await GetLocation.fetchProfilestudent(
         "${strings.baseurl}/users/getUser/$username");
+    print("${strings.baseurl}/users/getUser/$username");
     setState(() {
       information = info;
 

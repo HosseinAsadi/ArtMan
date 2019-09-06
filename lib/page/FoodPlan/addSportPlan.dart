@@ -1,5 +1,5 @@
 import 'package:art_man/components/InputTexts/InputText.dart';
-import 'package:art_man/components/Lists/MakeMeals.dart';
+import 'package:art_man/components/Lists/MakeMealsList.dart';
 import 'package:art_man/components/Utility/FoodClasses.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/page/SportPlan/PlanSport.dart';

@@ -1,8 +1,8 @@
-class UserProfile {
+class TeacherProfile {
   final List<Profile> result;
-  UserProfile._({ this.result});
-  factory UserProfile.fromJson(Map jsonMap) {
-    return new UserProfile._(
+  TeacherProfile._({ this.result});
+  factory TeacherProfile.fromJson(Map jsonMap) {
+    return new TeacherProfile._(
         result : (jsonMap['result'] as List).map((i) => Profile.fromJson(i)).toList()
     );
   }
@@ -16,6 +16,7 @@ class Profile{
   final String profilephoto;
   final String biografi;
   final List<String> users_id;
+
   Profile._({this.users_id, this.firstname,this.country,this.about,this.city,this.profilephoto,this.biografi});
   factory Profile.fromJson(Map jsonMap) {
     return new Profile._(
@@ -26,6 +27,7 @@ class Profile{
       profilephoto : (jsonMap['profile_photo']),
       biografi : (jsonMap['bio']),
       users_id : (jsonMap['users_id'].cast<String>()),
+
     );
   }
 }

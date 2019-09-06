@@ -1,5 +1,6 @@
 import 'package:art_man/components/Utility/AbnormalcyProblems.dart';
 import 'package:art_man/components/Utility/DigestionProblems.dart';
+import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:flutter/material.dart';
 
@@ -32,9 +33,18 @@ class CustomRadioState extends State<CustomRadio> {
     for(int i=0;i<items.length;i++)
     sampleData.add(new RadioModel(false, '', items[i]));
   }
+  List<String> items2;
+  Seperator(){
+    items2=new List();
+    for(int i=0;i<sampleData.length;i++){
+      if(sampleData[i].isSelected)
+        items2.add(sampleData[i].text);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return  new ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -54,12 +64,21 @@ class CustomRadioState extends State<CustomRadio> {
                     sampleData.forEach((element) => element.isSelected = false);
                     sampleData[index].isSelected = true;
                     if(id=="digestion"){
-                      setDigestion(items[index]);
+                      Seperator();
+                      setDigestion(items2);
                       Kelid.setter(id, "digestion entered");
                     }
                     if(id=="abnormalcy"){
-                      setAbnormalacy(items[index]);
+                      Seperator();
+
+                      setAbnormalacy(items2);
                       Kelid.setter(id, "abnormalcy entered");
+                    }
+                    if(id=="days"){
+                      Seperator();
+
+                      setDays(items2);
+                      Kelid.setter(id, "days entered");
                     }
 
                   }
@@ -67,12 +86,21 @@ class CustomRadioState extends State<CustomRadio> {
                     sampleData[index].isSelected = true;
                     sampleData[sampleData.length-1].isSelected = false;
                     if(id=="digestion"){
-                      setDigestion(items[index]);
+                      Seperator();
+
+                      setDigestion(items2);
                       Kelid.setter(id, "digestion entered");
                     }
                     if(id=="abnormalcy"){
-                      setAbnormalacy(items[index]);
+                      Seperator();
+
+                      setAbnormalacy(items2);
                       Kelid.setter(id, "abnormalcy entered");
+                    }
+                    if(id=="days"){
+                      Seperator();
+                      setDays(items2);
+                      Kelid.setter(id, "days entered");
                     }
                   }
                 }

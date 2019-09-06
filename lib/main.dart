@@ -11,6 +11,7 @@ import 'package:art_man/page/Analyzes/analyzeSicks.dart';
 import 'package:art_man/page/Analyzes/analyzeDetailsInfo.dart';
 import 'package:art_man/page/Analyzes/AnalyzeTools.dart';
 import 'package:art_man/page/Analyzes/AnalyzeSetGoal.dart';
+import 'package:art_man/page/FoodPlan/Meal.dart';
 import 'package:art_man/page/FoodPlan/addSportPlan.dart';
 import 'package:art_man/page/SportPlan/PlanPageStudent.dart';
 import 'package:art_man/page/SportPlan/PlanSport.dart';
@@ -46,6 +47,7 @@ import 'package:art_man/page/signs/SignUpTeacher.dart';
 import 'package:art_man/page/signs/sms-verify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:art_man/page/SportPlan/ExtractSportName.dart';
 
@@ -61,6 +63,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+    ));
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.yellow,
@@ -126,6 +131,7 @@ class MyApp extends StatelessWidget {
         '/MovesInClassroom': (context) => MovesInClassroom(),
         '/ListPlanOfTeacher': (context) => ListPlanOfTeacher(),
         '/AddMeal': (context) => AddMeal(),
+        '/MealsPage': (context) => MealsPage(),
       },
     );
   }

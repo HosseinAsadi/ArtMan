@@ -27,15 +27,19 @@ class _StateMyTeachers extends State<MyTeachers> {
 
       for(int i=0;i<info.result.length;i++){
         if(info.result[i].username==usernamee)
-        for(int j=0;j<info.result[i].MyTeachers.length;j++)
-        if(info.result[i].MyTeachers[j].access){
-          for(int k=0;k<teachers.result.length;k++){
-            if(teachers.result[k].username==info.result[i].MyTeachers[j].username){
-              TeacherInfo teacher=new TeacherInfo();
-              teacher.username=info.result[i].MyTeachers[j].username;
-              teacher.name=teachers.result[k].firstname;
-              teacher.imageprofile=teachers.result[k].profilephoto ;
-              myTeachers.add(teacher);
+        for(int j=0;j<info.result[i].MyTeachers.length;j++) {
+          print(info.result[i].MyTeachers.length);
+
+          if (info.result[i].MyTeachers[j].access) {
+            for (int k = 0; k < teachers.result.length; k++) {
+              if (teachers.result[k].username ==
+                  info.result[i].MyTeachers[j].username) {
+                TeacherInfo teacher = new TeacherInfo();
+                teacher.username = info.result[i].MyTeachers[j].username;
+                teacher.name = teachers.result[k].firstname;
+                teacher.imageprofile = teachers.result[k].profilephoto;
+                myTeachers.add(teacher);
+              }
             }
           }
         }
@@ -43,10 +47,14 @@ class _StateMyTeachers extends State<MyTeachers> {
       complete = true;
     });
   }
+  getUsersList()async{
+    String username=await getusername();
+
+
+  }
 
 @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getStdInfo();
   }

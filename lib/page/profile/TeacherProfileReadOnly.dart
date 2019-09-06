@@ -17,13 +17,13 @@ class TeacherProfileReadOnly extends StatefulWidget {
 }
 
 class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
-  UserProfile information;
+  TeacherProfile information;
   String name;
   String country;
   String city;
   String about;
   String bio;
-
+ List<String> studentsList;
   bool myTeacher=false;
   bool complete = false;
   static String username;
@@ -47,7 +47,7 @@ class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
 
     username = await getusername();
     print("${strings.baseurl}/teachers/getTeacher/$teacherUsername");
-    UserProfile info = await GetLocation.fetchProfileInfo(
+    TeacherProfile info = await GetLocation.fetchProfileTeacher(
         "${strings.baseurl}/teachers/getTeacher/$teacherUsername");
     setState(() {
       information = info;
@@ -59,6 +59,11 @@ class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
         about = information.result[0].about;
         imagename = information.result[0].profilephoto;
         bio = information.result[0].biografi;
+        studentsList = information.result[0].users_id;
+        for(int j=0;j<studentsList.length;j++){
+          if(username==studentsList[j])
+            myTeacher=true;
+        }
       });
       id = new MaterialText(
         20.0,
@@ -73,7 +78,6 @@ class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getInformation();
   }
@@ -245,25 +249,27 @@ class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
     alignment: Alignment.center,
       child:Column(children: <Widget>[
         GestureDetector(
-            onTap: (){
+            onTap: ()async{
               deleteTeacher(teacherUsername,username);
-              setState(() {
+
                 if(task=="add"){
-                  AddTeacher(teacherUsername,username);
+                 var result= await AddTeacher(teacherUsername,username);
                   setState(() {
-                    myTeacher=true;
+                    if(result=="200"||result=="201")
+                       myTeacher=true;
                   });
                 }
                 else{
-                  deleteTeacher(teacherUsername,username);
+                 var result=await deleteTeacher(teacherUsername,username);
                   setState(() {
-                    myTeacher=false;
+                    if(result=="200"||result=="201")
+                        myTeacher=false;
                   });
                 }
 
-              });
+
             },
-            child:task=="add"? Icon(Icons.add_circle,color: Colors.green,size: 50,):Icon(Icons.remove_circle,color: Colors.red,size: 50,)
+            child:!myTeacher? Icon(Icons.add_circle,color: Colors.green,size: 50,):Icon(Icons.remove_circle,color: Colors.red,size: 50,)
         ),
         Container(margin: EdgeInsets.only(top: 10),child: Text(text,style: TextStyle(color: Colors.white,fontSize: 15),),)
       ],)

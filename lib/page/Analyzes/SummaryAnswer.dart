@@ -21,7 +21,7 @@ class AnalyzeAnswer extends StatefulWidget {
 class _StateAnalyzeAnswer extends State<AnalyzeAnswer> {
   String index;
   _StateAnalyzeAnswer(this.index);
-  bool complete=true;
+  bool complete=false;
 
   AnalyzeAnswers analyzeAnswer;
   var stdUsername;
@@ -85,8 +85,8 @@ class _StateAnalyzeAnswer extends State<AnalyzeAnswer> {
           setterAnalyzeAnswer("history",awnser.fieldstd+"    "+awnser.fieldstddes);
 
 
-          //setterAnalyzeAnswer("digestion",awnser.digestion);
-          //setterAnalyzeAnswer("abnormalcy",awnser.abnormalcy);
+          setterAnalyzeAnswer("digestion",awnser.digestion);
+          setterAnalyzeAnswer("abnormalcy",awnser.abnormalcy);
           setterAnalyzeAnswer("eshteha","چی بنویسم");
           setterAnalyzeAnswer("pal", awnser.pal);
           setterAnalyzeAnswer("medicineTest", "چی بنویسیم");
@@ -247,12 +247,12 @@ class _StateAnalyzeAnswer extends State<AnalyzeAnswer> {
                 drivere(),
 
                 TexT("مشکلات گوارشی :"),
-                TexT("${getAnalyzeAnswer("")}",color: Colors.green),
+                TexT("${getAnalyzeAnswer("digestion")}",color: Colors.green),
 
                 drivere(),
 
                 TexT("ناهنجاری های فیزیکی :"),
-                TexT("${getAnalyzeAnswer("")}",color: Colors.green),
+                TexT("${getAnalyzeAnswer("abnormalcy")}",color: Colors.green),
 
                 drivere(),
 
@@ -281,7 +281,7 @@ class _StateAnalyzeAnswer extends State<AnalyzeAnswer> {
             ),
           ],
         ),
-      ):CircularProgressIndicator(),
+      ):Center(child: CircularProgressIndicator(),),
     );
   }
 

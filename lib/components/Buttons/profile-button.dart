@@ -26,8 +26,10 @@ class PB extends State<ProfileButton>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GestureDetector(
+    return InkWell(
       child: Container(
+        height: 60,
+        alignment: Alignment.centerRight,
         margin: EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: _color,
@@ -36,10 +38,14 @@ class PB extends State<ProfileButton>{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Icon(_icon),
             Container(
-              width: 220,
-              height: 60,
+              padding: EdgeInsets.all(3),
+              child: Icon(_icon),
+            ),
+            Expanded(
+              flex:1,
+           child: Container(
+              alignment: Alignment.center,
               child: Text(_text,
                 style: TextStyle(color: Colors.white,
                   fontSize: 18,
@@ -47,17 +53,15 @@ class PB extends State<ProfileButton>{
                 ),
               ),
             )
+            )
           ],
         ),
       ),
       onTap: (){
         print("exiting runned");
         setState(() {
-          if(_text=="لیست هنرجویان"){
-            /*Navigator.push(context, MaterialPageRoute(
-              builder: (context) => MyStudents(userslist: ,),
-            ));*/
-          }
+
+
           if(_text=="خروج از حساب کاربری"){
             showDialog(
                 context: context,
