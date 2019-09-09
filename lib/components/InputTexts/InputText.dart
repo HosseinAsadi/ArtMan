@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 
 class InputText extends StatefulWidget {
+
   String _hint, id;
   double height;
   TextEditingController ctrl;
@@ -18,6 +19,8 @@ class InputText extends StatefulWidget {
   double maxlenght;
   TextInputType keyboardtype;
   FontWeight fontWeight;
+  String value;
+
 
   InputText(this._hint, this.id,
       {this.height,
@@ -31,7 +34,9 @@ class InputText extends StatefulWidget {
       this.hintsize,
       this.maxlenght,
       this.keyboardtype,
-      this.fontWeight});
+      this.fontWeight,
+        this.value
+      });
 
   @override
   myInputText createState() {
@@ -47,13 +52,16 @@ class InputText extends StatefulWidget {
         hintsize: hintsize,
     maxlenght: maxlenght,
     keyboardtype: keyboardtype,
-        fontwidth : fontWeight);
+        fontwidth : fontWeight,
+      value: value
+    );
     return it;
   }
 }
 
 class myInputText extends State<InputText> {
   String _hint;
+  String value;
   String id;
   double height;
   Color brdercolor;
@@ -67,6 +75,8 @@ class myInputText extends State<InputText> {
   double maxlenght;
   TextInputType keyboardtype;
   FontWeight fontwidth;
+  TextEditingController  controller =new  TextEditingController();
+
 
   myInputText(this.id,this._hint,
       {this.height,
@@ -80,10 +90,15 @@ class myInputText extends State<InputText> {
       this.hintconlor,
       this.maxlenght,
       this.keyboardtype,
-      this.fontwidth});
+      this.fontwidth,
+        this.value
+     });
 
-  var ctrl = new TextEditingController();
-
+ @override
+  void initState() {
+    super.initState();
+    controller.text=value==null || value==""?null:value;
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -102,7 +117,7 @@ class myInputText extends State<InputText> {
           color:  brdercolor == null ? Colors.white : brdercolor,
           borderRadius: BorderRadius.circular(radius == null ? 25 : radius)),
       child: TextField(
-
+        controller: controller,
         keyboardType: keyboardtype==null?TextInputType.text:keyboardtype,
         textInputAction: TextInputAction.next,
 
@@ -123,7 +138,7 @@ class myInputText extends State<InputText> {
         ),
 
         textDirection: TextDirection.rtl,
-        controller: ctrl,
+
 
 
         decoration: InputDecoration(

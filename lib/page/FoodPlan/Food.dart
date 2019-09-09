@@ -16,85 +16,75 @@ import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/components/Lists/MakeList.dart';
 import 'package:flutter/material.dart';
 
+import 'Meal.dart';
+
 class FoodsPage extends StatefulWidget {
-  String numberplan,numbermeal;
-  FoodsPage({Key key, @required this.numberplan,this.numbermeal}) : super(key: key);
+  String numberplan, numbermeal;
+
+  FoodsPage({Key key, @required this.numberplan, this.numbermeal})
+      : super(key: key);
 
   @override
-  _FoodsPageState createState() => _FoodsPageState(numberplan,this.numbermeal);
+  _FoodsPageState createState() => _FoodsPageState(numberplan, this.numbermeal);
 }
 
 class _FoodsPageState extends State<FoodsPage> {
-  String numberplan,numbermeal;
-  _FoodsPageState(this.numberplan,this.numbermeal);
+  String numberplan, numbermeal;
 
+  _FoodsPageState(this.numberplan, this.numbermeal);
 
-  callbacksaveEdits(){
+  callbacksaveEdits() {
     setState(() {
-      Validator validator=new Validator();
-      if (validator.isvalid(["number_Of_khorak"
-      ,"unit_Of_khorak"
-      ,"khorak_name"])  ) {
-        Food food=new Food();
-        food.name=Kelid.getter("khorak_name");
-        food.namber=Kelid.getter("number_Of_khorak");
-        food.unit=Kelid.getter("unit_Of_khorak");
-        foods.add(food);
+    Kelid.setter("saveeditonfood", "ok");
+
+    Validator validator = new Validator();
+      if (validator
+          .isvalid(["number_Of_khorak", "unit_Of_khorak", "khorak_name"]) ) {
+        Foode food = new Foode();
+        food.name = Kelid.getter("khorak_name");
+        food.namber = Kelid.getter("number_Of_khorak");
+        food.unit = Kelid.getter("unit_Of_khorak");
+        plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[
+        plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length-1
+        ]=food;
         Kelid.setter("khorak_name", "");
         Kelid.setter("number_Of_khorak", "");
         Kelid.setter("unit_Of_khorak", "");
-
-      }
-
-      else
-        ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
-
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (contex) => MealsPage(
+                      numberplan: numberplan,
+                    )));
+      } else
+        ShowToast("لطفا همه ی فیلد ها را پر کنید", Colors.red, Colors.white);
     });
   }
 
-
-
-
-
-
   Future<Null> onWillPop() {
-    Navigator.pushNamed(context, "/PlaneSportTeacher");
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (contex) => MealsPage(
+                  numberplan: numberplan,
+                )));
+    ShowToast("لیست غذا های این وعده ثبت نشد", Colors.red, Colors.white);
 
-    print("back pressed runned");
-    /*
-    return showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        title: new Text('Are you sure?'),
-        content: new Text('Do you want to exit an App'),
-        actions: <Widget>[
-          new FlatButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: new Text('No'),
-          ),
-          new FlatButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: new Text('Yes'),
-          ),
-        ],
-      ),
-    ) ?? false;*/
   }
+
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
         onWillPop: onWillPop,
-        child:
-        Scaffold(
+        child: Scaffold(
           appBar: AppBar(
             iconTheme: IconThemeData(color: Colors.white),
             backgroundColor: Color(0xFF7FC81D),
             title: Text(
-              "تنظیم غذاها",
-              style: TextStyle(color: Colors.white,fontSize: 17),
+              "تنظیم غذاها وعده ${int.parse(numbermeal) + 1} برنامه ${int.parse(numberplan) + 1}",
+              style: TextStyle(color: Colors.white, fontSize: 17),
             ),
           ),
-
           body: Center(
             child: Container(
               decoration: BoxDecoration(
@@ -110,27 +100,23 @@ class _FoodsPageState extends State<FoodsPage> {
                     child: Container(
                       margin: EdgeInsets.only(
                           left: 15, right: 15, top: 10, bottom: 10),
-
                       child: Column(
                         children: <Widget>[
-
-                          MakeFoodList(),
-              new Button(
-                [],
-                "/MealsPage",
-                "ثبت",
-                30.0,
-                15.0,
-                startcolor: Color(0xFF6CBF02),
-                endcolor: Color(0xFF139101),
-                width: 110.0,
-                callback: this.callbacksaveEdits,
-                functioncode: "saveeditonfood",
-              )
-
+                          MakeFoodList(numberplan, numbermeal),
+                          new Button(
+                            ["saveeditonfood"],
+                            "/MealsPage",
+                            "ثبت",
+                            30.0,
+                            15.0,
+                            startcolor: Color(0xFF6CBF02),
+                            endcolor: Color(0xFF139101),
+                            width: 110.0,
+                            callback: this.callbacksaveEdits,
+                            functioncode: "saveeditonfood",
+                          )
                         ],
                       ),
-
                     ),
                   ),
                 ],

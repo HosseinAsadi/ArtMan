@@ -1,7 +1,7 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
-import 'package:art_man/components/Location.dart';
+import 'package:art_man/components/Networking/Location.dart';
 import 'package:art_man/components/Networking/FetchLocation.dart';
 import 'package:art_man/components/Utility/CityOfCountrys.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,7 @@
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Lists/BuildGrid.dart';
 import 'package:flutter/material.dart';
+
 class MuscleGroupList extends StatefulWidget {
   @override
   _StateMuscleGroupList createState() => _StateMuscleGroupList();
@@ -9,9 +10,24 @@ class MuscleGroupList extends StatefulWidget {
 class _StateMuscleGroupList extends State<MuscleGroupList> {
   double width=30,height=30;
   static final showGrid = true; // Set to false to show ListView
-  BuildGrid _buildGrid =new BuildGrid(200.0,2.0,2.0,250.0,6,8,
-      ["2هفته","هفته25","30هفته","15هفته","2هفته","هفته25","30هفته"],
-      Color(0xFFF71C105),Colors.white);
+  BuildGrid _buildGrid =new BuildGrid(200.0,2.0,2.0,250.0,13,8,
+      ["2هفته","هفته25","30هفته","15هفته","2هفته","هفته25","30هفته","2هفته","هفته25","30هفته","15هفته","2هفته","هفته25"],
+      Color(0xFFF71C105),Colors.white,[
+        "assets/images/muscle/باسن.jpg",
+        "assets/images/muscle/دو-سر-بازو.jpg",
+        "assets/images/muscle/چهار-سر-ران.jpg",
+        "assets/images/muscle/پشت-ران1.jpg",
+        "assets/images/muscle/ساعد.jpg",
+        "assets/images/muscle/ساق.jpg",
+        "assets/images/muscle/سینه.jpg",
+        "assets/images/muscle/سه-سربازو.jpg",
+        "assets/images/muscle/شانه.jpg",
+        "assets/images/muscle/شکم.jpg",
+        "assets/images/muscle/قسمت-تهتانی-پشت.jpg",
+        "assets/images/muscle/قسمت-میانی-پشت.jpg",
+        "assets/images/muscle/گردن.jpg",
+        "assets/images/muscle/لتسیموس.jpg",
+      ]);
   @override
   Widget build(BuildContext context) {
     bool search=true;

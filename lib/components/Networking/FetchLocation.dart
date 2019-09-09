@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
-import 'package:art_man/components/Location.dart';
+import 'package:art_man/components/Networking/Location.dart';
 import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
 import 'package:art_man/components/Networking/FetchTeachersList.dart';
 import 'package:art_man/components/Networking/GetToken.dart';

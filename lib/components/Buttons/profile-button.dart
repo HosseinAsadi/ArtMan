@@ -7,8 +7,9 @@ class ProfileButton extends StatefulWidget{
   String _text, _navigatorPush;
   IconData _icon;
   Color _color;
+  Function callback;
 
-  ProfileButton(this._text, this._icon, this._color, this._navigatorPush);
+  ProfileButton(this._text, this._icon, this._color, this._navigatorPush,{this.callback});
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +26,6 @@ class PB extends State<ProfileButton>{
   PB(this._text, this._icon, this._color, this._navigatorPush);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return InkWell(
       child: Container(
         height: 60,
@@ -69,6 +69,9 @@ class PB extends State<ProfileButton>{
                   contentPadding: EdgeInsets.all(0.0),
                   content: VerifyDialog("آیامطمئنید می خواهید از حساب کاربری خود خارج شوید؟",id:"remove"),)
             );
+          }
+          if(_text=="لیست هنرجویان"){
+           Navigator.push(context, MaterialPageRoute(builder: (context)=>MyStudents(userslist: this.widget.callback(),)));
           }
           else
           Navigator.pushNamed(context, _navigatorPush);

@@ -8,6 +8,7 @@ import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/page/EmptyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 class TeacherProfilePage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
   String city;
   String about;
   String bio;
-  bool complete = false;
+  bool complete = true;
   String username;
   String imagename;
   List<String> students;
@@ -57,6 +58,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
         about = information.result[0].about;
         imagename = information.result[0].profilephoto;
         bio = information.result[0].biografi;
+        students=information.result[0].users_id;
 
       });
       id = new MaterialText(
@@ -75,14 +77,36 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
   void initState() {
 
     super.initState();
-    getInformation();
+  //  getInformation();
   }
-
+  Future<Null> onWillPop() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text('آیا مطمئنید میخواهید از برنامه خارج شوید؟'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: new Text('خیر',style: TextStyle(color: Colors.red),),
+          ),
+          new FlatButton(
+            onPressed: () => SystemNavigator.pop(),
+            child: new Text('بله',style: TextStyle(color: Colors.blue)),
+          ),
+        ],
+      ),
+    ) ?? false;
+  }
+  callback(){
+    return students;
+  }
   @override
   Widget build(BuildContext context) {
     //  debugPaintSizeEnabled=true;
 
-    return  Scaffold(
+    return new WillPopScope(
+        onWillPop: onWillPop,
+        child: Scaffold(
         key: _key,
         body:  complete
             ? Container(
@@ -101,7 +125,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Row(
+                    /*  Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
@@ -234,13 +258,13 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                             )
                           ],
                         ),
-                      ),
+                      ),*/
                       ProfileButton("برنامه تمرینی / غذایی",
                           Icons.ac_unit, Color(0xFF088B00), "/PlaneSportTeacher"),
                       ProfileButton(
-                          "لیست هنرجویان", Icons.ac_unit, Color(0xFF71C105), "/MyTeachers"),
+                          "لیست هنرجویان", Icons.ac_unit, Color(0xFF71C105), "/MyStudents",callback: this.callback,),
                       ProfileButton(
-                          "پشتیبانی", Icons.ac_unit, Color(0xFF088B00), "/SportField"),
+                          "دسته بندی", Icons.ac_unit, Color(0xFF088B00), "/SportField"),
                       ProfileButton(
                           "خروج از حساب کاربری", Icons.ac_unit, Color(0xFF4B4F4B), "/")
                     ],
@@ -257,7 +281,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
               child: CircularProgressIndicator(),
             )),
 
-      );
+        ) );
 
 
 

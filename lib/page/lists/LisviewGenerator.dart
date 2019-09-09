@@ -1,6 +1,7 @@
 import 'package:art_man/components/ImageAbout/GenerateThumbnails.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
+import 'package:art_man/page/profile/StudentReadOnlyProfile.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +28,7 @@ class _ListViewGeneratorState extends State<ListViewGenerator> {
   Color color;
   double radius;
   String id;
+  String type;
 
   _ListViewGeneratorState(this.newlistsearch, this.route,
       {this.color, this.radius, this.id});
@@ -40,7 +42,18 @@ class _ListViewGeneratorState extends State<ListViewGenerator> {
     newlistsearch[index] = teacherInfo;
     print("thumbnail generated and uri is :" + image);
   }
-
+  gettype()async{
+    String t=await gettype();
+    setState(() {
+      type=t;
+    });
+  }
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    gettype();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -56,7 +69,8 @@ class _ListViewGeneratorState extends State<ListViewGenerator> {
           return Card(
               child: ListTile(
               onTap: () {
-                Navigator.push(
+             type=="teachers"?Navigator.push(context, MaterialPageRoute(builder:
+             (context)=>StudentProfileReadOnly(username: "${newlistsearch[index].username}",))):   Navigator.push(
                     context,
                     route == null
                         ? MaterialPageRoute(

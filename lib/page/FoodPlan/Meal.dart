@@ -33,21 +33,35 @@ class _MealsPageState extends State<MealsPage> {
 callbackSaveEdits(){
   setState(() {
 
-    if (Kelid.getter("meal_name")!=""&& Kelid.getter("days")!="" ) {
-      Meale meal=new Meale();
-      meal.name=Kelid.getter("meal_name");
-      meal.fill=true;
-      meal.Foods=foods;
-      meals.add(meal);
-      Kelid.setter("meal_name","" );
-      Kelid.setter("save", "");
-      Kelid.setter("days", "");
-      foods.clear();
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>PlanSport(typeplan: "غذایی",)));
 
+
+
+    Kelid.setter("save", "");
+
+    Validator  validator=new Validator();
+    if (validator.isvalid(["food_plan_des"])&& days.length!=0 ) {
+
+      if (validator.isvalid(["meal_name"])) {
+        Meale meal=new Meale();
+
+        meal.name=Kelid.getter("meal_name");
+        meal.Foods=plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1].Foods;
+        plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1]=meal;//fix prevuos meal in this plan
+        Kelid.setter("meal_name", "");
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>PlanSport(typeplan: "غذایی",)));
+
+      }
+
+      else
+        ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
     }
-    else
-      ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
+
+
+
+
+
+
+
 
   });
 }
@@ -64,24 +78,6 @@ callbackSaveEdits(){
     Navigator.pushNamed(context, "/PlaneSportTeacher");
 
     print("back pressed runned");
-    /*
-    return showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        title: new Text('Are you sure?'),
-        content: new Text('Do you want to exit an App'),
-        actions: <Widget>[
-          new FlatButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: new Text('No'),
-          ),
-          new FlatButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: new Text('Yes'),
-          ),
-        ],
-      ),
-    ) ?? false;*/
   }
   @override
   Widget build(BuildContext context) {
@@ -93,7 +89,7 @@ callbackSaveEdits(){
             iconTheme: IconThemeData(color: Colors.white),
             backgroundColor: Color(0xFF7FC81D),
             title: Text(
-              "تنظیم وعده ها",
+              "برنامه شماره (${int.parse(numberplan)+1})",
               style: TextStyle(color: Colors.white,fontSize: 17),
             ),
           ),
@@ -121,7 +117,7 @@ callbackSaveEdits(){
                             height: 50,
                             child:CustomRadio(["شنبه","یکشنبه","دوشنبه","سه شنبه","چهار شنبه","پنج شنبه","جمعه","خالی"],"days",false),
                           ),
-                          MakeMeals(),
+                          MakeMeals(numberplan),
                           InputText("توضیحات برنامه ...","food_plan_des",height: 100.0,
                           textAlign: TextAlign.start,maxlenght: 2000.0,maxlines: 5,radius: 5.0,),
             new Button(

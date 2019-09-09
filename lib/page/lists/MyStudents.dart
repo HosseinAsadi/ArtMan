@@ -21,6 +21,7 @@ class _StateMyStudents extends State<MyStudents> {
   bool complete=false;
   _StateMyStudents(this.userslist);
   String username;
+
   List<TeacherInfo> studentsInfo=new List();
 
   getTeacherInfo()async{
@@ -51,15 +52,20 @@ class _StateMyStudents extends State<MyStudents> {
     super.initState();
     getTeacherInfo();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: complete? studentsInfo.length==0?Center(
-        child: Container(child: Text("هیچ مربی برای شما یافت نشد"),),
+        child: Container(child: Text("هیچ هنرجویی شما را به عنوان مربی انتخاب نکرده است",style:
+          TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
       ):Container(
         height: MediaQuery.of(context).size.height,
         child: ListViewGenerator(studentsInfo),
-      ):CircularProgressIndicator(),
+      ):Center(
+        child: CircularProgressIndicator(),
+      )
+      ,
     );
   }
 }

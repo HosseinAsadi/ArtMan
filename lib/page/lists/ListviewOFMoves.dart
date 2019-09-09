@@ -10,26 +10,25 @@ class ListViewMoves extends StatefulWidget {
   Color color;
   double radius;
   String id;
-  List<Moveslist> moves;
 
-  ListViewMoves(this.moves
-      ,{this.route, this.color, this.radius, this.id});
+  ListViewMoves(
+      {this.route, this.color, this.radius, this.id});
 
   @override
   _ListViewMovesState createState() =>
-      _ListViewMovesState(moves, route,
+      _ListViewMovesState( route,
           color: color, radius: radius, id: id);
 }
 
 class _ListViewMovesState extends State<ListViewMoves> {
   Strings strings = new Strings();
-  List<Moveslist> newlistsearch;
+  List<Moveslist> newlistsearch=getMoveList();
   MaterialPageRoute route;
   Color color;
   double radius;
   String id;
 
-  _ListViewMovesState(this.newlistsearch, this.route,
+  _ListViewMovesState( this.route,
       {this.color, this.radius, this.id});
 
   thumbnail(videourl, index) async {
@@ -46,16 +45,7 @@ class _ListViewMovesState extends State<ListViewMoves> {
     newlistsearch[index] = teacherInfo;
     print("thumbnail generated and uri is :" + image);
   }
-@override
-  void didUpdateWidget(ListViewMoves oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-    if(oldWidget.moves!=widget.moves){
-      setState(() {
 
-      });
-    }
-  }
   @override
   Widget build(BuildContext context) {
 
@@ -70,46 +60,48 @@ class _ListViewMovesState extends State<ListViewMoves> {
   Widget _buildProductItem(BuildContext context, int index) {
     if (id == "sports")
       //thumbnail(newlistsearch[index].imageprofile, index);//convert video to image thumbnail
-      return Container(
-          alignment: Alignment.center,
-          height: 50,
-          margin: EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: color == null ? Colors.white : color,
-            borderRadius: BorderRadius.all(
-                Radius.circular(radius == null ? 3.0 : radius)),
-          ),
-          child: GestureDetector(
-            onTap: (){
-              setState(() {
-                if(newlistsearch[index].isselected)
-                {
-                  Moveslist teacherInfo = new Moveslist();
-                  teacherInfo.fa = newlistsearch[index].fa;
-                  teacherInfo.en = newlistsearch[index].en;
-                  teacherInfo.description = newlistsearch[index].description;
-                  teacherInfo.muscles = newlistsearch[index].muscles;
-                  teacherInfo.equipment = newlistsearch[index].equipment;
-                  teacherInfo.exercise = newlistsearch[index].exercise;
-                  teacherInfo.isselected = false;
-                  teacherInfo.videourl = newlistsearch[index].videourl;
-                  newlistsearch[index] = teacherInfo;
-                }
-                else{
-                  Moveslist teacherInfo = new Moveslist();
-                  teacherInfo.fa = newlistsearch[index].fa;
-                  teacherInfo.en = newlistsearch[index].en;
-                  teacherInfo.description = newlistsearch[index].description;
-                  teacherInfo.muscles = newlistsearch[index].muscles;
-                  teacherInfo.equipment = newlistsearch[index].equipment;
-                  teacherInfo.exercise = newlistsearch[index].exercise;
-                  teacherInfo.isselected = true;
-                  teacherInfo.videourl = newlistsearch[index].videourl;
-                  newlistsearch[index] = teacherInfo;
-                }
+      return InkWell(
+        onTap: (){
+          setState(() {
+            if(newlistsearch[index].isselected)
+            {
+              Moveslist teacherInfo = new Moveslist();
+              teacherInfo.fa = newlistsearch[index].fa;
+              teacherInfo.en = newlistsearch[index].en;
+              teacherInfo.description = newlistsearch[index].description;
+              teacherInfo.muscles = newlistsearch[index].muscles;
+              teacherInfo.equipment = newlistsearch[index].equipment;
+              teacherInfo.exercise = newlistsearch[index].exercise;
+              teacherInfo.isselected = false;
+              teacherInfo.videourl = newlistsearch[index].videourl;
+              newlistsearch[index] = teacherInfo;
+            }
+            else{
+              Moveslist teacherInfo = new Moveslist();
+              teacherInfo.fa = newlistsearch[index].fa;
+              teacherInfo.en = newlistsearch[index].en;
+              teacherInfo.description = newlistsearch[index].description;
+              teacherInfo.muscles = newlistsearch[index].muscles;
+              teacherInfo.equipment = newlistsearch[index].equipment;
+              teacherInfo.exercise = newlistsearch[index].exercise;
+              teacherInfo.isselected = true;
+              teacherInfo.videourl = newlistsearch[index].videourl;
+              newlistsearch[index] = teacherInfo;
+            }
 
-              });
-            },
+          });
+        },
+       child: Container(
+        alignment: Alignment.center,
+        height: 50,
+        margin: EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: color == null ? Colors.white : color,
+          borderRadius: BorderRadius.all(
+              Radius.circular(radius == null ? 3.0 : radius)),
+        ),
+
+
             child:  Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -146,6 +138,6 @@ class _ListViewMovesState extends State<ListViewMoves> {
                       onPressed: null),)
               ],
             )),
-          );
+      );
   }
 }

@@ -1,15 +1,16 @@
-import 'package:art_man/components/InputTexts/InputText.dart';
+/*
 import 'package:art_man/components/Lists/MakeMealsList.dart';
-import 'package:art_man/components/Utility/FoodClasses.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/page/SportPlan/PlanSport.dart';
 import 'package:flutter/material.dart';
 
-class AddMeal extends StatefulWidget {
+*/
+/*class AddMeal extends StatefulWidget {
 
   @override
   _AddMealState createState() => _AddMealState();
-}
+}*//*
+
 
 class _AddMealState extends State<AddMeal> {
   List<String> days=new List();
@@ -89,3 +90,4 @@ class _AddMealState extends State<AddMeal> {
         ));
   }
 }
+*/

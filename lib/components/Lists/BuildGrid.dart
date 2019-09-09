@@ -1,3 +1,4 @@
+import 'package:art_man/page/SportPlan/MuscleGroupList.dart';
 import 'package:flutter/material.dart';
 
 class BuildGrid extends StatefulWidget {
@@ -7,16 +8,17 @@ class BuildGrid extends StatefulWidget {
   int count;
   int padding;
   List<String> sport;
+  List<String> images;
   Color bottomColor,fontColor;
 
 
   BuildGrid(this.maxCrossAxisExtent, this.mainAxisSpacing,
       this.crossAxisSpacing, this.width, this.count, this.padding,
-      this.sport, this.bottomColor, this.fontColor);
+      this.sport, this.bottomColor, this.fontColor,this.images);
 
   @override
   _BuildGridState createState() => _BuildGridState(maxCrossAxisExtent,mainAxisSpacing,
-  crossAxisSpacing,width,count,padding,sport,bottomColor,fontColor);
+  crossAxisSpacing,width,count,padding,sport,bottomColor,fontColor,images);
 }
 
 class _BuildGridState extends State<BuildGrid> {
@@ -26,19 +28,20 @@ class _BuildGridState extends State<BuildGrid> {
   int counte;
   int padding;
   List<String> sport;
+  List<String> images;
   Color bottomColor,fontColor;
 
 
   _BuildGridState(this.maxCrossAxisExtent, this.mainAxisSpacing,
       this.crossAxisSpacing, this.width, this.counte, this.padding,
-      this.sport, this.bottomColor, this.fontColor);
+      this.sport, this.bottomColor, this.fontColor,this.images);
 
 
 
   @override
   Widget build(BuildContext context) {
     ListTile _listTile=new ListTile(counte,bottomColor,sport,fontColor,
-    width,padding);
+    width,padding,images,context);
 
     return  GridView.extent(
         maxCrossAxisExtent: maxCrossAxisExtent,
@@ -54,16 +57,25 @@ class _BuildGridState extends State<BuildGrid> {
 }
 class ListTile {
   List<String> sport;
+  List<String> images;
   Color bottomColor,fontcolor;
   int count;
   double width;
   int padding;
+  BuildContext context;
 
-  ListTile(this.count,this.bottomColor,this.sport,this.fontcolor,this.width,this.padding);
+  ListTile(this.count,this.bottomColor,this.sport,this.fontcolor,this.width,this.padding,this.images,this.context);
 
-  List<Container> _buildGridTileList(int count) =>
+
+
+  List<InkWell> _buildGridTileList(int count) =>
       List.generate(count, (i) =>
-            Container(
+      InkWell(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (contex)=>MuscleGroupList()));
+        },
+
+        child: Container(
               margin: EdgeInsets.all(4),
               decoration: BoxDecoration(
                   color: Colors.black,
@@ -71,7 +83,7 @@ class ListTile {
               child: Stack(
                 children: <Widget>[
                   ClipRRect(
-                    child: Image.asset('assets/images/pic${i + 1}.jpeg'),
+                    child: Image.asset(images[i]),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   Positioned(
@@ -107,7 +119,7 @@ class ListTile {
                 ],
               ),
             ),
-      );
+      ));
 }
 
 class Sport{

@@ -26,8 +26,10 @@ import 'package:art_man/page/description/coach-atributies-explanations.dart';
 import 'package:art_man/page/lists/AnalyzesList.dart';
 import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
 import 'package:art_man/page/lists/ListOfPlansOfTeacher.dart';
+import 'package:art_man/page/lists/MyStudents.dart';
 import 'package:art_man/page/lists/MyTeachersList.dart';
 import 'package:art_man/page/lists/SearchPage.dart';
+import 'package:art_man/page/profile/StudentReadOnlyProfile.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
 import 'package:art_man/page/signs/JoinedPage2.dart';
 import 'package:art_man/page/description/monthly-payment.dart';
@@ -84,7 +86,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 
-        '/':(context) => SplashScreenPage(),
+        '/':(context) => TeacherProfilePage(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -130,8 +132,10 @@ class MyApp extends StatelessWidget {
         '/PlaneSportTeacher': (context) => PlaneSportTeacher(),
         '/MovesInClassroom': (context) => MovesInClassroom(),
         '/ListPlanOfTeacher': (context) => ListPlanOfTeacher(),
-        '/AddMeal': (context) => AddMeal(),
+        //'/AddMeal': (context) => AddMeal(),
         '/MealsPage': (context) => MealsPage(),
+        '/StudentProfileReadOnly': (context) => StudentProfileReadOnly(),
+        '/MyStudents': (context) => MyStudents(),
       },
     );
   }

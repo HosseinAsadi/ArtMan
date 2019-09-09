@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:art_man/components/Networking/SendData.dart';
+import 'package:art_man/components/Networking/SendFoodPlan.dart';
 import 'package:art_man/components/Networking/SendPlanSport.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
@@ -173,7 +174,7 @@ class myBottom extends State<Button> {
       onTap: () async {
         bool ismyteacher=false;
         if(functioncode=="saveeditonfood"){
-          this.widget.callback();
+            this.widget.callback();
         }
         if(functioncode=="save_khorak"){
           this.widget.callback();
@@ -185,12 +186,11 @@ class myBottom extends State<Button> {
 
         }
         if(functioncode=="sendplan"){
-          Kelid.setter("sended", "ok");//sorrii
           Strings strings=new Strings();
           String username=await getusername();
           if(checkEveryThingForPlanIsOk()) {
             String result=  await SendPlanSport(
-                "${strings.baseurl}/sportPlan/addSportPlan/uuu/$username");
+                "${strings.baseurl}/sportPlan/addSportPlan/mojtaba/$username");
             if(result=="200" || result=="201")
 
               ShowToast("برنامه با موفقیت ارسال شد",Colors.green,Colors.white);
@@ -199,6 +199,23 @@ class myBottom extends State<Button> {
           else{
             showsnackbar("لطفا آپشن های همه حرکات را ست کنید");
           }
+
+        }
+        if(functioncode=="sendFoodPlan"){
+          this.widget.callback();
+          Strings strings=new Strings();
+          String username=await getusername();
+
+            /*String result=  await SendPlanFood(
+                "${strings.baseurl}/foodPlan/addFoodPlan/mojtaba/$username");
+            if(result=="200" || result=="201")
+
+              ShowToast("برنامه با موفقیت ارسال شد",Colors.green,Colors.white);
+*/
+
+          /*else{
+            showsnackbar("لطفا همه برنامه ها را به طور کامل پر کنید");
+          }*/
 
         }
         if(functioncode=="add_option_to_one_move"){

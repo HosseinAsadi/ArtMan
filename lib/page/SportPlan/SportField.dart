@@ -10,9 +10,13 @@ class _SportFieldState extends State<SportField> {
 
 
 
-  BuildGrid buildGrid=new BuildGrid(200.0,1.0,3.0,250.0,6,8,
+  BuildGrid buildGrid=new BuildGrid(200.0,1.0,3.0,250.0,3,8,
       ["dsdfdf","fdfdfd","fdfdfs","fdfdffd","dfdfdf","fdfdffd","dfdfdf"],
-      Color(0xFFF1C60D),Colors.green);
+      Color(0xFFF1C60D),Colors.green,[
+        "assets/images/fields/آمادگی-جسمانی.jpg",
+        "assets/images/fields/بدنسازی.jpg",
+        "assets/images/fields/کراس-فیت.jpg",
+      ]);
   @override
   Widget build(BuildContext context) {
 

@@ -5,23 +5,25 @@ import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/Validator.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
+import 'package:art_man/components/Widgets/OneDropdown.dart';
 import 'package:flutter/material.dart';
 
 class MakeFoodList extends StatefulWidget {
-
+  String numberplan,numbermeal;
+  MakeFoodList(this.numberplan,this.numbermeal);
 
   @override
   _MakeFoodListState createState() {
 
-    return _MakeFoodListState();
+    return _MakeFoodListState(numberplan,numbermeal);
   }
 }
 
 class _MakeFoodListState extends State<MakeFoodList> {
   double height = 112.0;
   Color listItemcolor=Colors.white;
-
-
+  String numberplan,numbermeal;
+_MakeFoodListState(this.numberplan,this.numbermeal);
 
   Widget _buildProductItem(BuildContext context, int number) {
 
@@ -77,22 +79,25 @@ class _MakeFoodListState extends State<MakeFoodList> {
                       maxlenght: 200,
                       maxlines: 3,
                       textAlign: TextAlign.center,
+                      value: plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[number].name,
                     ),
                   ),
                   Row(
                     children: <Widget>[
                       Flexible(
                         flex: 1,
-                        child: DropDown(
+                        child: OneDropDown(
                           "number_Of_khorak",
                           ["1","2","3","4","5","6","7","8","9","10"],
-                          "تعداد",
+                          "تعداد",fontcolor: Colors.black,value:
+                        plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[number].namber,
                         ),
                       ),
                       Flexible(
                         flex: 1,
-                        child: DropDown("unit_Of_khorak",
-                            ["قاشق غذاخوری", "لیوان", "برش", "پرس"], "لیوان"),
+                        child: OneDropDown("unit_Of_khorak",
+                            ["قاشق غذاخوری", "لیوان", "برش", "پرس"], "لیوان",fontcolor: Colors.black,value:
+                          plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[number].unit,),
                       ),
                     ],
                   )
@@ -106,31 +111,29 @@ class _MakeFoodListState extends State<MakeFoodList> {
     ) ;
 
   } //element of make list
-
-
-
-
-
-  @override
+@override
   void initState() {
+    // TODO: implement initState
     super.initState();
-
+    if(plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length==0){
+      Foode foode=new Foode();
+      plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.add(foode);
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
-
+    print(numberplan+numbermeal);
+    print(plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length);
     return Column(
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 20,left: 12,right: 12),
-          height:foods.length==0?height: height*foods.length,
-
+          height: height*(plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length),
           child: new  ListView.builder(
             reverse: false,
             itemBuilder: _buildProductItem,
-            itemCount: foods.length+1,
+            itemCount: plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length,
           ),
         ),
         Adder("+")
@@ -164,15 +167,19 @@ class _MakeFoodListState extends State<MakeFoodList> {
             if (validator.isvalid(["number_Of_khorak"
             ,"unit_Of_khorak"
             ,"khorak_name"])  ) {
-              Food food=new Food();
+
+              Foode food=new Foode();
               food.name=Kelid.getter("khorak_name");
               food.namber=Kelid.getter("number_Of_khorak");
               food.unit=Kelid.getter("unit_Of_khorak");
-              foods.add(food);
+              plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[
+              plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length-1
+              ]=food;
+              Foode newfood=new Foode();
+              plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.add(newfood);
               Kelid.setter("khorak_name", "");
               Kelid.setter("number_Of_khorak", "");
               Kelid.setter("unit_Of_khorak", "");
-              height += 120.0;
             }
 
             else

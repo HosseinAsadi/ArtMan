@@ -1,4 +1,4 @@
-import 'package:art_man/components/UserInfo.dart';
+import 'package:art_man/components/Networking/UserInfo.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Widgets/BackgroandwithListview.dart';
 import 'package:flutter/material.dart';

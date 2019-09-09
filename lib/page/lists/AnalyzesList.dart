@@ -12,12 +12,15 @@ import 'package:jalali_date/jalali_date.dart';
 import 'AnalyzeResultListview.dart';
 
 class AnalyzeList extends StatefulWidget {
+  final String username;
+  AnalyzeList({Key key, @required this.username}) : super(key: key);
   @override
-  _AnalyzeListState createState() => _AnalyzeListState();
+  _AnalyzeListState createState() => _AnalyzeListState(username);
 }
 
 class _AnalyzeListState extends State<AnalyzeList> {
-
+  _AnalyzeListState(this.usernameinputed);
+  String usernameinputed;
   bool complete=false;
   List<TeacherInfo> newlistsearch=new List();
 
@@ -33,7 +36,7 @@ class _AnalyzeListState extends State<AnalyzeList> {
     AnalyzeAnswers analyzeAnswe = (await fetchAnalyzeReslult("${strings.baseurl}/analyze/getFromUser/$username")) ;
     setState(() {
 
-      stdUsername=username;
+      stdUsername=usernameinputed==null?username:usernameinputed;
       analyzeAnswer = analyzeAnswe;
       print("anlalyze lenght ="+analyzeAnswer.result.length.toString());
       for(int i=0;i<analyzeAnswer.result.length;i++){

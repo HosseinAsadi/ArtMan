@@ -1,7 +1,6 @@
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
-import 'package:art_man/components/Utility/FoodClasses.dart';
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/Validator.dart';
@@ -9,17 +8,19 @@ import 'package:art_man/page/FoodPlan/Food.dart';
 import 'package:flutter/material.dart';
 
 class MakeMeals extends StatefulWidget {
-
+ String numberplan;
+ MakeMeals(this.numberplan);
 
   @override
   _MakeMealsState createState() {
-    return _MakeMealsState();
+    return _MakeMealsState(numberplan);
   }
 }
 
 class _MakeMealsState extends State<MakeMeals> {
-
-  double height = 120.0;
+  String numberplan;
+  _MakeMealsState(this.numberplan);
+  double height = 110.0;
   Color listItemcolor=Colors.white;
 
 
@@ -60,7 +61,7 @@ class _MakeMealsState extends State<MakeMeals> {
             },
 
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsPage(numberplan: numberplan,numbermeal: number.toString(),)));
             },
 
             child: Column(
@@ -103,12 +104,19 @@ class _MakeMealsState extends State<MakeMeals> {
 
 
 
-
-  @override
+@override
   void initState() {
+    // TODO: implement initState
     super.initState();
-
+    createnewMeal();
   }
+  createnewMeal(){
+    if(plans[int.parse(numberplan)].Meals.length==0){
+      Meale meale=new Meale();
+      plans[int.parse(numberplan)].Meals.add(meale);
+    }
+  }
+
 
 
   @override
@@ -118,21 +126,46 @@ class _MakeMealsState extends State<MakeMeals> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 20,left: 12,right: 12),
-          height:meals.length==0?height: height*meals.length,
+          height: height*(plans[int.parse(numberplan)].Meals.length),
+
 
           child: new  ListView.builder(
             reverse: false,
             itemBuilder: _buildProductItem,
-            itemCount: meals.length+1,
+            itemCount: plans[int.parse(numberplan)].Meals.length,
           ),
         ),
-Adder("+")
+     Adder("+")
 
       ],
     );
   }
 Adder(text){
-    return  Container(
+    return  InkWell(
+      onTap: () async{
+        setState(() {
+
+          setState(() {
+               Validator  validator=new Validator();
+            if (validator.isvalid(["meal_name"])) {
+              Meale meal=new Meale();
+
+              meal.name=Kelid.getter("meal_name");
+              meal.Foods=plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1].Foods;
+              plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1]=meal;//fix prevuos meal in this plan
+              Meale newMeale=new Meale();
+              plans[int.parse(numberplan)].Meals.add(newMeale);
+              Kelid.setter("meal_name", "");
+
+            }
+
+            else
+              ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
+
+          });
+        });
+      },
+      child:Container(
       alignment: Alignment(0, 0),
       padding: EdgeInsets.all(5),
 
@@ -149,30 +182,9 @@ Adder(text){
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [Colors.yellow[700], Colors.yellow[700]])),
-      child: GestureDetector(
 
-        onTap: () {
-          setState(() {
 
-            setState(() {
 
-              if (Kelid.getter("meal_name")!="" ) {
-                Meale meal=new Meale();
-                meal.name=Kelid.getter("meal_name");
-                meal.fill=true;
-                meal.Foods=foods;
-                meals.add(meal);
-                Kelid.setter("meal_name", "");
-                foods.clear();
-                height += 120.0;
-              }
-
-              else
-                ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
-
-            });
-          });
-        },
         child: Text(
           text,
           textAlign: TextAlign.center,

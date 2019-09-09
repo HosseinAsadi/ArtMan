@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:art_man/components/Networking/CheckConnection.dart';
 import 'package:art_man/components/Networking/SendAnalyzeResult.dart';
+import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/GetPing.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/cupertino.dart';

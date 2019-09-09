@@ -1,6 +1,7 @@
 
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/Buttons/RequestButton.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/material.dart';
 
 class SportPlanPage extends StatefulWidget {
@@ -21,10 +22,18 @@ class _SportPlanPageState extends State<SportPlanPage> {
 
   _SportPlanPageState(this.button1Text, this.button2Text,this.route,this.myplansrout);
 
+  Future<Null> onWillPop()async {
+    String type=await gettype();
+    Navigator.pushNamed(context,type=="teachers"? "/TeacherProfilePage":"/Profile");
 
+    print("back pressed runned");
+
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new WillPopScope(
+        onWillPop: onWillPop,
+        child:Scaffold(
       body: Center(
         child:Container(
             decoration: BoxDecoration(
@@ -48,6 +57,6 @@ class _SportPlanPageState extends State<SportPlanPage> {
         ),
 
       ),
-    );
+        ) );
   }
 }
