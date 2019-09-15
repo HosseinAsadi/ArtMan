@@ -21,7 +21,8 @@ class AnalyzeResult extends StatefulWidget {
 
 class _AnalyzeResultState extends State<AnalyzeResult> {
   String index;
-  int weight,hr,tee;
+  int sex;
+  int weight,hr,tee,ideal;
   double bmi,whr,bai,bf;
   String date,name,username;
   bool complete=false;
@@ -61,13 +62,121 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
     bf = analyzeAnswe.result[int.parse(index)].outcomes.bf;
     hr = analyzeAnswe.result[int.parse(index)].outcomes.hr;
     tee = analyzeAnswe.result[int.parse(index)].outcomes.tee;
+    ideal = analyzeAnswe.result[int.parse(index)].outcomes.ideals.weight;
     });
    complete=true;
   }
 
+  getBFType(){
+    if(sex==0){
+
+      if(bf>=0.03 && bf<=0.05){
+        return "Essential fat";
+      }
+      if(bf>=0.06 && bf<=0.13 ){
+        return "athletes";
+      }
+      if(bf>=0.14 && bf<=0.17 ){
+        return "fitness";
+      }
+      if(bf>=0.18 && bf<=0.24){
+        return "average";
+      }
+      if(bf>=0.25 ){
+        return "obese";
+      }
+    }
+    else{
+      if(bf>=0.10 && bf<=0.13){
+        return "Essential fat";
+      }
+      if(bf>=0.14 && bf<=0.20 ){
+        return "athletes";
+      }
+      if(bf>=0.21 && bf<=0.24 ){
+        return "fitness";
+      }
+      if(bf>=0.25 && bf<=0.31){
+        return "average";
+      }
+      if(bf>=0.32 ){
+        return "obese";
+      }
+    }
+
+  }
+  getBAIType(){
+    if(sex==0){
+      if(bai<=0.08){
+        return "کمبود وزن";
+      }
+      if(bai>=0.08 && bai<0.19){
+        return "سالم";
+      }
+      if(bai>0.19 && bai<=0.25 ){
+        return "اضافه وزن";
+      }
+      if(bai>0.25  ){
+        return "چاق";
+      }
+    }
+    else{
+      if(bai<=0.21){
+        return "کمبود وزن";
+
+      }
+      if(bai>=0.21 && bai<0.33){
+        return "سالم";
+
+      }
+      if(bai>0.33 && bai<=0.39 ){
+        return "اضافه وزن";
+
+      }
+      if(bai>0.39  ){
+        return "چاق";
+      }
+    }
+
+  }
+  getwhrType(){
+    if(sex==0){
+      if(whr<=0.95){
+        return "کم";
+      }
+      if(whr>=0.96 && whr<=1){
+        return "درحد متوسط";
+      }
+      if(whr>1 ){
+        return "بالا";
+      }
+    }
+    else{
+      if(whr<=0.8){
+        return "کم";
+      }
+      if(whr>=0.81 && whr<=0.85){
+        return "درحد متوسط";
+      }
+      if(whr>=0.86 ){
+        return "بالا";
+      }
+    }
+
+  }
+  getbmitype(){
+    if(bmi<18){
+      return "لاغر";
+    }
+    if(bmi>=18 && bmi<25){
+      return "طبیعی";
+    }
+    if(bmi>=25 && bmi<30){
+      return "چاق";
+    }
+  }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getInformation();
     getresult();
@@ -114,35 +223,35 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
                       Value(" = Kg", '$weight'),
                       drivere(),
                       TexT("وزن ایده آل (IBW)"),
-                      Value(" = Kg", ''),
+                      Value(" = Kg", ideal.toString()),
                       drivere(),
 
                       TexT("شاخص توده بدن (BMI)"),
                       Value(" = Amount", '$bmi'),
-                      Value(" = Type", ''),
+                      Value(" = Type", getbmitype()),
                       drivere(),
 
                       TexT("نسبت دور کمر به دور باسن (WHR)"),
                       Value(" = Ratio", '$whr'),
-                      Value(" = Type", ''),
+                      Value(" = Type",getwhrType()),
                       drivere(),
 
 
                       TexT("شاخص چاقی بدن (BAI)"),
                       Value(" = Precent", '$bai'),
-                      Value(" = Type", ''),
+                      Value(" = Type", getBAIType()),
                       drivere(),
 
 
                       TexT("چربی بدن (BF)"),
                       Value(" = Precent", '$bf'),
-                      Value(" = Type", ''),
+                      Value(" = Type",getBFType() ),
                       drivere(),
 
 
                       TexT("ضربان قلب (HR)"),
                       Value("= Max", '$hr'),
-                      Value(" = Target", ''),
+                      Value(" = Target", (bf*0.7).toString()),
                       drivere(),
 
 

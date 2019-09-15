@@ -2,15 +2,15 @@ import 'dart:convert';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:art_man/components/Utility/SharedPreferences.dart';
-Future<TeacherPlansList> FetchPlansOfTeacher()async{
+Future<TeacherPlansList> fetchSportPlan(username,type)async{
 
   TeacherPlansList myprograms;
-  String usename=await getusername();
+
   Strings stings=new Strings();
   String token=await getToken();
   print(token);
 
-  final response = await http.get("${stings.baseurl}/sportPlan/getFromTeacher/$usename",headers: {"token":token});
+  final response = await http.get("${stings.baseurl}/sportPlan/$type/$username",headers: {"token":token});
   if (response.statusCode == 200) {
     print("my sports plane fetched");
     var list = (json.decode(response.body));
@@ -20,14 +20,34 @@ Future<TeacherPlansList> FetchPlansOfTeacher()async{
     throw Exception('Failed to load countreis');
   }
 }
-class TeacherPlansList {
-  final List<Session> sessions;
-  final String repeate;
-  TeacherPlansList._({ this.sessions,this.repeate});
+class TeacherPlansList{
+  final List<ResultSport> result;
+  TeacherPlansList._({ this.result});
   factory TeacherPlansList.fromJson(Map jsonMap) {
     return new TeacherPlansList._(
+      result : (jsonMap['result'] as List).map((i) => ResultSport.fromJson(i)).toList(),
+
+    );
+  }
+}
+class ResultSport {
+
+  final List<Session> sessions;
+  final int repeate;
+  final String create_date;
+  final String teacher;
+  final String user;
+  final String template_name;
+
+  ResultSport._({this.template_name, this.sessions,this.repeate,this.create_date,this.user,this.teacher});
+  factory ResultSport.fromJson(Map jsonMap) {
+    return new ResultSport._(
         sessions : (jsonMap['sessions'] as List).map((i) => Session.fromJson(i)).toList(),
-      repeate : (jsonMap['repeate']),
+        repeate : (jsonMap['repeate']),
+      create_date : (jsonMap['create_date']),
+      teacher : (jsonMap['teacher']),
+      user : (jsonMap['user']),
+      template_name : (jsonMap['template_name']),
     );
   }
 }
@@ -90,4 +110,10 @@ class Options {
     );
   }
 }
+int level=1,levele2=1;
+int resulteindex=0;
+int planSportindex=0;
+int weekindex=0;
+int classroomindex=0;
+int progress=0;
 

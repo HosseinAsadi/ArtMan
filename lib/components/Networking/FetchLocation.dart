@@ -33,7 +33,7 @@ class GetLocation {
     HttpClientResponse response = await request.close();
     var reply = await response.transform(utf8.decoder).join();
     httpClient.close();
-   // print(reply);
+    print(reply);
     if(response.statusCode==200|| response.statusCode==201){
       LoginResulte resulte=await fetchTokenInLogin(reply);
       await setToken(resulte.toke.token);

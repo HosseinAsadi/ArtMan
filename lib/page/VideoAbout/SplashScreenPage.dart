@@ -28,8 +28,8 @@ class MySplashScreen extends State<SplashScreenPage> {
     connection();
     _getsignstate();
     gettypee();
-
   }
+
   getpinge()async {
     String ping = await getping();
     print(ping);

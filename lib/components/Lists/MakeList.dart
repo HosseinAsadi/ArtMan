@@ -4,7 +4,7 @@ import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/page/FoodPlan/Meal.dart';
-import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
+import 'package:art_man/page/lists/MySelection.dart';
 import 'package:flutter/material.dart';
 
 class MakeList extends StatefulWidget {
@@ -20,20 +20,29 @@ class MakeList extends StatefulWidget {
 
 class _MakeListState extends State<MakeList> {
   double height = 120.0;
-  Color listItemcolor = Colors.white;
+  Color listItemcolor = Colors.white, backcolor = Colors.yellow[700];
   String planType;
-
+  int selectedIndex;
+  _getindex(index){
+    setState(() {
+      selectedIndex=index;
+    });
+  }
   _MakeListState(this.planType);
-  getcontoroler(){
-    TextEditingController controller=new TextEditingController();
+
+  getcontoroler() {
+    TextEditingController controller = new TextEditingController();
     return controller;
   }
+
   Widget _buildProductItem(BuildContext context, int number) {
     return InkWell(
       onLongPress: () {
         showDialog(
           context: context,
           builder: (_) => new AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
               contentPadding: EdgeInsets.all(0.0),
               content: VerifyDialog(
                 planType == "ورزشی"
@@ -46,61 +55,64 @@ class _MakeListState extends State<MakeList> {
           listItemcolor = Colors.white;
         });
       },
-      onTapDown: (Detaial) {
-        setState(() {
-           listItemcolor = Colors.white.withOpacity(0.3);
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          listItemcolor = Colors.white;
-        });
-      },
+
       onTap: () {
-        planType == "ورزشی"
-            ? Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MovesInClassroom(
-                        numberclass: "${classes[number].numberclass}",
-                      ),
-                ))
-            : Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MealsPage(
-                        numberplan: number.toString(),
-                      ),
-                ));
+        _getindex(number);
+       if(planType == "ورزشی") {
+         classes[number].nameclass=Kelid.getter("classname");
+         Kelid.setter("classname", "");
+         Navigator.push(
+             context,
+             MaterialPageRoute(
+               builder: (context) =>
+                   MySelection(
+                     numberclass: "${number}",
+                   ),
+             ));
+       }
+       else {
+         Navigator.push(
+             context,
+             MaterialPageRoute(
+               builder: (context) =>
+                   MealsPage(
+                     numberplan: number.toString(),
+                   ),
+             ));
+       }
       },
       child: Container(
-        height: 110.0,
+        height:planType=="ورزشی"? 120:110.0,
         margin: EdgeInsets.only(right: 15, left: 15, bottom: 3),
         decoration: BoxDecoration(
-            color: listItemcolor,
+            color: selectedIndex != null && selectedIndex == number
+                ? Colors.white.withOpacity(0.3)
+                : Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
                 alignment: Alignment.centerRight,
-                padding: EdgeInsets.only(right: 15),
+                padding: EdgeInsets.only(right: 15, top: 10),
                 child: Text(
                   planType == "ورزشی"
-                      ? "جلسه ${classes[number].numberclass}"
+                      ? "جلسه ${1 + number}"
                       : " برنامه ${1 + number}",
                   style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w500),
+                      color: Colors.black, fontWeight: FontWeight.w900),
                 ),
               ),
               planType == "ورزشی"
                   ? Container(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        "حداقل یک حرکت به جلسه مورد نظر اضافه کنید",
+                        "   حداقل یک حرکت به جلسه مورد نظر اضافه کنید",
+                        maxLines: 1,
                         style: TextStyle(
                           color: Colors.grey,
-                          fontSize: 14,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400
                         ),
                       ))
                   : Container(
@@ -108,6 +120,7 @@ class _MakeListState extends State<MakeList> {
                       height: 0,
                     ),
               Container(
+                padding: EdgeInsets.only(right: 10),
                 alignment: Alignment.bottomRight,
                 child: InputText(
                   planType == "ورزشی"
@@ -117,8 +130,9 @@ class _MakeListState extends State<MakeList> {
                   margintop: 8.0,
                   height: 30.0,
                   hintsize: 16,
+                  fontWeight: FontWeight.w500,
                   brdercolor: Colors.white.withOpacity(0.0),
-
+                  value: planType=="غذایی"?plans[number].name:classes[number].nameclass,
                 ),
               ),
               SizedBox(
@@ -136,17 +150,13 @@ class _MakeListState extends State<MakeList> {
   }
 
   costumclass() {
-
     if (classes.length == 0) {
       Classroom classroom = new Classroom();
-      classroom.numberclass = "1";
-      classroom.nameclass = "";
       classes.add(classroom);
     }
   }
 
   costumweek() {
-    print("create one plan");
     if (plans.length == 0) {
       Plan plan = new Plan();
       plans.add(plan);
@@ -155,67 +165,66 @@ class _MakeListState extends State<MakeList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(top: 20, left: 12, right: 12),
-          height: planType=="ورزشی"? classes.length * 111.0:plans.length*111.0,
-          child: new ListView.builder(
-            reverse: false,
-            itemBuilder: _buildProductItem,
-            itemCount: planType == "ورزشی" ? classes.length : plans.length,
-          ),
+    return Column(children: <Widget>[
+      Container(
+        margin: EdgeInsets.only(top: 20, left: 12, right: 12),
+        height:
+            planType == "ورزشی" ? classes.length * height : plans.length * height,
+        child: new ListView.builder(
+          reverse: false,
+          itemBuilder: _buildProductItem,
+          itemCount: planType == "ورزشی" ? classes.length : plans.length,
         ),
-        Container(
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            setState(() {
+              if (planType == "ورزشی") {
+                Classroom classroom = new Classroom();
+                classroom.nameclass = classes[classes.length-1].nameclass;
+                classroom..moves = classes[classes.length-1].moves;
+                classes[classes.length-1]=classroom;
+                Classroom newclassroom = new Classroom();
+                classes.add(newclassroom);
+              } else {
+                Plan plan = new Plan();
+                plan.Meals = plans[plans.length - 1].Meals;
+                plan.name= Kelid.getter("classname");
+                plan.des = Kelid.getter("food_plan_des");
+                plan.days = days;
+                plans[plans.length - 1] = plan; /////????????
+
+                Plan newplan = new Plan();
+                plans.add(newplan);
+                Kelid.setter("classname", "");
+              }
+            });
+
+          });
+        },
+
+
+        child: Container(
           alignment: Alignment(0, 0),
-          width: 30,
-          height: 30,
-          margin: EdgeInsets.only(
-            top: 10,
-          ),
+          padding: EdgeInsets.all(5),
+          width: 60,
+          height: 60,
+          margin: EdgeInsets.only(top: 10, bottom: 10),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(50),
               gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  colors: [Colors.yellow[700], Colors.yellow[700]])),
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                setState(() {
-                  if (planType == "ورزشی") {
-                    Classroom classroom = new Classroom();
-                    classroom.numberclass = (classes.length + 1).toString();
-                    classroom.nameclass = "";
-                    classes.add(classroom);
-                  } else {
-                    Plan plan = new Plan();
-                    plan.Meals=plans[plans.length-1].Meals;
-
-                    plan.des=Kelid.getter("food_plan_des");
-                    plan.days=days;
-                    plans[plans.length-1]=plan;/////????????
-
-                    Plan newplan = new Plan();
-                    plans.add(newplan);
-
-
-                  }
-                });
-                height += 120.0;
-              });
-            },
-            child: Text(
-              "+",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 23),
-            ),
+                  colors: [backcolor, backcolor])),
+          child: Text(
+            "+",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w900, fontSize: 29),
           ),
-        )
-      ],
-    );
+        ),
+      ),
+    ]);
   }
 }

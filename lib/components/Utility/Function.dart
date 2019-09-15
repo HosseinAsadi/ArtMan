@@ -33,7 +33,7 @@ class Fucntionman{
   Future<Null> signInWork(context)async{
    String type= await gettype();
    Strings strings=new Strings();
-
+    print ("${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
    var rslt = await GetLocation.login("${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
     print("${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
    if (rslt == "0" ) {
@@ -88,12 +88,9 @@ class Fucntionman{
   }
 
 }
-Future<TeacherPlansList>  plansOfTeacher()async{
-  return await FetchPlansOfTeacher();
 
-}
 
-saveOptions(){
+saveOptions(numberclass,numbermove){
 
   Optionss option=new Optionss();
   print("156");
@@ -108,8 +105,9 @@ saveOptions(){
   option.rest=Kelid.getter("rest");
   option.set=Kelid.getter("set");
   print("options filled and second is  "+ option.second.toString());
-  classes[getclassroom()-1].moves[getmoveindex()].options=option;
-  classes[getclassroom()-1].moves[getmoveindex()].optionfilled=true;
+  classes[int.parse(numberclass)].moves[int.parse(numbermove)].options=option;
+  classes[int.parse(numberclass)].moves[int.parse(numbermove)].done=int.parse(numbermove);
+  classes[int.parse(numberclass)].moves[int.parse(numbermove)].optionfilled=true;
 }
 
 checkEveryThingForPlanIsOk(){
@@ -123,9 +121,3 @@ checkEveryThingForPlanIsOk(){
   return true;
 }
 
-SaveAsPattern()async{
-  Strings strings=new Strings();
- String username=await getusername();
- var resp= await SendPlanSport("${strings.baseurl}/sportPlan/addSportPlanT/tmpname/$username");
- print(resp);
-}

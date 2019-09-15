@@ -1,4 +1,6 @@
+import 'package:art_man/components/Utility/Categorylist.dart';
 import 'package:art_man/page/SportPlan/MuscleGroupList.dart';
+import 'package:art_man/page/lists/MovesList.dart';
 import 'package:flutter/material.dart';
 
 class BuildGrid extends StatefulWidget {
@@ -7,18 +9,17 @@ class BuildGrid extends StatefulWidget {
   double crossAxisSpacing,width;
   int count;
   int padding;
-  List<String> sport;
-  List<String> images;
+  List<Group> list;
   Color bottomColor,fontColor;
 
 
   BuildGrid(this.maxCrossAxisExtent, this.mainAxisSpacing,
       this.crossAxisSpacing, this.width, this.count, this.padding,
-      this.sport, this.bottomColor, this.fontColor,this.images);
+      this.list, this.bottomColor, this.fontColor);
 
   @override
   _BuildGridState createState() => _BuildGridState(maxCrossAxisExtent,mainAxisSpacing,
-  crossAxisSpacing,width,count,padding,sport,bottomColor,fontColor,images);
+  crossAxisSpacing,width,count,padding,list,bottomColor,fontColor);
 }
 
 class _BuildGridState extends State<BuildGrid> {
@@ -27,21 +28,20 @@ class _BuildGridState extends State<BuildGrid> {
   double crossAxisSpacing,width,height;
   int counte;
   int padding;
-  List<String> sport;
-  List<String> images;
+ List<Group> list;
   Color bottomColor,fontColor;
 
 
   _BuildGridState(this.maxCrossAxisExtent, this.mainAxisSpacing,
       this.crossAxisSpacing, this.width, this.counte, this.padding,
-      this.sport, this.bottomColor, this.fontColor,this.images);
+      this.list, this.bottomColor, this.fontColor);
 
 
 
   @override
   Widget build(BuildContext context) {
-    ListTile _listTile=new ListTile(counte,bottomColor,sport,fontColor,
-    width,padding,images,context);
+    ListTile _listTile=new ListTile(list.length,bottomColor,list,fontColor,
+    width,padding,context);
 
     return  GridView.extent(
         maxCrossAxisExtent: maxCrossAxisExtent,
@@ -56,15 +56,14 @@ class _BuildGridState extends State<BuildGrid> {
 
 }
 class ListTile {
-  List<String> sport;
-  List<String> images;
+  List<Group> liste;
   Color bottomColor,fontcolor;
   int count;
   double width;
   int padding;
   BuildContext context;
 
-  ListTile(this.count,this.bottomColor,this.sport,this.fontcolor,this.width,this.padding,this.images,this.context);
+  ListTile(this.count,this.bottomColor,this.liste,this.fontcolor,this.width,this.padding,this.context);
 
 
 
@@ -72,7 +71,30 @@ class ListTile {
       List.generate(count, (i) =>
       InkWell(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (contex)=>MuscleGroupList()));
+
+          if(state=="fields"){
+            state="muscle";
+            print(state);
+            fieldid=i.toString();
+            Navigator.push(context, MaterialPageRoute(builder: (contex)=>MuscleGroupList()));
+            return;
+          }
+          if(state=="muscle"){
+            state="tools";
+            print(state);
+            muscleid=i.toString();
+            Navigator.push(context, MaterialPageRoute(builder: (contex)=>MuscleGroupList()));
+            return;
+
+          }
+          if(state=="tools"){
+            print(state);
+            toolid=i.toString();
+            Navigator.push(context, MaterialPageRoute(builder: (contex)=>ListMoves()));
+            return;
+
+          }
+          print(state);
         },
 
         child: Container(
@@ -83,7 +105,7 @@ class ListTile {
               child: Stack(
                 children: <Widget>[
                   ClipRRect(
-                    child: Image.asset(images[i]),
+                    child: Image.asset("assets/images/$state/${liste[i].id}.jpg"),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   Positioned(
@@ -101,13 +123,13 @@ class ListTile {
                         children: <Widget>[
 
                           Text(
-                            "تجهیزات",
+                            liste[i].fa,
                             style: TextStyle(
                                 color: fontcolor,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14),
                           ),
-                          Text(sport[i],
+                          Text(liste[i].en,
                               style: TextStyle(
                                   color: fontcolor,
                                   fontWeight: FontWeight.w700,
@@ -122,7 +144,3 @@ class ListTile {
       ));
 }
 
-class Sport{
-  String field;
-  String timeortext;
-}

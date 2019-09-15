@@ -20,9 +20,15 @@ class MakeFoodList extends StatefulWidget {
 }
 
 class _MakeFoodListState extends State<MakeFoodList> {
-  double height = 112.0;
-  Color listItemcolor=Colors.white;
+  double height = 116.0;
+
   String numberplan,numbermeal;
+  int selectedIndex;
+  setIndex(index){
+    setState(() {
+      selectedIndex=index;
+    });
+  }
 _MakeFoodListState(this.numberplan,this.numbermeal);
 
   Widget _buildProductItem(BuildContext context, int number) {
@@ -30,10 +36,12 @@ _MakeFoodListState(this.numberplan,this.numbermeal);
     return Stack(
       children: <Widget>[
         Container(
-          height: 110,
+          height: 116,
           margin: EdgeInsets.only(right: 15, left: 15, bottom: 3),
           decoration: BoxDecoration(
-              color: listItemcolor,
+              color:selectedIndex!=null && selectedIndex==number?
+              Colors.white.withOpacity(0.3):
+              Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(15))),
 
           child: GestureDetector(
@@ -43,27 +51,19 @@ _MakeFoodListState(this.numberplan,this.numbermeal);
                 context: context,
                 builder: (_) =>
                 new AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
                     contentPadding: EdgeInsets.all(0.0),
                     content: VerifyDialog(
                       "آیا از حذف کردن این وعده مطمئن هستید؟",id: "remove_meal",)
                 ),
 
               );
-              setState(() {
-                listItemcolor = Colors.white;
-              });
+
             },
-            onTapDown: (Detaial) {
-              setState(() {
-                if(number==0)
-                  listItemcolor = Colors.white.withOpacity(0.3);
-              });
-            },
-            onTapUp: (Detaial) {
-              setState(() {
-                listItemcolor = Colors.white;
-              });
-            },
+           onTap: (){
+              setIndex(number);
+           },
 
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,6 +72,7 @@ _MakeFoodListState(this.numberplan,this.numbermeal);
 
                   Container(
                     alignment: Alignment.bottomCenter,
+                    padding: EdgeInsets.all(7),
                     child:InputText(
                       "نام وعده غذایی",
                       "khorak_name",
@@ -142,51 +143,57 @@ _MakeFoodListState(this.numberplan,this.numbermeal);
     );
   }
   Adder(text){
-    return  Container(
-      alignment: Alignment(0, 0),
-      padding: EdgeInsets.all(5),
+    Color backcolor=Colors.yellow[700];
+    return  GestureDetector(
+      onTap: () {
+        setState(() {
 
 
-      width: 60,
-      height: 60,
-      margin: EdgeInsets.only(
-          top: 10,
-          bottom: 10
-      ),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [Colors.yellow[700], Colors.yellow[700]])),
-      child: GestureDetector(
+          Foode food=new Foode();
+          food.name=Kelid.getter("khorak_name");
+          food.namber=Kelid.getter("number_Of_khorak");
+          food.unit=Kelid.getter("unit_Of_khorak");
+          plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[
+          plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length-1
+          ]=food;
+          Foode newfood=new Foode();
+          plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.add(newfood);
+          Kelid.setter("khorak_name", "");
+          Kelid.setter("number_Of_khorak", "");
+          Kelid.setter("unit_Of_khorak", "");
 
-        onTap: () {
-          setState(() {
-            Validator validator=new Validator();
-            if (validator.isvalid(["number_Of_khorak"
-            ,"unit_Of_khorak"
-            ,"khorak_name"])  ) {
 
-              Foode food=new Foode();
-              food.name=Kelid.getter("khorak_name");
-              food.namber=Kelid.getter("number_Of_khorak");
-              food.unit=Kelid.getter("unit_Of_khorak");
-              plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[
-              plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length-1
-              ]=food;
-              Foode newfood=new Foode();
-              plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.add(newfood);
-              Kelid.setter("khorak_name", "");
-              Kelid.setter("number_Of_khorak", "");
-              Kelid.setter("unit_Of_khorak", "");
-            }
+        });
+      },
+      onTapUp: (Details){
+        setState(() {
+          backcolor=Colors.yellow.withOpacity(0.3);
+        });
+      },
+      onTapDown: (Details){
+        setState(() {
+          backcolor=Colors.yellow[700];
+        });
+      },
 
-            else
-              ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
+      child: Container(
 
-          });
-        },
+        alignment: Alignment(0, 0),
+        padding: EdgeInsets.all(5),
+
+
+        width: 60,
+        height: 60,
+        margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+        ),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [backcolor, backcolor])),
         child: Text(
           text,
           textAlign: TextAlign.center,

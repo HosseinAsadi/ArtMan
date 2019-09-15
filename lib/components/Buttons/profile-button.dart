@@ -9,11 +9,11 @@ class ProfileButton extends StatefulWidget{
   Color _color;
   Function callback;
 
+
   ProfileButton(this._text, this._icon, this._color, this._navigatorPush,{this.callback});
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return PB(this._text, this._icon, this._color, this._navigatorPush);
   }
 }
@@ -21,12 +21,12 @@ class ProfileButton extends StatefulWidget{
 class PB extends State<ProfileButton>{
   String _text, _navigatorPush;
   IconData _icon;
-  Color _color;
+  Color _color,temp;
 
   PB(this._text, this._icon, this._color, this._navigatorPush);
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       child: Container(
         height: 60,
         alignment: Alignment.centerRight,
@@ -39,8 +39,9 @@ class PB extends State<ProfileButton>{
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Container(
+              margin: EdgeInsets.only(right: 10),
               padding: EdgeInsets.all(3),
-              child: Icon(_icon),
+              child: Icon(_icon,color: Colors.white,),
             ),
             Expanded(
               flex:1,
@@ -57,12 +58,28 @@ class PB extends State<ProfileButton>{
           ],
         ),
       ),
+      onTapDown: (Details){
+        setState(() {
+
+          temp=_color;
+          _color=_color.withOpacity(0.3);
+        });
+
+      },
+      onTapUp: (Details){
+        setState(() {
+          _color=temp;
+        });
+
+      },
+
       onTap: (){
-        print("exiting runned");
+
         setState(() {
 
 
           if(_text=="خروج از حساب کاربری"){
+            print("exiting runned");
             showDialog(
                 context: context,
                 builder: (_) => new AlertDialog(
@@ -73,8 +90,13 @@ class PB extends State<ProfileButton>{
           if(_text=="لیست هنرجویان"){
            Navigator.push(context, MaterialPageRoute(builder: (context)=>MyStudents(userslist: this.widget.callback(),)));
           }
-          else
-          Navigator.pushNamed(context, _navigatorPush);
+          if(_text=="برنامه تمرینی / غذایی"){
+            Navigator.pushNamed(context, _navigatorPush);
+          }
+          if(_text=="دسته بندی"){
+            Navigator.pushNamed(context, _navigatorPush);
+          }
+
         });
       },
     );

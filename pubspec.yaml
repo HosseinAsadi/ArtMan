@@ -46,10 +46,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-#  plugin:
-#    androidPackage: vn.hunghd.flutter.plugins.imagecropper
-#    iosPrefix: FLT
-#    pluginClass: ImageCropperPlugin
+  #  plugin:
+  #    androidPackage: vn.hunghd.flutter.plugins.imagecropper
+  #    iosPrefix: FLT
+  #    pluginClass: ImageCropperPlugin
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -57,85 +57,86 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/background.png
-    - assets/images/demo.gif
-    - assets/images/morabi.jpeg
-    - assets/images/anatomic.png
-    - assets/images/pic1.jpeg
-    - assets/images/pic2.jpeg
-    - assets/images/pic3.jpeg
-    - assets/images/pic4.jpeg
-    - assets/images/pic5.jpeg
-    - assets/images/pic6.jpeg
-    - assets/images/pic7.jpeg
-    - assets/images/profile.png
+  - assets/images/background.png
+  - assets/images/demo.gif
+  - assets/images/morabi.png
+  - assets/images/anatomic.png
+  - assets/images/sportplan.jpg
 
-    - assets/images/icon.png
-    - assets/images/anatomi.jpg
-    - assets/images/aroundArmClose.png
-    - assets/images/waist.png
-    - assets/images/aroundLaver.png
-    - assets/images/aroundChest.png
-    - assets/images/aroundWrist.png
-    - assets/images/aroundNeck.png
-    - assets/images/widthComb.png
-    - assets/images/aroundLeg.png
-    - assets/images/leg.png
-    - assets/images/tall.png
-    - assets/images/fields/آمادگی-جسمانی.jpg
-    - assets/images/fields/بدنسازی.jpg
-    - assets/images/fields/کراس-فیت.jpg
-    - assets/images/muscle/باسن.jpg
-    - assets/images/muscle/دو-سر-بازو.jpg
-    - assets/images/muscle/چهار-سر-ران.jpg
-    - assets/images/muscle/پشت-ران1.jpg
-    - assets/images/muscle/ساعد.jpg
-    - assets/images/muscle/ساق.jpg
-    - assets/images/muscle/سینه.jpg
-    - assets/images/muscle/سه-سربازو.jpg
-    - assets/images/muscle/شانه.jpg
-    - assets/images/muscle/شکم.jpg
-    - assets/images/muscle/قسمت-تهتانی-پشت.jpg
-    - assets/images/muscle/قسمت-میانی-پشت.jpg
-    - assets/images/muscle/کول.jpg
-    - assets/images/muscle/گردن.jpg
-    - assets/images/muscle/لتسیموس.jpg
-    - assets/images/tools/Ball.jpg
-    - assets/images/tools/Band.jpg
-    - assets/images/tools/Battle-Rope.jpg
-    - assets/images/tools/Barbell.jpg
-    - assets/images/tools/Barfix.jpg
-    - assets/images/tools/Bike.jpg
-    - assets/images/tools/Bodyweight.jpg
-    - assets/images/tools/Bosu-Ball.jpg
-    - assets/images/tools/Box.jpg
-    - assets/images/tools/Cable-Machine.jpg
-    - assets/images/tools/Dumbbell.jpg
-    - assets/images/tools/Elliptical.jpg
-    - assets/images/tools/Foam-Roll.jpg
-    - assets/images/tools/Free-Weight-Machine.jpg
-    - assets/images/tools/GHD.jpg
-    - assets/images/tools/Gymnastics-Ring.jpg
-    - assets/images/tools/Jump-Rope.jpg
-    - assets/images/tools/Kettlebells.jpg
-    - assets/images/tools/Medicine-Ball.jpg
-    - assets/images/tools/Paralell-Bar.jpg
-    - assets/images/tools/Plate.jpg
-    - assets/images/tools/Rack.jpg
-    - assets/images/tools/Rope-climbing.jpg
-    - assets/images/tools/Rowing-machine.jpg
-    - assets/images/tools/Skierg.jpg
-    - assets/images/tools/Sled.jpg
-    - assets/images/tools/Smith-Machine.jpg
-    - assets/images/tools/Stair-climber.jpg
-    - assets/images/tools/Trampolin.jpg
-    - assets/images/tools/Treadmill.jpg
-    - assets/images/tools/TRX.jpg
+  - assets/images/profile.png
 
- 
+  - assets/images/icon.png
+  - assets/images/anatomi.jpg
+  - assets/images/aroundArmClose.png
+  - assets/images/waist.png
+  - assets/images/foodplan.jpg
+  - assets/images/aroundLaver.png
+  - assets/images/aroundChest.png
+  - assets/images/aroundWrist.png
+  - assets/images/aroundNeck.png
+  - assets/images/widthComb.png
+  - assets/images/aroundLeg.png
+  - assets/images/leg.png
+  - assets/images/tall.png
+  - assets/images/fields/0.jpg
+  - assets/images/fields/1.jpg
+  - assets/images/fields/2.jpg
+  - assets/images/muscle/0.jpg
+  - assets/images/muscle/1.jpg
+  - assets/images/muscle/2.jpg
+  - assets/images/muscle/3.jpg
+  - assets/images/muscle/4.jpg
+  - assets/images/muscle/5.jpg
+  - assets/images/muscle/6.jpg
+  - assets/images/muscle/7.jpg
+  - assets/images/muscle/8.jpg
+  - assets/images/muscle/9.jpg
+  - assets/images/muscle/10.jpg
+  - assets/images/muscle/11.jpg
+  - assets/images/muscle/12.jpg
+  - assets/images/muscle/13.jpg
+  - assets/images/muscle/14.jpg
+
+  - assets/images/tools/0.jpg
+  - assets/images/tools/1.jpg
+  - assets/images/tools/2.jpg
+  - assets/images/tools/3.jpg
+  - assets/images/tools/4.jpg
+  - assets/images/tools/5.jpg
+  - assets/images/tools/6.jpg
+  - assets/images/tools/7.jpg
+  - assets/images/tools/8.jpg
+  - assets/images/tools/9.jpg
+  - assets/images/tools/10.jpg
+  - assets/images/tools/11.jpg
+  - assets/images/tools/12.jpg
+  - assets/images/tools/13.jpg
+  - assets/images/tools/14.jpg
+  - assets/images/tools/15.jpg
+  - assets/images/tools/16.jpg
+  - assets/images/tools/17.jpg
+  - assets/images/tools/19.jpg
+  - assets/images/tools/20.jpg
+  - assets/images/tools/21.jpg
+  - assets/images/tools/22.jpg
+  - assets/images/tools/23.jpg
+  - assets/images/tools/24.jpg
+  - assets/images/tools/25.jpg
+  - assets/images/tools/26.jpg
+  - assets/images/tools/27.jpg
+  - assets/images/tools/28.jpg
+  - assets/images/tools/30.jpg
+  - assets/images/tools/31.jpg
+  - assets/images/tools/32.jpg
+
+
+
   # example:
   fonts:
-     - family: icone
-       fonts:
-         - asset: assets/fonts/icomoon.ttf
-
+  - family: icone
+    fonts:
+    - asset: assets/fonts/icomoon.ttf
+  - family: iranyekan
+    fonts:
+    - asset: assets/fonts/normal.ttf
+    - asset: assets/fonts/thin.ttf

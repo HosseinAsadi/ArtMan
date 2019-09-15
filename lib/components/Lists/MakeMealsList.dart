@@ -21,7 +21,12 @@ class _MakeMealsState extends State<MakeMeals> {
   String numberplan;
   _MakeMealsState(this.numberplan);
   double height = 110.0;
-  Color listItemcolor=Colors.white;
+  int selectedIndex;
+  setIndex(index){
+    setState(() {
+      selectedIndex=index;
+    });
+  }
 
 
 
@@ -33,7 +38,9 @@ class _MakeMealsState extends State<MakeMeals> {
           height: 110,
           margin: EdgeInsets.only(right: 15, left: 15, bottom: 3),
           decoration: BoxDecoration(
-              color: listItemcolor,
+              color: selectedIndex!=null && selectedIndex==number?
+              Colors.white.withOpacity(0.3):
+              Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(15))),
 
           child: InkWell(
@@ -43,24 +50,20 @@ class _MakeMealsState extends State<MakeMeals> {
                 context: context,
                 builder: (_) =>
                 new AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
                     contentPadding: EdgeInsets.all(0.0),
                     content: VerifyDialog(
                       "آیا از حذف کردن این وعده مطمئن هستید؟",id: "remove_meal",)
                 ),
 
               );
-              setState(() {
-                listItemcolor = Colors.white;
-              });
-            },
-            onTapDown: (Detaial) {
-              setState(() {
-                if(number==0)
-                  listItemcolor = Colors.white.withOpacity(0.3);
-              });
+
             },
 
+
             onTap: (){
+              setIndex(number);
               Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsPage(numberplan: numberplan,numbermeal: number.toString(),)));
             },
 
@@ -69,15 +72,16 @@ class _MakeMealsState extends State<MakeMeals> {
                 children: <Widget>[
                   Container(
                     alignment: Alignment.centerRight,
-                    padding: EdgeInsets.only(right: 15),
+                    padding: EdgeInsets.only(right: 15,top: 7),
                     child: Text(
                       "وعده ${number+1}",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w500),
+                          color: Colors.black, fontWeight: FontWeight.w700,fontSize: 16),
                     ),
                   ),
 
                   Container(
+                    padding: EdgeInsets.all(7),
                     alignment: Alignment.bottomRight,
                     child: InputText(
                       "نام وعده ...",
@@ -86,6 +90,7 @@ class _MakeMealsState extends State<MakeMeals> {
                       height: 30.0,
                       hintsize: 16,
                       brdercolor: Colors.white.withOpacity(0.0),
+                      value: plans[int.parse(numberplan)].Meals[number].name,
 
                     ),
                   ),

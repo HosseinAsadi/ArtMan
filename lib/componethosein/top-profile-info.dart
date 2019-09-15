@@ -64,7 +64,7 @@ class _TopProfileState extends State<TopProfile> {
             child:ClipRRect(
               child: "" == "$imagename"
                   ? Image.asset(
-                  "assets/images/profile.png")
+                  "assets/images/morabi.png")
                   : Image.network(
                   "${strings.baseurl}/images/users/$imagename"),
               borderRadius: BorderRadius.circular(25),
@@ -92,7 +92,7 @@ class _TopProfileState extends State<TopProfile> {
                   child: Row(
                     children: <Widget>[
                       Icon(Icons.location_on, color: Colors.white,size: 10),
-                      Text('$city ، $country',
+                      Text(' $country ، $city',
                           style: TextStyle(color: Colors.white, fontSize: 10)
                       ),
                     ],

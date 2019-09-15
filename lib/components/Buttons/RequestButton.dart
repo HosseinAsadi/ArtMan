@@ -19,7 +19,7 @@ class _RequestButtonState extends State<RequestButton> {
   IconData icon;
   String titleText;
   String contentText;
-  Color colorIcon,textColor;
+  Color colorIcon,textColor,backColor= Colors.grey[300];
   String routgoal;
   _RequestButtonState(this.icon, this.titleText, this.contentText, this.colorIcon,
       this.routgoal,{this.textColor});
@@ -35,6 +35,16 @@ class _RequestButtonState extends State<RequestButton> {
               builder: (context) => PlanSport(typeplan: routgoal,),
             ));
       },
+      onTapDown: (Details){
+        setState(() {
+          backColor=Colors.white.withOpacity(0.3);
+        });
+      },
+      onTapUp: (Details){
+        setState(() {
+          backColor=Colors.grey[300];
+        });
+      },
       child: coachSearch() ,
     );
   }
@@ -42,7 +52,7 @@ class _RequestButtonState extends State<RequestButton> {
     margin: EdgeInsets.only( bottom: 20),
     padding: EdgeInsets.all(20),
     decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color:backColor,
         borderRadius: BorderRadius.circular(20)
     ),
     child: Row(

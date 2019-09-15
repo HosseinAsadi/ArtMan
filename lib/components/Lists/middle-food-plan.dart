@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:art_man/components/custom-loading.dart';
 
 class MiddleFoodPlan extends StatelessWidget {
+  String des;
+  MiddleFoodPlan(this.des);
   Strings strings=new Strings();
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       padding: EdgeInsets.only(left: 30, right: 30),
       margin:EdgeInsets.only(top: 25),
@@ -23,9 +24,9 @@ class MiddleFoodPlan extends StatelessWidget {
           ), 
           Container(
             margin: EdgeInsets.only(top: 20),
-            child: Text(strings.EXPLAINMIDDLEFOODPLAN, style: TextStyle(color: Colors.white, fontSize: 10), textAlign: TextAlign.right,),
+            child: Text(des, style: TextStyle(color: Colors.white, fontSize: 10), textAlign: TextAlign.right,),
           ),
-          Customloading(30)
+         /* Customloading(30)*/
         ],
       ),
     );

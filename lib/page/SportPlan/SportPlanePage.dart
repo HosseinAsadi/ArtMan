@@ -2,6 +2,7 @@
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/Buttons/RequestButton.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/page/lists/ListOfPlansOfTeacher.dart';
 import 'package:flutter/material.dart';
 
 class SportPlanPage extends StatefulWidget {
@@ -47,9 +48,10 @@ class _SportPlanPageState extends State<SportPlanPage> {
             margin: EdgeInsets.only(right: 10,left: 10),
             child:  Column(
               children: <Widget>[
-                Button([],myplansrout,button1Text,35.0,80.0,startcolor: Color(0xFF088B00),endcolor:Color(0xFF088B00) ,marginbottom: 10.0,),
+                Button([],myplansrout,button1Text
+                  ,35.0,80.0,startcolor: Color(0xFF088B00),endcolor:Color(0xFF088B00)
+                  ,marginbottom: 10.0,functioncode:route=="غذایی" ?"myfoodPlanOfTeacher":"mysportPlanOfTeacher",),
                 RequestButton(Icons.add,button2Text,"قابلیت سفارشی سازی طبق آنالیز",Colors.green,route),
-
               ],
             ),
           ),

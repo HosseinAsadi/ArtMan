@@ -50,14 +50,14 @@ class _FoodsPageState extends State<FoodsPage> {
         Kelid.setter("khorak_name", "");
         Kelid.setter("number_Of_khorak", "");
         Kelid.setter("unit_Of_khorak", "");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (contex) => MealsPage(
-                      numberplan: numberplan,
-                    )));
-      } else
-        ShowToast("لطفا همه ی فیلد ها را پر کنید", Colors.red, Colors.white);
+
+      }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (contex) => MealsPage(
+              numberplan: numberplan,
+            )));
     });
   }
 
@@ -68,7 +68,7 @@ class _FoodsPageState extends State<FoodsPage> {
             builder: (contex) => MealsPage(
                   numberplan: numberplan,
                 )));
-    ShowToast("لیست غذا های این وعده ثبت نشد", Colors.red, Colors.white);
+   // ShowToast("لیست غذا های این وعده ثبت نشد", Colors.red, Colors.white);
 
   }
 

@@ -18,7 +18,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
         GestureDetector(
           onTap: (){
             setState(() {
-              this.widget.setselection("yes");
+              this.widget.setselection(true);
               this.widget.calback("done");
 
               Navigator.pop(context);
@@ -34,7 +34,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
         GestureDetector(
           onTap: (){
             setState(() {
-              this.widget.setselection("yes");
+              this.widget.setselection(true);
 
               this.widget.calback("del");
               Navigator.pop(context);

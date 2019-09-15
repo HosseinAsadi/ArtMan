@@ -32,31 +32,21 @@ class _MealsPageState extends State<MealsPage> {
 
 callbackSaveEdits(){
   setState(() {
-
-
-
-
     Kelid.setter("save", "");
+    if ( days.length!=0 ) {
 
-    Validator  validator=new Validator();
-    if (validator.isvalid(["food_plan_des"])&& days.length!=0 ) {
-
-      if (validator.isvalid(["meal_name"])) {
         Meale meal=new Meale();
-
         meal.name=Kelid.getter("meal_name");
         meal.Foods=plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1].Foods;
         plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1]=meal;//fix prevuos meal in this plan
+        plans[int.parse(numberplan)].des=Kelid.getter("food_plan_des");
+        plans[int.parse(numberplan)].days=days;
         Kelid.setter("meal_name", "");
         Navigator.push(context, MaterialPageRoute(builder: (context)=>PlanSport(typeplan: "غذایی",)));
-
-      }
-
-      else
-        ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
     }
 
-
+    else
+      ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
 
 
 
@@ -75,7 +65,8 @@ callbackSaveEdits(){
 
   }
   Future<Null> onWillPop() {
-    Navigator.pushNamed(context, "/PlaneSportTeacher");
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+    PlanSport(typeplan: "غذایی",)));
 
     print("back pressed runned");
   }
@@ -119,7 +110,8 @@ callbackSaveEdits(){
                           ),
                           MakeMeals(numberplan),
                           InputText("توضیحات برنامه ...","food_plan_des",height: 100.0,
-                          textAlign: TextAlign.start,maxlenght: 2000.0,maxlines: 5,radius: 5.0,),
+                          textAlign: TextAlign.start,maxlenght: 2000.0,maxlines: 5,radius: 5.0,
+                          value: plans[int.parse(numberplan)].des,),
             new Button(
               ["save"],
               "/",

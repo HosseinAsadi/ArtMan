@@ -9,7 +9,7 @@ Future<UsersList> fetchUsersList() async {
   Strings strings=new Strings();
   String token=await getToken();
 
-  final response = await http.get("${strings.baseurl}admin/getUsers",headers: {"token":token});
+  final response = await http.get("${strings.baseurl}/admin/getUsers",headers: {"token":token});
   if (response.statusCode == 200) {
     print("connection to fetch teacherslist is ok");
     var list = (json.decode(response.body));

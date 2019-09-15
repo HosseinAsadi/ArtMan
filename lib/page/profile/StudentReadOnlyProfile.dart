@@ -1,6 +1,7 @@
 import 'package:art_man/components/Networking/FetchLocation.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/componethosein/profile-button.dart';
+import 'package:art_man/page/lists/MyStudents.dart';
 import 'package:flutter/material.dart';
 import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
 
@@ -25,7 +26,9 @@ class _StudentProfileReadOnlyState extends State<StudentProfileReadOnly> {
   bool complete = false;
   StdProfile information;
   Strings strings = new Strings();
-
+   callback(){
+    return username;
+  }
   _getInformation() async {
     Strings strings = new Strings();
 
@@ -51,13 +54,28 @@ class _StudentProfileReadOnlyState extends State<StudentProfileReadOnly> {
     super.initState();
     _getInformation();
   }
-
+  Future<Null> onWillPop() {
+   Navigator.push(context, MaterialPageRoute(builder: (contex)=>MyStudents()));
+  }
   @override
   Widget build(BuildContext context) {
-    return complete
-        ? Container(
-            margin: EdgeInsets.only(left: 25, right: 25, bottom: 25),
-            child: Column(
+    return new WillPopScope(
+        onWillPop: onWillPop,
+        child:Scaffold(
+
+     body: complete
+        ?
+       Container(
+
+       decoration: BoxDecoration(
+         image: DecorationImage(
+           image: AssetImage("assets/images/background.png"),
+           fit: BoxFit.cover,
+         ),
+       ),
+            padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
+            child: Center(child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Row(
                   children: <Widget>[
@@ -95,7 +113,7 @@ class _StudentProfileReadOnlyState extends State<StudentProfileReadOnly> {
                               children: <Widget>[
                                 Icon(Icons.location_on,
                                     color: Colors.white, size: 10),
-                                Text('$city ، $country',
+                                Text('$country ، $city',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 10)),
                               ],
@@ -104,16 +122,16 @@ class _StudentProfileReadOnlyState extends State<StudentProfileReadOnly> {
                     )
                   ],
                 ),
-                ProfileButtone("آنالیزهای هنرجو", Icons.print,
-                    Colors.green[800], '/AnalyzeList'),
+                ProfileButtone("آنالیزهای هنرجو", Icons.show_chart,
+                    Colors.green[800], '/AnalyzeList',callback: this.callback,),
               ],
             ),
-          )
+          ))
         : Center(
             child: Container(
             width: 40,
             height: 40,
             child: CircularProgressIndicator(),
-          ));
+            ) )));
   }
 }

@@ -8,10 +8,6 @@ import 'package:art_man/components/Utility/SharedPreferences.dart';
 List<SuperSets> SuperSetss=new List();//[[],[]]
 
 
-
-
-
-
 class Session{
 
   String name;
@@ -124,13 +120,13 @@ fillPlan(){
           classes[i].moves[j].options.set,
       );
 
-      Moves moves=new Moves("5d53a43a123f1b2c74d82e30",
-          12,
+      Moves moves=new Moves(classes[i].moves[j].videourl,
+          classes[i].moves[j].done,
           options
       );
       movess.add(moves);
     }
-    Session session=new Session("name",movess,SuperSetss);
+    Session session=new Session(classes[i].nameclass,movess,SuperSetss);
    sessions.add(session);
   }
   return sessions;

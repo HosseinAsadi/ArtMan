@@ -126,7 +126,7 @@ class myInputText extends State<InputText> {
         ],
         onChanged: (value){
           Kelid.setter(id, value);
-          print(Kelid.getter(id));
+
 
         },
         textAlign: alignment == null ? TextAlign.right : alignment,

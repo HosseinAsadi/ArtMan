@@ -39,7 +39,9 @@ class _VerifyDialogState extends State<VerifyDialog> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:height==null? 114:height,
+      padding: EdgeInsets.all(10),
+      height:height==null? 130:height,
+
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -64,48 +66,53 @@ class _VerifyDialogState extends State<VerifyDialog> {
   }
 
   button(icon, color, bool select) {
-  return Flexible(flex: 1,child:Container(
+  return GestureDetector(
+    onTap: ()async {
+      setState(() {
+        result = select;
+      });
+      if (result) {
+        if(id=="addTeacher"){
+          Fucntionman function=new Fucntionman();
+          String result=await AddTeacher(Kelid.getter("teacherid"),username);
+          if(result=="404"){
+            Navigator.pop(context);
+            ShowToast("آیدی وارد شده وجود ندارد",Colors.red,Colors.white);
+          }
+          else{
+            function.uploadAnalyze(Kelid.getter("teacherid"));
+            ShowToast("آنالیز با موفقیت ارسال شد",Colors.green,Colors.white);
+            Navigator.pushNamed(context, "/AnalyzeList");
+          }
 
+        }
+        if(id=="remove"){
+          print("deleted");
+         await removeAccount();
+          Navigator.pushNamed(context, "/");
+        }
+        if(id=="remove classroom"){
+
+        }
+
+      } else
+        Navigator.pop(context);
+    },
+    child:Container(
+   width: 100,
+    height: 30,
     padding: EdgeInsets.only(right: 7,left: 7),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
         color: color),
 
-    child: GestureDetector(
+
       child: Icon(
-        icon,size: 30,
+        icon,
         color: Colors.white,
       ),
-      onTap: ()async {
-        setState(() {
-          result = select;
-        });
-        if (result) {
-          if(id=="addTeacher"){
-            Fucntionman function=new Fucntionman();
-            String result=await AddTeacher(Kelid.getter("teacherid"),username);
-            if(result=="404"){
-              Navigator.pop(context);
-              ShowToast("آیدی وارد شده وجود ندارد",Colors.red,Colors.white);
-            }
-            else{
-              function.uploadAnalyze(Kelid.getter("teacherid"));
-              ShowToast("آنالیز با موفقیت ارسال شد",Colors.green,Colors.white);
-              Navigator.pushNamed(context, "/AnalyzeList");
-            }
 
-          }
-          if(id=="remove"){
-            removeAccount();
-            Navigator.pushNamed(context, "/");
-          }
-          if(id=="remove classroom"){
-
-          }
-
-        } else
-          Navigator.pop(context);
-      },
     ),
-  ) ,);
+   );
   }
 }

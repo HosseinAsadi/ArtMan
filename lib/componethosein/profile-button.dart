@@ -1,11 +1,13 @@
+import 'package:art_man/page/lists/AnalyzesList.dart';
 import 'package:flutter/material.dart';
 
 class ProfileButtone extends StatefulWidget{
   String _text, _navigatorPush;
   IconData _icon;
   Color _color;
+  Function callback;
 
-  ProfileButtone(this._text, this._icon, this._color, this._navigatorPush);
+  ProfileButtone(this._text, this._icon, this._color, this._navigatorPush,{this.callback});
 
   @override
   State<StatefulWidget> createState() {
@@ -50,6 +52,11 @@ class PBe extends State<ProfileButtone>{
       ),
       onTap: (){
         setState(() {
+          if(_text=="آنالیزهای هنرجو"){
+            Navigator.push(context, MaterialPageRoute(builder: (contex)=>AnalyzeList(
+              username: this.widget.callback(),)));
+          }
+          else
           Navigator.pushNamed(context, this._navigatorPush);
         });
       },

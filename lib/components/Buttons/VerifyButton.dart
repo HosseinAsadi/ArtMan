@@ -1,8 +1,6 @@
-
 import 'package:art_man/components/Utility/Classroom.dart';
-import 'package:art_man/components/Utility/ListMoves.dart';
 import 'package:art_man/components/Utility/Function.dart';
-import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
+import 'package:art_man/page/lists/MySelection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -152,12 +150,11 @@ class myVerifyButton extends State<VerifyButton> {
         onTap: () async {
 
           if(functioncode=="justverify"){
-            addUpdateclasses(numberclass,"",getMoveList());
-            clearAllmoves();
+            Updateclasses();
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MovesInClassroom(numberclass:  numberclass,),
+                  builder: (context) => MySelection(numberclass:  numberclass,),
                 ));
           }
 

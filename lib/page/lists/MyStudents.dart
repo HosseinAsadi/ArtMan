@@ -1,9 +1,6 @@
-import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
-import 'package:art_man/components/Networking/FetchTeachersList.dart';
+
 import 'package:art_man/components/Networking/getListOfStudents.dart';
-import 'package:art_man/components/Utility/GetTeachersList.dart';
-import 'package:art_man/components/Utility/SharedPreferences.dart';
-import 'package:art_man/components/Utility/StdInfo.dart';
+
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/page/lists/LisviewGenerator.dart';
 import 'package:flutter/material.dart';

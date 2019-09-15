@@ -13,6 +13,7 @@ import 'package:art_man/page/Analyzes/AnalyzeTools.dart';
 import 'package:art_man/page/Analyzes/AnalyzeSetGoal.dart';
 import 'package:art_man/page/FoodPlan/Meal.dart';
 import 'package:art_man/page/FoodPlan/addSportPlan.dart';
+import 'package:art_man/page/SportPlan/MyPlansList.dart';
 import 'package:art_man/page/SportPlan/PlanPageStudent.dart';
 import 'package:art_man/page/SportPlan/PlanSport.dart';
 import 'package:art_man/page/SportPlan/PlanePageTeacher.dart';
@@ -24,10 +25,11 @@ import 'package:art_man/page/Analyzes/StdInformationField.dart';
 import 'package:art_man/page/description/StdPropertyPage.dart';
 import 'package:art_man/page/description/coach-atributies-explanations.dart';
 import 'package:art_man/page/lists/AnalyzesList.dart';
-import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
-import 'package:art_man/page/lists/ListOfPlansOfTeacher.dart';
+import 'package:art_man/page/lists/MovesList.dart';
+import 'package:art_man/page/lists/MySelection.dart';
 import 'package:art_man/page/lists/MyStudents.dart';
 import 'package:art_man/page/lists/MyTeachersList.dart';
+import 'package:art_man/page/lists/PaternList.dart';
 import 'package:art_man/page/lists/SearchPage.dart';
 import 'package:art_man/page/profile/StudentReadOnlyProfile.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
@@ -36,7 +38,7 @@ import 'package:art_man/page/description/monthly-payment.dart';
 import 'package:art_man/page/SportPlan/MuscleGroupList.dart';
 import 'package:art_man/page/SportPlan/SelectSportExtract.dart';
 import 'package:art_man/page/SportPlan/SportField.dart';
-import 'package:art_man/page/SportPlan/food-plan.dart';
+import 'package:art_man/page/FoodPlan/food-plan.dart';
 import 'package:art_man/page/SportPlan/list-session.dart';
 import 'package:art_man/page/profile/TeacherProfilePage.dart';
 import 'package:art_man/page/profile/StudentProfile.dart';
@@ -71,6 +73,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.yellow,
+          fontFamily: 'iranyekan',
 
       ),
       localizationsDelegates: [
@@ -85,8 +88,7 @@ class MyApp extends StatelessWidget {
       title: 'art man',
       initialRoute: '/',
       routes: {
-
-        '/':(context) => TeacherProfilePage(),
+        '/':(context) =>SplashScreenPage(),
         '/StdPropertyBody': (context) => StdPropertyBody(),
         '/signinpage': (context) => MyCustomForm(),
         '/signuppage': (context) => SignUp(),
@@ -130,12 +132,15 @@ class MyApp extends StatelessWidget {
         '/AnalyzeList': (context) => AnalyzeList(),
         '/AnalyzeResult': (context) => AnalyzeResult(),
         '/PlaneSportTeacher': (context) => PlaneSportTeacher(),
-        '/MovesInClassroom': (context) => MovesInClassroom(),
-        '/ListPlanOfTeacher': (context) => ListPlanOfTeacher(),
+        '/MovesInClassroom': (context) => MySelection(),
+       // '/ListPlanOfTeacher': (context) => ListPlanOfTeacher(),
         //'/AddMeal': (context) => AddMeal(),
         '/MealsPage': (context) => MealsPage(),
         '/StudentProfileReadOnly': (context) => StudentProfileReadOnly(),
         '/MyStudents': (context) => MyStudents(),
+        '/ListMoves': (context) => ListMoves(),
+        '/MySportPlansList': (context) => MySportPlansList(),
+        '/Patternlist': (context) => Patternlist(),
       },
     );
   }

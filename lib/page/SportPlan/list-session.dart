@@ -1,27 +1,47 @@
+import 'package:art_man/components/Networking/FetchSportPlansOfTeacher.dart';
+import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/page/VideoAbout/VideoPlayer.dart';
 import 'package:flutter/material.dart';
 
 class ListSession extends StatefulWidget {
+  List<Moves> mymoves;
+  String movename;
+  ListSession({Key key , @required this.mymoves,this.movename}) :super(key:key);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return LS();
+    return LS(mymoves,movename);
   }
-
 }
 
 class LS extends State<ListSession> with SingleTickerProviderStateMixin {
   bool _isSelected = false;
+  List<Moves> mymoves;
+  String movename;
+  String type;
+  gettypee()async{
+    String t=await gettype();
+    setState(() {
+      type=t;
+    });
+  }
 
+   LS(this.mymoves,this.movename);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    gettypee();
+  }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text('تنظیم مجدد', style: TextStyle(fontSize: 13),),
-            Text('جلسه شماره1-هفته شماره1',style: TextStyle(fontSize: 15))
+            Text('جلسه شماره${classroomindex+1}-هفته شماره${weekindex+1}',style: TextStyle(fontSize: 15))
           ],
         ),
         actions: <Widget>[
@@ -51,7 +71,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
 
           Expanded(
               child: ListView.builder(
-                  itemCount: 20, itemBuilder: _buildProductItem)
+                  itemCount: mymoves.length, itemBuilder: _buildProductItem)
           ),
         ],
       );
@@ -59,6 +79,14 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
 
   Widget _buildProductItem(BuildContext context, int index) {
     return ListTile(
+      onTap: (){
+        Strings strings=new Strings();
+
+        print("${strings.baseurl}/videos/${mymoves[index].moves_id}");
+        Navigator.push(context, MaterialPageRoute(builder: (contex)=>VideoPlayerApp(
+          videoUrl:"${strings.baseurl}/videos/${mymoves[index].moves_id}" ,
+        )));
+      },
       subtitle: Container(
           margin: EdgeInsets.only(left: 20, right: 20, top: 16),
           padding: EdgeInsets.all(16),
@@ -75,7 +103,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
-                        'assets/images/anatomi.jpg', width: 75, height: 75),
+                        'assets/images/muscle/8.jpg', width: 75, height: 75),
                   ),
                   Container(
                     width: 180,
@@ -84,7 +112,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.only(bottom: 5),
-                          child: Text('پرس پشت بازو',
+                          child: Text(movename,
                             style: TextStyle(fontWeight: FontWeight.bold),),
                         ),
                         Row(
@@ -101,7 +129,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
                           children: <Widget>[
                             Text('تعداد تکرارها        ', style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 12)),
-                            Text('8-10-12', style: TextStyle(
+                            Text('${mymoves[index].options.repeat}', style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 12))
                           ],
                         ),
@@ -109,7 +137,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
                           children: <Widget>[
                             Text('زمان استراحت      ', style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 12)),
-                            Text('25 ثانیه', style: TextStyle(
+                            Text('${mymoves[index].options.rest}', style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 12))
                           ],
                         ),
@@ -125,7 +153,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
                 color: Colors.grey,
               ),
 
-              Row(
+             type=="users"? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   GestureDetector(
@@ -155,7 +183,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
                   Text('به اتمام رسیده است..', style: TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),)
                 ],
-              )
+              ):Container(width: 0,height: 0,)
             ],
           )
       ),

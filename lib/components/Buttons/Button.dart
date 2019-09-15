@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:art_man/components/Networking/SendData.dart';
-import 'package:art_man/components/Networking/SendFoodPlan.dart';
 import 'package:art_man/components/Networking/SendPlanSport.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
-import 'package:art_man/components/Utility/Classroom.dart';
+import 'package:art_man/components/Toast/WhatUser.dart';
 import 'package:art_man/components/Utility/GetMyTeachersList.dart';
 import 'package:art_man/components/Utility/GetTeachersList.dart';
 import 'package:art_man/components/Utility/Keys.dart';
@@ -15,7 +14,8 @@ import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/components/Utility/Validator.dart';
 import 'package:art_man/components/Utility/Function.dart';
-import 'package:art_man/page/lists/ListOfMovesInClassroom.dart';
+import 'package:art_man/page/FoodPlan/food-plan.dart';
+import 'package:art_man/page/lists/MySelection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -172,6 +172,17 @@ class myBottom extends State<Button> {
         });
       },
       onTap: () async {
+       if(functioncode=="selectPattern"){
+         this.widget.callback();
+       }
+         if(functioncode=="mysportPlanOfTeacher"){
+           Navigator.pushNamed(context, "/MySportPlansList");
+         }
+        if(functioncode=="myfoodPlanOfTeacher"){
+          Navigator.push(context, MaterialPageRoute(builder: (contex)=>
+              FoodPlan(typeplan: "غذایی",)));
+
+        }
         bool ismyteacher=false;
         if(functioncode=="saveeditonfood"){
             this.widget.callback();
@@ -180,50 +191,73 @@ class myBottom extends State<Button> {
           this.widget.callback();
         }
         if(functioncode=="saveAsPattern"){
-          Kelid.setter("savePattern", "ok");//sorrii
-          await SaveAsPattern();
-          ShowToast("ذخیره موقت با موفقیت انجام شد",Colors.green,Colors.white);
 
-        }
-        if(functioncode=="sendplan"){
-          Strings strings=new Strings();
-          String username=await getusername();
-          if(checkEveryThingForPlanIsOk()) {
-            String result=  await SendPlanSport(
-                "${strings.baseurl}/sportPlan/addSportPlan/mojtaba/$username");
-            if(result=="200" || result=="201")
-
-              ShowToast("برنامه با موفقیت ارسال شد",Colors.green,Colors.white);
-
-          }
-          else{
-            showsnackbar("لطفا آپشن های همه حرکات را ست کنید");
+          Kelid.setter("typesendplan", "pattern");
+          Kelid.setter("savePattern", "ok");
+          if (checkEveryThingForPlanIsOk()) {
+            showDialog(
+                context: context,
+                builder: (_) =>
+                new AlertDialog(
+                  contentPadding: EdgeInsets.all(0.0),
+                  content: WhatUser("ورزشی",Kelid.getter("typesendplan")),
+                )
+            );
           }
 
         }
+         if(functioncode=="savefoodAsPattern"){
+
+           Kelid.setter("typesendplan", "pattern");
+           Kelid.setter("savePattern", "ok");
+           if (checkEveryThingForPlanIsOk()) {
+             showDialog(
+                 context: context,
+                 builder: (_) =>
+                 new AlertDialog(
+                   contentPadding: EdgeInsets.all(0.0),
+                   content: WhatUser("غذایی",Kelid.getter("typesendplan")),
+                 )
+             );
+           }
+
+         }
+        if(functioncode=="sendSportplan") {
+          Kelid.setter("typesendplan", "send");
+          if (checkEveryThingForPlanIsOk()) {
+            showDialog(
+                context: context,
+                builder: (_) =>
+                new AlertDialog(
+                  contentPadding: EdgeInsets.all(0.0),
+                  content: WhatUser("ورزشی",Kelid.getter("typesendplan")),
+                )
+            );
+          }
+        }
+         if(functioncode=="tempsave") {
+           Kelid.setter("typesendplan", "save");
+           if (checkEveryThingForPlanIsOk()) {
+             showDialog(
+                 context: context,
+                 builder: (_) =>
+                 new AlertDialog(
+                   contentPadding: EdgeInsets.all(0.0),
+                   content: WhatUser("ورزشی",Kelid.getter("typesendplan")),
+                 )
+             );
+           }
+         }
         if(functioncode=="sendFoodPlan"){
+          Kelid.setter("typesendplan", "send");
           this.widget.callback();
-          Strings strings=new Strings();
-          String username=await getusername();
-
-            /*String result=  await SendPlanFood(
-                "${strings.baseurl}/foodPlan/addFoodPlan/mojtaba/$username");
-            if(result=="200" || result=="201")
-
-              ShowToast("برنامه با موفقیت ارسال شد",Colors.green,Colors.white);
-*/
-
-          /*else{
-            showsnackbar("لطفا همه برنامه ها را به طور کامل پر کنید");
-          }*/
 
         }
         if(functioncode=="add_option_to_one_move"){
           Validator validator=new Validator();
-
           if (validator.isvalid(list)  ) {
-            saveOptions();//
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>MovesInClassroom( numberclass: getclassroom().toString(),)));
+            this.widget.callback();//
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MySelection( numberclass: this.widget.callback(),)));
           }
           else
             showsnackbar("لطفا همه ی فیلد ها را پر کنید");

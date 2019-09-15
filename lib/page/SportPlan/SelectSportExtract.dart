@@ -1,14 +1,17 @@
 
 import 'package:art_man/components/Buttons/VerifyButton.dart';
+import 'package:art_man/components/ImageAbout/GenerateThumbnails.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Networking/FetchCategories.dart';
 import 'package:art_man/components/Networking/FetchMoves.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/Classroom.dart';
-import 'package:art_man/components/Utility/ListMoves.dart';
+import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
-import 'package:art_man/page/lists/ListviewOFMoves.dart';
+import 'package:art_man/page/lists/FetchedMovesFromServer.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class SelectSportExtract extends StatefulWidget {
   final String numberclass;
@@ -18,39 +21,38 @@ class SelectSportExtract extends StatefulWidget {
 }
 
 class _SelectSportExtractState extends State<SelectSportExtract> {
+  bool complete=false;
   String numberclass;
   _SelectSportExtractState(this.numberclass);
   Color iconColor=  Color(0xFFEDC40A),dropdwonColor= Color(0xFFF1C60D);
 
-  List<Moveslist> myTeachers=new List();
 
 
   Strings strings =new Strings();
   void callback(String value,String filter) {
     setState(() {
-      callbackfunction(value,filter);
+      callbackfunction(value);
     });
   }
   getMoves()async{
     Moves movess=await fetchMoves("${strings.baseurl}/admin/getsportingMoves");
     setState(() {
+      Strings strings=new Strings();
       for(int i=0;i<movess.result.length;i++){
-        Moveslist teacherInfo=new Moveslist();
-        teacherInfo.fa=movess.result[i].fa;
-        teacherInfo.en=movess.result[i].en;
-        teacherInfo.id=movess.result[i].id;
-        teacherInfo.exercise=movess.result[i].exercise;
-        teacherInfo.equipment=movess.result[i].equipment;
-        teacherInfo.muscles=movess.result[i].muscles;
-        teacherInfo.description=movess.result[i].description;
-        teacherInfo.videourl="${strings.baseurl}/videos/${movess.result[i].videoURL}";
-        myTeachers.add(teacherInfo);
-        addMove(teacherInfo);
+       // getimage("${strings.baseurl}/videos${movess.result[i].videoURL}");
+
+        Moveslist newMove=new Moveslist();
+        newMove.fa=movess.result[i].fa;
+        newMove.en=movess.result[i].en;
+        newMove.id=movess.result[i].id;
+        newMove.exercise=movess.result[i].exercise;
+        newMove.equipment=movess.result[i].equipment;
+        newMove.muscles=movess.result[i].muscles;
+        newMove.description=movess.result[i].description;
+        newMove.videourl=movess.result[i].videoURL;
+        addMove(newMove);
       }
-      /* if(classes[(int.parse(numberclass)-1)].moves.length!=0){
-       myTeachers.clear();
-       myTeachers=
-     }*/
+      complete=true;
     });
   }
   getCategories()async{
@@ -91,7 +93,19 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
     super.initState();
     getCategories();
     getMoves();
+
   }
+
+  getimage(videourl)async{
+   final uint8list = await VideoThumbnail.thumbnailFile(
+     video: videourl,
+     thumbnailPath:(await getApplicationDocumentsDirectory()).path,//*///,//"/storage/emulated/0",//
+     imageFormat: ImageFormat.PNG,
+     maxHeightOrWidth: 0, // the original resolution of the video
+     quality: 30,
+   );
+  }
+
   @override
   Widget build(BuildContext context) {
     double width =50.0,height=50.0;
@@ -104,7 +118,9 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
             child: InkWell(
               onTap: (){
                 setState(() {
-                  Navigator.push(context, MaterialPageRoute(builder: (contex)=>SelectSportExtract(numberclass: numberclass,)));
+                  moves.clear();
+                  getMoves();
+                  Kelid.setter("searchExercise", "");
                 });
               },
               child:Container(
@@ -114,7 +130,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                 child: Text(
                   "تنظیم مجدد         ",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w500),
                 ),
               )
             ),
@@ -173,7 +189,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                                   onTap: (){
 
                                     setState(() {
-                                      filterMoves(myTeachers);
+                                      filterMoves();
                                       FocusScope.of(context).requestFocus(new FocusNode());
                                     });
 
@@ -238,7 +254,8 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(Radius.circular(20))
                             ),
-                            child: new ListViewMoves(color: Colors.green,radius: 30.0,id: "sports",)
+                            child: complete?new FetchedMovesFromServer(numberclass,color: Colors.green,radius: 30.0):
+                                Text("    در حال دریافت لیست حرکات...   ",style: TextStyle(color: Colors.blue),)
 
                         ),
                         VerifyButton(numberclass,"/MovesInClassroom","تایید موقت",30.0,10.0,width: 100.0,functioncode: "justverify",)

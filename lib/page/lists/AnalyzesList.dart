@@ -6,6 +6,7 @@ import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/page/Analyzes/SummaryAnswer.dart';
+import 'package:art_man/page/profile/StudentReadOnlyProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:jalali_date/jalali_date.dart';
 
@@ -20,15 +21,21 @@ class AnalyzeList extends StatefulWidget {
 
 class _AnalyzeListState extends State<AnalyzeList> {
   _AnalyzeListState(this.usernameinputed);
-  String usernameinputed;
+  String usernameinputed,baseusername;
   bool complete=false;
   List<TeacherInfo> newlistsearch=new List();
 
   AnalyzeAnswers analyzeAnswer;
   var stdUsername;
+  String type;
   List<String> images=new List();
   Strings strings=new Strings();
-
+   gettype()async{
+     String t=await gettype();
+     setState(() {
+       type=t;
+     });
+   }
   _answer() async {
 
     var username=await getusername();
@@ -57,16 +64,24 @@ class _AnalyzeListState extends State<AnalyzeList> {
     });
     complete=true;
   }
+  getrealusername()async{
+    baseusername=await getusername();
+  }
   @override
   void initState() {
     super.initState();
     _answer();
+    getrealusername();
 
   }
   Future<Null> onWillPop() {
-    Navigator.pushNamed(context, "/Profile");
+    print(baseusername);
+    print(usernameinputed);
 
-    print("back pressed runned");
+    type!="Teachers"? Navigator.pushNamed(context, "/Profile"):
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentProfileReadOnly(username: usernameinputed,)));
+
+
 
   }
   @override
@@ -89,7 +104,7 @@ class _AnalyzeListState extends State<AnalyzeList> {
         child: AnalyzeResultListview(newlistsearch),
       ):CircularProgressIndicator(),
       bottomNavigationBar:
-      Button([],"/StdAnalyzePage","آنالیز جدید",50.0,3.0,marginbottom: 10.0,marginright: 5.0,marginleft: 5.0,)
+    type!="Teachers"?  Button([],"/StdAnalyzePage","آنالیز جدید",50.0,3.0,marginbottom: 10.0,marginright: 5.0,marginleft: 5.0,):null
       ,
     ));
   }

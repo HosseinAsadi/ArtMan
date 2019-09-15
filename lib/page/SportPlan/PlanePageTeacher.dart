@@ -12,32 +12,8 @@ class PlaneSportTeacher extends StatefulWidget {
 }
 
 class _PlaneSportTeacherState extends State<PlaneSportTeacher> {
-  int _selectedIndex = 0;
 
 
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-  }
-  /*sender() async{
-    Strings strings=new Strings();
-    String username=await getusername();
-    await SendPlanSport(
-        "${strings.baseurl}/sportPlan/addSportPlan/uuu/$username",
-        json.encode({
-          "sessions": 1,
-        }));
-  }*/
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //sender();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +52,7 @@ class _PlaneSportTeacherState extends State<PlaneSportTeacher> {
 
         body: TabBarView(
           children: [
-            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه غذایی","غذایی","//ListPlanOfTeacher"),
+            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه غذایی","غذایی","/ListPlanOfTeacher"),
             new SportPlanPage("برنامه های من","ساخت و ارسال برنامه ورزشی","ورزشی","/ListPlanOfTeacher")
           ],
         ),

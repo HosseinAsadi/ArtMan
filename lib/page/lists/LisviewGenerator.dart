@@ -1,5 +1,6 @@
 import 'package:art_man/components/ImageAbout/GenerateThumbnails.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/page/profile/StudentReadOnlyProfile.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
@@ -33,30 +34,10 @@ class _ListViewGeneratorState extends State<ListViewGenerator> {
   _ListViewGeneratorState(this.newlistsearch, this.route,
       {this.color, this.radius, this.id});
 
-  thumbnail(videourl, index) async {
-    String image = await getImageThumbnail(videourl);
-    TeacherInfo teacherInfo = new TeacherInfo();
-    teacherInfo.username = newlistsearch[index].username;
-    teacherInfo.name = newlistsearch[index].name;
-    teacherInfo.imageprofile = image;
-    newlistsearch[index] = teacherInfo;
-    print("thumbnail generated and uri is :" + image);
-  }
-  gettype()async{
-    String t=await gettype();
-    setState(() {
-      type=t;
-    });
-  }
- @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    gettype();
-  }
+
+
   @override
   Widget build(BuildContext context) {
-
     return  ListView.builder(
         reverse: false,
         itemBuilder: _buildProductItem,
@@ -68,17 +49,19 @@ class _ListViewGeneratorState extends State<ListViewGenerator> {
   Widget _buildProductItem(BuildContext context, int index) {
           return Card(
               child: ListTile(
-              onTap: () {
+              onTap: () async{
+                String type=await gettype();
+                print(type);
              type=="teachers"?Navigator.push(context, MaterialPageRoute(builder:
-             (context)=>StudentProfileReadOnly(username: "${newlistsearch[index].username}",))):   Navigator.push(
+             (context)=>StudentProfileReadOnly(username: "${newlistsearch[index].username}",))):
+             Navigator.push(
                     context,
-                    route == null
-                        ? MaterialPageRoute(
+                     MaterialPageRoute(
                             builder: (context) => TeacherProfileReadOnly(
                                   text: "${newlistsearch[index].username}",
                                 ),
                           )
-                        : route);
+             );
               },
               leading: Container(
                 width: 40,

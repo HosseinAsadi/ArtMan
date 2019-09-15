@@ -1,10 +1,15 @@
-
 import 'package:art_man/components/Buttons/Button.dart';
+import 'package:art_man/components/Networking/SendFoodPlan.dart';
+import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Toast/WhatUser.dart';
+import 'package:art_man/components/Utility/Classroom.dart';
 
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/components/Lists/MakeList.dart';
+import 'package:art_man/components/Widgets/OneDropdown.dart';
+import 'package:art_man/page/lists/PaternList.dart';
 import 'package:flutter/material.dart';
 
 class PlanSport extends StatefulWidget {
@@ -24,44 +29,20 @@ class _PlanSportState extends State<PlanSport> {
   List<String> weeks = new List();
 
 
-  Button save = new Button( //send programm
-    [],
-    "/",
-    "ذخیره موقت",
-    30.0,
-    80.0,
-    startcolor: Color(0xFF6CBF02),
-    endcolor: Color(0xFF139101),
-    width: 110.0,
-  );
-
-  Button selectpattern = new Button(
-    [],
-    "/",
-    "انتخاب از الگوی ذخیره شده",
-    30.0,
-    40.0,
-    startcolor: Color(0xFF6CBF02),
-    endcolor: Color(0xFF139101),
-    width: 200.0,
-  );
-  Button pattern = new Button(
-    ["saveAsPattern"],
-    "/",
-    "ذخیره به عنوان الگو",
-    30.0,
-    10.0,
-    startcolor: Color(0xFF6CBF02),
-    endcolor: Color(0xFF139101),
-    width: 200.0,
-    functioncode: "saveAsPattern",
-  );
+  gotoPatternscallback(){
+    Kelid.setter("select", "ok");
+    Navigator.push(context, MaterialPageRoute(builder: (contex)=>Patternlist(planType: typeplan,)));
+  }
 
   @override
   void initState() {
-    for (int i = 0; i < 31; i++)
-      weeks.add("${i + 1}");
+    for (int i = 0; i < 31; i++) weeks.add("${i + 1}");
     super.initState();
+  }
+
+  gettoken() async {
+    String token = await gettoken();
+    print(token);
   }
 
   Future<Null> onWillPop() {
@@ -69,47 +50,41 @@ class _PlanSportState extends State<PlanSport> {
 
     print("back pressed runned");
   }
- void savefinalPlan(){
-    print("callback called in food plan");
-    print(plans.length);
 
-    print("callback called in food plan");
-    Plan plan=new Plan();
-    plan.des=Kelid.getter("food_plan_des");
-    plan.days=days;
-    plan.name= Kelid.getter("classname");
+  void savefinalPlan() {
+  if(typeplan=="غذایی"){
+    Plan plan = new Plan();
+    plan.des = Kelid.getter("food_plan_des");
+    plan.days = days;
+    plan.name = Kelid.getter("classname");
+    plan.Meals = plans[plans.length - 1].Meals;
+    plans[plans.length - 1] = plan;
 
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+          contentPadding: EdgeInsets.all(0.0),
+          content: WhatUser("غذایی",Kelid.getter("typesendplan")),
+        ));
+  }
 
-    plans[plans.length-1]=plan;
-    print(plans[0].Meals.length);
-    print("lenth of meal in plan sport page"+plans[0].Meals.length.toString());
- }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
-      onWillPop: onWillPop,
-      child:
-      Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: Color(0xFF7FC81D),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {},
+        onWillPop: onWillPop,
+        child: Scaffold(
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color(0xFF7FC81D),
+            title: Text(
+              typeplan == "ورزشی" ? "برنامه ورزشی" : "برنامه غذایی",
+              style: TextStyle(color: Colors.white),
             ),
-          ],
-          title: Text(
-            typeplan == "ورزشی" ? "برنامه ورزشی" : "برنامه غذایی",
-            style: TextStyle(color: Colors.white),
           ),
-        ),
-
-        body: Center(
-          child: Container(
+          body: Center(
+            child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/background.png"),
@@ -117,43 +92,86 @@ class _PlanSportState extends State<PlanSport> {
                 ),
               ),
               child: ListView(
-                  shrinkWrap: false,
-                  children: <Widget>[
-              Center(
-              child: Container(
-                  margin: EdgeInsets.only(
-                  left: 15, right: 15, top: 10, bottom: 10),
-
-              child: Column(
-                  children: <Widget>[
-              typeplan=="ورزشی" ?DropDown("week_program", weeks,
-                  "برنامه چند هفته اجرا شود؟")
-                  :DropDown("fordays", weeks, "برنامه چند روز اجرا شود؟"),
-          MakeList(typeplan),
-          save,
-          new Button(
-            ["week_program"],
-            "/",
-            "ارسال برنامه",
-            30.0,
-            10.0,
-            startcolor: Color(0xFF6CBF02),
-            endcolor: Color(0xFF139101),
-            width: 110.0,
-            functioncode: typeplan == "ورزشی" ? "sendplan" : "sendFoodPlan",
-            callback: this.savefinalPlan,
+                shrinkWrap: false,
+                children: <Widget>[
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: 15, right: 15, top: 10, bottom: 10),
+                      child: Column(
+                        children: <Widget>[
+                          typeplan == "ورزشی"
+                              ? DropDown("week_program", weeks,
+                                  "برنامه چند هفته اجرا شود؟")
+                              : OneDropDown(
+                                  "fordays",
+                                  weeks,
+                                  "برنامه چند روز اجرا شود؟",
+                                  value: Kelid.getter("fordays") == ""
+                                      ? null
+                                      : Kelid.getter("fordays"),
+                                  fontsize: 19,
+                                ),
+                          MakeList(typeplan),
+                        typeplan=="ورزشی" ? Button(
+                            //send programm
+                            ["tempsave"],
+                            "/",
+                            "ذخیره موقت",
+                            30.0,
+                            80.0,
+                            startcolor: Color(0xFF6CBF02),
+                            endcolor: Color(0xFF139101),
+                            width: 110.0,
+                            functioncode: "tempsave",
+                            callback: this.savefinalPlan,
+                          ):Container(width: 0,height: 0,),
+                          new Button(
+                            ["week_program"],
+                            "/",
+                            "ارسال برنامه",
+                            30.0,
+                            10.0,
+                            startcolor: Color(0xFF6CBF02),
+                            endcolor: Color(0xFF139101),
+                            width: 110.0,
+                            functioncode: typeplan == "ورزشی"
+                                ? "sendSportplan"
+                                : "sendFoodPlan",
+                            callback: this.savefinalPlan,
+                          ),
+                          new Button(
+                            ["select"],
+                            "/",
+                            "انتخاب از الگوی ذخیره شده",
+                            30.0,
+                            40.0,
+                            startcolor: Color(0xFF6CBF02),
+                            endcolor: Color(0xFF139101),
+                            width: 200.0,
+                            functioncode: "selectPattern",
+                            callback: this.gotoPatternscallback,
+                          ),
+                          Button(
+                            ["saveAsPattern"],
+                            "/",
+                            "ذخیره به عنوان الگو",
+                            30.0,
+                            10.0,
+                            startcolor: Color(0xFF6CBF02),
+                            endcolor: Color(0xFF139101),
+                            width: 200.0,
+                            functioncode: typeplan=="غذایی"?"savefoodAsPattern":"saveAsPattern",
+                            callback: this.savefinalPlan,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-          selectpattern,
-          pattern
-          ],
-        ),
-
-      ),
-    ),
-    ],
-    ),
-    ),
-    ),
-    ));
+        ));
   }
 }

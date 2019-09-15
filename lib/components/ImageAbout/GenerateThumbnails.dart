@@ -6,8 +6,8 @@ import 'package:video_thumbnail/video_thumbnail.dart';
  getImageThumbnail(videoPathUrl) async {
    final uint8list = await VideoThumbnail.thumbnailFile(
      video: videoPathUrl,
-     thumbnailPath:(await getTemporaryDirectory()).path,//*///"/storage/emulated/0",//
-     imageFormat: ImageFormat.WEBP,
+     thumbnailPath:"/storage/emulated/0",//(await getTemporaryDirectory()).path,//*///,//
+     imageFormat: ImageFormat.PNG,
      maxHeightOrWidth: 0, // the original resolution of the video
      quality: 75,
    );
