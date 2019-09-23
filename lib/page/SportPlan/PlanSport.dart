@@ -1,3 +1,5 @@
+import 'package:art_man/components/Animation/RightSlidePage.dart';
+import 'package:art_man/components/Animation/ScaleRoutePage.dart';
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/Networking/SendFoodPlan.dart';
 import 'package:art_man/components/Texts/Strings.dart';
@@ -11,6 +13,8 @@ import 'package:art_man/components/Lists/MakeList.dart';
 import 'package:art_man/components/Widgets/OneDropdown.dart';
 import 'package:art_man/page/lists/PaternList.dart';
 import 'package:flutter/material.dart';
+
+import 'PlanePageTeacher.dart';
 
 class PlanSport extends StatefulWidget {
   String typeplan;
@@ -46,7 +50,8 @@ class _PlanSportState extends State<PlanSport> {
   }
 
   Future<Null> onWillPop() {
-    Navigator.pushNamed(context, "/PlaneSportTeacher");
+    Navigator.push(context, SlideRightRoute(
+        page: PlaneSportTeacher()));
 
     print("back pressed runned");
   }
@@ -101,7 +106,7 @@ class _PlanSportState extends State<PlanSport> {
                       child: Column(
                         children: <Widget>[
                           typeplan == "ورزشی"
-                              ? DropDown("week_program", weeks,
+                              ? OneDropDown("week_program", weeks,
                                   "برنامه چند هفته اجرا شود؟")
                               : OneDropDown(
                                   "fordays",
@@ -115,8 +120,8 @@ class _PlanSportState extends State<PlanSport> {
                           MakeList(typeplan),
                         typeplan=="ورزشی" ? Button(
                             //send programm
-                            ["tempsave"],
-                            "/",
+                            ["o"],
+                          PlanSport(),
                             "ذخیره موقت",
                             30.0,
                             80.0,
@@ -124,11 +129,11 @@ class _PlanSportState extends State<PlanSport> {
                             endcolor: Color(0xFF139101),
                             width: 110.0,
                             functioncode: "tempsave",
-                            callback: this.savefinalPlan,
+
                           ):Container(width: 0,height: 0,),
                           new Button(
-                            ["week_program"],
-                            "/",
+                            ["o"],
+                            PlanSport(),
                             "ارسال برنامه",
                             30.0,
                             10.0,
@@ -141,8 +146,8 @@ class _PlanSportState extends State<PlanSport> {
                             callback: this.savefinalPlan,
                           ),
                           new Button(
-                            ["select"],
-                            "/",
+                            ["o"],
+                            PlanSport(),
                             "انتخاب از الگوی ذخیره شده",
                             30.0,
                             40.0,
@@ -153,8 +158,8 @@ class _PlanSportState extends State<PlanSport> {
                             callback: this.gotoPatternscallback,
                           ),
                           Button(
-                            ["saveAsPattern"],
-                            "/",
+                            ["o"],
+                            PlanSport(),
                             "ذخیره به عنوان الگو",
                             30.0,
                             10.0,

@@ -76,28 +76,29 @@ class FL extends State<FirstLogin> {
           ),
         ),
       );
-  Widget Button() => Container(
-    margin: EdgeInsets.only(top: 15),
-    alignment: Alignment(0, 0),
+  Widget Button() => GestureDetector(
+    onTap: ()  {
 
-    decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [Color(0xFF5AE100), Color(0xFF0F8F00)])
-        , borderRadius: BorderRadius.all(Radius.circular(20))),
-    height: 45,
-    width: 180,
-    child: GestureDetector(
-      onTap: ()  {
+      if(morabi)
+        typesetter("teachers");
+      else
+        typesetter("users");
 
-        if(morabi)
-           typesetter("teachers");
-        else
-           typesetter("users");
+      Navigator.pushNamed(context, morabi?"/CoachExplan":"/StdPropertyBody");
+    },
 
-        Navigator.pushNamed(context, morabi?"/CoachExplan":"/StdPropertyBody");
-      },
+    child:Container (
+        margin: EdgeInsets.only(top: 15),
+        alignment: Alignment(0, 0),
+
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [Color(0xFF5AE100), Color(0xFF0F8F00)])
+            , borderRadius: BorderRadius.all(Radius.circular(20))),
+        height: 45,
+        width: 180,
 
          child: Text("ورود",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
     ),

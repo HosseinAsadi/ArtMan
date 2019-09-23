@@ -36,13 +36,18 @@ class PBe extends State<ProfileButtone>{
         ),
         child: Row(
           children: <Widget>[
-            Icon(_icon),
             Container(
-              alignment: Alignment(0, 0),
-              width: 200,
+              padding: EdgeInsets.only(right: 3,left: 7),
+              child: Icon(_icon,color: Colors.white,size: 40,),
+            ),
+
+            Expanded(
+              flex: 1,
               child: Text(_text,
+                textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 17,
+
                   fontWeight: FontWeight.bold
                 ),
               ),

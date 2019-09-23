@@ -12,7 +12,7 @@ Future<String> AddTeacher(teacherUsername,username)async{
 
 
     Strings strings=new Strings();
-    String token=await getToken();
+    String token=await getToken(true);
     HttpClient httpClient = new HttpClient();
     HttpClientRequest request = await httpClient.postUrl(Uri.parse("${strings.baseurl}/users/addTeacherToProfile/$username/$teacherUsername"));
     print("${strings.baseurl}/users/addTeacherToProfile/$username/$teacherUsername");
@@ -30,7 +30,7 @@ Future<String> AddTeacher(teacherUsername,username)async{
 
 Future<String> deleteTeacher(teacherUsername,username)async{
     Strings strings=new Strings();
-    String token=await getToken();
+    String token=await getToken(true);
     HttpClient httpClient = new HttpClient();
     HttpClientRequest request = await httpClient.putUrl(Uri.parse("${strings.baseurl}/users/delTeacherFromProfile/$username/$teacherUsername"));
     request.headers.set("token", token);

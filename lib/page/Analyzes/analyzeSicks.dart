@@ -5,6 +5,8 @@ import 'package:art_man/componethosein/row-analyze5.dart';
 import 'package:flutter/material.dart';
 import 'package:art_man/componethosein/appbar.dart';
 
+import 'AnalyzeCheckup.dart';
+
 class Analyze5 extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -72,7 +74,7 @@ class A extends State<Analyze5>{
       RowAnalyze5('آسیب جدی استخوان',"sick"),
       RowAnalyze5('کمر درد',"sick"),
       InputText('توضیحات خود را وارد نمایید..',"seak description",height: 140,maxlenght: 1000,maxlines: 7,radius: 10,)
-      ,Button([],"/StdAnalyzePage6","ادامه آنالیز",45.0,15.0,width: 120.0,)
+      ,Button([],StdAnalyzePage6(),"ادامه آنالیز",45.0,15.0,width: 120.0,)
 
 
 

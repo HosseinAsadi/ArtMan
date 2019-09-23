@@ -1,6 +1,7 @@
 ﻿
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/page/signs/SingInPage.dart';
 import 'package:flutter/material.dart';
 
 class CoachExplan extends StatefulWidget{
@@ -12,7 +13,7 @@ class CoachExplan extends StatefulWidget{
 }
 
 class MyStdproperty extends State<CoachExplan> {
-  Button bottom = new Button([],'/signinpage', "صفحه ورود/ثبت نام", 40.0, 10.0,
+  Button bottom = new Button([],MyCustomForm(), "صفحه ورود/ثبت نام", 40.0, 10.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 150.0);
   Strings strings=new Strings();
   @override

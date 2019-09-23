@@ -17,10 +17,11 @@ class Result{
   final String user;
   final String teacher;
   final List<String> anatomyPicture;
+  final List<String> checkUp;
   final Awnser awnsers;
   final Outcome outcomes;
 
-  Result._({this.create_date,this.modify_date,this.user,
+  Result._({this.checkUp,this.create_date,this.modify_date,this.user,
   this.teacher,this.anatomyPicture,this.awnsers,this.outcomes});
   factory Result.fromJson(Map jsonMap) {
     return new Result._(
@@ -29,6 +30,7 @@ class Result{
         user: jsonMap['user'],
         teacher: jsonMap['teacher'],
         anatomyPicture:  (jsonMap['anatomy'].cast<String>()),
+      checkUp:  (jsonMap['checkUp'].cast<String>()),
         awnsers : Awnser.fromJson( jsonMap['awnsers']),
         outcomes : Outcome.fromJson( jsonMap['result']),
 

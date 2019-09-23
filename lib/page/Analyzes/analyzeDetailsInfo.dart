@@ -5,6 +5,8 @@ import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:flutter/material.dart';
 
+import 'AnalyzeProblems.dart';
+
 class Analyze6 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -69,7 +71,7 @@ class A extends State<Analyze6> {
               "hours sleap",
               "hours aweak",
             ],
-            "/StdAnalyzePage4",
+            StdAnalyzePage4(),
             "ادامه آنالیز",
             45.0,
             15.0,

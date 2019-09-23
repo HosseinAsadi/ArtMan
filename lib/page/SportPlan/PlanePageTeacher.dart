@@ -1,9 +1,4 @@
-import 'dart:convert';
-
-import 'package:art_man/components/Networking/SendPlanSport.dart';
-import 'package:art_man/components/Texts/Strings.dart';
-import 'package:art_man/components/Utility/SharedPreferences.dart';
-import 'package:art_man/page/SportPlan/SportPlanePage.dart';
+import 'package:art_man/page/SportPlan/Tabb.dart';
 import 'package:flutter/material.dart';
 
 class PlaneSportTeacher extends StatefulWidget {
@@ -25,14 +20,7 @@ class _PlaneSportTeacherState extends State<PlaneSportTeacher> {
           iconTheme: IconThemeData(
             color: Colors.white, //change your color here
           ),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: null)
-          ],
+
           bottom: TabBar(
             labelColor: Colors.white,
             tabs: [
@@ -52,8 +40,8 @@ class _PlaneSportTeacherState extends State<PlaneSportTeacher> {
 
         body: TabBarView(
           children: [
-            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه غذایی","غذایی","/ListPlanOfTeacher"),
-            new SportPlanPage("برنامه های من","ساخت و ارسال برنامه ورزشی","ورزشی","/ListPlanOfTeacher")
+            new Tabb("برنامه های من","ساخت و ارسال برنامه غذایی","غذایی","/ListPlanOfTeacher"),
+            new Tabb("برنامه های من","ساخت و ارسال برنامه ورزشی","ورزشی","/ListPlanOfTeacher")
           ],
         ),
 

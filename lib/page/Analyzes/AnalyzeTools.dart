@@ -3,6 +3,8 @@ import 'package:art_man/components/InputTexts/text-area.dart';
 import 'package:art_man/componethosein/row-save-analyze.dart';
 import 'package:flutter/material.dart';
 
+import 'StdInformationField.dart';
+
 
 class SaveAnalyzee extends StatefulWidget{
   @override
@@ -63,7 +65,7 @@ class SA extends State<SaveAnalyzee>{
 
 
 
-      Button([],"/StdInformationPage","ادامه آنالیز", 45.0, 10.0,width: 130.0,)
+      Button([],StdInformationPage(),"ادامه آنالیز", 45.0, 10.0,width: 130.0,)
 
     ],
   );

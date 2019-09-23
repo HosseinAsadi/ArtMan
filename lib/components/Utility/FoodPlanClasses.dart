@@ -2,7 +2,7 @@
 
 class Plan{
   String name;
-  List<String> days;
+  List<String> days=new List();
   String des;
   List<Meale> Meals=new List();
 }

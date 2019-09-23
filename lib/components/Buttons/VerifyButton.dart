@@ -150,7 +150,7 @@ class myVerifyButton extends State<VerifyButton> {
         onTap: () async {
 
           if(functioncode=="justverify"){
-            Updateclasses();
+            Updateclasses(int.parse(numberclass));
             Navigator.push(
                 context,
                 MaterialPageRoute(

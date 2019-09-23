@@ -13,18 +13,20 @@ import 'package:flutter/material.dart';
 
 class AnalyzeAnswer extends StatefulWidget {
   String index;
-  AnalyzeAnswer({Key key,this.index}) : super(key: key);
+  String username;
+  AnalyzeAnswer({Key key,this.index,this.username}) : super(key: key);
   @override
-  _StateAnalyzeAnswer createState() => _StateAnalyzeAnswer(index);
+  _StateAnalyzeAnswer createState() => _StateAnalyzeAnswer(index,username);
 }
 
 class _StateAnalyzeAnswer extends State<AnalyzeAnswer> {
   String index;
-  _StateAnalyzeAnswer(this.index);
+  String username;
+  _StateAnalyzeAnswer(this.index,this.username);
   bool complete=false;
 
   AnalyzeAnswers analyzeAnswer;
-  var stdUsername;
+
   List<Sick> list=new List();
   List<Goal> goals=new List();
   List<Tool> tools=new List();
@@ -55,11 +57,9 @@ class _StateAnalyzeAnswer extends State<AnalyzeAnswer> {
     return sick;
   }
   _answer() async {
-    String username=await getusername();
-    setState(() {
-      stdUsername= username;
-    });
-    AnalyzeAnswers analyzeAnswe = (await fetchAnalyzeReslult("${strings.baseurl}/analyze/getFromUser/$stdUsername")) ;
+
+   print(username);
+    AnalyzeAnswers analyzeAnswe = (await fetchAnalyzeReslult("${strings.baseurl}/analyze/getFromUser/$username")) ;
     setState(() {
       analyzeAnswer = analyzeAnswe;
       for(int i=0;i<analyzeAnswer.result.length;i++){
@@ -70,6 +70,7 @@ class _StateAnalyzeAnswer extends State<AnalyzeAnswer> {
           setterAnalyzeAnswer("front",analyzeAnswer.result[i].anatomyPicture[0]);
           setterAnalyzeAnswer("back",analyzeAnswer.result[i].anatomyPicture[1]);
           setterAnalyzeAnswer("beside",analyzeAnswer.result[i].anatomyPicture[2]);
+          setterAnalyzeAnswer("checkup",analyzeAnswer.result[i].checkUp[0]);
           setterAnalyzeAnswer("alergy",awnser.alergy);
           StringJsonToObject(awnser.sicks);
           StringgoalToObject(awnser.goals);

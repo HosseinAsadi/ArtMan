@@ -19,7 +19,7 @@ import 'package:art_man/page/SportPlan/PlanSport.dart';
 import 'package:art_man/page/SportPlan/PlanePageTeacher.dart';
 import 'package:art_man/page/VideoAbout/ShowThumbnail.dart';
 import 'package:art_man/page/VideoAbout/SplashScreenPage.dart';
-import 'package:art_man/page/SportPlan/SportPlanePage.dart';
+import 'package:art_man/page/SportPlan/Tabb.dart';
 import 'package:art_man/page/VideoAbout/VideoPlayer.dart';
 import 'package:art_man/page/Analyzes/StdInformationField.dart';
 import 'package:art_man/page/description/StdPropertyPage.dart';
@@ -33,6 +33,7 @@ import 'package:art_man/page/lists/PaternList.dart';
 import 'package:art_man/page/lists/SearchPage.dart';
 import 'package:art_man/page/profile/StudentReadOnlyProfile.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
+import 'package:art_man/page/signs/ForgetPass.dart';
 import 'package:art_man/page/signs/JoinedPage2.dart';
 import 'package:art_man/page/description/monthly-payment.dart';
 import 'package:art_man/page/SportPlan/MuscleGroupList.dart';
@@ -43,6 +44,7 @@ import 'package:art_man/page/SportPlan/list-session.dart';
 import 'package:art_man/page/profile/TeacherProfilePage.dart';
 import 'package:art_man/page/profile/StudentProfile.dart';
 import 'package:art_man/page/signs/JoinedPage.dart';
+import 'package:art_man/page/signs/NewPass.dart';
 import 'package:art_man/page/signs/SignUpPage.dart';
 import 'package:art_man/page/signs/SingInPage.dart';
 import 'package:art_man/page/signs/VerifyPage.dart';
@@ -54,94 +56,115 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:art_man/page/SportPlan/ExtractSportName.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
-  debugPaintSizeEnabled = false;
 
- return runApp(MyApp());
+
+  return runApp(MyApp());
 }
 
+class Counter with ChangeNotifier {
+  int _count = 0;
+  int get count => _count;
 
+  void increment() {
+    _count++;
+    notifyListeners();
+  }
+}
 class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
     ));
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.yellow,
-          fontFamily: 'iranyekan',
+    return  MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (_) => Counter()),
+      ],
+      child: Consumer<Counter>(
+        builder: (context, counter, _) {
+          return MaterialApp(
 
+            theme: ThemeData(
+              primarySwatch: Colors.yellow,
+              fontFamily: 'iranyekan',
+              dialogBackgroundColor: Colors.white.withOpacity(0.3),
+
+
+
+            ),
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [
+              Locale("fa", "IR"),
+            ],
+            locale: Locale("fa", "IR"),
+
+            title: 'art man',
+
+            routes: {
+              '/':(context) =>SplashScreenPage(),
+              '/StdPropertyBody': (context) => StdPropertyBody(),
+              '/signinpage': (context) => MyCustomForm(),
+              '/signuppage': (context) => SignUp(),
+              '/verifypage': (context) => VerifyPage(),
+              '/joindepage': (context) => JoinedPage(),
+              '/TeacherProfilePage': (context) => TeacherProfilePage(),
+              '/StdAnalyzePage': (context) => StdAnalyzePage(),
+              '/StdAnalyzePage4': (context) => StdAnalyzePage4(),
+              '/StdAnalyzePage6': (context) => StdAnalyzePage6(),
+              '/SaveAnalyze': (context) => SaveAnalyze(),
+              '/StdInformationPage': (context) => StdInformationPage(),
+              '/PlanePage': (context) => PlanePage(),
+              '/PlanSport': (context) => PlanSport(),
+              '/MuscleGroupList': (context) => MuscleGroupList(),
+              '/SportField': (context) => SportField(),
+              '/SelectSportExtract': (context) => SelectSportExtract(),
+              '/ExtractSportName': (context) => ExtractSportName(),
+              '/VideoPlayerApp': (context) => VideoPlayerApp(),
+              '/Show': (context) => Show(),
+              '/Analyze1': (context) => Analyze1(),
+              '/Analyze2': (context) => Analyze2(),
+              '/Analyze5': (context) => Analyze5(),
+              '/Analyze6': (context) => Analyze6(),
+              '/SaveAnalyzee': (context) => SaveAnalyzee(),
+              '/CoachExplan': (context) => CoachExplan(),
+              '/Membership': (context) => Membership(),
+              '/MonthlyPayment': (context) => MonthlyPayment(),
+              '/Profile': (context) => ProfilePage(),
+              '/FirstLogin': (context) => FirstLogin(),
+              '/Register': (context) => Register(),
+              '/SMSVerify': (context) => SMSVerify(),
+              '/FoodPlan': (context) => FoodPlan(),
+              '/ListSession': (context) => ListSession(),
+              '/SearchPage': (context) => SearchPage(),
+              '/Uploader': (context) => Uploader(),
+              '/SaveAnalyze3': (context) => SaveAnalyze3(),
+              '/TeacherProfileReadOnly': (context) => TeacherProfileReadOnly(),
+              '/MyTeachers': (context) => MyTeachers(),
+              '/AnalyzeAnswer': (context) => AnalyzeAnswer(),
+              '/AnalyzeList': (context) => AnalyzeList(),
+              '/AnalyzeResult': (context) => AnalyzeResult(),
+              '/PlaneSportTeacher': (context) => PlaneSportTeacher(),
+              '/MovesInClassroom': (context) => MySelection(),
+              '/MealsPage': (context) => MealsPage(),
+              '/StudentProfileReadOnly': (context) => StudentProfileReadOnly(),
+              '/MyStudents': (context) => MyStudents(),
+              '/ListMoves': (context) => ListMoves(),
+              '/MySportPlansList': (context) => MySportPlansList(),
+              '/Patternlist': (context) => Patternlist(),
+              '/NewPass': (context) => NewPass(),
+              '/ForgetPass': (context) => ForgetPass(),
+            },
+          );
+        },
       ),
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale("fa", "IR"),
-      ],
-      locale: Locale("fa", "IR"),
-
-      title: 'art man',
-      initialRoute: '/',
-      routes: {
-        '/':(context) =>SplashScreenPage(),
-        '/StdPropertyBody': (context) => StdPropertyBody(),
-        '/signinpage': (context) => MyCustomForm(),
-        '/signuppage': (context) => SignUp(),
-        '/verifypage': (context) => VerifyPage(),
-        '/joindepage': (context) => JoinedPage(),
-        '/TeacherProfilePage': (context) => TeacherProfilePage(),
-        '/StdAnalyzePage': (context) => StdAnalyzePage(),
-        '/StdAnalyzePage4': (context) => StdAnalyzePage4(),
-        '/StdAnalyzePage6': (context) => StdAnalyzePage6(),
-        '/SaveAnalyze': (context) => SaveAnalyze(),
-        '/StdInformationPage': (context) => StdInformationPage(),
-        '/PlanePage': (context) => PlanePage(),
-        '/PlanSport': (context) => PlanSport(),
-        '/MuscleGroupList': (context) => MuscleGroupList(),
-        '/SportField': (context) => SportField(),
-        '/SelectSportExtract': (context) => SelectSportExtract(),
-        '/ExtractSportName': (context) => ExtractSportName(),
-        '/VideoPlayerApp': (context) => VideoPlayerApp(),
-        '/Show': (context) => Show(),
-        '/Analyze1': (context) => Analyze1(),
-        '/Analyze2': (context) => Analyze2(),
-        '/Analyze5': (context) => Analyze5(),
-        '/Analyze6': (context) => Analyze6(),
-        '/SaveAnalyzee': (context) => SaveAnalyzee(),
-        '/CoachExplan': (context) => CoachExplan(),
-        '/Membership': (context) => Membership(),
-        '/MonthlyPayment': (context) => MonthlyPayment(),
-        '/Profile': (context) => ProfilePage(),
-        '/FirstLogin': (context) => FirstLogin(),
-        '/Register': (context) => Register(),
-        '/SMSVerify': (context) => SMSVerify(),
-        //'/SportPlanPage': (context) => SportPlanPage(),
-        '/FoodPlan': (context) => FoodPlan(),
-        '/ListSession': (context) => ListSession(),
-        '/SearchPage': (context) => SearchPage(),
-        '/Uploader': (context) => Uploader(),
-        '/SaveAnalyze3': (context) => SaveAnalyze3(),
-        '/TeacherProfileReadOnly': (context) => TeacherProfileReadOnly(),
-        '/MyTeachers': (context) => MyTeachers(),
-        '/AnalyzeAnswer': (context) => AnalyzeAnswer(),
-        '/AnalyzeList': (context) => AnalyzeList(),
-        '/AnalyzeResult': (context) => AnalyzeResult(),
-        '/PlaneSportTeacher': (context) => PlaneSportTeacher(),
-        '/MovesInClassroom': (context) => MySelection(),
-       // '/ListPlanOfTeacher': (context) => ListPlanOfTeacher(),
-        //'/AddMeal': (context) => AddMeal(),
-        '/MealsPage': (context) => MealsPage(),
-        '/StudentProfileReadOnly': (context) => StudentProfileReadOnly(),
-        '/MyStudents': (context) => MyStudents(),
-        '/ListMoves': (context) => ListMoves(),
-        '/MySportPlansList': (context) => MySportPlansList(),
-        '/Patternlist': (context) => Patternlist(),
-      },
     );
   }
 }

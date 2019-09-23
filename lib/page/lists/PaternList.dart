@@ -21,7 +21,7 @@ class _PatternlistState extends State<Patternlist> {
   getplan()async{
     String username= await getusername();
     if(planType=="ورزشی"){
-      TeacherPlansList plan =await fetchSportPlan(username,"getFromTeacher");
+      TeacherPlansList plan =await fetchSportPlan(username,"getFromTeacher/t");
       for(int i=0;i<plan.result.length;i++){
         if(plan.result[i].template_name!=""){
           sportplan.add(plan.result[i]);
@@ -29,7 +29,7 @@ class _PatternlistState extends State<Patternlist> {
       }
     }
     if(planType=="غذایی"){
-      MyPlan plan = await FetchFoodPlan(username,"getFromTeacher");
+      MyPlan plan = await FetchFoodPlan(username,"getFromTeacher/t");
       for(int i=0;i<plan.result.length;i++){
         if(plan.result[i].template_name!=""){
           foodPlan.add(plan.result[i]);

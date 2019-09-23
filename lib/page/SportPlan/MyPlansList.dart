@@ -1,11 +1,6 @@
-import 'package:art_man/components/Lists/middle-food-plan.dart';
-import 'package:art_man/components/Networking/FetchFoodPlan.dart';
 import 'package:art_man/components/Networking/FetchSportPlansOfTeacher.dart';
-import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/componethosein/appbar.dart';
-import 'package:art_man/componethosein/list-food-plan.dart';
-import 'package:art_man/componethosein/top-food-plan.dart';
 import 'package:art_man/page/SportPlan/sport-plan.dart';
 import 'package:flutter/material.dart';
 import 'package:jalali_date/jalali_date.dart';
@@ -24,7 +19,7 @@ class MSP extends State<MySportPlansList> {
   TeacherPlansList myplans;
   String planType;
   bool complete = false;
-
+  String type;
   getPlanList() async {
     String type = await gettype();
 
@@ -51,10 +46,17 @@ class MSP extends State<MySportPlansList> {
     }
 
   }
+  gettypee()async{
+    String t=await gettype();
+    setState(() {
+      type=t;
+    });
+  }
   @override
   void initState() {
     super.initState();
     getPlanList();
+    gettypee();
   }
 
   Future<Null> onWillPop() async {
@@ -64,7 +66,7 @@ class MSP extends State<MySportPlansList> {
       });
     }else{
       setState(() {
-        Navigator.pushNamed(context, "/MySportPlansList");
+        Navigator.pushNamed(context, type=="teachers"?"/PlaneSportTeacher":"/PlanePage");
       });
     }
 
@@ -75,9 +77,7 @@ class MSP extends State<MySportPlansList> {
     return new WillPopScope(
         onWillPop: onWillPop,
         child: Scaffold(
-            appBar: PreferredSize(
-                child: CustomAppbar('برنامه های ورزشی بدنسازی', null),
-                preferredSize: Size.fromHeight(55)),
+
             body: setBackground()));
   }
 

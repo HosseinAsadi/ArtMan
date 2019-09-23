@@ -5,6 +5,8 @@ import 'package:art_man/componethosein/appbar.dart';
 import 'package:art_man/componethosein/row-analyze5.dart';
 import 'package:flutter/material.dart';
 
+import 'SaveAnalyze.dart';
+
 
 class SaveAnalyze3 extends StatefulWidget{
   @override
@@ -65,7 +67,7 @@ class SA5 extends State<SaveAnalyze3>{
 
       InputText('اطلاعات تکمیلی را وارد کنید..',"goal description",height: 100.0,maxlines: 4,maxlenght: 400,radius: 10,),
 
-      Button([],"/SaveAnalyze","ادامه آنالیز", 40.0, 10.0,width: 120.0,),
+      Button([],SaveAnalyze(),"ادامه آنالیز", 40.0, 10.0,width: 120.0,),
 
     ],
   );

@@ -46,18 +46,11 @@ class _MySelectionListState extends State<MySelectionList> {
       {this.color, this.radius});
 
   thumbnail(videourl, index) async {
-    String image = await getImageThumbnail(videourl);
-    Moveslist teacherInfo = new Moveslist();
-    teacherInfo.fa = classes[int.parse(numberclass)].moves[index].fa;
-    teacherInfo.en = classes[int.parse(numberclass)].moves[index].en;
-    teacherInfo.description = classes[int.parse(numberclass)].moves[index].description;
-    teacherInfo.muscles = classes[int.parse(numberclass)].moves[index].muscles;
-    teacherInfo.equipment = classes[int.parse(numberclass)].moves[index].equipment;
-    teacherInfo.exercise = classes[int.parse(numberclass)].moves[index].exercise;
-    teacherInfo.isselected = classes[int.parse(numberclass)].moves[index].isselected;
-    teacherInfo.videourl = image;
-    classes[int.parse(numberclass)].moves[index] = teacherInfo;
-    print("thumbnail generated and uri is :" + image);
+    File f=new File( "$directory/${videourl.split("/").last.replaceAll("mp4", "png")}");
+
+    if(!f.existsSync())
+      await getimage(videourl);
+
   }
 
   @override
@@ -65,9 +58,10 @@ class _MySelectionListState extends State<MySelectionList> {
     super.initState();
     dialog = OptionsDialog(this.setselection, this.widget.callback);
     getdirectory();
+
   }
   getdirectory()async{
-    String dir= (await getApplicationDocumentsDirectory()).path;
+    String dir= (await getTemporaryDirectory()).path;
     setState(() {
       directory=dir;
     });
@@ -84,6 +78,8 @@ class _MySelectionListState extends State<MySelectionList> {
   }
 
   Widget _buildProductItem(BuildContext context, int index) {
+
+      thumbnail(classes[int.parse(numberclass)].moves[index].videourl,index);
 
     return GestureDetector(
       onLongPress: () {
@@ -129,7 +125,7 @@ class _MySelectionListState extends State<MySelectionList> {
                 width: 40,
                 height: 40,
                 child: ClipRRect(
-                  child: Image.file(new File("$directory/424d70026cf77ed82aec24c04ad785ee16880451-480p__49173.png"),fit: BoxFit.cover),
+                  child: Image.file(new File("$directory/${classes[int.parse(numberclass)].moves[index].videourl.split("/").last.replaceAll("mp4", "png")}"),fit: BoxFit.cover),
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 ),
               ),

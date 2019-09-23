@@ -33,9 +33,9 @@ class Fucntionman{
   Future<Null> signInWork(context)async{
    String type= await gettype();
    Strings strings=new Strings();
-    print ("${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
+
    var rslt = await GetLocation.login("${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
-    print("${strings.baseurl}/$type/login/${Kelid.getter("username")}/${Hasher.GenerateMd5(Kelid.getter("password"))}");
+
    if (rslt == "0" ) {
     ShowToast("نام کاربری یا رمز عبور اشتباه است",Colors.red,Colors.white);
    }

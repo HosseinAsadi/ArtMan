@@ -2,6 +2,8 @@ import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:flutter/material.dart';
 
+import 'AnalyzeSetGoal.dart';
+
 class StdInformationPage extends StatefulWidget {
   @override
   _StdInformationPageState createState() => _StdInformationPageState();
@@ -64,7 +66,7 @@ class _StdInformationPageState extends State<StdInformationPage> {
   );
   Button saveanalyze = new Button(
     [],
-    "/SaveAnalyze3",
+    SaveAnalyze3(),
     "ذخیره آنالیز",
     40.0,
     30.0,

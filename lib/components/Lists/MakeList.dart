@@ -1,4 +1,7 @@
+import 'package:art_man/components/Animation/RightSlidePage.dart';
+import 'package:art_man/components/Animation/ScaleRoutePage.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/InputTexts/PlanInputText.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/Classroom.dart';
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
@@ -20,12 +23,25 @@ class MakeList extends StatefulWidget {
 
 class _MakeListState extends State<MakeList> {
   double height = 120.0;
+
   Color listItemcolor = Colors.white, backcolor = Colors.yellow[700];
   String planType;
   int selectedIndex;
+
   _getindex(index){
     setState(() {
       selectedIndex=index;
+    });
+  }
+  removeplan(index){
+    setState(() {
+      if(planType=="غذایی"){
+        plans.removeAt(index);
+      }
+      else{
+        classes.removeAt(index);
+      }
+
     });
   }
   _MakeListState(this.planType);
@@ -48,7 +64,9 @@ class _MakeListState extends State<MakeList> {
                 planType == "ورزشی"
                     ? "آیا از حذف کردن این جلسه مطمئن هستید؟"
                     : "آیا از حذف کردن این هفته مطمئن هستید؟",
-                id: "remove classroom",
+                id: "remove_classroom",
+                callback: this.removeplan,
+                index: number,
               )),
         );
         setState(() {
@@ -58,27 +76,30 @@ class _MakeListState extends State<MakeList> {
 
       onTap: () {
         _getindex(number);
-       if(planType == "ورزشی") {
-         classes[number].nameclass=Kelid.getter("classname");
-         Kelid.setter("classname", "");
+       if(planType == "ورزشی")
+         {
+
          Navigator.push(
              context,
-             MaterialPageRoute(
-               builder: (context) =>
+             SlideRightRoute(
+               page:
                    MySelection(
                      numberclass: "${number}",
                    ),
              ));
        }
        else {
+
+
          Navigator.push(
              context,
-             MaterialPageRoute(
-               builder: (context) =>
+           SlideRightRoute(
+             page:
                    MealsPage(
                      numberplan: number.toString(),
                    ),
-             ));
+             ),
+         );
        }
       },
       child: Container(
@@ -89,56 +110,70 @@ class _MakeListState extends State<MakeList> {
                 ? Colors.white.withOpacity(0.3)
                 : Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.centerRight,
-                padding: EdgeInsets.only(right: 15, top: 10),
-                child: Text(
+        child:Row(
+          children: <Widget>[
+            Flexible(flex: 5,child:  Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.only(right: 15, top: 10),
+                    child: Text(
+                      planType == "ورزشی"
+                          ? "جلسه ${1 + number}"
+                          : " برنامه ${1 + number}",
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.w900),
+                    ),
+                  ),
                   planType == "ورزشی"
-                      ? "جلسه ${1 + number}"
-                      : " برنامه ${1 + number}",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w900),
-                ),
-              ),
-              planType == "ورزشی"
-                  ? Container(
+                      ? Container(
                       alignment: Alignment.centerRight,
                       child: Text(
                         "   حداقل یک حرکت به جلسه مورد نظر اضافه کنید",
                         maxLines: 1,
                         style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400
+                            color: Colors.grey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400
                         ),
                       ))
-                  : Container(
-                      width: 0,
-                      height: 0,
+                      : Container(
+                    width: 0,
+                    height: 0,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(right: 10),
+                    alignment: Alignment.bottomRight,
+                    child: PlanInputText(
+                      planType == "ورزشی"
+                          ? "نام جلسه را وارد نمایید ..."
+                          : "نام برنامه ...",
+                      "classname",
+                      planType
+                      ,
+                      margintop: 8.0,
+                      height: 30.0,
+                      hintsize: 16,
+                      fontWeight: FontWeight.w500,
+                      sportPlanIndex: number,
+                      foodPlanIndex: number,
+                      brdercolor: Colors.white.withOpacity(0.0),
+                      value: planType=="غذایی"?plans[number].name:classes[number].nameclass,
                     ),
-              Container(
-                padding: EdgeInsets.only(right: 10),
-                alignment: Alignment.bottomRight,
-                child: InputText(
-                  planType == "ورزشی"
-                      ? "نام جلسه را وارد نمایید ..."
-                      : "نام برنامه ...",
-                  "classname",
-                  margintop: 8.0,
-                  height: 30.0,
-                  hintsize: 16,
-                  fontWeight: FontWeight.w500,
-                  brdercolor: Colors.white.withOpacity(0.0),
-                  value: planType=="غذایی"?plans[number].name:classes[number].nameclass,
-                ),
-              ),
-              SizedBox(
-                height: 17,
-              )
-            ]),
+                  ),
+                  SizedBox(
+                    height: 17,
+                  )
+                ]),),
+        Flexible(flex: 1,
+            child:Container(alignment: Alignment.center,
+              width: 30,
+              height: 30,margin: EdgeInsets.all(5),
+            child: Icon(Icons.arrow_forward_ios,color: Colors.grey,),))
+          ],
+        ),
+       
       ),
     );
   } //element of make list
@@ -188,16 +223,8 @@ class _MakeListState extends State<MakeList> {
                 Classroom newclassroom = new Classroom();
                 classes.add(newclassroom);
               } else {
-                Plan plan = new Plan();
-                plan.Meals = plans[plans.length - 1].Meals;
-                plan.name= Kelid.getter("classname");
-                plan.des = Kelid.getter("food_plan_des");
-                plan.days = days;
-                plans[plans.length - 1] = plan; /////????????
-
                 Plan newplan = new Plan();
                 plans.add(newplan);
-                Kelid.setter("classname", "");
               }
             });
 

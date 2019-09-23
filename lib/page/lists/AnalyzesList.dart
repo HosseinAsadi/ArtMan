@@ -5,6 +5,7 @@ import 'package:art_man/components/Networking/FetchAnalyzeReslulte.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
+import 'package:art_man/page/Analyzes/AnalyzeAnatomicimage.dart';
 import 'package:art_man/page/Analyzes/SummaryAnswer.dart';
 import 'package:art_man/page/profile/StudentReadOnlyProfile.dart';
 import 'package:flutter/material.dart';
@@ -30,20 +31,25 @@ class _AnalyzeListState extends State<AnalyzeList> {
   String type;
   List<String> images=new List();
   Strings strings=new Strings();
-   gettype()async{
+
+   gettypee()async{
      String t=await gettype();
      setState(() {
        type=t;
      });
+
    }
+
   _answer() async {
 
     var username=await getusername();
-    print(username);
-    AnalyzeAnswers analyzeAnswe = (await fetchAnalyzeReslult("${strings.baseurl}/analyze/getFromUser/$username")) ;
-    setState(() {
 
-      stdUsername=usernameinputed==null?username:usernameinputed;
+    stdUsername=usernameinputed==null?username:usernameinputed;
+    print(stdUsername);
+    AnalyzeAnswers analyzeAnswe = (await fetchAnalyzeReslult("${strings.baseurl}/analyze/getFromUser/$stdUsername")) ;
+    setState(() {
+    print(analyzeAnswe.result.length);
+
       analyzeAnswer = analyzeAnswe;
       print("anlalyze lenght ="+analyzeAnswer.result.length.toString());
       for(int i=0;i<analyzeAnswer.result.length;i++){
@@ -64,12 +70,14 @@ class _AnalyzeListState extends State<AnalyzeList> {
     });
     complete=true;
   }
+
   getrealusername()async{
     baseusername=await getusername();
   }
   @override
   void initState() {
     super.initState();
+    gettypee();
     _answer();
     getrealusername();
 
@@ -77,34 +85,33 @@ class _AnalyzeListState extends State<AnalyzeList> {
   Future<Null> onWillPop() {
     print(baseusername);
     print(usernameinputed);
-
-    type!="Teachers"? Navigator.pushNamed(context, "/Profile"):
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentProfileReadOnly(username: usernameinputed,)));
+     print(usernameinputed);
+     print(type);
+    type=="teachers"? Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentProfileReadOnly(username: usernameinputed,)))
+        : Navigator.pushNamed(context, "/Profile");
 
 
 
   }
+
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
         onWillPop: onWillPop,
         child: Scaffold(
       appBar:new  AppBar(
-
+         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.green,
         title: Text("آنالیزها",style: TextStyle(color: Colors.white),),
-    leading: new IconButton(
-    icon: new Icon(Icons.arrow_back),
-    onPressed: (){/*Navigator.pushNamed(context, "/");*/}
-    )
+
       ),
       body: complete? Container(
-        margin: EdgeInsets.only(top: 10,bottom: 0),
+        margin: EdgeInsets.only(top: 10,bottom: 0,left: 10,right: 10),
         height: MediaQuery.of(context).size.height,
-        child: AnalyzeResultListview(newlistsearch),
+        child: AnalyzeResultListview(newlistsearch,stdUsername),
       ):CircularProgressIndicator(),
       bottomNavigationBar:
-    type!="Teachers"?  Button([],"/StdAnalyzePage","آنالیز جدید",50.0,3.0,marginbottom: 10.0,marginright: 5.0,marginleft: 5.0,):null
+    type=="users"?  Button([],StdAnalyzePage(),"آنالیز جدید",50.0,3.0,marginbottom: 10.0,marginright: 5.0,marginleft: 5.0,):Container(width: 0,height: 0,)
       ,
     ));
   }

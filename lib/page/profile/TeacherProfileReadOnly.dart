@@ -113,7 +113,7 @@ class _TeacherProfileReadOnlyState extends State<TeacherProfileReadOnly> {
                                   child: ClipRRect(
                                     child: "" == "$imagename"
                                         ? Image.asset(
-                                            "assets/images/morabi.jpeg")
+                                            "assets/images/morabi.png")
                                         : Image.network(
                                             "${strings.baseurl}/images/teachers/$imagename"),
                                     borderRadius:

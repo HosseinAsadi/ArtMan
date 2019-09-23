@@ -108,7 +108,7 @@ Future<String> SendPlanFood(url) async {
   Strings strings=new Strings();
   String username= await getusername();
   fillFoodPlan();
-  String token=await getToken();
+  String token=await getToken(true);
   HttpClient httpClient = new HttpClient();
   HttpClientRequest request = await httpClient.postUrl(Uri.parse(url));
   request.headers.set('content-type', 'application/json');

@@ -11,6 +11,7 @@ import 'package:art_man/page/Analyzes/SummaryAnswer.dart';
 import 'package:art_man/page/SportPlan/PlanSport.dart';
 import 'package:art_man/page/profile/TeacherProfileReadOnly.dart';
 import 'package:flutter/material.dart';
+import 'package:jalali_date/jalali_date.dart';
 
 class PatternListGenerator extends StatefulWidget {
   List<ResultSport> sportplan;
@@ -118,7 +119,7 @@ class _PatternListGeneratorState extends State<PatternListGenerator> {
             width: 40,
             height: 40,
             child: ClipRRect(
-              child: Image.asset(typeplan=="غذایی"?"assets/images/foodplan.jpg":"assets/images/sportplan.jpg"),
+              child: Image.asset(typeplan=="غذایی"?"assets/images/foodplan.jpg":"assets/images/sportplan.jpg",fit: BoxFit.cover,),
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
           ),
@@ -128,7 +129,9 @@ class _PatternListGeneratorState extends State<PatternListGenerator> {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           subtitle: Text(typeplan=="غذایی"?
-          "${foodPlan[index].create_date}":"${sportplan[index].create_date}",
+          PersianDate.fromDateTime(DateTime.parse(foodPlan[index].create_date))
+              .toString(showTime: false) :PersianDate.fromDateTime(DateTime.parse(sportplan[index].create_date))
+              .toString(showTime: false),
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal)),
         ));
   }

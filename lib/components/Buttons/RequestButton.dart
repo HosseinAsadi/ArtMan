@@ -1,4 +1,6 @@
+import 'package:art_man/components/Animation/ScaleRoutePage.dart';
 import 'package:art_man/page/SportPlan/PlanSport.dart';
+import 'package:art_man/page/lists/SearchPage.dart';
 import 'package:flutter/material.dart';
 class RequestButton extends StatefulWidget {
   IconData icon;
@@ -28,11 +30,12 @@ class _RequestButtonState extends State<RequestButton> {
     return GestureDetector(
       onTap: (){
         routgoal=="/SearchPage"?
-            Navigator.pushNamed(context, "/SearchPage"):
+            Navigator.push(context,ScaleRoute(
+                page:  SearchPage())):
         Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => PlanSport(typeplan: routgoal,),
+            ScaleRoute(
+              page: PlanSport(typeplan: routgoal,),
             ));
       },
       onTapDown: (Details){

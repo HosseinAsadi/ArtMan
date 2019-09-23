@@ -63,7 +63,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         setState(() {});
         gettime();
       });
-    // controller.setLooping(true);
+     controller.setLooping(true);
   }
 
   _resumeProgressTimer() async{
@@ -86,11 +86,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
 
     ]);
+    controller.dispose();
+
   }
 
   @override
@@ -122,7 +123,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 left: 0.0,
                 right: 0.0,
                 bottom: 0.0,
-                child: isshow
+                child: false
                     ? Container(
                     child: Column(
                       children: <Widget>[

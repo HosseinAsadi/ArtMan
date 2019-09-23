@@ -34,9 +34,20 @@ class GetLocation {
     var reply = await response.transform(utf8.decoder).join();
     httpClient.close();
     print(reply);
-    if(response.statusCode==200|| response.statusCode==201){
+    if(response.statusCode==200){
       LoginResulte resulte=await fetchTokenInLogin(reply);
-      await setToken(resulte.toke.token);
+      if(resulte.result==1){
+        HttpClient httpClient2 = new HttpClient();
+        HttpClientRequest request2 = await httpClient2.getUrl(Uri.parse(url));
+        request2.headers.set('content-type', 'application/json');
+        HttpClientResponse response2 = await request2.close();
+        var reply2 = await response2.transform(utf8.decoder).join();
+        httpClient.close();
+        print(reply2);
+        GETToken resulte2=(await fetchTToken(reply2)) ;
+        await setToken(resulte2.toke.token);
+      }
+
       return resulte.result.toString();
     }
 
@@ -62,7 +73,7 @@ class GetLocation {
 
   static Future<TeacherProfile> fetchProfileTeacher(url) async {
     TeacherProfile information;
-    String token=await getToken();
+    String token=await getToken(true);
     print(token);
     final response = await http.get(url,headers: {"token":token});
     if (response.statusCode == 200) {
@@ -77,7 +88,7 @@ class GetLocation {
 
   static Future<StdProfile> fetchProfilestudent(url) async {
     StdProfile information;
-    String token=await getToken();
+    String token=await getToken(true);
     final response = await http.get(url,headers: {"token":token});
     if (response.statusCode == 200) {
       print("connection is ok");
@@ -93,7 +104,7 @@ class GetLocation {
 
   static Future<TeachersList> fetchTeachersList(url) async {
     TeachersList information;
-    String token=await getToken();
+    String token=await getToken(false);
 
     final response = await http.get(url,headers: {"token":token});
     if (response.statusCode == 200) {

@@ -7,7 +7,7 @@ import 'package:art_man/components/Utility/SharedPreferences.dart';
 Future<UsersList> fetchUsersList() async {
   UsersList information;
   Strings strings=new Strings();
-  String token=await getToken();
+  String token=await getToken(false);
 
   final response = await http.get("${strings.baseurl}/admin/getUsers",headers: {"token":token});
   if (response.statusCode == 200) {

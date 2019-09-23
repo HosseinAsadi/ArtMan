@@ -1,4 +1,5 @@
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/InputTexts/PlanInputText.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
@@ -29,41 +30,50 @@ class _MakeFoodListState extends State<MakeFoodList> {
       selectedIndex=index;
     });
   }
+  removefood(index){
+    setState(() {
+      plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.removeAt(index);
+    });
+  }
 _MakeFoodListState(this.numberplan,this.numbermeal);
 
   Widget _buildProductItem(BuildContext context, int number) {
 
-    return Stack(
+    return GestureDetector(
+      onLongPress: () {
+        print("long pressed");
+        showDialog(
+          context: context,
+          builder: (_) =>
+          new AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              contentPadding: EdgeInsets.all(0.0),
+              content: VerifyDialog(
+                "آیا از حذف کردن این وعده مطمئن هستید؟",id: "remove_Food",
+                callback: this.removefood,index: number,)
+          ),
+
+        );
+
+      },
+      onTap: (){
+        setIndex(number);
+      },
+      child:  Stack(
       children: <Widget>[
         Container(
           height: 116,
           margin: EdgeInsets.only(right: 15, left: 15, bottom: 3),
           decoration: BoxDecoration(
               color:selectedIndex!=null && selectedIndex==number?
-              Colors.white.withOpacity(0.3):
-              Colors.white,
+              Colors.white.withOpacity(0.9):
+              Colors.white.withOpacity(0.9),
               borderRadius: BorderRadius.all(Radius.circular(15))),
 
-          child: GestureDetector(
 
-            onLongPress: () {
-              showDialog(
-                context: context,
-                builder: (_) =>
-                new AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                    contentPadding: EdgeInsets.all(0.0),
-                    content: VerifyDialog(
-                      "آیا از حذف کردن این وعده مطمئن هستید؟",id: "remove_meal",)
-                ),
 
-              );
 
-            },
-           onTap: (){
-              setIndex(number);
-           },
 
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,13 +82,18 @@ _MakeFoodListState(this.numberplan,this.numbermeal);
 
                   Container(
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.all(7),
-                    child:InputText(
+                    padding: EdgeInsets.only(top: 3),
+                    child:PlanInputText(
                       "نام وعده غذایی",
                       "khorak_name",
+                      "غذایی",
                       height: 50,
                       maxlenght: 200,
                       maxlines: 3,
+                      margintop: 10,
+                      foodPlanIndex: int.parse(numberplan),
+                      mealIndex: int.parse(numbermeal),
+                      foodIndex: number,
                       textAlign: TextAlign.center,
                       value: plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[number].name,
                     ),
@@ -90,14 +105,24 @@ _MakeFoodListState(this.numberplan,this.numbermeal);
                         child: OneDropDown(
                           "number_Of_khorak",
                           ["1","2","3","4","5","6","7","8","9","10"],
-                          "تعداد",fontcolor: Colors.black,value:
+
+                          "تعداد     ",
+                          numberfood: "fill",
+                          foodIndex: number,
+                          mealIndex: int.parse(numbermeal),
+                          foodPlanIndex: int.parse(numberplan)
+                          ,fontcolor: Colors.black,value:
                         plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[number].namber,
                         ),
                       ),
                       Flexible(
                         flex: 1,
                         child: OneDropDown("unit_Of_khorak",
-                            ["قاشق غذاخوری", "لیوان", "برش", "پرس"], "لیوان",fontcolor: Colors.black,value:
+                            ["قاشق غذاخوری", "لیوان", "برش", "پرس"], "لیوان",
+                          unitfood: "fill",
+                          foodIndex: number,
+                          mealIndex: int.parse(numbermeal),
+                          foodPlanIndex: int.parse(numberplan),fontcolor: Colors.black,value:
                           plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[number].unit,),
                       ),
                     ],
@@ -106,9 +131,9 @@ _MakeFoodListState(this.numberplan,this.numbermeal);
 
                 ]),
           ),
-        ),
+  ] ),
 
-      ],
+
     ) ;
 
   } //element of make list
@@ -147,20 +172,10 @@ _MakeFoodListState(this.numberplan,this.numbermeal);
     return  GestureDetector(
       onTap: () {
         setState(() {
-
-
-          Foode food=new Foode();
-          food.name=Kelid.getter("khorak_name");
-          food.namber=Kelid.getter("number_Of_khorak");
-          food.unit=Kelid.getter("unit_Of_khorak");
-          plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[
-          plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length-1
-          ]=food;
+          
           Foode newfood=new Foode();
           plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.add(newfood);
-          Kelid.setter("khorak_name", "");
-          Kelid.setter("number_Of_khorak", "");
-          Kelid.setter("unit_Of_khorak", "");
+
 
 
         });

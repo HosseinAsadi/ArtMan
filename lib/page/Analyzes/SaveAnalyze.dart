@@ -11,6 +11,7 @@ import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/StdInfo.dart';
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
+import 'package:art_man/page/lists/AnalyzesList.dart';
 import 'package:flutter/material.dart';
 class SaveAnalyze extends StatefulWidget {
 
@@ -66,7 +67,7 @@ class _SaveAnalyzeState extends State<SaveAnalyze> {
 
   Button saveanalyze = new Button(
     ["teacherid"],
-    "/AnalyzeList",
+    AnalyzeList(),
     "ذخیره آنالیز",
     40.0,
     30.0,

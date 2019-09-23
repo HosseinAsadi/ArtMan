@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:art_man/components/Animation/RightSlidePage.dart';
 import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Networking/SendPlanSport.dart';
 import 'package:art_man/components/Texts/Strings.dart';
@@ -6,6 +7,7 @@ import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Toast/WhatUser.dart';
 import 'package:art_man/components/Utility/GetMyTeachersList.dart';
+import 'package:art_man/components/Utility/GetTeacherProfile.dart';
 import 'package:art_man/components/Utility/GetTeachersList.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/MD5Generator.dart';
@@ -21,10 +23,11 @@ import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
 
-  String text, goal,snackbarText,functioncode;
+  String text,snackbarText,functioncode;
   final Fucntionman function;
   bool task=false;
   List<String> list;
+  Widget goal;
   double height;
   double margintop;
   double marginbottom;
@@ -79,7 +82,8 @@ class Button extends StatefulWidget {
 }
 
 class myBottom extends State<Button> {
-  String cityvalue = null, goal,snackbarText,functioncode;
+  String cityvalue = null,snackbarText,functioncode;
+  Widget goal;
   String text;
   List<String> list;
   bool task=false;
@@ -172,13 +176,23 @@ class myBottom extends State<Button> {
         });
       },
       onTap: () async {
+        Kelid.setter("o","ok");
+       if(functioncode=="signup"){
+         this.widget.callback();
+       }
+       if(functioncode=="gorget"){
+         this.widget.callback();
+       }
        if(functioncode=="selectPattern"){
          this.widget.callback();
        }
          if(functioncode=="mysportPlanOfTeacher"){
+           Kelid.setter("myplan", "ok");
            Navigator.pushNamed(context, "/MySportPlansList");
          }
         if(functioncode=="myfoodPlanOfTeacher"){
+          Kelid.setter("myplan", "ok");
+
           Navigator.push(context, MaterialPageRoute(builder: (contex)=>
               FoodPlan(typeplan: "غذایی",)));
 
@@ -221,6 +235,9 @@ class myBottom extends State<Button> {
              );
            }
 
+         }
+         if(functioncode=="passrepeat"){
+           this.widget.callback();
          }
         if(functioncode=="sendSportplan") {
           Kelid.setter("typesendplan", "send");
@@ -273,7 +290,7 @@ class myBottom extends State<Button> {
               CircularProgressIndicator();
               function.uploadAnalyze(Kelid.getter("teacherid"));
               ShowToast("آنالیز با موفقیت ارسال شد",Colors.green,Colors.white);
-              Navigator.pushNamed(context, goal);
+              Navigator.push(context, SlideRightRoute(page: goal));
             }
           }
           if(!ismyteacher){
@@ -294,8 +311,7 @@ class myBottom extends State<Button> {
         if(functioncode=="signin")
           function.signInWork(context);
         if(functioncode=="ورود به پنل کاربری مربی"){
-          print("sender runned");
-          //function.senderTeacherData();
+
           String result=await Post.apiRequest("${strings.baseurl}/teachers/addTeacher",json.encode(
               { "username" : Kelid.getter("username"),
                 "password" :Hasher.GenerateMd5(Kelid.getter("password").toString()),
@@ -305,17 +321,31 @@ class myBottom extends State<Button> {
                 "city" : Kelid.getter("city"),
                 "phone" : Kelid.getter("phone"),
               }));
+          Kelid.setter("join", "ok");
           if(result=="200" || result=="201"){
             await setusername();
             await setsign();
-            print("setted username and signed");
+
+
+
+              var typ = await gettype();
+
+              if(typ=="teachers"&& !teacherProfileIsFill ){
+                await Teacherformation();
+                setState(() {
+                  teacherProfileIsFill=true;
+                });
+              }
+
+
+            Navigator.push(context, SlideRightRoute(page: goal));
           }
-          if(result=="500")
-            print("server error");
+            if(result=="500")
+            {
+              ShowToast("نام کاربری وارد شده تکراری است ", Colors.red, Colors.white);
+            }
         }
         if(functioncode=="ورود به پنل کاربری هنرجو"){
-          print("sender student runned");
-          // String result= await function.senderTeacherData();
           var result=await Post.apiRequest("${strings.baseurl}/users/addUser",json.encode(
               { "username" : Kelid.getter("username"),
                 "password" : Hasher.GenerateMd5(Kelid.getter("password").toString()),
@@ -326,31 +356,26 @@ class myBottom extends State<Button> {
                 "phone" :  Kelid.getter("phone"),
                 "sex" : SetSex.sex(Kelid.getter("sex").toString())
               }));
-
+             Kelid.setter("joinstudent", "ok");
           if(result=="200" || result=="201"){
-            print("user signedddddddddddddddddddd");
             await setusername();
             await setsign();
+            Navigator.push(context, SlideRightRoute(page: goal));
           }
           if(result=="500")
-            Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  snackbarText==null? "خطا در ارتباط با سرور":snackbarText,
-                  style: TextStyle(color: Colors.white),
-                ),
-                backgroundColor: Colors.red[900]));
-
-          //}
+       {
+         ShowToast("نام کاربری وارد شده تکراری است ", Colors.red, Colors.white);
+       }
 
         }
         Validator validator=new Validator();
 
         if(list.length==0)
-          Navigator.pushNamed(context, goal);
+          Navigator.push(context, SlideRightRoute(page: goal));
 
         if (validator.isvalid(list)  ) {
           if(functioncode==null)
-            Navigator.pushNamed(context, goal);
+            Navigator.push(context, SlideRightRoute(page: goal));
         }
 
         else

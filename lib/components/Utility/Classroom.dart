@@ -12,6 +12,7 @@ List<Equipmente> equipmentes = new List();
 List<String> equipments = new List();
 List<String> muscles = new List();
 List<String> exercises = new List();
+List<Moveslist> oldmovess =List();
 bool selection = false;
 
 class Classroom {
@@ -75,6 +76,7 @@ class Indexs {
 
 addMove(move) {
   moves.add(move);
+  oldmovess.add(move);
 }
 
 
@@ -93,7 +95,7 @@ getClassrommslength() {
   return classes.length;
 }
 
-Updateclasses() {
+Updateclasses(int numberclass) {
   for (int i = 0; i < moves.length; i++) {
     if (moves[i].isselected) {
       Moveslist moveslist=new Moveslist();
@@ -105,11 +107,12 @@ Updateclasses() {
       moveslist.videourl=moves[i].videourl;
       moveslist.en=moves[i].en;
       moveslist.fa=moves[i].fa;
+      moveslist.id=moves[i].id;
       moveslist.muscles=moves[i].muscles;
       moveslist.description=moves[i].description;
       Optionss optionss=new Optionss();
       moveslist.options=optionss;
-      classes[classes.length - 1].moves.add(moveslist);
+      classes[numberclass].moves.add(moveslist);
     }
 
 
@@ -120,8 +123,8 @@ filterMoves() {
   List<Moveslist> temp = new List();
 
   for (int i = 0; i < moves.length; i++) {
-    if (moves[i].fa.contains(Kelid.getter("searchExercise")) ||
-        moves[i].en.contains(Kelid.getter("searchExercise")))
+    if (moves[i].fa.toLowerCase().contains(Kelid.getter("searchExercise").toString().toLowerCase()) ||
+        moves[i].en.toLowerCase().contains(Kelid.getter("searchExercise").toString().toLowerCase()))
       temp.add(moves[i]);
   }
   moves.clear();
@@ -132,7 +135,7 @@ int extract, muscle, tools;
 
 void callbackfunction(String value) {
   List<Moveslist> temp=new List();
-  List<Moveslist> oldmovess =moves;
+
 
   for (int j = 0; j < equipmentes.length; j++) {
     if (equipmentes[j].fa == value) {
@@ -155,7 +158,8 @@ void callbackfunction(String value) {
   for (int i = 0; i < oldmovess.length; i++) {
     if (muscle != null &&
         tools == null &&
-        extract == null) if (oldmovess[i].muscles == muscle) {
+        extract == null)
+      if (oldmovess[i].muscles == muscle) {
       temp.add(oldmovess[i]);
     }
 
@@ -170,6 +174,7 @@ void callbackfunction(String value) {
         muscle == null) if (oldmovess[i].equipment == tools) {
       temp.add(oldmovess[i]);
     }
+
 //--------------------------------------------------------------------------------------------------------
     if (muscle != null && tools != null && extract == null) if (oldmovess[i]
                 .muscles ==
@@ -195,6 +200,11 @@ void callbackfunction(String value) {
         oldmovess[i].exercise == extract &&
         oldmovess[i].muscles == muscle) temp.add(oldmovess[i]);
   }
+  print("0000000000000000000 "+temp.length.toString());
   moves.clear();
   moves=temp;
+  currentLength=0;
+  data.clear();
 }
+int currentLength = 0;
+List<int> data = [];

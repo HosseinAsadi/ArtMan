@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:art_man/components/Animation/RightSlidePage.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/GetTeacherProfile.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/page/profile/StudentProfile.dart';
 import 'package:art_man/page/profile/TeacherProfilePage.dart';
@@ -14,26 +16,24 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
 
-class Uploader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
 
-      theme: new ThemeData.dark(),
-      home: new MyHomePage(),
-    );
-  }
-}
 
-class MyHomePage extends StatefulWidget {
+class Uploader extends StatefulWidget {
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<Uploader> {
   File imageFile;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool uploaded=false;
+  navigate()async{
+    await Teacherformation();
+    setState(() {
+      fill=false;
+    });
+    Navigator.push(scaffoldKey.currentContext, SlideRightRoute(page: TeacherProfilePage()));
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -93,7 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           new IconButton(
             icon:uploaded?Icon(Icons.check_circle,color: Colors.green,): Icon(Icons.file_upload,color: Colors.white,),
-            onPressed:uploaded? null:_uploadImage,
+            onPressed:uploaded? null:() {
+              _uploadImage();
+              navigate();
+            },
             tooltip: 'آپلود عکس',
           ),
           new IconButton(
@@ -141,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Strings strings=new Strings();
     String username = await getusername();
     String user = await gettype();
-    String token= await getToken();
+    String token= await getToken(true);
     var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     var length = await imageFile.length();
 

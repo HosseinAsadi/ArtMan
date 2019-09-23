@@ -10,20 +10,12 @@ class SportField extends StatefulWidget {
 class _SportFieldState extends State<SportField> {
 
 
-
-
-  @override
-  void initState() {
-    super.initState();
-    getCategories();
-  }
   Future<Null> onWillPop() {
     Navigator.pushNamed(context, "/TeacherProfilePage");
   }
   @override
   Widget build(BuildContext context) {
 
-    print(muscles.length);
     return new WillPopScope(
         onWillPop: onWillPop,
         child: Scaffold(
@@ -46,14 +38,14 @@ class _SportFieldState extends State<SportField> {
             fit: BoxFit.cover,
           ),
         ),
-        child:complateloadcategory? Center(
+        child: Center(
         child:Center(
         child: Container(
     width: 200,
     child:  BuildGrid(200.0,1.0,3.0,250.0,3,8,feilds,
       Color(0xFFF1C60D),Colors.green,)),),
-      ):Center(child: CircularProgressIndicator(),),),
+      ),
 
-        ));
+      )));
   }
 }

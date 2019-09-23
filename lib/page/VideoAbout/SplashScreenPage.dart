@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'package:art_man/components/Animation/ScaleRoutePage.dart';
 import 'package:art_man/components/Networking/CheckConnection.dart';
 import 'package:art_man/components/Networking/SendAnalyzeResult.dart';
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/GetPing.dart';
+import 'package:art_man/components/Utility/GetTeacherProfile.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/page/NavigationPages/Teacher/Pages.dart';
+import 'package:art_man/page/NavigationPages/Teacher/Profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +20,7 @@ class MySplashScreen extends State<SplashScreenPage> {
   Timer _timer;
   int _start = 3;
   bool showError = false;
+
   bool isconnect,state,complete=false;
   String type;
   Color color=Colors.white;
@@ -23,20 +28,15 @@ class MySplashScreen extends State<SplashScreenPage> {
   @override
   void initState() {
     super.initState();
-    getpinge();
+    getteacherprofileinfo();
+
     startTimer();
     connection();
     _getsignstate();
-    gettypee();
+
   }
 
-  getpinge()async {
-    String ping = await getping();
-    print(ping);
-    if (ping != null) {
-      print("سرور در دسترس نیست");
-    }
-  }
+
   _getsignstate() async {
     var stat= await signState();
     setState(() {
@@ -44,28 +44,39 @@ class MySplashScreen extends State<SplashScreenPage> {
     });
   }
 
-  gettypee() async {
+  getteacherprofileinfo()async
+  {
     var typ = await gettype();
     setState(() {
       type=typ;
     });
-  }
+    await Teacherformation();
+    if(typ=="teachers"&& !teacherProfileIsFill ){
+      await Teacherformation();
+      setState(() {
+        teacherProfileIsFill=true;
+      });
+    }
 
-  void startTimer() {
+
+  }
+  void startTimer() async{
     const oneSec = const Duration(seconds: 1);
+
     _timer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
-            () {
+            ()  {
               if (_start < 1) {
                 timer.cancel();
                 if (isconnect) {
                   if (state) {
-                    Navigator.pushNamed(
+
+                    Navigator.push(
                         context,
                         type == "teachers"
-                            ? "/TeacherProfilePage"
-                            : "/Profile");
+                            ?ScaleRoute(page: Pages())
+                            : ScaleRoute(page: Profile()));
                   } else {
                     Navigator.pushNamed(context, "/FirstLogin");
                   }
@@ -106,12 +117,12 @@ class MySplashScreen extends State<SplashScreenPage> {
     return Scaffold(
         body: (_timer.isActive || !complete)
             ? Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/background.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -120,12 +131,7 @@ class MySplashScreen extends State<SplashScreenPage> {
                 ))
             : showError
                 ? Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
+
                     child: Center(
 
                       child:Column(
@@ -166,7 +172,9 @@ class MySplashScreen extends State<SplashScreenPage> {
                               ),
                             )
                           ),
-                          Container(child: Text("شبکه در دسترس نیست لطفا دوباره تلاش کنید",style: TextStyle(
+                          Container(
+                            padding: EdgeInsets.all(7),
+                            child: Text("شبکه در دسترس نیست لطفا دوباره تلاش کنید",style: TextStyle(
                             color: Colors.white,fontSize: 17
                           ),),)
                         ],
@@ -174,12 +182,6 @@ class MySplashScreen extends State<SplashScreenPage> {
                     ),
                   )
                 : Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
                     child: Center(
                       child: Text(
                         "یک مشکل در روند اجرای برنامه است",

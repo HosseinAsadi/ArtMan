@@ -12,7 +12,6 @@ class ListViewGenerator extends StatefulWidget {
   Color color;
   double radius;
   String id;
-
   ListViewGenerator(this.newlistsearch,
       {this.route, this.color, this.radius, this.id});
 
@@ -64,12 +63,16 @@ class _ListViewGeneratorState extends State<ListViewGenerator> {
              );
               },
               leading: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
                 width: 40,
                 height: 40,
                 child: ClipRRect(
                   child: "" == "${newlistsearch[index].imageprofile}"
-                      ? Image.asset("assets/images/morabi.jpeg")
-                      : Image.network("${newlistsearch[index].imageprofile}"),
+                      ? Image.asset("assets/images/morabi.png")
+                      : Image.network("${strings.baseurl}/images/users/${newlistsearch[index].imageprofile}"),
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 ),
               ),

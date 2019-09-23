@@ -6,18 +6,18 @@ class ImageDialog extends StatelessWidget {
   ImageDialog(this.image);
   @override
   Widget build(BuildContext context) {
-  print("jhjhjhj${strings.baseurl}/images/analyze/${getAnalyzeAnswer("front")}");
-      return  Container(
-       height: 100,
+
+      return  Flexible(
+       flex: 100,
         child: GestureDetector(
 
-          child:  Image.network(image),
+          child:  Container(margin: EdgeInsets.all(2), child:Image.network(image) ,),
           onTap: (){
             showDialog(
                 context: context,
                 builder: (_) => new AlertDialog(
                   contentPadding: EdgeInsets.all(0.0),
-                  content: Card(child: Container(height: 400,child:  Image.network(image,fit: BoxFit.fill,),),),
+                  content: Card(child: Container(child:  Image.network(image,),),),
                 )
             );
           },

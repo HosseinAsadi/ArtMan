@@ -1,3 +1,4 @@
+import 'package:art_man/components/Animation/RightSlidePage.dart';
 import 'package:art_man/components/Utility/Categorylist.dart';
 import 'package:art_man/page/SportPlan/MuscleGroupList.dart';
 import 'package:art_man/page/lists/MovesList.dart';
@@ -36,10 +37,11 @@ class _BuildGridState extends State<BuildGrid> {
       this.crossAxisSpacing, this.width, this.counte, this.padding,
       this.list, this.bottomColor, this.fontColor);
 
-
-
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      builded=true;
+    });
     ListTile _listTile=new ListTile(list.length,bottomColor,list,fontColor,
     width,padding,context);
 
@@ -76,21 +78,20 @@ class ListTile {
             state="muscle";
             print(state);
             fieldid=i.toString();
-            Navigator.push(context, MaterialPageRoute(builder: (contex)=>MuscleGroupList()));
+            Navigator.push(context, SlideRightRoute(page: MuscleGroupList()));
             return;
           }
           if(state=="muscle"){
             state="tools";
-            print(state);
+            print("state when click on muscles  "+state);
             muscleid=i.toString();
-            Navigator.push(context, MaterialPageRoute(builder: (contex)=>MuscleGroupList()));
+            Navigator.push(context, SlideRightRoute(page: MuscleGroupList()));
             return;
-
           }
           if(state=="tools"){
             print(state);
             toolid=i.toString();
-            Navigator.push(context, MaterialPageRoute(builder: (contex)=>ListMoves()));
+            Navigator.push(context, SlideRightRoute(page:ListMoves()));
             return;
 
           }

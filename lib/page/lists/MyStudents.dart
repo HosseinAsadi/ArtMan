@@ -1,69 +1,54 @@
 
 import 'package:art_man/components/Networking/getListOfStudents.dart';
+import 'package:art_man/components/Utility/StudentInfo.dart';
 
 import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
 import 'package:art_man/page/lists/LisviewGenerator.dart';
 import 'package:flutter/material.dart';
 
 class MyStudents extends StatefulWidget {
-  List<String> userslist;
-  MyStudents({Key key, @required this.userslist}) : super(key: key);
+
 
   @override
-  _StateMyStudents createState() => _StateMyStudents(userslist);
+  _StateMyStudents createState() => _StateMyStudents();
 }
 
 class _StateMyStudents extends State<MyStudents> {
-  List<String> userslist;
-  bool complete=false;
-  _StateMyStudents(this.userslist);
+  List<TeacherInfo> stdInfo=studentsInfo;
+  bool complete=true;
+
   String username;
 
-  List<TeacherInfo> studentsInfo=new List();
 
-  getTeacherInfo()async{
-    UsersList usersList=await fetchUsersList();
-    setState(() {
-      for(int i=0;i<usersList.result.length;i++){
-        for(int j=0;j<userslist.length;j++){
-          if(usersList.result[i].username==userslist[j])
-          {
-            TeacherInfo studentInfo=new TeacherInfo();
-            studentInfo.username= usersList.result[i].username;
-            studentInfo.name= usersList.result[i].first_name;
-            studentInfo.imageprofile= usersList.result[i].profile_photo;
-            studentsInfo.add(studentInfo);
-          }
-        }
-
-      }
-
-      complete=true;
-    });
-
+  Future<Null> onWillPop() {
+    Navigator.pushNamed(context, "/TeacherProfilePage");
   }
-
-
-  @override
-  void initState() {
-    super.initState();
-    getTeacherInfo();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: complete? studentsInfo.length==0?Center(
+    return new WillPopScope(
+        onWillPop: onWillPop,
+        child: Scaffold(
+      body: complete? stdInfo.length==0?Center(
         child: Container(child: Text("هیچ هنرجویی شما را به عنوان مربی انتخاب نکرده است",style:
           TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
       ):Container(
+
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
         height: MediaQuery.of(context).size.height,
-        child: ListViewGenerator(studentsInfo),
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: ListViewGenerator(stdInfo),
+        )
       ):Center(
         child: CircularProgressIndicator(),
       )
       ,
-    );
+        ));
   }
 }
 

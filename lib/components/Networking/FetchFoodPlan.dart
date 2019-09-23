@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 Future<MyPlan> FetchFoodPlan(username,userType) async {
   MyPlan myplan;
   Strings stings = new Strings();
-  String token = await getToken();
+  String token = await getToken(true);
   print(token);
 print("${stings.baseurl}/foodPlan/$userType/$username");
   final response = await http.get(
@@ -109,11 +109,11 @@ class Khorak {
 
   factory Khorak.fromJson(Map jsonMap) {
     return new Khorak._(
-      eat: jsonMap['eat'],
+      eat: jsonMap['name'],
       number: jsonMap['number'],
       unit: jsonMap['unit'],
     );
   }
 }
 int list=1;
-int resultindex=0,planindex=0,mealindex=0,length;
+int resultindex=0,planindex=0,mealindex=0,length,sportlength;

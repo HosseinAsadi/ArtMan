@@ -64,7 +64,7 @@ factory Muscles.fromJson(Map jsonMap) {
 
 Future<Categories> fetchCategories(url) async {
   Categories information;
-  String token=await getToken();
+  String token=await getToken(false);
   final response = await http.get(url,headers: {"token":token});
   if (response.statusCode == 200) {
     print("connection to fetch categories is ok");

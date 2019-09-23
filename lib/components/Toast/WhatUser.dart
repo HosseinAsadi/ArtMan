@@ -3,6 +3,8 @@ import 'package:art_man/components/Networking/SendFoodPlan.dart';
 import 'package:art_man/components/Networking/SendPlanSport.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
+import 'package:art_man/components/Utility/Classroom.dart';
+import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,9 @@ class _WhatUserState extends State<WhatUser> {
             padding: EdgeInsets.all(4),
             child: Text(typesend=="pattern"?"یک نام برای الگوی خود انتخاب کنید":
               "نام کاربری هنرجویی را که می خواهید به آن برنامه ارسال کنید را وارد نمایید",
-              style: TextStyle(color: Colors.black, fontSize: 16),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.black, fontSize: 13),
             ),
           ),
           InputText(typesend=="pattern"?"نام الگو ...":"نام هنرجو ...","useridd",),
@@ -50,107 +54,180 @@ class _WhatUserState extends State<WhatUser> {
   button( color) {
     return GestureDetector(
       onTap: ()async {
+
         if(typeplan=="ورزشی"){
-          if(typesend=="send") {
-            Strings strings = new Strings();
-            String username = await getusername();
-            print("${strings.baseurl}/sportPlan/addSportPlan/${Kelid.getter(
-                "useridd")}/$username");
-            String resultt = await SendPlanSport(
-                "${strings.baseurl}/sportPlan/addSportPlan/${Kelid.getter("useridd")}/$username");
-            if (resultt == "200" || resultt == "201")
-              ShowToast(
-                  "برنامه با موفقیت ارسال شد", Colors.green, Colors.white);
-            else if (resultt == "401")
-              ShowToast("کاربری با آیدی وارد شده وجود ندارد", Colors.red,
-                  Colors.white);
-            else if (resultt == "404")
-              ShowToast(
-                  "کاربر وارد شده یا وجود ندارد یا در لیست هنرجویان شما نیست",
-                  Colors.red, Colors.white);
+          bool issend=true;
+            for(int i=0;i<classes.length;i++){
+              if(classes[i].moves.length==0){
+                ShowToast("برنامه شما جهت ارسال ناقص است",Colors.red,
+                    Colors.white);
+                setState(() {
+                  issend=false;
+                  Navigator.pop(context);
+                });
+              }
+              for(int j=0;j<classes[i].moves.length;j++){
+                if(!classes[i].moves[j].optionfilled){
+                  ShowToast("برنامه شما جهت ارسال ناقص است",Colors.red,
+                      Colors.white);
 
-            setState(() {
-              Navigator.pop(context);
-            });
+                }
+              }
+
+            }
+            if(issend) {
+              if(typesend=="send") {
+              Strings strings = new Strings();
+              String username = await getusername();
+              print("${strings.baseurl}/sportPlan/addSportPlan/${Kelid.getter(
+                  "useridd")}/$username");
+              String resultt = await SendPlanSport(
+                  "${strings.baseurl}/sportPlan/addSportPlan/${Kelid.getter(
+                      "useridd")}/$username");
+              if (resultt == "200" || resultt == "201")
+                ShowToast(
+                    "برنامه با موفقیت ارسال شد", Colors.green, Colors.white);
+              else if (resultt == "401")
+                ShowToast("کاربری با آیدی وارد شده وجود ندارد", Colors.red,
+                    Colors.white);
+              else if (resultt == "404")
+                ShowToast(
+                    "کاربر وارد شده یا وجود ندارد یا در لیست هنرجویان شما نیست",
+                    Colors.red, Colors.white);
+
+
+            }
+            if(typesend=="pattern") {
+              String username = await getusername();
+
+              Strings strings = new Strings();
+              print( "${strings.baseurl}/sportPlan/addSportPlanT/${Kelid.getter("useridd")}/$username");
+              String resultt = await SendPlanSport(
+                  "${strings.baseurl}/sportPlan/addSportPlanT/${Kelid.getter("useridd")}/$username");
+              if (resultt == "200" || resultt == "201")
+                ShowToast(
+                    "برنامه به موفقیت به عنوان الگو ذخیره شد", Colors.green, Colors.white);
+
+              else if (resultt == "404")
+                ShowToast(
+                    "یک چیز  در برنامه ورزشی غلط است",
+                    Colors.red, Colors.white);
+
+
+            }
+              if(typesend=="save") {
+                Strings strings = new Strings();
+                String username = await getusername();
+                print("${strings.baseurl}/sportPlan/addSportPlan/temp/$username/${Kelid.getter("useridd")}");
+                String resultt = await SendPlanSport(
+                    "${strings.baseurl}/sportPlan/addSportPlan/temp/$username/${Kelid.getter("useridd")}");
+                if (resultt == "200" || resultt == "201")
+                  ShowToast(
+                      "برنامه به صورت موقت ذخیره شد", Colors.green, Colors.white);
+                else if (resultt == "401")
+                  ShowToast("کاربری با آیدی وارد شده وجود ندارد", Colors.red,
+                      Colors.white);
+                else if (resultt == "404")
+                  ShowToast(
+                      "کاربر وارد شده یا وجود ندارد یا در لیست هنرجویان شما نیست",
+                      Colors.red, Colors.white);
+                else{
+                  ShowToast(
+                      "کاربر وارد شده یا  لیست هنرجویان شما نیست",
+                      Colors.red, Colors.white);
+                }
+
+
+              }
           }
-          if(typesend=="save") {
-            Strings strings = new Strings();
-            String username = await getusername();
-            print("${strings.baseurl}/sportPlan/addSportPlan/temp/$username/${Kelid.getter("useridd")}");
-            String resultt = await SendPlanSport(
-                "${strings.baseurl}/sportPlan/addSportPlan/tmp/$username/${Kelid.getter("useridd")}");
-            if (resultt == "200" || resultt == "201")
-              ShowToast(
-                  "برنامه به صورت موقت ذخیره شد", Colors.green, Colors.white);
-            else if (resultt == "401")
-              ShowToast("کاربری با آیدی وارد شده وجود ندارد", Colors.red,
-                  Colors.white);
-            else if (resultt == "404")
-              ShowToast(
-                  "کاربر وارد شده یا وجود ندارد یا در لیست هنرجویان شما نیست",
-                  Colors.red, Colors.white);
 
-            setState(() {
-              Navigator.pop(context);
-            });
-          }
 
-          if(typesend=="pattern") {
-            Strings strings = new Strings();
-             print( "${strings.baseurl}/sportPlan/addSportPlanT/${Kelid.getter("useridd")}");
-            String resultt = await SendPlanSport(
-                "${strings.baseurl}/sportPlan/addSportPlanT/${Kelid.getter("useridd")}");
-            if (resultt == "200" || resultt == "201")
-              ShowToast(
-                  "برنامه به موفقیت به عنوان الگو ذخیره شد", Colors.green, Colors.white);
 
-            else if (resultt == "404")
-              ShowToast(
-                  "یک چیز  در برنامه ورزشی غلط است",
-                  Colors.red, Colors.white);
-
-            setState(() {
-              Navigator.pop(context);
-            });
-          }
         }
         else{
-          if(typesend=="send"){
-            Strings strings=new Strings();
-            String username=await getusername();
-
-            String result=  await SendPlanFood(
-                "${strings.baseurl}/foodPlan/addFoodPlan/${Kelid.getter("useridd")}/$username");
-            if(result=="200" || result=="201")
-              ShowToast("برنامه به صورت موقت ذخیره شد",Colors.green,Colors.white);
-            else if(result=="401" )
-              ShowToast("کاربری با آیدی وارد شده وجود ندارد",Colors.red,Colors.white);
-            else if(result=="404")
-              ShowToast("کاربر وارد شده یا وجود ندارد یا در لیست هنرجویان شما نیست",Colors.red,Colors.white);
-
-            else{
-              ShowToast("لطفا همه برنامه ها را به طور کامل پر کنید",Colors.red,Colors.white);
-            }
-          }
-          if(typesend=="pattern") {
-            Strings strings = new Strings();
-            print("${strings.baseurl}/foodPlan/addFoodPlanT/${Kelid.getter("useridd")}");
-            String resultt = await SendPlanFood(
-                "${strings.baseurl}/foodPlan/addFoodPlanT/${Kelid.getter("useridd")}");
-            if (resultt == "200" || resultt == "201")
-              ShowToast(
-                  "برنامه  غذایی با موفقیت به عنوان الگو ذخیره شد", Colors.green, Colors.white);
-
-            else if (resultt == "404")
-              ShowToast(
-                  "یک چیز  در برنامه غذایی غلط است",
-                  Colors.red, Colors.white);
-
+          bool issend=true;
+          if(plans.length==0){
             setState(() {
-              Navigator.pop(context);
+              issend=false;
             });
           }
+          for(int i=0;i<plans.length;i++){
+            if(plans[i].Meals.length==0){
+              setState(() {
+                issend=false;
+              });
+            }
+            for(int j=0;j<plans[i].Meals.length;j++){
+              if(plans[i].Meals[j].Foods.length==0){
+                setState(() {
+                  issend=false;
+                });
+              }
+              for(int k=0;k<plans[i].Meals[j].Foods.length;k++){
+                if(plans[i].Meals[j].Foods[k].unit==null || plans[i].Meals[j].Foods[k].namber==null ||
+                plans[i].Meals[j].Foods[k].name==null){
+                  setState(() {
+                    issend=false;
+                  });
+                }
+              }
+            }
+          }
+          if(issend==false){
+            ShowToast("برنامه شما جهت ارسال ناقص است",Colors.red,
+                Colors.white);
+
+          }
+          if(issend) {
+            if (typesend == "send") {
+              Strings strings = new Strings();
+              String username = await getusername();
+
+              String result = await SendPlanFood(
+                  "${strings.baseurl}/foodPlan/addFoodPlan/${Kelid.getter(
+                      "useridd")}/$username");
+              if (result == "200" || result == "201")
+                ShowToast(
+                    "برنامه با موفقیت ارسال شد", Colors.green, Colors.white);
+              else if (result == "401")
+                ShowToast("کاربری با آیدی وارد شده وجود ندارد", Colors.red,
+                    Colors.white);
+              else if (result == "404")
+                ShowToast(
+                    "کاربر وارد شده یا وجود ندارد یا در لیست هنرجویان شما نیست",
+                    Colors.red, Colors.white);
+              else {
+                ShowToast(
+                    "لطفا همه برنامه ها را به طور کامل پر کنید", Colors.red,
+                    Colors.white);
+              }
+            }
+            if (typesend == "pattern") {
+              Strings strings = new Strings();
+              String username = await getusername();
+
+              print("${strings.baseurl}/foodPlan/addFoodPlanT/${Kelid.getter(
+                  "useridd")}/$username");
+              String resultt = await SendPlanFood(
+                  "${strings.baseurl}/foodPlan/addFoodPlanT/${Kelid.getter(
+                      "useridd")}/$username");
+              if (resultt == "200" || resultt == "201")
+                ShowToast(
+                    "برنامه  غذایی با موفقیت به عنوان الگو ذخیره شد",
+                    Colors.green, Colors.white);
+              else if (resultt == "404")
+                ShowToast(
+                    "یک چیز  در برنامه غذایی غلط است",
+                    Colors.red, Colors.white);
+
+
+            }
+          }
         }
+        setState(() {
+
+          Navigator.pop(context);
+        });
       },
       child:Container(
         alignment: Alignment.center,

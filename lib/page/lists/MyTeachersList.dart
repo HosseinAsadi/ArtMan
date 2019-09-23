@@ -1,6 +1,5 @@
 import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
 import 'package:art_man/components/Networking/FetchTeachersList.dart';
-import 'package:art_man/components/Networking/getListOfStudents.dart';
 import 'package:art_man/components/Utility/GetTeachersList.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:art_man/components/Utility/StdInfo.dart';
@@ -38,6 +37,7 @@ class _StateMyTeachers extends State<MyTeachers> {
                 teacher.username = info.result[i].MyTeachers[j].username;
                 teacher.name = teachers.result[k].firstname;
                 teacher.imageprofile = teachers.result[k].profilephoto;
+                print(teacher.imageprofile);
                 myTeachers.add(teacher);
               }
             }

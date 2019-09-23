@@ -3,7 +3,11 @@ import 'package:art_man/components/InputTexts/InputPass.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Utility/Function.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/page/profile/StudentProfile.dart';
 import 'package:flutter/material.dart';
+
+import 'SignUpPage.dart';
+import 'SignUpTeacher.dart';
 
 class MyCustomForm extends StatefulWidget {
   @override
@@ -26,7 +30,7 @@ class SingInPage extends State<MyCustomForm> {
    });
   signup=new  Button(
        [],
-       type == "teachers" ? '/Register' : "/signuppage",
+       type == "teachers" ? Register() : SignUp(),
        "ثبت نام",
        40.0,
        20.0,
@@ -59,13 +63,16 @@ class SingInPage extends State<MyCustomForm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   text("نام کاربری :"),
-                InputText("نام کاربری خود را وارد نمایید ...", "username"),
+                InputText("نام کاربری خود را وارد نمایید ...", "username",textAlign: TextAlign.center,),
                   text("رمز عبور :"),
                 InputPass("password", "password"),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, "/ForgetPass");
+                        },
                         child: Column(
                           children: <Widget>[
                             Text(
@@ -86,7 +93,7 @@ class SingInPage extends State<MyCustomForm> {
                       Flexible(
                         flex: 1,
                         child: Button(["username", "password"],
-                           "/Profile",
+                          ProfilePage(),
                             "ورود",
                             40.0,
                             20.0,

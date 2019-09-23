@@ -3,6 +3,8 @@ import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/RadioButtons/RadioButton.dart';
 import 'package:flutter/material.dart';
 
+import 'analyzeSicks.dart';
+
 class StdAnalyzePage4 extends StatefulWidget {
   @override
   _StdAnalyzePage4State createState() => _StdAnalyzePage4State();
@@ -45,7 +47,7 @@ class _StdAnalyzePage4State extends State<StdAnalyzePage4> {
   );
   Button continuebtn = new Button(
     ["alergy","digestion","abnormalcy"],
-    "/Analyze5",
+    Analyze5(),
     "ادامه آنالیز",
     40.0,
     30.0,

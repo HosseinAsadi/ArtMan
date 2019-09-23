@@ -1,5 +1,7 @@
+import 'package:art_man/components/Lists/BuildGrid.dart';
 import 'package:art_man/components/Networking/FetchCategories.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:flutter/material.dart';
 
 
 getCategories()async{
@@ -32,7 +34,7 @@ Strings strings=new Strings();
 
     }
 
-complateloadcategory=true;
+
 }
 
 
@@ -44,7 +46,8 @@ List<Group> muscles=new List();
 List<Group> tools=new List();
 
 String fieldid,muscleid,toolid,state="fields";
-bool complateloadcategory=false;
+bool builded=false;
+
 class Group{
   String fa;
   String en;

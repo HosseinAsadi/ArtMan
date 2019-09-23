@@ -5,27 +5,30 @@ import 'AnalyzeAwnser.dart';
 
 class Branch extends StatefulWidget {
   String index;
+  String username;
   String date;
 
-  Branch({Key key, this.index, this.date}) : super(key: key);
+  Branch({Key key, this.index, this.date,this.username}) : super(key: key);
 
   @override
-  _BranchState createState() => _BranchState(index, date);
+  _BranchState createState() => _BranchState(index, date,username);
 }
 
 class _BranchState extends State<Branch> {
   String index;
+  String username;
+
   int weight, hr, tee;
   double bmi, whr, bai, bf;
   String date;
   bool complete = false;
 
-  _BranchState(this.index, this.date);
+  _BranchState(this.index, this.date,this.username);
 
-  String stdUsername;
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body:Center(
             child: Container(
@@ -51,6 +54,7 @@ class _BranchState extends State<Branch> {
                           MaterialPageRoute(
                               builder: (context) => AnalyzeAnswer(
                                     index: index,
+                                username: username,
                                   ))),
                       Button(
                           "جواب آنالیز",
@@ -58,6 +62,7 @@ class _BranchState extends State<Branch> {
                               builder: (context) => AnalyzeResult(
                                     index: index,
                                     date: date,
+                                username: username,
                                   ))),
                     ],
                   ),

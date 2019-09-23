@@ -1,4 +1,7 @@
+import 'package:art_man/components/Animation/RightSlidePage.dart';
+import 'package:art_man/components/Animation/ScaleRoutePage.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
+import 'package:art_man/components/InputTexts/PlanInputText.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
@@ -28,11 +31,39 @@ class _MakeMealsState extends State<MakeMeals> {
     });
   }
 
-
+  removemeal(index){
+    setState(() {
+      plans[int.parse(numberplan)].Meals.removeAt(index);
+    });
+  }
 
   Widget _buildProductItem(BuildContext context, int number) {
 
-    return Stack(
+    return  InkWell(
+
+      onLongPress: () {
+        showDialog(
+          context: context,
+          builder: (_) =>
+          new AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              contentPadding: EdgeInsets.all(0.0),
+              content: VerifyDialog(
+                "آیا از حذف کردن این وعده مطمئن هستید؟",id: "remove_meal",
+              callback: this.removemeal,index: number,)
+          ),
+
+        );
+
+      },
+
+
+      onTap: (){
+        setIndex(number);
+        Navigator.push(context, SlideRightRoute (page: FoodsPage(numberplan: numberplan,numbermeal: number.toString(),)));
+      },
+      child: Stack(
       children: <Widget>[
         Container(
           height: 110,
@@ -43,29 +74,7 @@ class _MakeMealsState extends State<MakeMeals> {
               Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(15))),
 
-          child: InkWell(
 
-            onLongPress: () {
-              showDialog(
-                context: context,
-                builder: (_) =>
-                new AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                    contentPadding: EdgeInsets.all(0.0),
-                    content: VerifyDialog(
-                      "آیا از حذف کردن این وعده مطمئن هستید؟",id: "remove_meal",)
-                ),
-
-              );
-
-            },
-
-
-            onTap: (){
-              setIndex(number);
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsPage(numberplan: numberplan,numbermeal: number.toString(),)));
-            },
 
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,12 +92,15 @@ class _MakeMealsState extends State<MakeMeals> {
                   Container(
                     padding: EdgeInsets.all(7),
                     alignment: Alignment.bottomRight,
-                    child: InputText(
+                    child: PlanInputText(
                       "نام وعده ...",
                       "meal_name",
+                      "غذایی",
                       margintop: 8.0,
                       height: 30.0,
                       hintsize: 16,
+                      foodPlanIndex: int.parse(numberplan),
+                      mealIndex: number,
                       brdercolor: Colors.white.withOpacity(0.0),
                       value: plans[int.parse(numberplan)].Meals[number].name,
 
@@ -99,9 +111,9 @@ class _MakeMealsState extends State<MakeMeals> {
 
                 ]),
           ),
-        ),
+  ] ),
 
-      ],
+
     ) ;
 
   } //element of make list
@@ -111,7 +123,6 @@ class _MakeMealsState extends State<MakeMeals> {
 
 @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     createnewMeal();
   }
@@ -132,8 +143,6 @@ class _MakeMealsState extends State<MakeMeals> {
         Container(
           margin: EdgeInsets.only(top: 20,left: 12,right: 12),
           height: height*(plans[int.parse(numberplan)].Meals.length),
-
-
           child: new  ListView.builder(
             reverse: false,
             itemBuilder: _buildProductItem,
@@ -148,27 +157,10 @@ class _MakeMealsState extends State<MakeMeals> {
 Adder(text){
     return  InkWell(
       onTap: () async{
-        setState(() {
-
           setState(() {
-               Validator  validator=new Validator();
-            if (validator.isvalid(["meal_name"])) {
-              Meale meal=new Meale();
-
-              meal.name=Kelid.getter("meal_name");
-              meal.Foods=plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1].Foods;
-              plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1]=meal;//fix prevuos meal in this plan
               Meale newMeale=new Meale();
               plans[int.parse(numberplan)].Meals.add(newMeale);
-              Kelid.setter("meal_name", "");
-
-            }
-
-            else
-              ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
-
           });
-        });
       },
       child:Container(
       alignment: Alignment(0, 0),

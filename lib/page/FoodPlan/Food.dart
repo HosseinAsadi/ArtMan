@@ -1,19 +1,13 @@
 import 'dart:convert';
 
+import 'package:art_man/components/Animation/RightSlidePage.dart';
+import 'package:art_man/components/Animation/ScaleRoutePage.dart';
 import 'package:art_man/components/Buttons/Button.dart';
-import 'package:art_man/components/InputTexts/InputText.dart';
+
 import 'package:art_man/components/Lists/MakeFoodList.dart';
-import 'package:art_man/components/Lists/MakeMealsList.dart';
-import 'package:art_man/components/Networking/SendPlanSport.dart';
-import 'package:art_man/components/RadioButtons/RadioButton.dart';
-import 'package:art_man/components/Texts/Strings.dart';
-import 'package:art_man/components/Toast/ShowToast.dart';
-import 'package:art_man/components/Utility/FoodPlanClasses.dart';
+
 import 'package:art_man/components/Utility/Keys.dart';
-import 'package:art_man/components/Utility/SharedPreferences.dart';
-import 'package:art_man/components/Utility/Validator.dart';
-import 'package:art_man/components/Widgets/DropDown.dart';
-import 'package:art_man/components/Lists/MakeList.dart';
+
 import 'package:flutter/material.dart';
 
 import 'Meal.dart';
@@ -36,26 +30,10 @@ class _FoodsPageState extends State<FoodsPage> {
   callbacksaveEdits() {
     setState(() {
     Kelid.setter("saveeditonfood", "ok");
-
-    Validator validator = new Validator();
-      if (validator
-          .isvalid(["number_Of_khorak", "unit_Of_khorak", "khorak_name"]) ) {
-        Foode food = new Foode();
-        food.name = Kelid.getter("khorak_name");
-        food.namber = Kelid.getter("number_Of_khorak");
-        food.unit = Kelid.getter("unit_Of_khorak");
-        plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods[
-        plans[int.parse(numberplan)].Meals[int.parse(numbermeal)].Foods.length-1
-        ]=food;
-        Kelid.setter("khorak_name", "");
-        Kelid.setter("number_Of_khorak", "");
-        Kelid.setter("unit_Of_khorak", "");
-
-      }
     Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (contex) => MealsPage(
+        SlideRightRoute (
+            page:  MealsPage(
               numberplan: numberplan,
             )));
     });
@@ -64,8 +42,8 @@ class _FoodsPageState extends State<FoodsPage> {
   Future<Null> onWillPop() {
     Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (contex) => MealsPage(
+        SlideRightRoute(
+            page:  MealsPage(
                   numberplan: numberplan,
                 )));
    // ShowToast("لیست غذا های این وعده ثبت نشد", Colors.red, Colors.white);
@@ -105,7 +83,7 @@ class _FoodsPageState extends State<FoodsPage> {
                           MakeFoodList(numberplan, numbermeal),
                           new Button(
                             ["saveeditonfood"],
-                            "/MealsPage",
+                            MealsPage(),
                             "ثبت",
                             30.0,
                             15.0,

@@ -1,5 +1,7 @@
+import 'package:art_man/components/Animation/BottomSliderRoute.dart';
 import 'package:art_man/components/Networking/FetchLocation.dart';
 import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/Utility/TeacherStudents.dart';
 import 'package:art_man/componethosein/profile-button.dart';
 import 'package:art_man/page/lists/MyStudents.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:art_man/components/Networking/FetchStudentProfileInfo.dart';
 
 class StudentProfileReadOnly extends StatefulWidget {
   final String username;
+
 
   StudentProfileReadOnly({Key key, @required this.username}) : super(key: key);
 
@@ -20,6 +23,7 @@ class _StudentProfileReadOnlyState extends State<StudentProfileReadOnly> {
 
   String username;
   String name;
+
   String country;
   String city;
   String imagename;
@@ -55,8 +59,10 @@ class _StudentProfileReadOnlyState extends State<StudentProfileReadOnly> {
     _getInformation();
   }
   Future<Null> onWillPop() {
-   Navigator.push(context, MaterialPageRoute(builder: (contex)=>MyStudents()));
+
+    Navigator.push(context, BottomSliderRoute(page:MyStudents()));
   }
+
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
@@ -122,8 +128,12 @@ class _StudentProfileReadOnlyState extends State<StudentProfileReadOnly> {
                     )
                   ],
                 ),
-                ProfileButtone("آنالیزهای هنرجو", Icons.show_chart,
+                Container(
+                  margin: EdgeInsets.only(top: 20,right: 6,left: 6),
+                  child: ProfileButtone("آنالیزهای هنرجو", Icons.show_chart,
                     Colors.green[800], '/AnalyzeList',callback: this.callback,),
+                ),
+
               ],
             ),
           ))

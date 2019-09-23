@@ -8,6 +8,8 @@ import 'package:art_man/page/lists/MySelection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'SportField.dart';
+
 class ExtractSportName extends StatefulWidget {
   String currentmove;
   String currentclass;
@@ -252,7 +254,7 @@ class _ExtractSportNameState extends State<ExtractSportName> {
                                 Colors.grey),
                             new Button(
                               ["metr", "calary", "second", "repeat"],
-                              "/SportField",
+                              SportField(),
                               "تایید تمرین",
                               35.0,
                               20.0,

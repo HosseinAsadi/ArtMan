@@ -90,6 +90,7 @@ class P extends State<ProfilePage>{
   Widget setBackground() => Container(
 
     alignment: Alignment(1, 0),
+    padding: EdgeInsets.all(6),
     decoration: BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/images/background.png"),
@@ -102,19 +103,19 @@ class P extends State<ProfilePage>{
   Widget body() => ListView(
     // shrinkWrap: true,
     children: <Widget>[
-
       TopProfile(),
       RequestButton(Icons.search,"جستجوی مربی","جستحو کردن مربی در صورت نیاز شما", Color(0xFFEDC40A),"/SearchPage"),
 
       Container(margin: EdgeInsets.only(right:10,left: 10),child: Column(
         children: <Widget>[
-          ProfileButtone("قسمت مربیان", Icons.print, Colors.green[800], '/MyTeachers'),
-          ProfileButtone("برنامه های تمرینی/غذایی", Icons.print, Colors.lightGreen[700], '/PlanePage'),
-          ProfileButtone("آنالیزها", Icons.print, Colors.green[800], '/AnalyzeList'),
-          ProfileButton(
-              "خروج از حساب کاربری", Icons.ac_unit, Color(0xFF4B4F4B), "/")
+          ProfileButtone("قسمت مربیان", Icons.person, Colors.green[800], '/MyTeachers'),
+          ProfileButtone("برنامه های تمرینی/غذایی", Icons.developer_board, Colors.lightGreen[700], '/PlanePage'),
+          ProfileButtone("آنالیزها", Icons.show_chart, Colors.green[800], '/AnalyzeList'),
+          ProfileButton("خروج از حساب کاربری",
+              Icons.exit_to_app, Color(0xFF4B4F4B), "/")
         ],
-      ),)
+      ),
+      )
 
     ],
   );

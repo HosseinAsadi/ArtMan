@@ -42,7 +42,7 @@ class Result{
 
 Future<Moves> fetchMoves(url) async {
   Moves information;
-  String token=await getToken();
+  String token=await getToken(false);
   final response = await http.get(url,headers: {"token":token});
   if (response.statusCode == 200) {
     print("connection to fetch categories is ok");

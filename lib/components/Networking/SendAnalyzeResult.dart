@@ -56,7 +56,7 @@ class AnalyzeData {
   Future<int> uploader(teacher) async {
     Response response;
     String username=await getUserName();
-   String token=await getToken();
+   String token=await getToken(true);
     Dio dio = new Dio();
     dio.options.headers = {
       'token': token,

@@ -1,18 +1,15 @@
 import 'dart:convert';
 
+import 'package:art_man/components/Animation/RightSlidePage.dart';
+import 'package:art_man/components/Animation/ScaleRoutePage.dart';
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Lists/MakeMealsList.dart';
-import 'package:art_man/components/Networking/SendPlanSport.dart';
-import 'package:art_man/components/RadioButtons/RadioButton.dart';
-import 'package:art_man/components/Texts/Strings.dart';
+import 'package:art_man/components/RadioButtons/RadioDay.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/Keys.dart';
-import 'package:art_man/components/Utility/SharedPreferences.dart';
-import 'package:art_man/components/Utility/Validator.dart';
-import 'package:art_man/components/Widgets/DropDown.dart';
-import 'package:art_man/components/Lists/MakeList.dart';
+
 import 'package:art_man/page/SportPlan/PlanSport.dart';
 import 'package:flutter/material.dart';
 
@@ -27,48 +24,62 @@ class MealsPage extends StatefulWidget {
 class _MealsPageState extends State<MealsPage> {
   String numberplan;
   _MealsPageState(this.numberplan);
-
+List<RadioModel> radiodays=new List();
 
 
 callbackSaveEdits(){
   setState(() {
     Kelid.setter("save", "");
     if ( days.length!=0 ) {
-
-        Meale meal=new Meale();
-        meal.name=Kelid.getter("meal_name");
-        meal.Foods=plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1].Foods;
-        plans[int.parse(numberplan)].Meals[plans[int.parse(numberplan)].Meals.length-1]=meal;//fix prevuos meal in this plan
         plans[int.parse(numberplan)].des=Kelid.getter("food_plan_des");
         plans[int.parse(numberplan)].days=days;
         Kelid.setter("meal_name", "");
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>PlanSport(typeplan: "غذایی",)));
+        Navigator.push(context, SlideRightRoute (page: PlanSport(typeplan: "غذایی",)));
     }
 
     else
       ShowToast("لطفا همه ی فیلد ها را پر کنید",Colors.red,Colors.white);
-
-
-
-
-
-
   });
 }
+List<String> daysofWeek=["شنبه","یکشنبه","دوشنبه","سه شنبه","چهار شنبه","پنج شنبه","جمعه","خالی"];
+
+getradioModel(){
+  setState(() {
 
 
+  bool isit=false;
+  for(int j=0;j<8;j++){
+    RadioModel radioModel=RadioModel();
+    for(int i=0;i<plans[int.parse(numberplan)].days.length;i++){
 
+
+    if(plans[int.parse(numberplan)].days[i]==daysofWeek[j]){
+      radioModel.text=daysofWeek[j];
+      radioModel.isSelected=true;
+      isit=true;
+    }
+  }
+  if(!isit) {
+    radioModel.text = daysofWeek[j];
+    radioModel.isSelected = false;
+  }
+    isit=false;
+    radiodays.add(radioModel);
+}
+
+  });
+  print(radiodays.length);
+
+}
 
   @override
   void initState() {
     super.initState();
-
+    getradioModel();
   }
   Future<Null> onWillPop() {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+    Navigator.push(context, SlideRightRoute (page:
     PlanSport(typeplan: "غذایی",)));
-
-    print("back pressed runned");
   }
   @override
   Widget build(BuildContext context) {
@@ -105,8 +116,8 @@ callbackSaveEdits(){
                         children: <Widget>[
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            height: 50,
-                            child:CustomRadio(["شنبه","یکشنبه","دوشنبه","سه شنبه","چهار شنبه","پنج شنبه","جمعه","خالی"],"days",false),
+                            height: 30,
+                            child:RadioDay(radiodays,"days"),
                           ),
                           MakeMeals(numberplan),
                           InputText("توضیحات برنامه ...","food_plan_des",height: 100.0,
@@ -114,7 +125,7 @@ callbackSaveEdits(){
                           value: plans[int.parse(numberplan)].des,),
             new Button(
               ["save"],
-              "/",
+              MealsPage(),
               "ثبت",
               30.0,
               15.0,

@@ -8,23 +8,27 @@ import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Toast/ShowSnackbar.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Utility/RandomGenerator.dart';
+import 'package:art_man/components/Utility/SharedPreferences.dart';
 import 'package:flutter/material.dart';
 
 class SMSVerify extends StatefulWidget {
+  String veifycode;
+  SMSVerify({Key key,@required this.veifycode}):super(key:key);
   @override
   State<StatefulWidget> createState() {
-    return SMSV();
+    return SMSV(veifycode);
   }
 }
 
 class SMSV extends State<SMSVerify> {
+  SMSV(this.verifycode);
   double width=120.0;
   double height=40.0;
   String inputcode;
   var _formKey = GlobalKey<FormState>();
   var _scaffoldkey = GlobalKey<ScaffoldState>();
-  static String verifycode;
-
+   String verifycode;
+  String type;
   Widget ct = new Text(
     "کد‌تایید‌ثبت‌نام:",
     style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
@@ -34,14 +38,19 @@ class SMSV extends State<SMSVerify> {
   InputText _ctf = new InputText("کد تاییدیه را وارد نمایید..", "sms",keyboardtype: TextInputType.number,maxlenght: 5.0,);
 
 
-
-  sender() {
+gettypee()async{
+  String t= await gettype();
+  setState(() {
+    type=t;
+  });
+}
+  sender() async{
     Strings strings=new Strings();
 
     setState(() {
       verifycode = RandromGenerator.Generate().toString();
     });
-    Post.SendSmS(
+   String reply=await Post.SendSmS(
         "${strings.baseurl}/admin/sendSMS",
         json.encode({
           "code": verifycode,
@@ -52,8 +61,9 @@ class SMSV extends State<SMSVerify> {
   @override
   void initState() {
     super.initState();
-    sender();
-    print(verifycode);
+
+
+    gettypee();
   }
 
   @override
@@ -167,7 +177,10 @@ class SMSV extends State<SMSVerify> {
                       color: Colors.white,
                       fontSize: 13,
                       decoration: TextDecoration.underline)),
-              onTap: () {},
+              onTap: () {
+                Kelid.setter("phone", "");
+                Navigator.pushNamed(context,type=="teachers"? "/Register":"/signuppage");
+              },
             )
           ],
         ),

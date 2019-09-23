@@ -23,7 +23,7 @@ class CA extends State<CustomAppbar>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return AppBar(
-      title: Text(this._title),
+      title: Text(this._title,style: TextStyle(fontSize: 15),),
       leading: null, // location, in drawer location
 
       actions: <Widget>[

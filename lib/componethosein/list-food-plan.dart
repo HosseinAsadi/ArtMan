@@ -1,3 +1,4 @@
+import 'package:art_man/components/Lists/middle-food-plan.dart';
 import 'package:art_man/components/Networking/FetchFoodPlan.dart';
 import 'package:art_man/components/Networking/FetchSportPlansOfTeacher.dart';
 import 'package:art_man/page/SportPlan/list-session.dart';
@@ -31,19 +32,26 @@ class LFP extends State<ListFoodPlan> {
   }
   setlength(){
     if(typeplan=="غذایی"){
-      length=length=plan.result.length;
+      setState(() {
+        length=plan.result.length;
+
+      });
+
+
     }
     if(typeplan=="ورزشی"){
-      length=length=plansport.repeate;
+      sportlength=sportlength=plansport.repeate;
       print("ورزشی");
     }
+
   }
+
   @override
   Widget build(BuildContext context) {
-
+//
     return Expanded(
         child: ListView.builder(
-            itemCount: length, itemBuilder: _product)
+            itemCount:typeplan=="غذایی"? length:sportlength, itemBuilder: _product)
     );
   }
 
@@ -71,7 +79,6 @@ class LFP extends State<ListFoodPlan> {
       return weeks(index);
     }
    else if(levele2==2){
-        length=plansport.sessions.length;
       return classroom(index);
     }
 
@@ -82,11 +89,13 @@ class LFP extends State<ListFoodPlan> {
    return GestureDetector(
         onTap: (){
           setState(() {
+            length=plan.result[resultindex].plans.length;
             resultindex=index;
             list=2;
           });
         },
-        child:Container(
+        child:length==0?Center(child:Container(margin: EdgeInsets.all(10),child: Text("لیست برنامه های شما خالی است",
+        style: TextStyle(color: Colors.white),),),):Container(
           margin: EdgeInsets.only(left: 30, right: 30, top: 16),
           padding: EdgeInsets.only(left: 5, right: 5),
           height: 60,
@@ -123,8 +132,9 @@ class LFP extends State<ListFoodPlan> {
         onTap: (){
           setState(() {
             levele2=2;
+            sportlength=plansport.sessions.length;
             weekindex=index;
-            length=plansport.sessions.length;
+
           });
         },
         child:Container(
@@ -200,9 +210,12 @@ class LFP extends State<ListFoodPlan> {
         ) );
   }
   plans(index){
-   return GestureDetector(
+
+
+    return GestureDetector(
         onTap: (){
           setState(() {
+            length=plan.result[resultindex].plans[planindex].meals.length;
             planindex=index;
             list=3;
           });
@@ -214,7 +227,8 @@ class LFP extends State<ListFoodPlan> {
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(15)
           ),
-          child: Row(
+          child:
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Column(
@@ -236,12 +250,15 @@ class LFP extends State<ListFoodPlan> {
               Icon(Icons.arrow_forward_ios, color: Colors.grey,)
             ],
           ),
+
+
         ) );
   }
   meals(index){
    return GestureDetector(
         onTap: (){
           setState(() {
+            length=plan.result[resultindex].plans[planindex].meals[mealindex].khoraks.length;
             mealindex=index;
             list=4;
           });

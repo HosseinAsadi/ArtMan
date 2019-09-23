@@ -1,5 +1,15 @@
+import 'package:art_man/components/Animation/BottomSliderRoute.dart';
+import 'package:art_man/components/Animation/RightSlidePage.dart';
+import 'package:art_man/components/Networking/getListOfStudents.dart';
 import 'package:art_man/components/Toast/VeryfiyDialog.dart';
+import 'package:art_man/components/Utility/Categorylist.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/components/Utility/StudentInfo.dart';
+import 'package:art_man/components/Utility/TeacherInfoForSearch.dart';
+import 'package:art_man/page/FoodPlan/food-plan.dart';
+import 'package:art_man/page/SportPlan/MyPlansList.dart';
+import 'package:art_man/page/SportPlan/SportField.dart';
+import 'package:art_man/page/SportPlan/sport-plan.dart';
 import 'package:art_man/page/lists/MyStudents.dart';
 import 'package:flutter/material.dart';
 
@@ -73,9 +83,9 @@ class PB extends State<ProfileButton>{
 
       },
 
-      onTap: (){
+      onTap: ()async{
 
-        setState(() {
+
 
 
           if(_text=="خروج از حساب کاربری"){
@@ -83,21 +93,53 @@ class PB extends State<ProfileButton>{
             showDialog(
                 context: context,
                 builder: (_) => new AlertDialog(
+
+                  elevation: 20,
                   contentPadding: EdgeInsets.all(0.0),
                   content: VerifyDialog("آیامطمئنید می خواهید از حساب کاربری خود خارج شوید؟",id:"remove"),)
             );
           }
           if(_text=="لیست هنرجویان"){
-           Navigator.push(context, MaterialPageRoute(builder: (context)=>MyStudents(userslist: this.widget.callback(),)));
+            bool complete=false;
+            List<String> list=  this.widget.callback();
+
+              UsersList usersList=await fetchUsersList();
+
+              setState(() {
+                studentsInfo.clear();
+                for(int i=0;i<usersList.result.length;i++){
+                  for(int j=0;j<list.length;j++){
+                    if(usersList.result[i].username==list[j])
+                    {
+                      TeacherInfo studentInfo=new TeacherInfo();
+                      studentInfo.username= usersList.result[i].username;
+                      studentInfo.name= usersList.result[i].first_name;
+                      studentInfo.imageprofile= usersList.result[i].profile_photo;
+                      studentsInfo.add(studentInfo);
+                    }
+                  }
+
+                }
+                complete=true;
+              });
+
+          if(complete)
+           Navigator.push(context, BottomSliderRoute(page:MyStudents()));
           }
-          if(_text=="برنامه تمرینی / غذایی"){
-            Navigator.pushNamed(context, _navigatorPush);
+          if(_text=="برنامه های تمرینی "){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MySportPlansList()));
+          }
+          if(_text=="برنامه های غذایی"){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodPlan(typeplan: "غذایی",)));
+
           }
           if(_text=="دسته بندی"){
-            Navigator.pushNamed(context, _navigatorPush);
+            await getCategories();
+
+            Navigator.push(context, SlideRightRoute(page: SportField()));
           }
 
-        });
+
       },
     );
   }

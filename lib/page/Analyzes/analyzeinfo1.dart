@@ -3,6 +3,8 @@ import 'package:art_man/components/InputTexts/text-field-enter.dart';
 import 'package:art_man/components/Widgets/BackgroandwithListview.dart';
 import 'package:flutter/material.dart';
 
+import 'analyzeInfo2.dart';
+
 class Analyze1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -92,7 +94,7 @@ class A extends State<Analyze1> {
             ),
             Button(
               members,
-              "/Analyze2",
+              Analyze2(),
               "ادامه آنالیز",
               50.0,
               10.0,

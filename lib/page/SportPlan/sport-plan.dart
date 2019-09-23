@@ -1,4 +1,5 @@
 import 'package:art_man/components/Lists/middle-food-plan.dart';
+import 'package:art_man/components/Networking/FetchFoodPlan.dart';
 import 'package:art_man/components/Networking/FetchSportPlansOfTeacher.dart';
 import 'package:art_man/components/Utility/FoodPlanClasses.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
@@ -28,7 +29,10 @@ class SP extends State<Sport_Plan> {
 
   Future<Null>  onWillPop() async{
     setState(() {
-
+    if(levele2==2){
+      sportlength=result.repeate;
+      levele2=1;
+    }else
         Navigator.pushNamed(context, "/MySportPlansList");
 
     });
@@ -40,9 +44,7 @@ class SP extends State<Sport_Plan> {
       new WillPopScope(
           onWillPop: onWillPop,
           child:Scaffold(
-              appBar: PreferredSize(
-                  child: CustomAppbar('برنامه ورزشی بدنسازی', null),
-                  preferredSize: Size.fromHeight(55)),
+
               body: setBackground()));
   }
 

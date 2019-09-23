@@ -3,7 +3,7 @@ import 'package:art_man/components/Utility/Keys.dart';
 import 'package:flutter/material.dart';
 
 class DropDown extends StatefulWidget {
-  String _hint, id;
+  String _hint, id,value;
   List<String> list;
   double fontsize;
   Color backgroundColor, fontcolor, arrowcolor;
@@ -14,7 +14,8 @@ class DropDown extends StatefulWidget {
       this.fontcolor,
       this.arrowcolor,
       this.fontsize,
-      this.callback});
+      this.callback,
+      this.value});
 
   @override
   myDropDown createState() {
@@ -22,20 +23,21 @@ class DropDown extends StatefulWidget {
         backgroundColor: backgroundColor,
         fontcolor: fontcolor,
         arrowcolor: arrowcolor,
-        fontsize: fontsize);
+        fontsize: fontsize,
+    value: value);
   }
 }
 
 class myDropDown extends State<DropDown> {
   String cityvalue = null;
-  String _hint, id;
+  String _hint, id,value;
   List<String> list;
   double fontsize;
 
   Color backgroundColor, fontcolor, arrowcolor;
 
   myDropDown(this.id, this.list, this._hint,
-      {this.backgroundColor, this.fontcolor, this.arrowcolor, this.fontsize});
+      {this.backgroundColor, this.fontcolor, this.arrowcolor, this.fontsize,this.value});
 
   @override
   void initState() {
@@ -70,7 +72,7 @@ class myDropDown extends State<DropDown> {
               value: value,
               child: Text(
                 value,
-                style: TextStyle(fontSize: fontsize == null ? 14 : fontsize),
+                style: TextStyle(fontSize: fontsize == null ? 13 : fontsize),
               ),
             );
           }).toList(),
@@ -85,7 +87,9 @@ class myDropDown extends State<DropDown> {
               if (id == "muscle group") {
                 this.widget.callback(newValue, id);
               }
-
+              if (id == "field_sport") {
+                this.widget.callback(newValue, id);
+              }
               this.cityvalue = newValue;
               Kelid.setter(id, cityvalue);
             });
@@ -98,12 +102,11 @@ class myDropDown extends State<DropDown> {
             color: arrowcolor == null ? Colors.green : arrowcolor,
             size: 18,
           ),
-          hint: Text(
-            _hint,
-            style: TextStyle(
-                color: fontcolor == null ? Colors.grey : fontcolor,
-                fontSize: 13),
-          ),
-        ));
+    hint: Text(
+    value==null||value==""?_hint:value,
+    style: TextStyle(
+    color: value == null||value=="" ? Colors.grey : Colors.black,
+    fontSize:  fontsize == null ? 13 : fontsize),
+    ) ));
   }
 }

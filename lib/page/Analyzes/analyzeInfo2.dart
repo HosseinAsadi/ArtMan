@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:art_man/components/InputTexts/text-field-enter.dart';
 import 'package:art_man/componethosein/appbar.dart';
 
+import 'analyzeDetailsInfo.dart';
+
 class Analyze2 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -88,7 +90,7 @@ class A extends State<Analyze2> {
             textAlign: TextAlign.center,
           ),
         ),
-        Button(members, "/Analyze6", "ادامه آنالیز", 45.0, 10.0,
+        Button(members, Analyze6(), "ادامه آنالیز", 45.0, 10.0,
             width: 120),
       ],
     ),

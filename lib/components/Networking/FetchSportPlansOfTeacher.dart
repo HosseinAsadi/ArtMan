@@ -7,9 +7,9 @@ Future<TeacherPlansList> fetchSportPlan(username,type)async{
   TeacherPlansList myprograms;
 
   Strings stings=new Strings();
-  String token=await getToken();
+  String token=await getToken(true);
   print(token);
-
+print("${stings.baseurl}/sportPlan/$type/$username");
   final response = await http.get("${stings.baseurl}/sportPlan/$type/$username",headers: {"token":token});
   if (response.statusCode == 200) {
     print("my sports plane fetched");
@@ -54,6 +54,7 @@ class ResultSport {
 
 class Session {
   final String name;
+
   final List<Moves> moves;
   Session._({ this.name,this.moves});
   factory Session.fromJson(Map jsonMap) {

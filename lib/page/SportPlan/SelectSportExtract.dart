@@ -35,59 +35,63 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
     });
   }
   getMoves()async{
-    Moves movess=await fetchMoves("${strings.baseurl}/admin/getsportingMoves");
-    setState(() {
-      Strings strings=new Strings();
-      for(int i=0;i<movess.result.length;i++){
-       // getimage("${strings.baseurl}/videos${movess.result[i].videoURL}");
+    if(moves.length==0) {
+      Moves movess = await fetchMoves(
+          "${strings.baseurl}/admin/getsportingMoves");
+      setState(() {
+        Strings strings = new Strings();
+        for (int i = 0; i < movess.result.length; i++) {
+          Moveslist newMove = new Moveslist();
+          newMove.fa = movess.result[i].fa;
+          newMove.en = movess.result[i].en;
+          newMove.id = movess.result[i].id;
+          newMove.exercise = movess.result[i].exercise;
+          newMove.equipment = movess.result[i].equipment;
+          newMove.muscles = movess.result[i].muscles;
+          newMove.description = movess.result[i].description;
+          newMove.videourl = movess.result[i].videoURL.replaceAll(" ", "%20");
+          addMove(newMove);
+        }
 
-        Moveslist newMove=new Moveslist();
-        newMove.fa=movess.result[i].fa;
-        newMove.en=movess.result[i].en;
-        newMove.id=movess.result[i].id;
-        newMove.exercise=movess.result[i].exercise;
-        newMove.equipment=movess.result[i].equipment;
-        newMove.muscles=movess.result[i].muscles;
-        newMove.description=movess.result[i].description;
-        newMove.videourl=movess.result[i].videoURL;
-        addMove(newMove);
-      }
-      complete=true;
+      });
+    }
+    setState(() {
+      complete = true;
     });
   }
   getCategories()async{
-
-    Categories categys= await fetchCategories("${strings.baseurl}/admin/getCategories");
-    setState(() {
-
-      for(int i=0;i<categys.equipment.length;i++){
-        Equipmente equipmente=new Equipmente();
-        equipmente.fa=categys.equipment[i].fa;
-        equipmente.en=categys.equipment[i].en;
-        equipmente.id=categys.equipment[i].id;
-        equipmentes.add(equipmente);
-        equipments.add(categys.equipment[i].fa);
-      }
-      for(int i=0;i<categys.exercise.length;i++){
-        Exercisee musclee=new Exercisee();
-        musclee.fa=categys.exercise[i].fa;
-        musclee.en=categys.exercise[i].en;
-        musclee.id=categys.exercise[i].id;
-        exercisees.add(musclee);
-        exercises.add(categys.exercise[i].fa);
-      }
-      for(int i=0;i<categys.muscles.length;i++){
-        Musclee musclee=new Musclee();
-        musclee.fa=categys.muscles[i].fa;
-        musclee.en=categys.muscles[i].en;
-        musclee.id=categys.muscles[i].id;
-        muscleses.add(musclee);
-        muscles.add(categys.muscles[i].fa);
-      }
-
-    });
-
+    if(equipments.length==0) {
+      Categories categys = await fetchCategories(
+          "${strings.baseurl}/admin/getCategories");
+      setState(() {
+        for (int i = 0; i < categys.equipment.length; i++) {
+          Equipmente equipmente = new Equipmente();
+          equipmente.fa = categys.equipment[i].fa;
+          equipmente.en = categys.equipment[i].en;
+          equipmente.id = categys.equipment[i].id;
+          equipmentes.add(equipmente);
+          equipments.add(categys.equipment[i].fa);
+        }
+        for (int i = 0; i < categys.exercise.length; i++) {
+          Exercisee musclee = new Exercisee();
+          musclee.fa = categys.exercise[i].fa;
+          musclee.en = categys.exercise[i].en;
+          musclee.id = categys.exercise[i].id;
+          exercisees.add(musclee);
+          exercises.add(categys.exercise[i].fa);
+        }
+        for (int i = 0; i < categys.muscles.length; i++) {
+          Musclee musclee = new Musclee();
+          musclee.fa = categys.muscles[i].fa;
+          musclee.en = categys.muscles[i].en;
+          musclee.id = categys.muscles[i].id;
+          muscleses.add(musclee);
+          muscles.add(categys.muscles[i].fa);
+        }
+      });
+    }
   }
+
   @override
   void initState() {
     super.initState();
@@ -96,15 +100,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
 
   }
 
-  getimage(videourl)async{
-   final uint8list = await VideoThumbnail.thumbnailFile(
-     video: videourl,
-     thumbnailPath:(await getApplicationDocumentsDirectory()).path,//*///,//"/storage/emulated/0",//
-     imageFormat: ImageFormat.PNG,
-     maxHeightOrWidth: 0, // the original resolution of the video
-     quality: 30,
-   );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -162,11 +158,11 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                     child: Column(
                       children: <Widget>[
                         SizedBox(
-                          height: 160,
+                          height: 120,
                           child: Container(
                             padding: EdgeInsets.only(right: 10),
 
-                            margin: EdgeInsets.only(left: 8, right: 8,top: 30),
+                            margin: EdgeInsets.only(left: 8, right: 8,top: 5),
                             decoration: BoxDecoration(
                                 color: Colors.grey[300],
                                 borderRadius: BorderRadius.circular(20)
@@ -208,9 +204,10 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                                 ),
                                 Expanded(
                                     child:Container(
+
                                         margin: EdgeInsets.all(4),
                                         child: InputText("جستوجو بر اساس نام تمرینات...",
-                                          "searchExercise",height: 40.0,hintconlor: Colors.green,brdercolor: Colors.grey[300],fontWeight: FontWeight.w600,hintsize: 16,)
+                                          "searchExercise",height: 140.0,hintconlor: Colors.green,brdercolor: Colors.grey[300],fontWeight: FontWeight.w600,hintsize: 16,)
 
                                     )
 
@@ -219,7 +216,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15,),
+                        SizedBox(height: 10,),
 
                         DropDown("field_sport",exercises,
                           "رشته ورزشی",
@@ -229,7 +226,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                           callback: this.callback,
                         ),
 
-                        SizedBox(height: 10,),
+                        SizedBox(height: 5,),
                         DropDown("muscle group",muscles,
                           "گروه عضلانی",
                           backgroundColor: dropdwonColor,
@@ -237,7 +234,7 @@ class _SelectSportExtractState extends State<SelectSportExtract> {
                           arrowcolor: Colors.black,
                           callback: this.callback,
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: 5,),
 
                         DropDown("sport tools",equipments,
                           "تجهیزات ورزشی",

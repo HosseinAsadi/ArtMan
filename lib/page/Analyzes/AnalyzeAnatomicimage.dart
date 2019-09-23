@@ -7,6 +7,8 @@ import 'package:art_man/components/Widgets/DropDown.dart';
 import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:flutter/material.dart';
 
+import 'analyzeinfo1.dart';
+
 class StdAnalyzePage extends StatefulWidget {
 
   @override
@@ -21,7 +23,7 @@ class _StdAnalyzePageState extends State<StdAnalyzePage> {
   DropDown jens = new DropDown("sex",["زن","مرد"],"جنسیت خود را وارد نمایید.");
   Button countinue = new Button(
     ["عکس از پهلو","عکس از پشت","عکس از جلو","sex"],
-    "/Analyze1",
+    Analyze1(),
     "ادامه آنالیز",
     40.0,
     10.0,

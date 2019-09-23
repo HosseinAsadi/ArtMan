@@ -120,7 +120,7 @@ fillPlan(){
           classes[i].moves[j].options.set,
       );
 
-      Moves moves=new Moves(classes[i].moves[j].videourl,
+      Moves moves=new Moves(classes[i].moves[j].id,
           classes[i].moves[j].done,
           options
       );
@@ -134,9 +134,9 @@ fillPlan(){
 
 
 Future<String> SendPlanSport(url) async {
-
-  print(jsonEncode({"repeate":"10","sessions":fillPlan()}));
-  String token=await getToken();
+print(url);
+  print(jsonEncode({"repeate":Kelid.getter("week_program"),"sessions":fillPlan()}));
+  String token=await getToken(true);
   HttpClient httpClient = new HttpClient();
   HttpClientRequest request = await httpClient.postUrl(Uri.parse(url));
   request.headers.set('content-type', 'application/json');

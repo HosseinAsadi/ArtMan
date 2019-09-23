@@ -1,4 +1,4 @@
-import 'package:art_man/page/SportPlan/SportPlanePage.dart';
+import 'package:art_man/page/SportPlan/Tabb.dart';
 import 'package:flutter/material.dart';
 
 class PlanePage extends StatefulWidget {
@@ -27,22 +27,16 @@ class _PlanePageState extends State<PlanePage> {
           iconTheme: IconThemeData(
             color: Colors.white, //change your color here
           ),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: null)
-          ],
+
           bottom: TabBar(
             labelColor: Colors.white,
             tabs: [
-              Tab(
-                text: "برنامه های غذایی",
-              ),
+
               Tab(
                 text: "برنامه های ورزشی",
+              ),
+              Tab(
+                text: "برنامه های غذایی",
               ),
             ],
           ),
@@ -54,8 +48,8 @@ class _PlanePageState extends State<PlanePage> {
 
         body: TabBarView(
           children: [
-            new SportPlanPage("برنامه های من","درخواست برنامه ورزشی","/",""),
-        new SportPlanPage("برنامه های من","درخواست برنامه غذایی","/","")
+            new Tabb("برنامه های من","درخواست برنامه ورزشی","ورزشی",""),
+        new Tabb("برنامه های من","درخواست برنامه غذایی","غذایی","")
           ],
         ),
 

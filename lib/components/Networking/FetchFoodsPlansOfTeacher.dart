@@ -9,7 +9,7 @@ Future<FoodsPlansOfTeacher> FetchPlansOfTeacher()async{
   FoodsPlansOfTeacher myprograms;
   String usename=await getusername();
   Strings stings=new Strings();
-  String token=await getToken();
+  String token=await getToken(true);
   print(token);
 
   final response = await http.get("${stings.baseurl}/foodPlan/getFromTeacher/$usename",headers: {"token":token});

@@ -13,34 +13,32 @@ import 'package:flutter/material.dart';
 class AnalyzeResult extends StatefulWidget {
   String index;
   String date;
-  AnalyzeResult({Key key,this.index,this.date}) : super(key: key);
+  String username;
+  AnalyzeResult({Key key,this.index,this.date,this.username}) : super(key: key);
   @override
-  _AnalyzeResultState createState() => _AnalyzeResultState(index,date);
+  _AnalyzeResultState createState() => _AnalyzeResultState(index,date,username);
 }
 
 
 class _AnalyzeResultState extends State<AnalyzeResult> {
   String index;
   int sex;
+  String username;
+
   int weight,hr,tee,ideal;
   double bmi,whr,bai,bf;
-  String date,name,username;
+  String date,name;
   bool complete=false;
-  _AnalyzeResultState(this.index,this.date);
-  String stdUsername;
+  _AnalyzeResultState(this.index,this.date,this.username);
+
   _getInformation() async {
-    Strings strings=new Strings();
 
-    username = await getusername();
-
+   print(username);
     StdProfile info = await GetLocation.fetchProfilestudent(
         "${strings.baseurl}/users/getUser/$username");
 
     setState(() {
-
-
       setState(() {
-
         name = info.result[0].firstname;
 
       });
@@ -49,11 +47,8 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
     });
   }
   getresult()async{
-    String username=await getusername();
-    setState(() {
-       stdUsername= username;
-    });
-    AnalyzeAnswers analyzeAnswe = (await fetchAnalyzeReslult("${strings.baseurl}/analyze/getFromUser/$stdUsername")) ;
+
+    AnalyzeAnswers analyzeAnswe = (await fetchAnalyzeReslult("${strings.baseurl}/analyze/getFromUser/$username")) ;
     setState(() {
     weight = analyzeAnswe.result[int.parse(index)].outcomes.ibw;
     bmi = analyzeAnswe.result[int.parse(index)].outcomes.bmi;
@@ -85,6 +80,9 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
       if(bf>=0.25 ){
         return "obese";
       }
+      else{
+        return "اطلاعات داده شده نامعتبر است";
+      }
     }
     else{
       if(bf>=0.10 && bf<=0.13){
@@ -101,6 +99,9 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
       }
       if(bf>=0.32 ){
         return "obese";
+      }
+      else{
+        return "اطلاعات داده شده نامعتبر است";
       }
     }
 
@@ -119,6 +120,9 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
       if(bai>0.25  ){
         return "چاق";
       }
+      else{
+        return "اطلاعات داده شده نامعتبر است";
+      }
     }
     else{
       if(bai<=0.21){
@@ -136,6 +140,9 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
       if(bai>0.39  ){
         return "چاق";
       }
+      else{
+        return "اطلاعات داده شده نامعتبر است";
+      }
     }
 
   }
@@ -150,6 +157,9 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
       if(whr>1 ){
         return "بالا";
       }
+      else{
+        return "اطلاعات داده شده نامعتبر است";
+      }
     }
     else{
       if(whr<=0.8){
@@ -161,10 +171,14 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
       if(whr>=0.86 ){
         return "بالا";
       }
+      else{
+        return "اطلاعات داده شده نامعتبر است";
+      }
     }
 
   }
   getbmitype(){
+    print(bmi);
     if(bmi<18){
       return "لاغر";
     }
@@ -173,6 +187,9 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
     }
     if(bmi>=25 && bmi<30){
       return "چاق";
+    }
+    else{
+      return "اطلاعات داده شده نامعتبر است";
     }
   }
   @override
@@ -226,10 +243,10 @@ class _AnalyzeResultState extends State<AnalyzeResult> {
                       Value(" = Kg", ideal.toString()),
                       drivere(),
 
-                      TexT("شاخص توده بدن (BMI)"),
+                     TexT("شاخص توده بدن (BMI)"),
                       Value(" = Amount", '$bmi'),
                       Value(" = Type", getbmitype()),
-                      drivere(),
+                     drivere(),
 
                       TexT("نسبت دور کمر به دور باسن (WHR)"),
                       Value(" = Ratio", '$whr'),

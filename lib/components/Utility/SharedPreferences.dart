@@ -1,6 +1,8 @@
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'GetTeacherProfile.dart';
+
 
    setsign() async{
     SharedPreferences sign = await SharedPreferences.getInstance();
@@ -50,13 +52,23 @@ setType(typee) async{
      sign.clear();
      user.clear();
      prefs.clear();
+     teacherProfileIsFill=false;
    }
-Future<String> getToken()async{
+Future<String> getToken(param)async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('token');
+  String t=await gettype();
+  String username=await getusername();
+  String token= prefs.getString('token');
+  print("teacher.$username.$token");
+  if(param)
+  return t=="teachers"?"teacher.$username.$token":"user.$username.$token";
+  else
+    return token;
 }
 setToken(token) async{
   SharedPreferences type = await SharedPreferences.getInstance();
-  await type.setString('token', token);
+
+
+  await type.setString('token',token);
 }
 

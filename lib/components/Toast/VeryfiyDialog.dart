@@ -1,3 +1,4 @@
+import 'package:art_man/components/Lists/InitializedSelectableList.dart';
 import 'package:art_man/components/Networking/AddTeacher.dart';
 import 'package:art_man/components/Toast/ShowToast.dart';
 import 'package:art_man/components/Utility/Function.dart';
@@ -11,15 +12,18 @@ class VerifyDialog extends StatefulWidget {
   String text;
   double height;
   String id;
-  VerifyDialog(this.text,{this.height,this.id});
+  int index;
+  Function callback;
+  VerifyDialog(this.text,{this.height,this.id,this.callback,this.index});
 
   @override
-  _VerifyDialogState createState() => _VerifyDialogState(text,id: id,height: height);
+  _VerifyDialogState createState() => _VerifyDialogState(text,id: id,height: height,index: index);
 }
 
 class _VerifyDialogState extends State<VerifyDialog> {
   String text;
   bool result;
+  int index;
   double height;
   String id;
   String username;
@@ -29,7 +33,7 @@ class _VerifyDialogState extends State<VerifyDialog> {
       username=user;
     });
   }
-  _VerifyDialogState(this.text,{this.height,this.id});
+  _VerifyDialogState(this.text,{this.height,this.id,this.index});
   @override
   void initState() {
     // TODO: implement initState
@@ -38,7 +42,7 @@ class _VerifyDialogState extends State<VerifyDialog> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SelectAbleList() /*Container(
       padding: EdgeInsets.all(10),
       height:height==null? 130:height,
 
@@ -62,7 +66,7 @@ class _VerifyDialogState extends State<VerifyDialog> {
           )
         ],
       ),
-    );
+    )*/;
   }
 
   button(icon, color, bool select) {
@@ -72,6 +76,19 @@ class _VerifyDialogState extends State<VerifyDialog> {
         result = select;
       });
       if (result) {
+
+        if(id=="remove_classroom"){
+          this.widget.callback(index);
+          Navigator.pop(context);
+        }
+        if(id=="remove_Food"){
+          this.widget.callback(index);
+          Navigator.pop(context);
+        }
+        if(id=="remove_meal"){
+          this.widget.callback(index);
+          Navigator.pop(context);
+        }
         if(id=="addTeacher"){
           Fucntionman function=new Fucntionman();
           String result=await AddTeacher(Kelid.getter("teacherid"),username);
@@ -87,13 +104,11 @@ class _VerifyDialogState extends State<VerifyDialog> {
 
         }
         if(id=="remove"){
-          print("deleted");
+          print("account deleted");
          await removeAccount();
           Navigator.pushNamed(context, "/");
         }
-        if(id=="remove classroom"){
 
-        }
 
       } else
         Navigator.pop(context);

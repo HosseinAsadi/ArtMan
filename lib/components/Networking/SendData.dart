@@ -35,14 +35,15 @@ class Post{
     var reply = await response.transform(utf8.decoder).join();
     httpClient.close();
     print(reply);
-    return response.statusCode.toString();
+
+    return jsonDecode(reply)["status"].toString();
   }
 }
 
 class Put{
   static Future<void> apiRequest(url,json) async {
     HttpClient httpClient = new HttpClient();
-    String token=await getToken();
+    String token=await getToken(true);
     HttpClientRequest request = await httpClient.putUrl(Uri.parse(url));
     request.headers.set('content-type', 'application/json');
     request.headers.set('token', token);

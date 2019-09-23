@@ -36,7 +36,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+    /*  appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -48,7 +48,7 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
           Icon(Icons.arrow_forward)
         ],
         backgroundColor: Colors.green[800],
-      ),
+      ),*/
 
       body: setBackground(),
     );
@@ -81,10 +81,10 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
     return ListTile(
       onTap: (){
         Strings strings=new Strings();
-
-        print("${strings.baseurl}/videos/${mymoves[index].moves_id}");
+      String  video="${strings.baseurl}/videos/${mymoves[index].moves_id.replaceAll(" ", "%20")}";
+        print(video);
         Navigator.push(context, MaterialPageRoute(builder: (contex)=>VideoPlayerApp(
-          videoUrl:"${strings.baseurl}/videos/${mymoves[index].moves_id}" ,
+          videoUrl:video ,
         )));
       },
       subtitle: Container(
@@ -117,11 +117,11 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
                         ),
                         Row(
                           children: <Widget>[
-                            Text('گام ها                   ',
+                            Text('گام ها               ',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12)),
-                            Text('3 عدد', style: TextStyle(
+                            Text('${mymoves[index].options.set}', style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 12))
                           ],
                         ),
@@ -147,11 +147,11 @@ class LS extends State<ListSession> with SingleTickerProviderStateMixin {
                   Icon(Icons.arrow_forward_ios)
                 ],
               ),
-              Container(
+              type=="users"?  Container(
                 height: 1,
                 margin: EdgeInsets.only(bottom: 2),
                 color: Colors.grey,
-              ),
+              ):Container(width: 0,height: 0,),
 
              type=="users"? Row(
                 mainAxisAlignment: MainAxisAlignment.center,

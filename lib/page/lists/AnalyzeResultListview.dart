@@ -10,17 +10,20 @@ import 'package:flutter/material.dart';
 class AnalyzeResultListview extends StatefulWidget {
   List<TeacherInfo> newlistsearch;
   MaterialPageRoute route;
+  String stdusername;
 
-  AnalyzeResultListview(this.newlistsearch, {this.route});
+  AnalyzeResultListview(this.newlistsearch,this.stdusername, {this.route});
   @override
-  _AnalyzeResultListviewState createState() => _AnalyzeResultListviewState(newlistsearch,route);
+  _AnalyzeResultListviewState createState() => _AnalyzeResultListviewState(newlistsearch,stdusername,route);
 }
 
 class _AnalyzeResultListviewState extends State<AnalyzeResultListview> {
   Strings strings=new Strings();
   List<TeacherInfo> newlistsearch;
   MaterialPageRoute route;
-  _AnalyzeResultListviewState(this.newlistsearch,this.route);
+  String stdusername;
+
+  _AnalyzeResultListviewState(this.newlistsearch,this.stdusername,this.route);
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +43,13 @@ class _AnalyzeResultListviewState extends State<AnalyzeResultListview> {
     return Card(
         child: ListTile(
           onTap: () {
+            print(stdusername);
+            print(newlistsearch[index].username);
             Navigator.push(
                 context,
-                route==null?MaterialPageRoute(
-                  builder: (context) => Branch(index: "$index",date: newlistsearch[index].username,),
-                ):route
+                MaterialPageRoute(
+                  builder: (context) => Branch(index: "$index",date: newlistsearch[index].username,username: stdusername),
+                )
             );
 
           },
@@ -55,7 +60,7 @@ class _AnalyzeResultListviewState extends State<AnalyzeResultListview> {
               child: "" == "${newlistsearch[index].imageprofile}"
                   ? Image.asset("assets/images/morabi.jpeg")
                   : Image.network(
-                  "${newlistsearch[index].imageprofile}"),
+                  "${newlistsearch[index].imageprofile}",fit: BoxFit.cover,),
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
           ),

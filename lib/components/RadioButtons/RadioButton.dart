@@ -80,7 +80,6 @@ class CustomRadioState extends State<CustomRadio> {
                       setDays(items2);
                       Kelid.setter(id, "days entered");
                     }
-
                   }
                   else{
                     sampleData[index].isSelected = true;
@@ -93,7 +92,6 @@ class CustomRadioState extends State<CustomRadio> {
                     }
                     if(id=="abnormalcy"){
                       Seperator();
-
                       setAbnormalacy(items2);
                       Kelid.setter(id, "abnormalcy entered");
                     }
@@ -141,11 +139,6 @@ class RadioItem extends StatelessWidget {
               color: _item.isSelected
                   ? Colors.green
                   : Colors.white,
-              border: new Border.all(
-                  width: 0.3,
-                  color: _item.isSelected
-                      ? Colors.green
-                      : Colors.grey),
               borderRadius:  BorderRadius.all( Radius.circular(10.0)),
             ),
 

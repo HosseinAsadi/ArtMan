@@ -5,6 +5,8 @@ import 'package:art_man/components/InputTexts/InputText.dart';
 import 'package:art_man/components/Widgets/BackgroandwithListview.dart';
 import 'package:flutter/material.dart';
 
+import 'AnalyzeTools.dart';
+
 
 class StdAnalyzePage6 extends StatefulWidget {
   @override
@@ -24,7 +26,7 @@ class _StdAnalyzePage6State extends State<StdAnalyzePage6> {
 
   Button continuebtn = new Button(
     ["ارسال تصویر"],
-    "/SaveAnalyzee",
+    SaveAnalyzee(),
     "ادامه آنالیز",
     40.0,
     30.0,

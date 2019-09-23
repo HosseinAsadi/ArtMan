@@ -13,13 +13,13 @@ class FoodPlan extends StatefulWidget {
   FoodPlan({Key key, @required this.typeplan}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return FP(typeplan);
   }
 }
 
 class FP extends State<FoodPlan> {
   String typeplan;
+  String type;
   MyPlan myplans;
   FP(this.typeplan);
   String planType;
@@ -31,42 +31,55 @@ class FP extends State<FoodPlan> {
 
     String usernamee= await getusername();
     print(planType);
-    // if(planType=="غذایی"){
+
     MyPlan foodplans=  await FetchFoodPlan(usernamee,type=="teachers"?"getFromTeacher":"getFromUser");
     setState(() {
 
       myplans=foodplans;
       complete=true;
-      print(complete);
+      print ("get food plans of student");
+      print (myplans.result.length);
 
     });
 
-    // }
 
 
   }
-
+gettypee()async{
+    String t=await gettype();
+    setState(() {
+      type=t;
+    });
+}
   @override
   void initState() {
 
     super.initState();
+    gettypee();
     getPlanList();
   }
 
  Future<Null>  onWillPop() async{
     setState(() {
-      if(list==1){
-        Navigator.pushNamed(context, "/PlaneSportTeacher");
-      }
-      if(list==2){
-        list=1;
-      }
-      if(list==3){
-        list=2;
-      }
-      if(list==4){
-        list=3;
-      }
+      if(typeplan=="غذایی")
+        {
+          if(list==1){
+            Navigator.pushNamed(context,type=="teachers"? "/PlaneSportTeacher":"/PlanePage");
+          }
+          if(list==2){
+            length=myplans.result.length;
+            list=1;
+          }
+          if(list==3){
+            length=myplans.result[resultindex].plans.length;
+            list=2;
+          }
+          if(list==4){
+            length=myplans.result[resultindex].plans[planindex].meals.length;
+            list=3;
+          }
+        }
+
     });
 
   }
@@ -76,9 +89,7 @@ class FP extends State<FoodPlan> {
       new WillPopScope(
         onWillPop: onWillPop,
         child:Scaffold(
-        appBar: PreferredSize(
-            child: CustomAppbar('برنامه غذایی بدنسازی', null),
-            preferredSize: Size.fromHeight(55)),
+
         body: setBackground()));
   }
 
@@ -96,7 +107,7 @@ class FP extends State<FoodPlan> {
         child: Column(
           children: <Widget>[
             TopFoodPlan("غذایی"),
-            list==2?MiddleFoodPlan(myplans.result[resultindex].plans[planindex].desc):SizedBox(height: 10,),
+            list==2? MiddleFoodPlan(myplans.result[resultindex].plans[planindex].desc):Container(width: 0,height: 0,),
             ListFoodPlan("غذایی",plan: myplans,)
           ],
         ),

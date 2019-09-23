@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:art_man/components/Buttons/Button.dart';
 import 'package:art_man/components/InputTexts/MaterialText.dart';
+import 'package:art_man/components/Networking/fetchTeacherProfileInfo.dart';
 import 'package:art_man/components/Utility/Keys.dart';
 import 'package:art_man/components/Networking/SendData.dart';
 import 'package:art_man/components/Texts/Strings.dart';
 import 'package:art_man/components/Utility/MD5Generator.dart';
 import 'package:art_man/components/Utility/SetSex.dart';
 import 'package:art_man/components/Utility/SharedPreferences.dart';
+import 'package:art_man/page/profile/StudentProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jalali_date/jalali_date.dart';
@@ -19,8 +21,8 @@ class Membership extends StatefulWidget {
 }
 
 class page extends State<Membership> {
-  static bool _accept = false;
-  Button buttonenable = new Button([], '/Profile', 'ورود به پنل کاربری', 40.0, 0.0,
+   bool _accept = false;
+  Button buttonenable = new Button(["joinstudent"],ProfilePage(), 'ورود به پنل کاربری', 40.0, 0.0,
       startcolor: Color(0xFF5AE400), endcolor: Color(0xFF0F8F00), width: 130.0,functioncode: "ورود به پنل کاربری هنرجو");
   Strings strings=new Strings();
 

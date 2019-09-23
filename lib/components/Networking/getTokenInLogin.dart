@@ -7,9 +7,20 @@ class LoginResulte{
   LoginResulte._({ this.toke,this.result});
   factory LoginResulte.fromJson(Map jsonMap) {
     return new LoginResulte._(
-        toke : Token.fromJson(jsonMap["jwt_token"]),
+
       result : (jsonMap['result']),
 
+    );
+  }
+}
+class GETToken{
+  final Token toke;
+
+
+  GETToken._({ this.toke});
+  factory GETToken.fromJson(Map jsonMap) {
+    return new GETToken._(
+      toke : Token.fromJson(jsonMap["jwt_token"]),
     );
   }
 }
@@ -30,5 +41,11 @@ Future<LoginResulte> fetchTokenInLogin(response) async {
   LoginResulte userData;
   var list = (json.decode(response.toString()));
   userData = LoginResulte.fromJson(list);
+  return userData;
+}
+Future<GETToken> fetchTToken(response) async {
+  GETToken userData;
+  var list = (json.decode(response.toString()));
+  userData = GETToken.fromJson(list);
   return userData;
 }
