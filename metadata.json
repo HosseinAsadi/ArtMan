@@ -1,0 +1,8 @@
+{
+    "name": "My Awesome NFT Collection",
+    "description": "This is a simple NFT collection deployed on TON blockchain.",
+    "image": "https://example.com/collection-cover.png",
+    "external_link": "https://my-nft-website.com",
+    "seller_fee_basis_points": 500, 
+    "fee_recipient": "EQC....................................."
+}
